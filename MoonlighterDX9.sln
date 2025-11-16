@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36623.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00. Client", "00. Client", "{C8D5274F-AC00-46C7-1F8D-E88E81087A52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01. Engine", "01. Engine", "{DDF89E60-D849-46F1-89E1-C758431FD3A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02. Base", "02. Base", "{2005B78E-0DB3-4D50-99DC-979D63AAD494}"
+	ProjectSection(SolutionItems) = preProject
+		Base\CBase.h = Base\CBase.h
+		Base\CBase.inl = Base\CBase.inl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. Batch", "03. Batch", "{BA5B3149-6263-4D64-B32C-9A93CD6D1895}"
+	ProjectSection(SolutionItems) = preProject
+		Engine\Include\Copy.bat = Engine\Include\Copy.bat
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "..\StudyFile\Frame\Engine\Include\Engine.vcxproj", "{8BB77A45-0EFF-49CD-B3AC-E86925F3FCA8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Moonlighter", "Client\Include\Moonlighter.vcxproj", "{8C821BFB-3D39-4244-ACE4-32852F066032}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BB77A45-0EFF-49CD-B3AC-E86925F3FCA8}.Debug|x64.ActiveCfg = Debug|x64
+		{8BB77A45-0EFF-49CD-B3AC-E86925F3FCA8}.Debug|x64.Build.0 = Debug|x64
+		{8BB77A45-0EFF-49CD-B3AC-E86925F3FCA8}.Debug|x86.ActiveCfg = Debug|Win32
+		{8BB77A45-0EFF-49CD-B3AC-E86925F3FCA8}.Debug|x86.Build.0 = Debug|Win32
+		{8BB77A45-0EFF-49CD-B3AC-E86925F3FCA8}.Release|x64.ActiveCfg = Release|x64
+		{8BB77A45-0EFF-49CD-B3AC-E86925F3FCA8}.Release|x64.Build.0 = Release|x64
+		{8BB77A45-0EFF-49CD-B3AC-E86925F3FCA8}.Release|x86.ActiveCfg = Release|Win32
+		{8BB77A45-0EFF-49CD-B3AC-E86925F3FCA8}.Release|x86.Build.0 = Release|Win32
+		{8C821BFB-3D39-4244-ACE4-32852F066032}.Debug|x64.ActiveCfg = Debug|x64
+		{8C821BFB-3D39-4244-ACE4-32852F066032}.Debug|x64.Build.0 = Debug|x64
+		{8C821BFB-3D39-4244-ACE4-32852F066032}.Debug|x86.ActiveCfg = Debug|Win32
+		{8C821BFB-3D39-4244-ACE4-32852F066032}.Debug|x86.Build.0 = Debug|Win32
+		{8C821BFB-3D39-4244-ACE4-32852F066032}.Release|x64.ActiveCfg = Release|x64
+		{8C821BFB-3D39-4244-ACE4-32852F066032}.Release|x64.Build.0 = Release|x64
+		{8C821BFB-3D39-4244-ACE4-32852F066032}.Release|x86.ActiveCfg = Release|Win32
+		{8C821BFB-3D39-4244-ACE4-32852F066032}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8BB77A45-0EFF-49CD-B3AC-E86925F3FCA8} = {DDF89E60-D849-46F1-89E1-C758431FD3A6}
+		{8C821BFB-3D39-4244-ACE4-32852F066032} = {C8D5274F-AC00-46C7-1F8D-E88E81087A52}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {34923E5E-DC59-4F79-9852-876F6F75D816}
+	EndGlobalSection
+EndGlobal

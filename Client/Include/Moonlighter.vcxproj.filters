@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="00. MainApp">
+      <UniqueIdentifier>{f78fba57-93cc-4793-b7c2-3c0cb24f4833}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99. Include">
+      <UniqueIdentifier>{cb62c8ec-037b-41c1-a961-c96b2715a3df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager">
+      <UniqueIdentifier>{735b7ac3-c3dd-472b-8993-c373d187c156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\00. DataManager">
+      <UniqueIdentifier>{d0e9b4d4-ca55-4d5c-94e0-2dd89dffebf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene">
+      <UniqueIdentifier>{eb60163d-5b2f-48d1-8e74-37d6dcb468ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject">
+      <UniqueIdentifier>{50adc02b-e03a-4a95-90c6-e0ea22908501}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\00. DynamicCamera">
+      <UniqueIdentifier>{49efe80d-2436-4e67-b372-e90202bbf0cb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>99. Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Moonlighter.h">
+      <Filter>99. Include</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>99. Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>99. Include</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>99. Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMainApp.h">
+      <Filter>00. MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDataManager.h">
+      <Filter>01. Manager\00. DataManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMainScene.h">
+      <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDynamicCamera.h">
+      <Filter>03. GameObject\00. DynamicCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTestRect.h">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Moonlighter.cpp">
+      <Filter>99. Include</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>99. Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMainApp.cpp">
+      <Filter>00. MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDataManager.cpp">
+      <Filter>01. Manager\00. DataManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMainScene.cpp">
+      <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDynamicCamera.cpp">
+      <Filter>03. GameObject\00. DynamicCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestRect.cpp">
+      <Filter>03. GameObject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Moonlighter.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Moonlighter.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

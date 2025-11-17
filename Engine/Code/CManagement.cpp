@@ -4,7 +4,7 @@
 IMPLEMENT_SINGLETON(CManagement)
 
 CManagement::CManagement()
-    : m_pCurScene(nullptr), m_iCurIndex(0)
+    : m_pCurScene(nullptr)
 {
 }
 
@@ -24,24 +24,14 @@ CComponent* CManagement::Get_Component(COMPONENTID eID,
     return m_pCurScene->Get_Component(eID, pLayerTag, pObjTag, pComponentTag);
 }
 
-HRESULT CManagement::Set_Scene(const _int iSceneIdx)
+HRESULT CManagement::Set_Scene(CScene* pScene)
 {
-    if (iSceneIdx >= m_vecScene.size())
-        return E_FAIL;
+    if (pScene == nullptr) return E_FAIL;
 
     Safe_Release(m_pCurScene);
     // TODO : Scene 변경 과정간 변동 제어는?
-
-    m_pCurScene = m_vecScene[iSceneIdx];
-    m_pCurScene->Ready_Scene();
-
-    return S_OK;
-}
-
-HRESULT CManagement::Add_Scene(CScene* pScene)
-{
-    if (pScene == nullptr) return E_FAIL;
-    m_vecScene.push_back(pScene);
+    // TODO :  씬 변경 시 릴리즈와 재사용
+    m_pCurScene = pScene;
 
     return S_OK;
 }

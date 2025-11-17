@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "CMainScene.h"
 
+#include "CPrototypeManager.h"
+#include "CDynamicCamera.h"
+#include "CTestRect.h"
+
 CMainScene::CMainScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
 {
@@ -13,6 +17,9 @@ CMainScene::~CMainScene()
 HRESULT CMainScene::Ready_Scene()
 {
     if (FAILED(Ready_Prototype()))
+        return E_FAIL;
+
+    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
         return E_FAIL;
 
     if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
@@ -40,6 +47,17 @@ void CMainScene::Render_Scene()
 
 HRESULT CMainScene::Ready_Camera_Layer(const _tchar* pLayerTag)
 {
+    CLayer* pCamLayer = CLayer::Create();
+
+   // TODO : 카메라 생성 방식 고려
+   CGameObject* pGameObject = nullptr;
+   _vec3 vEye{0.f, 10.f, -10.f}, vAt{0.f, 0.f, 10.f}, vUp{0.f, 1.f, 0.f};
+   pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
+   if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
+       return E_FAIL;
+
+   m_umLayer.emplace( pair<const _tchar*, CLayer*>{ pLayerTag, pCamLayer} );
+
     return S_OK;
 }
 
@@ -50,6 +68,15 @@ HRESULT CMainScene::Ready_Environment_Layer(const _tchar* pLayerTag)
 
 HRESULT CMainScene::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 {
+    CLayer* pGameLogicLayer = CLayer::Create();
+
+    CGameObject* pGameObject = nullptr;
+    pGameObject = CTestRect::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp", pGameObject)))
+        return E_FAIL;
+    
+    m_umLayer.emplace(pair<const _tchar*, CLayer*>{ pLayerTag, pGameLogicLayer});
+
     return S_OK;
 }
 
@@ -60,6 +87,8 @@ HRESULT CMainScene::Ready_UI_Layer(const _tchar* pLayerTag)
 
 HRESULT CMainScene::Ready_Prototype()
 {
+
+    
     return S_OK;
 }
 

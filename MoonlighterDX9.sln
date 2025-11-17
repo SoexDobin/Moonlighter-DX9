@@ -19,6 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. Batch", "03. Batch", "{
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Moonlighter", "Client\Include\Moonlighter.vcxproj", "{8C821BFB-3D39-4244-ACE4-32852F066032}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8BB77A45-0EFF-49CD-B3AC-E86925F3FCA8} = {8BB77A45-0EFF-49CD-B3AC-E86925F3FCA8}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Include\Engine.vcxproj", "{8BB77A45-0EFF-49CD-B3AC-E86925F3FCA8}"
 EndProject

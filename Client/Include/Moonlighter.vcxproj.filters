@@ -31,6 +31,9 @@
     <Filter Include="03. GameObject">
       <UniqueIdentifier>{50adc02b-e03a-4a95-90c6-e0ea22908501}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObject\00. DynamicCamera">
+      <UniqueIdentifier>{49efe80d-2436-4e67-b372-e90202bbf0cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -57,6 +60,12 @@
     <ClInclude Include="..\Header\CMainScene.h">
       <Filter>02. Scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CDynamicCamera.h">
+      <Filter>03. GameObject\00. DynamicCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTestRect.h">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -73,6 +82,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMainScene.cpp">
       <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDynamicCamera.cpp">
+      <Filter>03. GameObject\00. DynamicCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestRect.cpp">
+      <Filter>03. GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

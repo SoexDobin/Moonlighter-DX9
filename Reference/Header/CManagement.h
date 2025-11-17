@@ -20,20 +20,16 @@ public:
 							const _tchar* pComponentTag);
 
 public:
-	const _int		Get_SceneIndex() { return m_iCurIndex; }
-	void			Set_SceneIndex(const _int iSceneIdx) { m_iCurIndex = iSceneIdx; }
-	HRESULT			Set_Scene(_int iSceneIdx);
-	HRESULT			Add_Scene(CScene* pScene);
+	HRESULT			Set_Scene(CScene* pScene);
 
+public:
 	_int			Update_Scene(const _float fTimeDelta);
 	void			LateUpdate_Scene(const _float fTimeDelta);
 	void			Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
-	vector<CScene*>		m_vecScene;
 	CScene*				m_pCurScene;
-	_int				m_iCurIndex;
-
+	
 public:
 	virtual void			Free() override;
 };

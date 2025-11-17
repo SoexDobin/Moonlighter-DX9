@@ -74,7 +74,7 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDevice)
 
 	if (FAILED(CDInputManager::GetInstance()->Ready_InputDev(g_hInst, g_hWnd)))
 		return E_FAIL;
-	if (FAILED(CDataManager::GetInstance()->Ready_Data()))
+	if (FAILED(CDataManager::GetInstance()->Ready_Data((*ppGraphicDevice))))
 		return E_FAIL;
 
 	return S_OK;
@@ -82,11 +82,7 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDevice)
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDevice)
 {
-	Engine::CManagement::GetInstance()->Add_Scene(CMainScene::Create(pGraphicDevice));
-
-
-
-	if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(0)))
+	if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(CMainScene::Create(pGraphicDevice))))
 		return E_FAIL;
 	
 	return S_OK;

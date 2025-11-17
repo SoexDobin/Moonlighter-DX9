@@ -150,11 +150,10 @@
     <ClInclude Include="..\Header\CManagement.h" />
     <ClInclude Include="..\Header\CPrototypeManager.h" />
     <ClInclude Include="..\Header\CRectColor.h" />
-    <ClInclude Include="..\Header\CRectTex.h" />
-    <ClInclude Include="..\Header\CSingleRectTex.h" />
     <ClInclude Include="..\Header\CRenderer.h" />
     <ClInclude Include="..\Header\CRenderObject.h" />
     <ClInclude Include="..\Header\CScene.h" />
+    <ClInclude Include="..\Header\CRectTex.h" />
     <ClInclude Include="..\Header\CSoundManager.h" />
     <ClInclude Include="..\Header\CTerrainTex.h" />
     <ClInclude Include="..\Header\CTexture.h" />
@@ -183,7 +182,6 @@
     <ClCompile Include="..\Code\CPrototypeManager.cpp" />
     <ClCompile Include="..\Code\CRectColor.cpp" />
     <ClCompile Include="..\Code\CRectTex.cpp" />
-    <ClCompile Include="..\Code\CSingleRectTex.cpp" />
     <ClCompile Include="..\Code\CRenderer.cpp" />
     <ClCompile Include="..\Code\CRenderObject.cpp" />
     <ClCompile Include="..\Code\CScene.cpp" />

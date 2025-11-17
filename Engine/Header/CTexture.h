@@ -12,7 +12,7 @@ private:
 	virtual	~CTexture() override;
 
 public:
-	HRESULT				Ready_Texture(PROTOTYPE_COMPONENT eComType, TEXTUREID eType, const wstring pPath, const _uint& iCnt = 1);
+	HRESULT				Ready_Texture(PROTOTYPE_COMPONENT eComType, TEXTUREID eType, const wstring wsPath, const _uint iCnt = 1);
 	void				Set_Texture(const _uint& iIndex = 0);
 
 private:
@@ -20,7 +20,7 @@ private:
 	PROTOTYPE_COMPONENT				m_eComType;
 
 public:
-	static CTexture*		Create(LPDIRECT3DDEVICE9 pGraphicDev, PROTOTYPE_COMPONENT eComType, TEXTUREID eType, const wstring pPath, const _uint& iCnt = 1);
+	static CTexture*		Create(LPDIRECT3DDEVICE9 pGraphicDev, PROTOTYPE_COMPONENT eComType, TEXTUREID eType, const wstring wsPath, const _uint iCnt = 1);
 	CComponent*				Clone() override;
 	PROTOTYPE_COMPONENT		Get_ComponentType() override { return m_eComType; }
 

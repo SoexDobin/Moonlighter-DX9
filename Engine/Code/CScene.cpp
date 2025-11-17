@@ -12,11 +12,11 @@ CScene::~CScene()
 
 }
 
-CComponent* CScene::Get_Component(COMPONENTID eID, const wstring pLayerTag, const wstring pObjTag, const wstring pComponentTag)
+CComponent* CScene::Get_Component(COMPONENTID eID, const wstring wsLayerTag, const wstring wsObjTag, const wstring wsComponentTag)
 {
     auto iter = find_if(m_umLayer.begin(), m_umLayer.end()
-        , [&pLayerTag](pair<const wstring, CLayer*>& pair) -> _bool {
-            if (pair.first == pLayerTag)
+        , [&wsLayerTag](pair<const wstring, CLayer*>& pair) -> _bool {
+            if (pair.first == wsLayerTag)
                 return true;
 
             return false;
@@ -24,7 +24,7 @@ CComponent* CScene::Get_Component(COMPONENTID eID, const wstring pLayerTag, cons
 
     if (iter == m_umLayer.end()) return nullptr;
 
-    return iter->second->Get_Component(eID, pObjTag, pComponentTag);
+    return iter->second->Get_Component(eID, wsObjTag, wsComponentTag);
 }
 
 HRESULT CScene::Ready_Scene()

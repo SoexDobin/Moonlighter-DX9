@@ -17,9 +17,9 @@ public:
 
 public:
 	CComponent*		Get_Component(COMPONENTID eID,
-								const wstring pLayerTag,
-								const wstring pObjTag,
-								const wstring pComponentTag);
+								const wstring wsLayerTag,
+								const wstring wsObjTag,
+								const wstring wsComponentTag);
 
 public:
 	virtual		HRESULT		Ready_Scene();

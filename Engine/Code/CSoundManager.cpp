@@ -20,14 +20,14 @@ HRESULT CSoundManager::Ready_SoundManager()
 	return S_OK;
 }
 
-void CSoundManager::PlaySoundOnce(const wstring pSoundKey, CHANNELID eID, float fVolume)
+void CSoundManager::PlaySoundOnce(const wstring wsSoundKey, CHANNELID eID, float fVolume)
 {
 	unordered_map<wstring, FMOD_SOUND*>::iterator iter;
 
 	iter = find_if(m_umapSound.begin(), m_umapSound.end(),
 		[&](auto& iter)->bool
 		{
-			return pSoundKey == iter.first;
+			return wsSoundKey == iter.first;
 		});
 
 	if (iter == m_umapSound.end())
@@ -45,14 +45,14 @@ void CSoundManager::PlaySoundOnce(const wstring pSoundKey, CHANNELID eID, float 
 	FMOD_System_Update(m_pSystem);
 }
 
-void CSoundManager::PlaySound(const wstring pSoundKey, CHANNELID eID, float fVolume)
+void CSoundManager::PlaySound(const wstring wsSoundKey, CHANNELID eID, float fVolume)
 {
 	unordered_map<wstring, FMOD_SOUND*>::iterator iter;
 
 	iter = find_if(m_umapSound.begin(), m_umapSound.end(),
 		[&](auto& iter)->bool
 		{
-			return pSoundKey == iter.first;
+			return wsSoundKey == iter.first;
 		});
 
 	if (iter == m_umapSound.end())
@@ -67,14 +67,14 @@ void CSoundManager::PlaySound(const wstring pSoundKey, CHANNELID eID, float fVol
 	FMOD_System_Update(m_pSystem);
 }
 
-void CSoundManager::PlayBGM(const wstring pSoundKey, float fVolume)
+void CSoundManager::PlayBGM(const wstring wsSoundKey, float fVolume)
 {
 	unordered_map<wstring, FMOD_SOUND*>::iterator iter;
 
 	// iter = find_if(m_mapSound.begin(), m_mapSound.end(), CTag_Finder(pSoundKey));
 	iter = find_if(m_umapSound.begin(), m_umapSound.end(), [&](auto& iter)->bool
 		{
-			return pSoundKey == iter.first;
+			return wsSoundKey == iter.first;
 		});
 
 	if (iter == m_umapSound.end())

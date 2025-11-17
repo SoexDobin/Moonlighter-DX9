@@ -14,10 +14,10 @@ public:
 	void			Render_Scene() override;
 
 private:
-	HRESULT			Ready_Camera_Layer(const wstring pLayerTag);
-	HRESULT			Ready_Environment_Layer(const wstring pLayerTag);
-	HRESULT			Ready_GameLogic_Layer(const wstring pLayerTag);
-	HRESULT			Ready_UI_Layer(const wstring pLayerTag);
+	HRESULT			Ready_Camera_Layer(const wstring wsLayerTag);
+	HRESULT			Ready_Environment_Layer(const wstring wsLayerTag);
+	HRESULT			Ready_GameLogic_Layer(const wstring wsLayerTag);
+	HRESULT			Ready_UI_Layer(const wstring wsLayerTag);
 
 	HRESULT			Ready_Prototype();
 

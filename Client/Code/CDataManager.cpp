@@ -48,7 +48,6 @@ HRESULT CDataManager::Ready_Resource()
 HRESULT CDataManager::Ready_Sound()
 {
 	Engine::CSoundManager::GetInstance()->Ready_SoundManager();
-	// SOUND 소스 로드 
 
 	return S_OK;
 }

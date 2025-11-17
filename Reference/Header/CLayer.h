@@ -11,8 +11,8 @@ private:
 	virtual ~CLayer() override;
 
 public:
-	CComponent*		Get_Component(COMPONENTID eID, const wstring pObjTag, const wstring pComponentTag);
-	HRESULT			Add_GameObject(const wstring pObjTag, CGameObject* pGameObject);
+	CComponent*		Get_Component(COMPONENTID eID, const wstring wsObjTag, const wstring wsComponentTag);
+	HRESULT			Add_GameObject(const wstring wsObjTag, CGameObject* pGameObject);
 
 public:
 	HRESULT		Ready_Layer();

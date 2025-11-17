@@ -21,7 +21,7 @@ CTexture::~CTexture()
 {
 }
 
-HRESULT CTexture::Ready_Texture(PROTOTYPE_COMPONENT eComType, TEXTUREID eType, const wstring pPath, const _uint& iCnt)
+HRESULT CTexture::Ready_Texture(PROTOTYPE_COMPONENT eComType, TEXTUREID eType, const wstring wsPath, const _uint iCnt)
 {
     if (eComType >= COMPONENT_END || eComType < 0)
     {
@@ -37,7 +37,7 @@ HRESULT CTexture::Ready_Texture(PROTOTYPE_COMPONENT eComType, TEXTUREID eType, c
     for (_uint i = 0; i < iCnt; ++i)
     {
         TCHAR   szFileName[256] = L"";
-        wsprintf(szFileName, pPath.c_str(), i);
+        wsprintf(szFileName, wsPath.c_str(), i);
 
         switch (eType)
         {
@@ -72,12 +72,12 @@ void CTexture::Set_Texture(const _uint& iIndex)
 CTexture* CTexture::Create(LPDIRECT3DDEVICE9 pGraphicDev, 
                            PROTOTYPE_COMPONENT eComType,
                            TEXTUREID eType, 
-                           const wstring pPath, 
-                           const _uint& iCnt)
+                           const wstring wsPath, 
+                           const _uint iCnt)
 {
     CTexture* pInstance = new CTexture(pGraphicDev);
 
-    if (FAILED(pInstance->Ready_Texture(eComType, eType, pPath, iCnt)))
+    if (FAILED(pInstance->Ready_Texture(eComType, eType, wsPath, iCnt)))
     {
         MSG_BOX("Texture Create Failed");
         Safe_Release(pInstance);

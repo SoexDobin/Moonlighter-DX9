@@ -16,21 +16,21 @@ CGameObject::~CGameObject()
 {
 }
 
-CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring pComponentTag)
+CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring wsComponentTag)
 {
 	CComponent* pComponent(nullptr);
 
-	if (pComponent = Find_Component(eID, pComponentTag))
+	if (pComponent = Find_Component(eID, wsComponentTag))
 		return pComponent;
 	else 
 		return nullptr;
 }
 
-CComponent* CGameObject::Find_Component(COMPONENTID eID, const wstring pComponentTag)
+CComponent* CGameObject::Find_Component(COMPONENTID eID, const wstring wsComponentTag)
 {
 	auto iter = find_if(m_umComponent[eID].begin(), m_umComponent[eID].end()
-		, [&pComponentTag](const pair<const wstring, CComponent*>& pair) -> _bool {
-			if (pair.first == pComponentTag)
+		, [&wsComponentTag](const pair<const wstring, CComponent*>& pair) -> _bool {
+			if (pair.first == wsComponentTag)
 				return true;
 
 			return false;

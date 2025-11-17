@@ -9,11 +9,11 @@ CLayer::~CLayer()
 
 }
 
-CComponent* CLayer::Get_Component(COMPONENTID eID, const wstring pObjTag, const wstring pComponentTag)
+CComponent* CLayer::Get_Component(COMPONENTID eID, const wstring wsObjTag, const wstring pComponentTag)
 {
 	auto iter = find_if(m_umGameObject.begin(), m_umGameObject.end()
-		, [&pObjTag](const pair<const wstring, CGameObject*>& pair) -> _bool {
-			if (pair.first == pObjTag)
+		, [&wsObjTag](const pair<const wstring, CGameObject*>& pair) -> _bool {
+			if (pair.first == wsObjTag)
 				return true;
 
 			return false;
@@ -24,11 +24,11 @@ CComponent* CLayer::Get_Component(COMPONENTID eID, const wstring pObjTag, const 
 	return iter->second->Get_Component(eID, pComponentTag);
 }
 
-HRESULT CLayer::Add_GameObject(const wstring pObjTag, CGameObject* pGameObject)
+HRESULT CLayer::Add_GameObject(const wstring wsObjTag, CGameObject* pGameObject)
 {
 	if (nullptr == pGameObject) return E_FAIL;
 
-	m_umGameObject.emplace(pair<wstring, CGameObject*>{ pObjTag, pGameObject });
+	m_umGameObject.emplace(pair<wstring, CGameObject*>{ wsObjTag, pGameObject });
 
     return S_OK;
 }

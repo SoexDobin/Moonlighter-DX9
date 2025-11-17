@@ -27,7 +27,7 @@ HRESULT CRenderObject::Ready_GameObject()
 		{
 			m_pBufferCom = static_cast<CRectTex*>(pCom);
 			m_umComponent[ID_STATIC].emplace(pair<const wstring, CComponent*>
-			{ L"Buffer_Com", pCom });
+			{ n_wsBufferKey, pCom });
 		}
 		else
 			return E_FAIL;
@@ -41,7 +41,7 @@ HRESULT CRenderObject::Ready_GameObject()
 		{
 			m_pTransformCom = static_cast<CTransform*>(pCom);
 			m_umComponent[ID_DYNAMIC].emplace(pair<const wstring, CComponent*>
-			{ L"Transform_Com", pCom });
+			{ n_wsTransformKey, pCom });
 		}
 		else
 			return E_FAIL;

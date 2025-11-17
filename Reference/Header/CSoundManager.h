@@ -15,9 +15,9 @@ private:
 public:
     HRESULT     Ready_SoundManager();
 
-    void        PlaySoundOnce(const wstring pSoundKey, CHANNELID eID, float fVolume);
-    void        PlaySound(const wstring pSoundKey, CHANNELID eID, float fVolume);
-    void        PlayBGM(const wstring pSoundKey, float fVolume);
+    void        PlaySoundOnce(const wstring wsSoundKey, CHANNELID eID, float fVolume);
+    void        PlaySound(const wstring wsSoundKey, CHANNELID eID, float fVolume);
+    void        PlayBGM(const wstring wsSoundKey, float fVolume);
     void        StopSound(CHANNELID eID);
     void        StopAll();
     void        SetChannelVolume(CHANNELID eID, float fVolume);

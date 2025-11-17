@@ -28,8 +28,9 @@ protected:
 	CRectTex*			m_pBufferCom;
 	CTransform*			m_pTransformCom;
 
-	const wstring		n_wsBufferKey = L"Buffer_Com";
-	const wstring		n_wsTransformKey = L"Transform_Com";
+public:
+	static const wstring	n_wsBufferKey;
+	static const wstring	n_wsTransformKey;
 	
 public:
 	static CRenderObject*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -38,4 +39,6 @@ protected:
 	virtual void			Free() override;
 };
 
+const wstring CRenderObject::n_wsBufferKey = L"Buffer_Com";
+const wstring CRenderObject::n_wsTransformKey = L"Transform_Com";
 END

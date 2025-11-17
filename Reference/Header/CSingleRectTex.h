@@ -17,7 +17,7 @@ public:
 	virtual void		Render_Buffer() override;
 
 public:
-	static CRectTex*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CRectTex*			Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual CComponent*			Clone();
 	PROTOTYPE_COMPONENT			Get_ComponentType() override { return SINGLERECTTEX; }
 

@@ -14,15 +14,15 @@ private:
 	virtual ~CTimeManager() override;
 
 public:
-	_float		Get_TimeDelta(const _tchar* pTimeTag);
-	void		Set_TimeDelta(const _tchar* pTimeTag);
+	_float		Get_TimeDelta(const wstring pTimeTag);
+	void		Set_TimeDelta(const wstring pTimeTag);
 
 public:
-	HRESULT		Ready_Timer(const _tchar* pTimerTag);
-	CTimer*		Find_Timer(const _tchar* pTimerTag);
+	HRESULT		Ready_Timer(const wstring pTimerTag);
+	CTimer*		Find_Timer(const wstring pTimerTag);
 	
 private:
-	unordered_map<const _tchar*, CTimer*>	m_umTimer;
+	unordered_map<wstring, CTimer*>	m_umTimer;
 
 public:
 	virtual void Free() override;

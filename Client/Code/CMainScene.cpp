@@ -45,7 +45,7 @@ void CMainScene::Render_Scene()
     Engine::CScene::Render_Scene();
 }
 
-HRESULT CMainScene::Ready_Camera_Layer(const _tchar* pLayerTag)
+HRESULT CMainScene::Ready_Camera_Layer(const wstring pLayerTag)
 {
     CLayer* pCamLayer = CLayer::Create();
 
@@ -56,17 +56,17 @@ HRESULT CMainScene::Ready_Camera_Layer(const _tchar* pLayerTag)
    if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
        return E_FAIL;
 
-   m_umLayer.emplace( pair<const _tchar*, CLayer*>{ pLayerTag, pCamLayer} );
+   m_umLayer.emplace( pair<const wstring, CLayer*>{ pLayerTag, pCamLayer} );
 
     return S_OK;
 }
 
-HRESULT CMainScene::Ready_Environment_Layer(const _tchar* pLayerTag)
+HRESULT CMainScene::Ready_Environment_Layer(const wstring pLayerTag)
 {
     return S_OK;
 }
 
-HRESULT CMainScene::Ready_GameLogic_Layer(const _tchar* pLayerTag)
+HRESULT CMainScene::Ready_GameLogic_Layer(const wstring pLayerTag)
 {
     CLayer* pGameLogicLayer = CLayer::Create();
 
@@ -75,12 +75,12 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp", pGameObject)))
         return E_FAIL;
     
-    m_umLayer.emplace(pair<const _tchar*, CLayer*>{ pLayerTag, pGameLogicLayer});
+    m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
 
     return S_OK;
 }
 
-HRESULT CMainScene::Ready_UI_Layer(const _tchar* pLayerTag)
+HRESULT CMainScene::Ready_UI_Layer(const wstring pLayerTag)
 {
     return S_OK;
 }

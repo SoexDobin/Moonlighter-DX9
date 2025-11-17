@@ -14,9 +14,9 @@ CManagement::~CManagement()
 }
 
 CComponent* CManagement::Get_Component(COMPONENTID eID, 
-                                    const _tchar* pLayerTag, 
-                                    const _tchar* pObjTag, 
-                                    const _tchar* pComponentTag)
+                                    const wstring pLayerTag, 
+                                    const wstring pObjTag, 
+                                    const wstring pComponentTag)
 {
     if (nullptr == m_pCurScene)
         return nullptr;

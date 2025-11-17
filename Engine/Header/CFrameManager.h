@@ -15,14 +15,14 @@ private:
 	virtual ~CFrameManager() override;
 
 public:
-	_bool		IsPermit_Call(const _tchar* pFrameTag, const float fTimeDelta);
-	HRESULT		Ready_Frame(const _tchar* pFrameTag, const float fCallLimit);
+	_bool		IsPermit_Call(const wstring pFrameTag, const float fTimeDelta);
+	HRESULT		Ready_Frame(const wstring pFrameTag, const float fCallLimit);
 
 private:
-	CFrame*		Find_Frame(const _tchar* pFrameTag);
+	CFrame*		Find_Frame(const wstring pFrameTag);
 
 private:
-	unordered_map<const _tchar*, CFrame*>	m_umFrame;
+	unordered_map<wstring, CFrame*>	m_umFrame;
 
 private:
 	void	Free() override;

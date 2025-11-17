@@ -15,9 +15,9 @@ private:
 
 public:
 	CComponent*		Get_Component(COMPONENTID eID,
-							const _tchar* pLayerTag,
-							const _tchar* pObjTag,
-							const _tchar* pComponentTag);
+							const wstring pLayerTag,
+							const wstring pObjTag,
+							const wstring pComponentTag);
 
 public:
 	HRESULT			Set_Scene(CScene* pScene);

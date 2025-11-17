@@ -12,7 +12,7 @@ private:
 		const _ulong dwCntX, 
 		const _ulong dwCntZ, 
 		const _ulong dwVtxItv,
-		const _tchar* pHeightMapPath);
+		const wstring pHeightMapPath);
 	explicit CTerrainTex(const CTerrainTex& rhs);
 	virtual ~CTerrainTex() override;
 
@@ -33,14 +33,14 @@ private:
 	_ulong					m_dwCntX;
 	_ulong					m_dwCntZ;
 	_ulong					m_dwVtxItv;
-	const _tchar*			m_pHeightMapPath;
+	const wstring			m_pHeightMapPath;
 
 public:
 	static CTerrainTex* Create(LPDIRECT3DDEVICE9 pGraphicDev, 
 								const _ulong dwCntX, 
 								const _ulong dwCntZ, 
 								const _ulong dwVtxItv, 
-								const _tchar* pHeightMapPath);
+								const wstring pHeightMapPath);
 	CComponent* Clone() override;
 	PROTOTYPE_COMPONENT		Get_ComponentType() override { return TERRAINTEX; }
 

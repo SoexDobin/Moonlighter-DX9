@@ -20,6 +20,34 @@ HRESULT CRenderObject::Ready_GameObject()
 	if (FAILED(Engine::CGameObject::Ready_GameObject()))
 		return E_FAIL;
 
+	CComponent* pCom = nullptr;
+	if (pCom = CPrototypeManager::GetInstance()->Clone_Prototype(RECTTEX))
+	{
+		if (pCom->Get_ComponentType() == RECTTEX)
+		{
+			m_pBufferCom = static_cast<CRectTex*>(pCom);
+			m_umComponent[ID_STATIC].emplace(pair<const wstring, CComponent*>
+			{ L"Buffer_Com", pCom });
+		}
+		else
+			return E_FAIL;
+	}
+	else
+		return E_FAIL;
+	
+	if (pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TRANSFORM))
+	{
+		if (pCom->Get_ComponentType() == TRANSFORM)
+		{
+			m_pTransformCom = static_cast<CTransform*>(pCom);
+			m_umComponent[ID_DYNAMIC].emplace(pair<const wstring, CComponent*>
+			{ L"Transform_Com", pCom });
+		}
+		else
+			return E_FAIL;
+	}
+	else
+		return E_FAIL;
 
 	return S_OK;
 }

@@ -9,11 +9,11 @@ CLayer::~CLayer()
 
 }
 
-CComponent* CLayer::Get_Component(COMPONENTID eID, const _tchar* pObjTag, const _tchar* pComponentTag)
+CComponent* CLayer::Get_Component(COMPONENTID eID, const wstring pObjTag, const wstring pComponentTag)
 {
 	auto iter = find_if(m_umGameObject.begin(), m_umGameObject.end()
-		, [&pObjTag](const pair<const _tchar* const, CGameObject*>& pair) -> _bool {
-			if (0 == lstrcmpW(pair.first, pObjTag))
+		, [&pObjTag](const pair<const wstring, CGameObject*>& pair) -> _bool {
+			if (pair.first == pObjTag)
 				return true;
 
 			return false;
@@ -24,11 +24,11 @@ CComponent* CLayer::Get_Component(COMPONENTID eID, const _tchar* pObjTag, const 
 	return iter->second->Get_Component(eID, pComponentTag);
 }
 
-HRESULT CLayer::Add_GameObject(const _tchar* pObjTag, CGameObject* pGameObject)
+HRESULT CLayer::Add_GameObject(const wstring pObjTag, CGameObject* pGameObject)
 {
 	if (nullptr == pGameObject) return E_FAIL;
 
-	m_umGameObject.emplace(pair<const _tchar* const, CGameObject*>{ pObjTag, pGameObject });
+	m_umGameObject.emplace(pair<wstring, CGameObject*>{ pObjTag, pGameObject });
 
     return S_OK;
 }
@@ -42,7 +42,7 @@ _int CLayer::Update_Layer(const _float fTimeDelta)
 {
 	_int iResult(0);
 	auto iter = find_if(m_umGameObject.begin(), m_umGameObject.end()
-		, [=, &iResult](pair<const _tchar* const, CGameObject*>& pair) -> _bool {
+		, [=, &iResult](pair<const wstring, CGameObject*>& pair) -> _bool {
 			iResult = pair.second->Update_GameObject(fTimeDelta);
 
 			if (iResult & 0x80000000) return true;
@@ -57,7 +57,7 @@ _int CLayer::Update_Layer(const _float fTimeDelta)
 void CLayer::LateUpdate_Layer(const _float fTimeDelta)
 {
 	for_each(m_umGameObject.begin(), m_umGameObject.end()
-		, [fTimeDelta](pair<const _tchar* const, CGameObject*>& pair) -> void {
+		, [fTimeDelta](pair<const wstring, CGameObject*>& pair) -> void {
 			pair.second->LateUpdate_GameObject(fTimeDelta);
 		});
 }
@@ -65,7 +65,7 @@ void CLayer::LateUpdate_Layer(const _float fTimeDelta)
 void CLayer::Render_Layer()
 {
 	for_each(m_umGameObject.begin(), m_umGameObject.end()
-		, [](pair<const _tchar* const, CGameObject*>& pair) -> void {
+		, [](pair<const wstring, CGameObject*>& pair) -> void {
 			pair.second->Render_GameObject();
 		});
 }

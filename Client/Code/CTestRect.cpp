@@ -25,13 +25,13 @@ HRESULT CTestRect::Ready_GameObject()
     if (pComponent->Get_ComponentType() != RECTCOLOR)
         return E_FAIL;
     m_pBufferCom = static_cast<CRectColor*>(pComponent);
-    m_umComponent[ID_STATIC].emplace(pair<const _tchar*, CComponent*>({ L"Buffer_Com", pComponent}));
+    m_umComponent[ID_STATIC].emplace(pair<const wstring, CComponent*>({ L"Buffer_Com", pComponent}));
 
     pComponent = Engine::CPrototypeManager::GetInstance()->Clone_Prototype(TRANSFORM);
     if (pComponent->Get_ComponentType() != TRANSFORM)
         return E_FAIL;
     m_pTransformCom = static_cast<CTransform*>(pComponent);
-    m_umComponent[ID_DYNAMIC].emplace(pair<const _tchar*, CComponent*>({ L"Transform_Com", pComponent }));
+    m_umComponent[ID_DYNAMIC].emplace(pair<const wstring, CComponent*>({ L"Transform_Com", pComponent }));
 
     return S_OK;
 }

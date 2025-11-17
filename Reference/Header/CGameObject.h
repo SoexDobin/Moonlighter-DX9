@@ -12,10 +12,10 @@ protected:
 	virtual ~CGameObject() override;
 
 public:
-	CComponent*		Get_Component(COMPONENTID eID, const _tchar* pComponentTag);
+	CComponent*		Get_Component(COMPONENTID eID, const wstring pComponentTag);
 
 private:
-	CComponent*		Find_Component(COMPONENTID eID, const _tchar* pComponentTag);
+	CComponent*		Find_Component(COMPONENTID eID, const wstring pComponentTag);
 
 public:
 	virtual		HRESULT		Ready_GameObject();
@@ -25,7 +25,7 @@ public:
 
 protected:
 	LPDIRECT3DDEVICE9							m_pGraphicDevice;
-	unordered_map<const _tchar*, CComponent*>	m_umComponent[ID_END];
+	unordered_map<wstring, CComponent*>			m_umComponent[ID_END];
 
 protected:
 	virtual void Free() override;

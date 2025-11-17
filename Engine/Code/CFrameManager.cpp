@@ -11,7 +11,7 @@ CFrameManager::~CFrameManager()
 	Free();
 }
 
-_bool CFrameManager::IsPermit_Call(const _tchar* pFrameTag, const float fTimeDelta)
+_bool CFrameManager::IsPermit_Call(const wstring pFrameTag, const float fTimeDelta)
 {
 	CFrame* pFrame = Find_Frame(pFrameTag);
 	if (nullptr == pFrame)
@@ -20,7 +20,7 @@ _bool CFrameManager::IsPermit_Call(const _tchar* pFrameTag, const float fTimeDel
 	return pFrame->IsPermit_Call(fTimeDelta);
 }
 
-HRESULT CFrameManager::Ready_Frame(const _tchar* pFrameTag, const float fCallLimit)
+HRESULT CFrameManager::Ready_Frame(const wstring pFrameTag, const float fCallLimit)
 {
 	CFrame* pFrame = Find_Frame(pFrameTag);
 
@@ -29,7 +29,7 @@ HRESULT CFrameManager::Ready_Frame(const _tchar* pFrameTag, const float fCallLim
 
 	if (pFrame = CFrame::Create(fCallLimit))
 	{
-		m_umFrame.insert(pair<const _tchar*, CFrame*>{pFrameTag, pFrame});
+		m_umFrame.insert(pair<const wstring, CFrame*>{pFrameTag, pFrame});
 		return S_OK;
 	}
 	else
@@ -38,12 +38,12 @@ HRESULT CFrameManager::Ready_Frame(const _tchar* pFrameTag, const float fCallLim
 	}
 }
 
-CFrame* CFrameManager::Find_Frame(const _tchar* pFrameTag)
+CFrame* CFrameManager::Find_Frame(const wstring pFrameTag)
 {
 	auto iter = find_if(m_umFrame.begin(), m_umFrame.end()
-		, [&](pair<const _tchar*, CFrame*> pair) -> _bool
+		, [&](pair<const wstring, CFrame*> pair) -> _bool
 		{
-			if (!lstrcmp(pFrameTag, pair.first))
+			if (pFrameTag == pair.first)
 				return true;
 			
 			return false;
@@ -58,7 +58,7 @@ CFrame* CFrameManager::Find_Frame(const _tchar* pFrameTag)
 void CFrameManager::Free()
 {
 	for_each(m_umFrame.begin(), m_umFrame.end()
-		, [](pair<const _tchar*, CFrame*> pair)
+		, [](pair<const wstring, CFrame*> pair)
 		{
 			_ulong dwRefCnt = pair.second->Release();
 

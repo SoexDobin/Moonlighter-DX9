@@ -39,6 +39,4 @@ protected:
 	virtual void			Free() override;
 };
 
-const wstring CRenderObject::n_wsBufferKey = L"Buffer_Com";
-const wstring CRenderObject::n_wsTransformKey = L"Transform_Com";
 END

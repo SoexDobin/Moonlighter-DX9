@@ -94,6 +94,9 @@
     <Filter Include="02. Prototype\00. VIBuffer\01. RectTex">
       <UniqueIdentifier>{e43d650f-74c4-4061-b5cb-b07e1799aaa2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. Manager\07. ResourceManager">
+      <UniqueIdentifier>{cb2aeed9-3147-452e-8934-08fa54c86e39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -183,6 +186,9 @@
     <ClInclude Include="..\Header\CRectTex.h">
       <Filter>02. Prototype\00. VIBuffer\01. RectTex</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CResourceManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CTimer.cpp">
@@ -253,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRenderObject.cpp">
       <Filter>01. Logic\03. GameObject\01. RenderObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CResourceManager.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

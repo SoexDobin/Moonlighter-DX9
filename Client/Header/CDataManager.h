@@ -19,8 +19,15 @@ private:
 	// 각 씬에 맞는 함수로 제작하여 Ready_Data()에서 최종 호출
 	// ex. Ready_Dungeon_Resource()
 	HRESULT		Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev);
+
 	HRESULT		Ready_Resource();
+
+	HRESULT		Ready_Item_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
+
 	HRESULT		Ready_Sound();
+
+private:
+	const wstring n_wsResSpritePath = L"../Bin/Resource/Sprite/";
 
 private:
 	void		Free() override;

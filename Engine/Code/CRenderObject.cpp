@@ -1,13 +1,16 @@
 #include "CRenderObject.h"
 #include "CPrototypeManager.h"
 
+const wstring CRenderObject::n_wsBufferKey = L"Buffer_Com";
+const wstring CRenderObject::n_wsTransformKey = L"Transform_Com";
+
 CRenderObject::CRenderObject(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CGameObject(pGraphicDev)
+	: CGameObject(pGraphicDev), m_pBufferCom(nullptr), m_pTransformCom(nullptr)
 {
 }
 
 CRenderObject::CRenderObject(const CRenderObject& rhs)
-	: CGameObject(rhs)
+	: CGameObject(rhs), m_pBufferCom(nullptr), m_pTransformCom(nullptr)
 {
 }
 

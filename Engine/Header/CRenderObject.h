@@ -3,9 +3,11 @@
 #include "CGameObject.h"
 
 #include "CTransform.h"
-#include "CRectTex.h"
+//#include "CRectTex.h"
 
-class CRenderObject : public CGameObject
+BEGIN(Engine)
+
+class ENGINE_DLL CRenderObject : public CGameObject
 {
 protected:
 	explicit CRenderObject(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -14,7 +16,7 @@ protected:
 
 public:
 	const CTransform&	Get_Trans()		{ return *m_pTransformCom; }
-	const CRectTex&		Get_Buffer()	{ return *m_pBufferCom; }
+	//const CRectTex&		Get_Buffer()	{ return *m_pBufferCom; }
 
 public:
 	virtual		HRESULT		Ready_GameObject() override;
@@ -24,7 +26,7 @@ public:
 
 protected:
 	CTransform*			m_pTransformCom;
-	CRectTex*			m_pBufferCom;
+	//CRectTex*			m_pBufferCom;
 
 public:
 	static CRenderObject*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -33,3 +35,4 @@ protected:
 	virtual void			Free() override;
 };
 
+END

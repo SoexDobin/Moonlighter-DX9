@@ -1,24 +1,24 @@
-#include "CSingleRectTex.h"
+#include "CRectTex.h"
 
-CSingleRectTex::CSingleRectTex()
+CRectTex::CRectTex()
 {
 }
 
-CSingleRectTex::CSingleRectTex(LPDIRECT3DDEVICE9 pGraphicDev)
+CRectTex::CRectTex(LPDIRECT3DDEVICE9 pGraphicDev)
     : CVIBuffer(pGraphicDev)
 {
 }
 
-CSingleRectTex::CSingleRectTex(const CSingleRectTex& rhs)
+CRectTex::CRectTex(const CRectTex& rhs)
     : CVIBuffer(rhs)
 {
 }
 
-CSingleRectTex::~CSingleRectTex()
+CRectTex::~CRectTex()
 {
 }
 
-HRESULT CSingleRectTex::Ready_Buffer()
+HRESULT CRectTex::Ready_Buffer()
 {
     m_dwVtxSize = sizeof(VTXTEX);
     m_dwVtxCnt = 4;
@@ -68,14 +68,14 @@ HRESULT CSingleRectTex::Ready_Buffer()
     return S_OK;
 }
 
-void CSingleRectTex::Render_Buffer()
+void CRectTex::Render_Buffer()
 {
     Engine::CVIBuffer::Render_Buffer();
 }
 
-CSingleRectTex* CSingleRectTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CRectTex* CRectTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CSingleRectTex* pInstance = new CSingleRectTex(pGraphicDev);
+    CRectTex* pInstance = new CRectTex(pGraphicDev);
 
     if (FAILED(pInstance->Ready_Buffer()))
     {
@@ -87,12 +87,12 @@ CSingleRectTex* CSingleRectTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
     return pInstance;
 }
 
-CComponent* CSingleRectTex::Clone()
+CComponent* CRectTex::Clone()
 {
-    return new CSingleRectTex(*this);
+    return new CRectTex(*this);
 }
 
-void CSingleRectTex::Free()
+void CRectTex::Free()
 {
     Engine::CVIBuffer::Free();
 }

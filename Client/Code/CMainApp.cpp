@@ -1,0 +1,122 @@
+#include "pch.h"
+#include "CMainApp.h"
+
+#include "CManagement.h"
+#include "CDInputManager.h"
+#include "CRenderer.h"
+#include "CPrototypeManager.h"
+#include "CDataManager.h"
+
+#include "CMainScene.h"
+
+CMainApp::CMainApp()
+	: m_pDeviceClass(nullptr), m_pGraphicDevice(nullptr)
+	, m_pManageClass(nullptr)
+{
+	m_pManageClass = CManagement::GetInstance();
+}
+
+CMainApp::~CMainApp()
+{
+
+}
+
+HRESULT CMainApp::Ready_MainApp()
+{
+	if (FAILED(Ready_DefaultSetting(&m_pGraphicDevice)))
+		return E_FAIL;
+
+	if (FAILED(Ready_Scene(m_pGraphicDevice)))
+		return E_FAIL;
+
+	return S_OK;
+}
+
+_int CMainApp::Update_MainApp(const _float fDeltaTime)
+{
+	Engine::CDInputManager::GetInstance()->Update_InputDev();
+
+	m_pManageClass->Update_Scene(fDeltaTime);
+
+	return 0;
+}
+
+void CMainApp::LateUpdate_MainApp(const _float fDeltaTime)
+{
+	m_pManageClass->LateUpdate_Scene(fDeltaTime);
+}
+
+void CMainApp::Render_MainApp()
+{
+	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 0.5f, 1.f));
+
+	m_pManageClass->Render_Scene(m_pGraphicDevice);
+
+	m_pDeviceClass->Render_End();
+}
+
+HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDevice)
+{
+	if (FAILED(CGraphicDevice::GetInstance()->Ready_GraphicDevice(
+		g_hWnd, MODE_WIN, WINCX, WINCY, &m_pDeviceClass
+	)))
+	{
+		return E_FAIL;
+	}
+	m_pDeviceClass->AddRef();
+
+	(*ppGraphicDevice) = m_pDeviceClass->Get_GraphicDevice();
+	(*ppGraphicDevice)->AddRef();
+
+	(*ppGraphicDevice)->SetRenderState(D3DRS_LIGHTING, FALSE);
+	(*ppGraphicDevice)->SetRenderState(D3DRS_ZENABLE, TRUE);
+	(*ppGraphicDevice)->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+
+	if (FAILED(CDInputManager::GetInstance()->Ready_InputDev(g_hInst, g_hWnd)))
+		return E_FAIL;
+	if (FAILED(CDataManager::GetInstance()->Ready_Data()))
+		return E_FAIL;
+
+	return S_OK;
+}
+
+HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDevice)
+{
+	Engine::CManagement::GetInstance()->Add_Scene(CMainScene::Create(pGraphicDevice));
+
+
+
+	if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(0)))
+		return E_FAIL;
+	
+	return S_OK;
+}
+
+CMainApp* CMainApp::Create()
+{
+	CMainApp* pApp = new CMainApp();
+	if (FAILED(pApp->Ready_MainApp()))
+	{
+		MSG_BOX("CMainApp Create Failed");
+		Safe_Release(pApp);
+		return nullptr;
+	}
+
+	return pApp;
+}
+
+void CMainApp::Free()
+{
+	Safe_Release(m_pDeviceClass);
+	Safe_Release(m_pGraphicDevice);
+
+	CDataManager::DestroyInstance();
+
+	Engine::CDInputManager::DestroyInstance();
+	Engine::CRenderer::DestroyInstance();
+	Engine::CGraphicDevice::DestroyInstance();
+	Engine::CManagement::DestroyInstance();
+	Engine::CTimeManager::DestroyInstance();
+	Engine::CFrameManager::DestroyInstance();
+	Engine::CPrototypeManager::DestroyInstance();
+}

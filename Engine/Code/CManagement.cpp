@@ -4,7 +4,7 @@
 IMPLEMENT_SINGLETON(CManagement)
 
 CManagement::CManagement()
-    : m_pScene(nullptr)
+    : m_pCurScene(nullptr), m_iCurIndex(0)
 {
 }
 
@@ -18,45 +18,57 @@ CComponent* CManagement::Get_Component(COMPONENTID eID,
                                     const _tchar* pObjTag, 
                                     const _tchar* pComponentTag)
 {
-    if (nullptr == m_pScene)
+    if (nullptr == m_pCurScene)
         return nullptr;
 
-    return m_pScene->Get_Component(eID, pLayerTag, pObjTag, pComponentTag);
+    return m_pCurScene->Get_Component(eID, pLayerTag, pObjTag, pComponentTag);
 }
 
-HRESULT CManagement::Set_Scene(CScene* pScene)
+HRESULT CManagement::Set_Scene(const _int iSceneIdx)
+{
+    if (iSceneIdx >= m_vecScene.size())
+        return E_FAIL;
+
+    Safe_Release(m_pCurScene);
+    // TODO : Scene 변경 과정간 변동 제어는?
+
+    m_pCurScene = m_vecScene[iSceneIdx];
+    m_pCurScene->Ready_Scene();
+
+    return S_OK;
+}
+
+HRESULT CManagement::Add_Scene(CScene* pScene)
 {
     if (pScene == nullptr) return E_FAIL;
-
-    Safe_Release(m_pScene);
-    m_pScene = pScene;
+    m_vecScene.push_back(pScene);
 
     return S_OK;
 }
 
 _int CManagement::Update_Scene(const _float fTimeDelta)
 {
-    if (m_pScene == nullptr) return -1;
+    if (m_pCurScene == nullptr) return -1;
 
-    return m_pScene->Update_Scene(fTimeDelta);
+    return m_pCurScene->Update_Scene(fTimeDelta);
 }
 
 void CManagement::LateUpdate_Scene(const _float fTimeDelta)
 {
-    if (m_pScene == nullptr) return;
+    if (m_pCurScene == nullptr) return;
 
-    m_pScene->LateUpdate_Scene(fTimeDelta);
+    m_pCurScene->LateUpdate_Scene(fTimeDelta);
 }
 
 void CManagement::Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    if (m_pScene == nullptr) return;
+    if (m_pCurScene == nullptr) return;
 
     CRenderer::GetInstance()->Render_GameObject(pGraphicDev);
-    m_pScene->Render_Scene();
+    m_pCurScene->Render_Scene();
 }
 
 void CManagement::Free()
 {
-    Safe_Release(m_pScene);
+    Safe_Release(m_pCurScene);
 }

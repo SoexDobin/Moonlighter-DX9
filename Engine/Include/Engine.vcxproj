@@ -109,13 +109,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;ENGINE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../Header;../../Base;../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Header;../../Base;./FMOD;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>./FMOD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>call "$(ProjectDir)Copy.bat"</Command>
@@ -152,12 +153,12 @@
     <ClInclude Include="..\Header\CRectTex.h" />
     <ClInclude Include="..\Header\CRenderer.h" />
     <ClInclude Include="..\Header\CScene.h" />
+    <ClInclude Include="..\Header\CSoundManager.h" />
     <ClInclude Include="..\Header\CTerrainTex.h" />
     <ClInclude Include="..\Header\CTexture.h" />
     <ClInclude Include="..\Header\CTimeManager.h" />
     <ClInclude Include="..\Header\CTimer.h" />
     <ClInclude Include="..\Header\CTransform.h" />
-    <ClInclude Include="..\Header\CTriColor.h" />
     <ClInclude Include="..\Header\CVIBuffer.h" />
     <ClInclude Include="..\Header\Engine_Define.h" />
     <ClInclude Include="..\Header\Engine_Enum.h" />
@@ -182,12 +183,12 @@
     <ClCompile Include="..\Code\CRectTex.cpp" />
     <ClCompile Include="..\Code\CRenderer.cpp" />
     <ClCompile Include="..\Code\CScene.cpp" />
+    <ClCompile Include="..\Code\CSoundManager.cpp" />
     <ClCompile Include="..\Code\CTerrainTex.cpp" />
     <ClCompile Include="..\Code\CTexture.cpp" />
     <ClCompile Include="..\Code\CTimeManager.cpp" />
     <ClCompile Include="..\Code\CTimer.cpp" />
     <ClCompile Include="..\Code\CTransform.cpp" />
-    <ClCompile Include="..\Code\CTriColor.cpp" />
     <ClCompile Include="..\Code\CVIBuffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -21,7 +21,8 @@ public:
 
 public:
 	const _int		Get_SceneIndex() { return m_iCurIndex; }
-	HRESULT			Set_Scene(const _int iSceneIdx);
+	void			Set_SceneIndex(const _int iSceneIdx) { m_iCurIndex = iSceneIdx; }
+	HRESULT			Set_Scene(_int iSceneIdx);
 	HRESULT			Add_Scene(CScene* pScene);
 
 	_int			Update_Scene(const _float fTimeDelta);

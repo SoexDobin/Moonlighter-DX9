@@ -3,7 +3,7 @@
 #include "CGameObject.h"
 
 #include "CTransform.h"
-//#include "CRectTex.h"
+#include "CRectTex.h"
 
 BEGIN(Engine)
 
@@ -16,7 +16,7 @@ protected:
 
 public:
 	const CTransform&	Get_Trans()		{ return *m_pTransformCom; }
-	//const CRectTex&		Get_Buffer()	{ return *m_pBufferCom; }
+	const CRectTex&		Get_Buffer()	{ return *m_pBufferCom; }
 
 public:
 	virtual		HRESULT		Ready_GameObject() override;
@@ -25,9 +25,13 @@ public:
 	virtual		void		Render_GameObject() override;
 
 protected:
+	CRectTex*			m_pBufferCom;
 	CTransform*			m_pTransformCom;
-	//CRectTex*			m_pBufferCom;
 
+public:
+	static const wstring	n_wsBufferKey;
+	static const wstring	n_wsTransformKey;
+	
 public:
 	static CRenderObject*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

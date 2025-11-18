@@ -187,7 +187,7 @@
       <Filter>02. Prototype\00. VIBuffer\01. RectTex</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CResourceManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>00. Manager\07. ResourceManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -261,7 +261,7 @@
       <Filter>01. Logic\03. GameObject\01. RenderObject</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CResourceManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>00. Manager\07. ResourceManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

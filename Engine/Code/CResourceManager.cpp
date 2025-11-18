@@ -11,6 +11,7 @@ CResourceManager::~CResourceManager()
     Free();
 }
 
+
 HRESULT CResourceManager::Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstring wsKey, const wstring wsPath, _uint iCnt)
 {
     m_umapSprite.insert({ wsKey, vector<IDirect3DBaseTexture9*>()});

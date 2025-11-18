@@ -4,6 +4,7 @@
 #include "CPrototypeManager.h"
 #include "CDynamicCamera.h"
 #include "CTestRect.h"
+#include "CLightManager.h"
 
 CMainScene::CMainScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -16,6 +17,9 @@ CMainScene::~CMainScene()
 
 HRESULT CMainScene::Ready_Scene()
 {
+    if (FAILED(Ready_Light()))
+        return E_FAIL;
+
     if (FAILED(Ready_Prototype()))
         return E_FAIL;
 
@@ -82,6 +86,27 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring wsLayerTag)
 
 HRESULT CMainScene::Ready_UI_Layer(const wstring wsLayerTag)
 {
+    return S_OK;
+}
+
+HRESULT CMainScene::Ready_Light()
+{
+
+    D3DLIGHT9   tLightInfo;
+    ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9));
+
+    tLightInfo.Type = D3DLIGHT_DIRECTIONAL;
+
+    tLightInfo.Diffuse = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+    tLightInfo.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+    tLightInfo.Ambient = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+
+    tLightInfo.Direction = { 1.f, -1.f, 1.f };
+
+    if (FAILED(CLightManager::GetInstance()->Ready_Light(m_pGraphicDevice, &tLightInfo, 0)))
+        return E_FAIL;
+
+
     return S_OK;
 }
 

@@ -97,6 +97,12 @@
     <Filter Include="00. Manager\07. ResourceManager">
       <UniqueIdentifier>{cb2aeed9-3147-452e-8934-08fa54c86e39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. Manager\08. LightManager">
+      <UniqueIdentifier>{47f0208a-d960-47c6-9f2b-13c3aa1352a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Manager\08. LightManager\00. Light">
+      <UniqueIdentifier>{00ba5a33-3caa-4e3f-8c05-3c5ec483e5a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -189,6 +195,12 @@
     <ClInclude Include="..\Header\CResourceManager.h">
       <Filter>00. Manager\07. ResourceManager</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLight.h">
+      <Filter>00. Manager\08. LightManager\00. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLightManager.h">
+      <Filter>00. Manager\08. LightManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CTimer.cpp">
@@ -262,6 +274,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CResourceManager.cpp">
       <Filter>00. Manager\07. ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLight.cpp">
+      <Filter>00. Manager\08. LightManager\00. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLightManager.cpp">
+      <Filter>00. Manager\08. LightManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

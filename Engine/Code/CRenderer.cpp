@@ -20,7 +20,7 @@ void CRenderer::Add_RenderGroup(RENDERID eID, CGameObject* pGameObject)
 	pGameObject->AddRef();
 }
 
-void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
+void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 {
 	Render_Priority(pGraphicDev);
 	Render_NonAlpha(pGraphicDev);

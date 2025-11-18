@@ -18,8 +18,9 @@ public:
 	void		LateUpdate_GameObject(const _float fTimeDelta) override;
 	void		Render_GameObject() override;
 
-public:
+private:
 	CTexture*	m_pTexCom;
+	_float		m_fDelta;
 
 public:
 	static CTestRect*	Create(LPDIRECT3DDEVICE9 pGraphicDev);

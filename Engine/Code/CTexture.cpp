@@ -34,7 +34,7 @@ CTexture::~CTexture()
 }
 
 const _uint CTexture::Get_FrameCount(const _uint iTex) { 
-    return m_vecTexture[iTex].size(); 
+    return (_uint)m_vecTexture[iTex].size(); 
 }
 _bool   CTexture::Get_Loop()                    { return m_bLoop; }
 void    CTexture::Set_Loop(_bool bIsLoop)       { m_bLoop = bIsLoop; }

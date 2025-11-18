@@ -14,6 +14,7 @@ CExampleManager::CExampleManager()
 
 CExampleManager::~CExampleManager()
 {
+	Free();
 }
 
 HRESULT CExampleManager::Ready_Manager()

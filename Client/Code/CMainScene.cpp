@@ -126,5 +126,11 @@ CMainScene* CMainScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CMainScene::Free()
 {
+#pragma region Examples for ImGui
+
+    CExampleManager::DestroyInstance();
+
+#pragma endregion
+
     Engine::CScene::Free();
 }

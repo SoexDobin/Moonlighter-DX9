@@ -100,6 +100,12 @@
     <Filter Include="98. ImGui">
       <UniqueIdentifier>{cd8f9921-1c81-46b0-9db9-8e4a208a0dbe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. Manager\08. Editor">
+      <UniqueIdentifier>{6537cee0-0c04-419d-ad7a-06a23940b3b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Manager\08. Editor\00. Panel">
+      <UniqueIdentifier>{eeed105a-6617-4d8e-8df2-6d791e4093de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -189,9 +195,6 @@
     <ClInclude Include="..\Header\CRectTex.h">
       <Filter>02. Prototype\00. VIBuffer\01. RectTex</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CResourceManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="..\External\imconfig.h">
       <Filter>98. ImGui</Filter>
     </ClInclude>
@@ -215,6 +218,15 @@
     </ClInclude>
     <ClInclude Include="..\External\imstb_truetype.h">
       <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditor.h">
+      <Filter>00. Manager\08. Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CResourceManager.h">
+      <Filter>00. Manager\07. ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPanel.h">
+      <Filter>00. Manager\08. Editor\00. Panel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -287,9 +299,6 @@
     <ClCompile Include="..\Code\CRenderObject.cpp">
       <Filter>01. Logic\03. GameObject\01. RenderObject</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CResourceManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="..\External\imgui.cpp">
       <Filter>98. ImGui</Filter>
     </ClCompile>
@@ -310,6 +319,15 @@
     </ClCompile>
     <ClCompile Include="..\External\imgui_widgets.cpp">
       <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditor.cpp">
+      <Filter>00. Manager\08. Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CResourceManager.cpp">
+      <Filter>00. Manager\07. ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPanel.cpp">
+      <Filter>00. Manager\08. Editor\00. Panel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

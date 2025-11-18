@@ -6,6 +6,7 @@
 #include "CRenderer.h"
 #include "CPrototypeManager.h"
 #include "CDataManager.h"
+#include "CEditor.h"
 
 #include "CMainScene.h"
 
@@ -37,6 +38,7 @@ _int CMainApp::Update_MainApp(const _float fDeltaTime)
 	Engine::CDInputManager::GetInstance()->Update_InputDev();
 
 	m_pManageClass->Update_Scene(fDeltaTime);
+	CEditor::GetInstance()->Update_Editor();
 
 	return 0;
 }
@@ -51,6 +53,7 @@ void CMainApp::Render_MainApp()
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 0.5f, 1.f));
 
 	m_pManageClass->Render_Scene(m_pGraphicDevice);
+	CEditor::GetInstance()->Render_Editor();
 
 	m_pDeviceClass->Render_End();
 }
@@ -75,6 +78,8 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDevice)
 	if (FAILED(CDInputManager::GetInstance()->Ready_InputDev(g_hInst, g_hWnd)))
 		return E_FAIL;
 	if (FAILED(CDataManager::GetInstance()->Ready_Data((*ppGraphicDevice))))
+		return E_FAIL;
+	if (FAILED(CEditor::GetInstance()->Ready_Editor(g_hWnd, m_pGraphicDevice)))
 		return E_FAIL;
 
 	return S_OK;
@@ -108,6 +113,7 @@ void CMainApp::Free()
 
 	CDataManager::DestroyInstance();
 
+	Engine::CEditor::DestroyInstance();
 	Engine::CDInputManager::DestroyInstance();
 	Engine::CRenderer::DestroyInstance();
 	Engine::CGraphicDevice::DestroyInstance();

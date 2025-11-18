@@ -1,0 +1,23 @@
+#pragma once
+
+#include "CRenderObject.h"
+
+class CTestRect : public CRenderObject
+{
+private:
+	explicit CTestRect(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CTestRect(const CTestRect& rhs);
+	virtual ~CTestRect() override;
+
+private:
+	HRESULT		Ready_GameObject() override;
+	_int		Update_GameObject(const _float fTimeDelta) override;
+	void		LateUpdate_GameObject(const _float fTimeDelta) override;
+	void		Render_GameObject() override;
+
+public:
+	static CTestRect*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
+private:
+	void				Free() override;
+};
+

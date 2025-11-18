@@ -38,7 +38,6 @@ _int CMainApp::Update_MainApp(const _float fDeltaTime)
 	Engine::CDInputManager::GetInstance()->Update_InputDev();
 
 	m_pManageClass->Update_Scene(fDeltaTime);
-	CEditor::GetInstance()->Update_Editor();
 
 	return 0;
 }
@@ -46,15 +45,17 @@ _int CMainApp::Update_MainApp(const _float fDeltaTime)
 void CMainApp::LateUpdate_MainApp(const _float fDeltaTime)
 {
 	m_pManageClass->LateUpdate_Scene(fDeltaTime);
+
 }
 
 void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 0.5f, 1.f));
 
-	m_pManageClass->Render_Scene(m_pGraphicDevice);
+	CEditor::GetInstance()->Render_Begin();
 	CEditor::GetInstance()->Render_Editor();
-
+	m_pManageClass->Render_Scene(m_pGraphicDevice);
+	CEditor::GetInstance()->Render_End();
 	m_pDeviceClass->Render_End();
 }
 

@@ -4,6 +4,8 @@
 #include "CPrototypeManager.h"
 #include "CDynamicCamera.h"
 #include "CTestRect.h"
+#include "CExampleObject.h"
+#include "CExampleManager.h"
 
 CMainScene::CMainScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -32,6 +34,12 @@ _int CMainScene::Update_Scene(const _float fTimeDelta)
 {
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
+#pragma region Examples for ImGui
+
+    CExampleManager::GetInstance()->Update_Manager();
+
+#pragma endregion
+
     return iExit;
 }
 
@@ -47,7 +55,7 @@ void CMainScene::Render_Scene()
 
 HRESULT CMainScene::Ready_Camera_Layer(const wstring wsLayerTag)
 {
-    CLayer* pCamLayer = CLayer::Create();
+    CLayer* pCamLayer = CLayer::Create(wsLayerTag);
 
    // TODO : 카메라 생성 방식 고려
    CGameObject* pGameObject = nullptr;
@@ -68,13 +76,23 @@ HRESULT CMainScene::Ready_Environment_Layer(const wstring wsLayerTag)
 
 HRESULT CMainScene::Ready_GameLogic_Layer(const wstring wsLayerTag)
 {
-    CLayer* pGameLogicLayer = CLayer::Create();
+    CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
 
     CGameObject* pGameObject = nullptr;
     pGameObject = CTestRect::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp", pGameObject)))
         return E_FAIL;
     
+#pragma region Examples for ImGui
+    pGameObject = CExampleObject::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Example", pGameObject)))
+        return E_FAIL;
+
+    CExampleManager::GetInstance()->Ready_Manager();
+
+#pragma endregion
+
+
     m_umLayer.emplace(pair<const wstring, CLayer*>{ wsLayerTag, pGameLogicLayer});
 
     return S_OK;

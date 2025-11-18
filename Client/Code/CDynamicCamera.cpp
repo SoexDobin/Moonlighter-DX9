@@ -14,12 +14,14 @@ CDynamicCamera::CDynamicCamera(LPDIRECT3DDEVICE9 pGraphicDev,
     : CCamera(pGraphicDev, pEye, pAt, pUp, fFov, fAspect, fNear, fFar),
     m_fSpeed(0.f), m_bFix(false), m_bCheck(false)
 {
+    PANEL_NAME(L"DynamicCam");
 }
 
 CDynamicCamera::CDynamicCamera(const CDynamicCamera& rhs)
     : CCamera(rhs),
     m_fSpeed(rhs.m_fSpeed), m_bFix(rhs.m_bFix), m_bCheck(rhs.m_bCheck)
 {
+    PANEL_NAME(L"DynamicCam");
 }
 
 CDynamicCamera::~CDynamicCamera()

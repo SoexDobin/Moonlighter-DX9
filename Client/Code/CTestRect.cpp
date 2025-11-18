@@ -6,15 +6,18 @@
 CTestRect::CTestRect(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev)
 {
+    PANEL_NAME(L"Rect Object");
 }
 
 CTestRect::CTestRect(const CTestRect& rhs)
     : CRenderObject(rhs)
 {
+    PANEL_NAME(L"Rect Object");
 }
 
 CTestRect::~CTestRect()
 {
+    PANEL_NAME(L"Rect Object");
 }
 
 HRESULT CTestRect::Ready_GameObject()

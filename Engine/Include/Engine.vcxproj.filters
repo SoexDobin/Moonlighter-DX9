@@ -228,6 +228,9 @@
     <ClInclude Include="..\Header\CPanel.h">
       <Filter>00. Manager\08. Editor\00. Panel</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\ImGui_Define.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CTimer.cpp">

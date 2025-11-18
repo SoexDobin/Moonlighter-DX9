@@ -34,6 +34,11 @@ public:
 	virtual void			Free();
 	CComponent*				Clone() override;
 	PROTOTYPE_COMPONENT		Get_ComponentType() PURE;
+
+#pragma region Editor
+public:
+	virtual void Display_Editor(const char* pObjTag) override;
+#pragma endregion
 };
 
 END

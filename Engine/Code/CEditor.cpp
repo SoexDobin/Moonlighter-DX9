@@ -1,14 +1,20 @@
 #include "CEditor.h"
 #include "CPanel.h"
+#include "CFrameManager.h"
+#include "CRenderer.h"
 
 IMPLEMENT_SINGLETON(CEditor)
 
-CEditor::CEditor()
+CEditor::CEditor() 
+    : m_bGamePaused(false), m_fFPS(0.f)
 {
+    strcpy_s(m_szPaused, "Pause");
 }
 
 CEditor::CEditor(HWND hWnd, LPDIRECT3DDEVICE9 pGraphicDev)
+    : m_bGamePaused(false)
 {
+    strcpy_s(m_szPaused, "Pause");
 }
 
 CEditor::~CEditor()
@@ -45,8 +51,9 @@ HRESULT CEditor::Ready_Editor(HWND hWnd, LPDIRECT3DDEVICE9 pGraphicDev)
     return S_OK;
 }
 
-void CEditor::Update_Editor()
+void CEditor::Render_Begin()
 {
+    // ¿ø·¡ Render_Update()
     // Must be called before ImGui::Begin()
 #pragma region ImGui Begin
     ImGui_ImplDX9_NewFrame();
@@ -54,13 +61,20 @@ void CEditor::Update_Editor()
     ImGui::NewFrame();
 #pragma endregion
 
+}
+
+void CEditor::Render_Editor()
+{
+    Display_MainPanel();
+
     for (const auto& kv : m_pPanelMap)
     {
         kv.second->Display_Editor();
     }
 }
 
-void CEditor::Render_Editor()
+
+void	CEditor::Render_End()
 {
 #pragma region ImGui Render
     ImGui::EndFrame();
@@ -68,6 +82,7 @@ void CEditor::Render_Editor()
     ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
 #pragma endregion
 }
+
 
 void CEditor::Display_Editor(EDITORFIELD field)
 {
@@ -280,6 +295,47 @@ void CEditor::Add_EditorField(const char* pName, EDITORFIELD pField)
     }
 
     pPanel->Add_EditorField(pField);
+}
+
+void CEditor::Display_MainPanel()
+{
+    ImGui::Begin("Main Editor");
+
+    ImGui::PushItemWidth(50);
+
+    ImGui::Text("FPS : %d", CFrameManager::GetInstance()->Get_CurFPS()); ImGui::SameLine();
+    ImGui::Text("DrawCall : %d", CRenderer::GetInstance()->Get_DrawCalls());
+
+    if (ImGui::Button(m_szPaused))
+    {
+        if (!m_bGamePaused)
+        {
+            CFrameManager::GetInstance()->Pause_Game();
+            m_bGamePaused = true;
+            strcpy_s(m_szPaused, "Restart");
+        }
+        else
+        {
+            CFrameManager::GetInstance()->Restart_Game();
+            m_bGamePaused = false;
+            strcpy_s(m_szPaused, "Pause");
+        }
+    }
+    
+    if (m_bGamePaused)
+    {
+        ImGui::SameLine();
+        if (ImGui::Button("Next Frame"))
+        {
+            CFrameManager::GetInstance()->Transit_NextFrame();
+        }
+    }
+
+    ImGui::DragFloat("Time Scale", m_pTimeScale, 0.01f, 0.1f, 2.0f, "%.2f");
+
+    ImGui::PopItemWidth();
+
+    ImGui::End();
 }
 
 void CEditor::Free()

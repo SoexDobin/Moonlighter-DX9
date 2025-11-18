@@ -51,9 +51,9 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 		->Ready_Prototype(TRANSFORM, CTransform::Create(pGraphicDev))))
 		return E_FAIL;
 
-	if (FAILED(Engine::CPrototypeManager::GetInstance()
-		->Ready_Prototype(TEXTURE, CTexture::Create(pGraphicDev))))
-		return E_FAIL;
+	//if (FAILED(Engine::CPrototypeManager::GetInstance()
+	//	->Ready_Prototype(TEXTURE, CTexture::Create(pGraphicDev))))
+	//	return E_FAIL;
 
 
 	return S_OK;

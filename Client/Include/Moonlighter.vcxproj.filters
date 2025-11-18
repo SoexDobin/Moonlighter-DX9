@@ -34,6 +34,9 @@
     <Filter Include="03. GameObject\00. DynamicCamera">
       <UniqueIdentifier>{49efe80d-2436-4e67-b372-e90202bbf0cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. Imgui">
+      <UniqueIdentifier>{d8c17b16-565a-46ca-a21c-5117d0b8099d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -66,6 +69,30 @@
     <ClInclude Include="..\Header\CTestRect.h">
       <Filter>03. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\imconfig.h">
+      <Filter>98. Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\imgui.h">
+      <Filter>98. Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\imgui_impl_dx9.h">
+      <Filter>98. Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\imgui_impl_win32.h">
+      <Filter>98. Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\imgui_internal.h">
+      <Filter>98. Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\imstb_rectpack.h">
+      <Filter>98. Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\imstb_textedit.h">
+      <Filter>98. Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\imstb_truetype.h">
+      <Filter>98. Imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -88,6 +115,27 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTestRect.cpp">
       <Filter>03. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\imgui.cpp">
+      <Filter>98. Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\imgui_demo.cpp">
+      <Filter>98. Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\imgui_draw.cpp">
+      <Filter>98. Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\imgui_impl_dx9.cpp">
+      <Filter>98. Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\imgui_impl_win32.cpp">
+      <Filter>98. Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\imgui_tables.cpp">
+      <Filter>98. Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\imgui_widgets.cpp">
+      <Filter>98. Imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

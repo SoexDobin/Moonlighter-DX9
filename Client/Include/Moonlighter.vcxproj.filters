@@ -34,6 +34,9 @@
     <Filter Include="03. GameObject\00. DynamicCamera">
       <UniqueIdentifier>{49efe80d-2436-4e67-b372-e90202bbf0cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. ImGui">
+      <UniqueIdentifier>{60e9193a-3115-499e-95eb-7af4dfeaf6ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

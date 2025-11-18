@@ -109,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;ENGINE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../Header;../../Base;./FMOD;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Header;../../Base;./FMOD;../External;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -138,6 +138,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\External\imconfig.h" />
+    <ClInclude Include="..\External\imgui.h" />
+    <ClInclude Include="..\External\imgui_impl_dx9.h" />
+    <ClInclude Include="..\External\imgui_impl_win32.h" />
+    <ClInclude Include="..\External\imgui_internal.h" />
+    <ClInclude Include="..\External\imstb_rectpack.h" />
+    <ClInclude Include="..\External\imstb_textedit.h" />
+    <ClInclude Include="..\External\imstb_truetype.h" />
     <ClInclude Include="..\Header\CCamera.h" />
     <ClInclude Include="..\Header\CComponent.h" />
     <ClInclude Include="..\Header\CCubeTex.h" />
@@ -194,6 +202,13 @@
     <ClCompile Include="..\Code\CTimer.cpp" />
     <ClCompile Include="..\Code\CTransform.cpp" />
     <ClCompile Include="..\Code\CVIBuffer.cpp" />
+    <ClCompile Include="..\External\imgui.cpp" />
+    <ClCompile Include="..\External\imgui_demo.cpp" />
+    <ClCompile Include="..\External\imgui_draw.cpp" />
+    <ClCompile Include="..\External\imgui_impl_dx9.cpp" />
+    <ClCompile Include="..\External\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\External\imgui_tables.cpp" />
+    <ClCompile Include="..\External\imgui_widgets.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

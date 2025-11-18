@@ -97,6 +97,9 @@
     <Filter Include="00. Manager\07. ResourceManager">
       <UniqueIdentifier>{cb2aeed9-3147-452e-8934-08fa54c86e39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. ImGui">
+      <UniqueIdentifier>{cd8f9921-1c81-46b0-9db9-8e4a208a0dbe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -189,6 +192,30 @@
     <ClInclude Include="..\Header\CResourceManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="..\External\imconfig.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imgui.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imgui_impl_dx9.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imgui_impl_win32.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imgui_internal.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imstb_rectpack.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imstb_textedit.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imstb_truetype.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CTimer.cpp">
@@ -262,6 +289,27 @@
     </ClCompile>
     <ClCompile Include="..\Code\CResourceManager.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\imgui.cpp">
+      <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\imgui_demo.cpp">
+      <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\imgui_draw.cpp">
+      <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\imgui_impl_dx9.cpp">
+      <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\imgui_impl_win32.cpp">
+      <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\imgui_tables.cpp">
+      <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\imgui_widgets.cpp">
+      <Filter>98. ImGui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

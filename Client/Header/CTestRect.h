@@ -1,15 +1,8 @@
 #pragma once
 
-#include "CGameObject.h"
+#include "CRenderObject.h"
 
-namespace Engine
-{
-	class CRectColor;
-	class CTransform;
-}
-
-
-class CTestRect : public CGameObject
+class CTestRect : public CRenderObject
 {
 private:
 	explicit CTestRect(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -21,10 +14,6 @@ private:
 	_int		Update_GameObject(const _float fTimeDelta) override;
 	void		LateUpdate_GameObject(const _float fTimeDelta) override;
 	void		Render_GameObject() override;
-
-private:
-	CRectColor*		m_pBufferCom;
-	CTransform*		m_pTransformCom;
 
 public:
 	static CTestRect*	Create(LPDIRECT3DDEVICE9 pGraphicDev);

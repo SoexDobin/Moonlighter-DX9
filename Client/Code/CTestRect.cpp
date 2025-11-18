@@ -4,12 +4,12 @@
 #include "CPrototypeManager.h"
 
 CTestRect::CTestRect(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CGameObject(pGraphicDev), m_pBufferCom(nullptr), m_pTransformCom(nullptr)
+    : CRenderObject(pGraphicDev)
 {
 }
 
 CTestRect::CTestRect(const CTestRect& rhs)
-    : CGameObject(rhs), m_pBufferCom(nullptr), m_pTransformCom(nullptr)
+    : CRenderObject(rhs)
 {
 }
 
@@ -19,19 +19,10 @@ CTestRect::~CTestRect()
 
 HRESULT CTestRect::Ready_GameObject()
 {
-    CComponent* pComponent;
-
-    pComponent = Engine::CPrototypeManager::GetInstance()->Clone_Prototype(RECTCOLOR);
-    if (pComponent->Get_ComponentType() != RECTCOLOR)
+    if (FAILED(Engine::CRenderObject::Ready_GameObject()))
         return E_FAIL;
-    m_pBufferCom = static_cast<CRectColor*>(pComponent);
-    m_umComponent[ID_STATIC].emplace(pair<const _tchar*, CComponent*>({ L"Buffer_Com", pComponent}));
 
-    pComponent = Engine::CPrototypeManager::GetInstance()->Clone_Prototype(TRANSFORM);
-    if (pComponent->Get_ComponentType() != TRANSFORM)
-        return E_FAIL;
-    m_pTransformCom = static_cast<CTransform*>(pComponent);
-    m_umComponent[ID_DYNAMIC].emplace(pair<const _tchar*, CComponent*>({ L"Transform_Com", pComponent }));
+    m_pTransformCom->Set_Pos({ 0.f, 0.f, 10.f });
 
     return S_OK;
 }

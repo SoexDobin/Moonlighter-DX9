@@ -11,8 +11,8 @@ private:
 	virtual ~CLayer() override;
 
 public:
-	CComponent*		Get_Component(COMPONENTID eID, const _tchar* pObjTag, const _tchar* pComponentTag);
-	HRESULT			Add_GameObject(const _tchar* pObjTag, CGameObject* pGameObject);
+	CComponent*		Get_Component(COMPONENTID eID, const wstring wsObjTag, const wstring wsComponentTag);
+	HRESULT			Add_GameObject(const wstring wsObjTag, CGameObject* pGameObject);
 
 public:
 	HRESULT		Ready_Layer();
@@ -21,7 +21,7 @@ public:
 	void		Render_Layer();
 
 private:
-	unordered_map<const _tchar*, CGameObject*>		m_umGameObject;
+	unordered_map<wstring, CGameObject*>		m_umGameObject;
 
 public:
 	static CLayer* Create();

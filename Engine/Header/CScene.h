@@ -17,9 +17,9 @@ public:
 
 public:
 	CComponent*		Get_Component(COMPONENTID eID,
-								const _tchar* pLayerTag,
-								const _tchar* pObjTag,
-								const _tchar* pComponentTag);
+								const wstring wsLayerTag,
+								const wstring wsObjTag,
+								const wstring wsComponentTag);
 
 public:
 	virtual		HRESULT		Ready_Scene();
@@ -30,7 +30,7 @@ public:
 protected:
 	_int										m_iSceneIdx;
 	LPDIRECT3DDEVICE9							m_pGraphicDevice;
-	unordered_map<const _tchar*, CLayer*>		m_umLayer;
+	unordered_map<wstring, CLayer*>		m_umLayer;
 
 protected:
 	virtual void Free();

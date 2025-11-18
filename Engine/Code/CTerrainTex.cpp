@@ -1,7 +1,7 @@
 #include "CTerrainTex.h"
 
 CTerrainTex::CTerrainTex()
-    : m_dwCntX(0), m_dwCntZ(0), m_dwVtxItv(0), m_pHeightMapPath(nullptr)
+    : m_dwCntX(0), m_dwCntZ(0), m_dwVtxItv(0), m_wsHeightMapPath(L"")
 {
 }
 
@@ -9,15 +9,15 @@ CTerrainTex::CTerrainTex(LPDIRECT3DDEVICE9 pGraphicDev,
     const _ulong dwCntX, 
     const _ulong dwCntZ, 
     const _ulong dwVtxItv, 
-    const _tchar* pHeightMapPath)
+    const wstring wsHeightMapPath)
     : CVIBuffer(pGraphicDev), 
-    m_dwCntX(dwCntX), m_dwCntZ(dwCntZ), m_dwVtxItv(dwVtxItv), m_pHeightMapPath(pHeightMapPath)
+    m_dwCntX(dwCntX), m_dwCntZ(dwCntZ), m_dwVtxItv(dwVtxItv), m_wsHeightMapPath(wsHeightMapPath)
 {
 }
 
 CTerrainTex::CTerrainTex(const CTerrainTex& rhs)
     : CVIBuffer(rhs), 
-    m_dwCntX(rhs.m_dwCntX), m_dwCntZ(rhs.m_dwCntZ), m_dwVtxItv(rhs.m_dwVtxItv), m_pHeightMapPath(rhs.m_pHeightMapPath)
+    m_dwCntX(rhs.m_dwCntX), m_dwCntZ(rhs.m_dwCntZ), m_dwVtxItv(rhs.m_dwVtxItv), m_wsHeightMapPath(rhs.m_wsHeightMapPath)
 {
     
 }
@@ -40,12 +40,12 @@ HRESULT CTerrainTex::Ready_Buffer()
         return E_FAIL;
 
     _ulong* pPixel(nullptr);
-    if (m_pHeightMapPath != nullptr)
+    if (!m_wsHeightMapPath.empty())
     {
         _ulong dwByte(0);
         BITMAPFILEHEADER tFileHeader;
         BITMAPINFOHEADER tInfoHeader;
-        HANDLE hFile = CreateFile(m_pHeightMapPath,
+        HANDLE hFile = CreateFile(m_wsHeightMapPath.c_str(),
                                   GENERIC_READ,
                                   NULL, NULL,
                                   OPEN_EXISTING,
@@ -130,9 +130,9 @@ CTerrainTex* CTerrainTex::Create(LPDIRECT3DDEVICE9 pGraphicDev,
                                  const _ulong dwCntX,
                                  const _ulong dwCntZ,
                                  const _ulong dwVtxItv,
-                                 const _tchar* pHeightMapPath)
+                                 const wstring wsHeightMapPath)
 {
-    CTerrainTex* pInstance = new CTerrainTex(pGraphicDev, dwCntX, dwCntZ, dwVtxItv, pHeightMapPath);
+    CTerrainTex* pInstance = new CTerrainTex(pGraphicDev, dwCntX, dwCntZ, dwVtxItv, wsHeightMapPath);
 
     if (FAILED(pInstance->Ready_Buffer()))
     {

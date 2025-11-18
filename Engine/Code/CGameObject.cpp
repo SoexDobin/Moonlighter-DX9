@@ -16,21 +16,21 @@ CGameObject::~CGameObject()
 {
 }
 
-CComponent* CGameObject::Get_Component(COMPONENTID eID, const _tchar* pComponentTag)
+CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring wsComponentTag)
 {
 	CComponent* pComponent(nullptr);
 
-	if (pComponent = Find_Component(eID, pComponentTag))
+	if (pComponent = Find_Component(eID, wsComponentTag))
 		return pComponent;
 	else 
 		return nullptr;
 }
 
-CComponent* CGameObject::Find_Component(COMPONENTID eID, const _tchar* pComponentTag)
+CComponent* CGameObject::Find_Component(COMPONENTID eID, const wstring wsComponentTag)
 {
 	auto iter = find_if(m_umComponent[eID].begin(), m_umComponent[eID].end()
-		, [&pComponentTag](const pair<const _tchar* const, CComponent*>& pair) -> _bool {
-			if (0 == lstrcmpW(pair.first, pComponentTag))
+		, [&wsComponentTag](const pair<const wstring, CComponent*>& pair) -> _bool {
+			if (pair.first == wsComponentTag)
 				return true;
 
 			return false;
@@ -49,7 +49,7 @@ HRESULT CGameObject::Ready_GameObject()
 _int CGameObject::Update_GameObject(const _float fTimeDelta)
 {
 	for_each(m_umComponent[ID_DYNAMIC].begin(), m_umComponent[ID_DYNAMIC].end()
-		, [fTimeDelta](const pair<const _tchar* const, CComponent*>& pair) -> void {
+		, [fTimeDelta](const pair<const wstring, CComponent*>& pair) -> void {
 			pair.second->Update_Component(fTimeDelta);
 		});
 
@@ -59,7 +59,7 @@ _int CGameObject::Update_GameObject(const _float fTimeDelta)
 void CGameObject::LateUpdate_GameObject(const _float fTimeDelta)
 {
 	for_each(m_umComponent[ID_DYNAMIC].begin(), m_umComponent[ID_DYNAMIC].end()
-		, [fTimeDelta](const pair<const _tchar* const, CComponent*>& pair) -> void {
+		, [fTimeDelta](const pair<const wstring, CComponent*>& pair) -> void {
 			pair.second->LateUpdate_Component();
 		});
 }

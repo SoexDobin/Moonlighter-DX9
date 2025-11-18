@@ -14,14 +14,14 @@ CManagement::~CManagement()
 }
 
 CComponent* CManagement::Get_Component(COMPONENTID eID, 
-                                    const _tchar* pLayerTag, 
-                                    const _tchar* pObjTag, 
-                                    const _tchar* pComponentTag)
+                                    const wstring wsLayerTag, 
+                                    const wstring wsObjTag, 
+                                    const wstring wsComponentTag)
 {
     if (nullptr == m_pCurScene)
         return nullptr;
 
-    return m_pCurScene->Get_Component(eID, pLayerTag, pObjTag, pComponentTag);
+    return m_pCurScene->Get_Component(eID, wsLayerTag, wsObjTag, wsComponentTag);
 }
 
 HRESULT CManagement::Set_Scene(CScene* pScene)

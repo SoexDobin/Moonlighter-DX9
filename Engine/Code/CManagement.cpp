@@ -4,7 +4,7 @@
 IMPLEMENT_SINGLETON(CManagement)
 
 CManagement::CManagement()
-    : m_pCurScene(nullptr)
+    : m_pCurScene(nullptr), m_pNextScene(nullptr), m_bChangeScene(false)
 {
 }
 
@@ -61,4 +61,28 @@ void CManagement::Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 void CManagement::Free()
 {
     Safe_Release(m_pCurScene);
+}
+
+HRESULT CManagement::Request_ChangeScene(CScene* nextScene)
+{
+    if (nullptr == nextScene)
+        return E_FAIL;
+
+    if (m_pNextScene != nullptr)
+        Safe_Release(m_pNextScene);
+
+    m_pNextScene = nextScene;
+    m_bChangeScene = true;
+
+    return S_OK;
+}
+
+void CManagement::Commit_ChangeScene()
+{
+    if (!m_bChangeScene) return;
+
+    Safe_Release(m_pCurScene);
+    m_pCurScene = m_pNextScene;
+    m_pNextScene = nullptr;
+    m_bChangeScene = false;
 }

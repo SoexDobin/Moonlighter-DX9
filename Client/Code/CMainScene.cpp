@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "CMainScene.h"
-
+#include "CDInputManager.h"
 #include "CPrototypeManager.h"
 #include "CDynamicCamera.h"
 #include "CTestRect.h"
+#include "CManagement.h"
+#include "CEdit.h"
 
 CMainScene::CMainScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -31,6 +33,13 @@ HRESULT CMainScene::Ready_Scene()
 _int CMainScene::Update_Scene(const _float fTimeDelta)
 {
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
+
+    if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_E))
+    {
+        Engine::CScene* pEdit = CEdit::Create(m_pGraphicDevice);
+
+        CManagement::GetInstance()->Request_ChangeScene(pEdit);
+    }
 
     return iExit;
 }

@@ -34,6 +34,8 @@ HRESULT CMainApp::Ready_MainApp()
 
 _int CMainApp::Update_MainApp(const _float fDeltaTime)
 {
+	m_pManageClass->Commit_ChangeScene();
+
 	Engine::CDInputManager::GetInstance()->Update_InputDev();
 
 	m_pManageClass->Update_Scene(fDeltaTime);

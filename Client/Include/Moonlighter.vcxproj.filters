@@ -37,6 +37,9 @@
     <Filter Include="98. Imgui">
       <UniqueIdentifier>{d8c17b16-565a-46ca-a21c-5117d0b8099d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scene\CEdit">
+      <UniqueIdentifier>{80b8887f-c6d1-4a50-be50-6fe044969ee3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -93,6 +96,9 @@
     <ClInclude Include="..\Header\imstb_truetype.h">
       <Filter>98. Imgui</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEdit.h">
+      <Filter>02. Scene\CEdit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -136,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\imgui_widgets.cpp">
       <Filter>98. Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEdit.cpp">
+      <Filter>02. Scene\CEdit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

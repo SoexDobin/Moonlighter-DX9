@@ -137,11 +137,11 @@ void CTexture::Display_Editor(const char* pObjTag)
 
      ImGui::Checkbox("stop", &m_bStop);
 
-     ImGui::DragFloat("speed : %.2f", &m_fSpeed);
+     ImGui::DragFloat("speed", &m_fSpeed, 0.1f, 0.f, 40.f, "%.2f");
      ImGui::DragInt("frame", (int*)(&m_iCurFrame), 1.f, 0, m_vecTexture[m_iCurTex].size() - 1);
 
-     ImGui::Text("cur Tex : %lu", m_iCurTex);
      ImGui::Text("cur frame : %lu", m_iCurFrame);
+     ImGui::Text("cur Tex : %lu", m_iCurTex);
 
      ImGui::PopItemWidth();
 }

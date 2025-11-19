@@ -29,6 +29,14 @@ protected:
 
 protected:
 	virtual void				Free();
+
+#pragma region Editor
+public:
+	virtual void				Display_Editor(const char* pObjTag) {};
+	_bool						m_bDisplayInEditor;
+	TCHAR						m_szDisplayName[32];
+#pragma endregion
+
 };
 
 END

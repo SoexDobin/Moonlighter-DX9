@@ -29,6 +29,24 @@ protected:
 
 protected:
 	virtual void Free() override;
+
+#pragma region Editor
+public:
+	virtual			void		Display_Editor();
+
+protected:
+	virtual void		Add_EditorField(const char* pTag, DATATYPE type, void* pData) { m_EditorFieldList.push_back({ pTag, type, pData }); }
+	virtual void		Add_EditorField(EDITORFIELD field) { m_EditorFieldList.push_back(field); }
+
+public :
+	_bool m_bDisplayInEditor;
+	TCHAR m_szDisplayName[32];
+	char m_szBuffer[32];
+
+protected :
+	list<EDITORFIELD> m_EditorFieldList;
+#pragma endregion
+
 };
 
 END

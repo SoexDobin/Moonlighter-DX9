@@ -3,6 +3,7 @@
 IMPLEMENT_SINGLETON(CRenderer)
 
 CRenderer::CRenderer()
+	: m_iDrawCalls(0)
 {
 }
 
@@ -22,6 +23,8 @@ void CRenderer::Add_RenderGroup(RENDERID eID, CGameObject* pGameObject)
 
 void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 {
+	m_iDrawCalls = 0;
+
 	Render_Priority(pGraphicDev);
 	Render_NonAlpha(pGraphicDev);
 	Render_Alpha(pGraphicDev);

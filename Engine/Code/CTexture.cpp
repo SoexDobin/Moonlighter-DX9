@@ -84,7 +84,7 @@ _int CTexture::Update_Component(const _float fTimeDelta)
     {
         if (m_iCurFrame >= m_vecTexture[m_iCurTex].size())
         {
-            m_iCurFrame = m_vecTexture[m_iCurTex].size() - 1;
+            m_iCurFrame = static_cast<unsigned int>(m_vecTexture[m_iCurTex].size()) - 1;
             m_bOneLoop = true;
         }
     }
@@ -126,4 +126,22 @@ void CTexture::Free()
     });
 
     m_vecTexture.clear();
+}
+
+void CTexture::Display_Editor(const char* pObjTag)
+{
+    if (!m_bDisplayInEditor)
+        return;
+
+    string sName = "[Texture]_" + string(pObjTag);
+
+    ImGui::Begin(sName.c_str());
+
+    ImGui::PushItemWidth(40);
+
+    ImGui::Text("texture frame : %lu", m_iCurFrame);
+
+    ImGui::PopItemWidth();
+
+    ImGui::End();
 }

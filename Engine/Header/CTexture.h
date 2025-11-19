@@ -55,6 +55,12 @@ public:
 
 private:
 	virtual void		Free() override;
+
+#pragma region Editor
+public:
+	virtual void Display_Editor(const char* pObjTag) override;
+#pragma endregion
+
 };
 
 END

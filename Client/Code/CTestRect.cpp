@@ -7,15 +7,18 @@
 CTestRect::CTestRect(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_pStaticTexCom(nullptr)
 {
+    PANEL_NAME(L"Rect Object");
 }
 
 CTestRect::CTestRect(const CTestRect& rhs)
     : CRenderObject(rhs), m_pDynamicTexCom(nullptr), m_pStaticTexCom(nullptr)
 {
+    PANEL_NAME(L"Rect Object");
 }
 
 CTestRect::~CTestRect()
 {
+    PANEL_NAME(L"Rect Object");
 }
 
 HRESULT CTestRect::Ready_GameObject()

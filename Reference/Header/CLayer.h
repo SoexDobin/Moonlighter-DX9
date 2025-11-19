@@ -24,10 +24,19 @@ private:
 	unordered_map<wstring, CGameObject*>		m_umGameObject;
 
 public:
-	static CLayer* Create();
+	static CLayer* Create(wstring layerTag = L"Layer");
 
 private:
 	virtual void Free() override;
+
+#pragma region Editor
+public:
+	void			Display_Editor();
+public :
+	bool			m_bDisplayInEditor;
+	wstring	m_LayerTag;
+#pragma endregion
+
 };
 
 END

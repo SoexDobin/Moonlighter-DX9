@@ -23,8 +23,13 @@ private:
 	void	Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev);
 	void	Render_UI(LPDIRECT3DDEVICE9& pGraphicDev);
 
+public :
+	const _uint&	Get_DrawCalls() { return m_iDrawCalls; }
+	void					Inc_DrawCalls() { m_iDrawCalls++; }
+
 private:
 	list<CGameObject*>			m_RenderGroup[RENDER_END];
+	_uint m_iDrawCalls;
 
 private:
 	virtual void		Free() override;

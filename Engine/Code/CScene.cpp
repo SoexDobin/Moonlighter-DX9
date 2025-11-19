@@ -55,6 +55,8 @@ void CScene::Render_Scene()
         , [](pair<const wstring, CLayer*>& pair) -> void {
             pair.second->Render_Layer();
         });
+
+    Display_Editor();
 }
 
 void CScene::Free()
@@ -63,4 +65,21 @@ void CScene::Free()
     m_umLayer.clear();
 
     Safe_Release(m_pGraphicDevice);
+}
+
+void CScene::Display_Editor()
+{
+    ImGui::Begin("Scene");
+
+    _uint dwIndex = 0;
+    for (auto& layer : m_umLayer)
+    {
+        ImGui::Checkbox(("##" + to_string(dwIndex++)).c_str(), &layer.second->m_bDisplayInEditor);       ImGui::SameLine();
+        
+        ImGui::Text("%ls", layer.first.c_str());
+        
+        layer.second->Display_Editor();
+    }
+
+    ImGui::End();
 }

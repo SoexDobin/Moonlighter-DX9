@@ -32,7 +32,7 @@ HRESULT CLayer::Add_GameObject(const wstring& wsObjTag, CGameObject* pGameObject
 {
 	if (nullptr == pGameObject) return E_FAIL;
 
-	m_umGameObject.emplace(pair<const wstring, CGameObject*>{ wsObjTag, pGameObject });
+    m_umGameObject[wsObjTag].push_back(pGameObject);	
 
     return S_OK;
 }
@@ -121,12 +121,13 @@ void CLayer::Display_Editor()
 	if (!m_bDisplayInEditor)
 		return;
 
-    for (auto& gameObject : m_umGameObject)
-    {
-        ImGui::Checkbox(("##" + to_string((uintptr_t)gameObject.second)).c_str(), &gameObject.second->m_bDisplayInEditor); ImGui::SameLine();
-        ImGui::Text("%ls", gameObject.second->m_szDisplayName);
+    for (auto& gameObjectList : m_umGameObject)
+        for (auto& gameObject : gameObjectList.second)
+        {
+            ImGui::Checkbox(("##" + to_string((uintptr_t)gameObject)).c_str(), &gameObject->m_bDisplayInEditor); ImGui::SameLine();
+            ImGui::Text("%ls", gameObject->m_szDisplayName);
 
-        gameObject.second->Display_Editor();
-    }
+            gameObject->Display_Editor();
+        }
 }
 

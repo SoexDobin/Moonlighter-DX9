@@ -31,8 +31,6 @@ HRESULT CMainApp::Ready_MainApp()
 	if (FAILED(Ready_Scene(m_pGraphicDevice)))
 		return E_FAIL;
 
-    
-
 	return S_OK;
 }
 

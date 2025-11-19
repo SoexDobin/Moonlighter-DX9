@@ -14,7 +14,9 @@ private:
 	virtual	~CManagement() override;
 
 public:
-    CGameObject*    Get_Object(const wstring& wsLayerTag, const wstring& wsObjTag);
+    CGameObject*               Get_Object(const wstring& wsLayerTag, const wstring& wsObjTag);
+    CGameObject*               Get_Object(const wstring& wsObjTag);
+    const list<CGameObject*>*  Get_Object_List(const wstring& wsObjTag);
 
 	CComponent*		Get_Component(COMPONENTID eID,
 							const wstring& wsLayerTag,

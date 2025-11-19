@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CGameObject.h"
 
@@ -17,6 +17,9 @@ protected:
 public:
 	const CTransform&	Get_Trans()		{ return *m_pTransformCom; }
 	const CRectTex&		Get_Buffer()	{ return *m_pBufferCom; }
+
+public:
+    virtual GAMEOBJECT_TYPE     Get_Type() override { return RENDER_OBJECT; }
 
 public:
 	virtual		HRESULT		Ready_GameObject() override;

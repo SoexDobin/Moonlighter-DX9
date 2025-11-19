@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CGameObject.h"
 
@@ -22,6 +22,9 @@ public:
 	virtual HRESULT		Ready_GameObject() override;
 	virtual _int		Update_GameObject(const _float fTimeDelta) override;
 	virtual void		LateUpdate_GameObject(const _float fTimeDelta) override;
+
+public:
+    virtual GAMEOBJECT_TYPE     Get_Type() override { return CAMERA_OBJECT; }
 
 protected:
 	_matrix		m_matView, m_matProj;

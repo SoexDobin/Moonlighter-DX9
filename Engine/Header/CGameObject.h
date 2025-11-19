@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CBase.h"
 #include "CComponent.h"
 
@@ -12,7 +12,8 @@ protected:
 	virtual ~CGameObject() override;
 
 public:
-	CComponent*		Get_Component(COMPONENTID eID, const wstring wsComponentTag);
+	CComponent*		        Get_Component(COMPONENTID eID, const wstring wsComponentTag);
+    virtual GAMEOBJECT_TYPE Get_Type() { return GAME_OBJECT; }
 
 private:
 	CComponent*		Find_Component(COMPONENTID eID, const wstring wsComponentTag);

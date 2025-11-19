@@ -165,8 +165,6 @@ HRESULT CEditScene::Ready_UI_Layer(const wstring wsLayerTag)
 
 HRESULT CEditScene::Ready_Prototype()
 {
-
-
     return S_OK;
 }
 

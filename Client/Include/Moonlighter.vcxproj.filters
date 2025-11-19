@@ -43,6 +43,12 @@
     <Filter Include="98. ImGui\EX_Manager">
       <UniqueIdentifier>{8c1d9181-9337-446c-b4a4-fe6f408b29da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scene\07. PlayerTestScene">
+      <UniqueIdentifier>{f7f4f60e-af65-4766-802a-b1956ec24339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\07. Player">
+      <UniqueIdentifier>{29a71569-598b-4100-b888-71b07937c4c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -81,6 +87,12 @@
     <ClInclude Include="..\Header\CExampleManager.h">
       <Filter>98. ImGui\EX_Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CPlayerTestScene.h">
+      <Filter>02. Scene\07. PlayerTestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPlayer.h">
+      <Filter>03. GameObject\07. Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -109,6 +121,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CExampleManager.cpp">
       <Filter>98. ImGui\EX_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPlayerTestScene.cpp">
+      <Filter>02. Scene\07. PlayerTestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPlayer.cpp">
+      <Filter>03. GameObject\07. Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

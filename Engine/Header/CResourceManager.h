@@ -13,7 +13,7 @@ private:
 	virtual ~CResourceManager() override;
 
 public:
-	HRESULT		Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& swKey, const wstring& swPath, _uint iCnt);
+	HRESULT		Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& swKey, const wstring& swPath, _uint iFrameCnt, _uint iStartOffset = 0);
 	HRESULT		Add_Cube(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& swKey, const wstring& swPath);
 
 public:

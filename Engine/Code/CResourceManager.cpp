@@ -12,13 +12,13 @@ CResourceManager::~CResourceManager()
 }
 
 
-HRESULT CResourceManager::Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& wsKey, const wstring& wsPath, _uint iCnt)
+HRESULT CResourceManager::Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& wsKey, const wstring& wsPath, _uint iFrameCnt, _uint iStartOffset)
 {
     m_umapSprite.insert({ wsKey, vector<IDirect3DBaseTexture9*>()});
-    m_umapSprite[wsKey].reserve(iCnt);
+    m_umapSprite[wsKey].reserve(iFrameCnt);
     IDirect3DBaseTexture9* pTexture = nullptr;
 
-    for (_uint i = 0; i < iCnt; ++i)
+    for (_uint i = iStartOffset; i < iFrameCnt + iStartOffset; ++i)
     {
         TCHAR   szFileName[256] = L"";
         wsprintf(szFileName, wsPath.c_str(), i);

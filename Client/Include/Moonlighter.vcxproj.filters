@@ -42,7 +42,7 @@
     </Filter>
     <Filter Include="03. GameObject\01. CTerrainVillege">
       <UniqueIdentifier>{d3be0854-a4d2-4d41-a8c0-574438749528}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="98. ImGui">
       <UniqueIdentifier>{60e9193a-3115-499e-95eb-7af4dfeaf6ed}</UniqueIdentifier>
     </Filter>
@@ -84,37 +84,12 @@
     <ClInclude Include="..\Header\CTestRect.h">
       <Filter>03. GameObject</Filter>
     </ClInclude>
-
-    <ClInclude Include="..\Header\imconfig.h">
-      <Filter>98. Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\imgui.h">
-      <Filter>98. Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\imgui_impl_dx9.h">
-      <Filter>98. Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\imgui_impl_win32.h">
-      <Filter>98. Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\imgui_internal.h">
-      <Filter>98. Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\imstb_rectpack.h">
-      <Filter>98. Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\imstb_textedit.h">
-      <Filter>98. Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\imstb_truetype.h">
-      <Filter>98. Imgui</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CEdit.h">
       <Filter>02. Scene\CEdit</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTerrainVillage.h">
       <Filter>03. GameObject\01. CTerrainVillege</Filter>
-</ClInclude>
+    </ClInclude>
     <ClInclude Include="..\Header\CExampleObject.h">
       <Filter>98. ImGui\EX_Object</Filter>
     </ClInclude>
@@ -144,33 +119,12 @@
     <ClCompile Include="..\Code\CTestRect.cpp">
       <Filter>03. GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\imgui.cpp">
-      <Filter>98. Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\imgui_demo.cpp">
-      <Filter>98. Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\imgui_draw.cpp">
-      <Filter>98. Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\imgui_impl_dx9.cpp">
-      <Filter>98. Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\imgui_impl_win32.cpp">
-      <Filter>98. Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\imgui_tables.cpp">
-      <Filter>98. Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\imgui_widgets.cpp">
-      <Filter>98. Imgui</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CEdit.cpp">
       <Filter>02. Scene\CEdit</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainVillage.cpp">
       <Filter>03. GameObject\01. CTerrainVillege</Filter>
-	  </ClCompile>
+    </ClCompile>
     <ClCompile Include="..\Code\CExampleObject.cpp">
       <Filter>98. ImGui\EX_Object</Filter>
     </ClCompile>

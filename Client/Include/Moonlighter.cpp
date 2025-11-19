@@ -173,10 +173,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     // Forward declare message handler from imgui_impl_win32.cpp
-    extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+    //extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
-        return true;
+    //if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+    //    return true;
 
     Engine::CEditor::GetInstance()->Editor_WndProc(hWnd, message, wParam, lParam);
 

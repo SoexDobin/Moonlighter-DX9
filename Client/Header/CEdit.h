@@ -1,6 +1,8 @@
-#pragma once
+﻿#pragma once
 #include "CScene.h"
 #include "CTerrainTex.h"
+
+
 class CEdit : public CScene
 {
 private:

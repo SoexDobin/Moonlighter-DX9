@@ -1,5 +1,6 @@
-#include "CGameObject.h"
+﻿#include "CGameObject.h"
 #include "CEditor.h"
+
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	: m_pGraphicDevice(pGraphicDev), m_bDisplayInEditor(false)
@@ -17,7 +18,7 @@ CGameObject::~CGameObject()
 {
 }
 
-CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring wsComponentTag)
+CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring& wsComponentTag)
 {
 	CComponent* pComponent(nullptr);
 
@@ -27,10 +28,10 @@ CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring wsComponen
 		return nullptr;
 }
 
-CComponent* CGameObject::Find_Component(COMPONENTID eID, const wstring wsComponentTag)
+CComponent* CGameObject::Find_Component(COMPONENTID eID, const wstring& wsComponentTag)
 {
 	auto iter = find_if(m_umComponent[eID].begin(), m_umComponent[eID].end()
-		, [&wsComponentTag](const pair<const wstring, CComponent*>& pair) -> _bool {
+		, [&wsComponentTag](pair<const wstring, CComponent*>& pair) -> _bool {
 			if (pair.first == wsComponentTag)
 				return true;
 
@@ -50,7 +51,7 @@ HRESULT CGameObject::Ready_GameObject()
 _int CGameObject::Update_GameObject(const _float fTimeDelta)
 {
 	for_each(m_umComponent[ID_DYNAMIC].begin(), m_umComponent[ID_DYNAMIC].end()
-		, [fTimeDelta](const pair<const wstring, CComponent*>& pair) -> void {
+		, [fTimeDelta](pair<const wstring, CComponent*>& pair) -> void {
 			pair.second->Update_Component(fTimeDelta);
 		});
 
@@ -60,7 +61,7 @@ _int CGameObject::Update_GameObject(const _float fTimeDelta)
 void CGameObject::LateUpdate_GameObject(const _float fTimeDelta)
 {
 	for_each(m_umComponent[ID_DYNAMIC].begin(), m_umComponent[ID_DYNAMIC].end()
-		, [fTimeDelta](const pair<const wstring, CComponent*>& pair) -> void {
+		, [fTimeDelta](pair<const wstring, CComponent*>& pair) -> void {
 			pair.second->LateUpdate_Component();
 		});
 }

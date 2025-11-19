@@ -1,4 +1,4 @@
-#include "CScene.h"
+﻿#include "CScene.h"
 #include "CManagement.h"
 
 CScene::CScene(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -12,10 +12,10 @@ CScene::~CScene()
 
 }
 
-CComponent* CScene::Get_Component(COMPONENTID eID, const wstring wsLayerTag, const wstring wsObjTag, const wstring wsComponentTag)
+CComponent* CScene::Get_Component(COMPONENTID eID, const wstring& wsLayerTag, const wstring& wsObjTag, const wstring& wsComponentTag)
 {
     auto iter = find_if(m_umLayer.begin(), m_umLayer.end()
-        , [&wsLayerTag](pair<const wstring, CLayer*>& pair) -> _bool {
+        , [&wsLayerTag](pair<const std::wstring, CLayer*>& pair) -> _bool {
             if (pair.first == wsLayerTag)
                 return true;
 

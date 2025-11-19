@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CBase.h"
 #include "Engine_Define.h"
@@ -13,11 +13,11 @@ private:
 	virtual ~CResourceManager() override;
 
 public:
-	HRESULT		Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstring swKey, const wstring swPath, _uint iCnt);
-	HRESULT		Add_Cube(LPDIRECT3DDEVICE9 pGraphicDev, const wstring swKey, const wstring swPath);
+	HRESULT		Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& swKey, const wstring& swPath, _uint iCnt);
+	HRESULT		Add_Cube(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& swKey, const wstring& swPath);
 
 public:
-	const vector<IDirect3DBaseTexture9*>&	Get_Sprite(const wstring swKey);
+	const vector<IDirect3DBaseTexture9*>&	Get_Sprite(const wstring& swKey);
 
 private:
 	unordered_map<wstring, vector<IDirect3DBaseTexture9*>>		m_umapSprite;

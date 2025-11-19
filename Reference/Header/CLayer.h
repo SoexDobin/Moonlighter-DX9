@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CBase.h"
 #include "CGameObject.h"
 
@@ -11,8 +11,11 @@ private:
 	virtual ~CLayer() override;
 
 public:
-	CComponent*		Get_Component(COMPONENTID eID, const wstring wsObjTag, const wstring wsComponentTag);
-	HRESULT			Add_GameObject(const wstring wsObjTag, CGameObject* pGameObject);
+    const unordered_map<wstring, CGameObject*>&     Get_Objects() { return m_umGameObject; }
+
+public:
+	CComponent*		Get_Component(COMPONENTID eID, const wstring& wsObjTag, const wstring& wsComponentTag);
+	HRESULT			Add_GameObject(const wstring& wsObjTag, CGameObject* pGameObject);
 
 public:
 	HRESULT		Ready_Layer();
@@ -24,7 +27,7 @@ private:
 	unordered_map<wstring, CGameObject*>		m_umGameObject;
 
 public:
-	static CLayer* Create(wstring layerTag = L"Layer");
+	static CLayer* Create(const wstring& layerTag = L"Layer");
 
 private:
 	virtual void Free() override;

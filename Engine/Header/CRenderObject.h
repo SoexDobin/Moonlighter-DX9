@@ -32,8 +32,8 @@ protected:
 	CTransform*			m_pTransformCom;
 
 public:
-	static const wstring	n_wsBufferKey;
-	static const wstring	n_wsTransformKey;
+	static const wstring&	n_wsBufferKey;
+	static const wstring&	n_wsTransformKey;
 	
 public:
 	static CRenderObject*	Create(LPDIRECT3DDEVICE9 pGraphicDev);

@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CMainApp.h"
 
 #include "CManagement.h"
@@ -30,6 +30,8 @@ HRESULT CMainApp::Ready_MainApp()
 
 	if (FAILED(Ready_Scene(m_pGraphicDevice)))
 		return E_FAIL;
+
+    
 
 	return S_OK;
 }

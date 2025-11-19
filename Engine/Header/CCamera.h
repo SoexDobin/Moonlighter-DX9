@@ -11,10 +11,10 @@ protected:
 					 const _vec3* pEye,
 					 const _vec3* pAt,
 					 const _vec3* pUp,
-					 const _float fFov,
-					 const _float fAspect,
-					 const _float fNear,
-					 const _float fFar);
+					 _float fFov,
+					 _float fAspect,
+					 _float fNear,
+					 _float fFar);
 	explicit CCamera(const CCamera& rhs);
 	virtual ~CCamera() override;
 

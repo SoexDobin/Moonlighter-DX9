@@ -3,6 +3,7 @@
 #include "CRenderer.h"
 #include "CPrototypeManager.h"
 #include "CDInputManager.h"
+#include "CManagement.h"
 
 CTestRect::CTestRect(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_pStaticTexCom(nullptr)
@@ -42,7 +43,6 @@ HRESULT CTestRect::Ready_GameObject()
     
         m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pDynamicTexCom));
     }
-    
 
     //pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
     //if (pCom->Get_ComponentType() != TEXTURE)

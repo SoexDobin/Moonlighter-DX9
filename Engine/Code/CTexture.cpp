@@ -39,7 +39,7 @@ const _uint CTexture::Get_FrameCount(const _uint iTex) {
     return (_uint)m_vecTexture[iTex].size(); 
 }
 
-HRESULT CTexture::Ready_Texture(const wstring wsKey)
+HRESULT CTexture::Ready_Texture(const wstring& wsKey)
 {
     m_vecTexture.push_back(CResourceManager::GetInstance()->Get_Sprite(wsKey));
 

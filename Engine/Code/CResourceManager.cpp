@@ -1,4 +1,4 @@
-#include "CResourceManager.h"
+﻿#include "CResourceManager.h"
 
 IMPLEMENT_SINGLETON(CResourceManager)
 
@@ -12,7 +12,7 @@ CResourceManager::~CResourceManager()
 }
 
 
-HRESULT CResourceManager::Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstring wsKey, const wstring wsPath, _uint iCnt)
+HRESULT CResourceManager::Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& wsKey, const wstring& wsPath, _uint iCnt)
 {
     m_umapSprite.insert({ wsKey, vector<IDirect3DBaseTexture9*>()});
     m_umapSprite[wsKey].reserve(iCnt);
@@ -34,7 +34,6 @@ HRESULT CResourceManager::Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstrin
             0, NULL, NULL,
             (LPDIRECT3DTEXTURE9*)&pTexture)))
             return E_FAIL;
-
         //if (FAILED(D3DXCreateTextureFromFile(pGraphicDev, szFileName, (LPDIRECT3DTEXTURE9*)&pTexture)))
         //    return E_FAIL;
 
@@ -44,12 +43,12 @@ HRESULT CResourceManager::Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstrin
     return S_OK;
 }
 
-HRESULT CResourceManager::Add_Cube(LPDIRECT3DDEVICE9 pGraphicDev, const wstring swKey, const wstring swPath)
+HRESULT CResourceManager::Add_Cube(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& swKey, const wstring& swPath)
 {
     return S_OK;
 }
 
-const vector<IDirect3DBaseTexture9*>& CResourceManager::Get_Sprite(const wstring swKey)
+const vector<IDirect3DBaseTexture9*>& CResourceManager::Get_Sprite(const wstring& swKey)
 {
     for (_uint i = 0; i < m_umapSprite[swKey].size(); ++i)
         m_umapSprite[swKey][i]->AddRef();

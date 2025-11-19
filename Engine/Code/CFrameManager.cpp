@@ -1,4 +1,4 @@
-#include "CFrameManager.h"
+﻿#include "CFrameManager.h"
 #include "CTimeManager.h"
 
 IMPLEMENT_SINGLETON(CFrameManager)
@@ -14,7 +14,7 @@ CFrameManager::~CFrameManager()
 	Free();
 }
 
-_bool CFrameManager::IsPermit_Call(const wstring wsFrameTag, const _float fTimeDelta)
+_bool CFrameManager::IsPermit_Call(const wstring& wsFrameTag, const _float fTimeDelta)
 {
 	CFrame* pFrame = Find_Frame(wsFrameTag);
 	if (nullptr == pFrame)
@@ -23,7 +23,7 @@ _bool CFrameManager::IsPermit_Call(const wstring wsFrameTag, const _float fTimeD
 	return pFrame->IsPermit_Call(fTimeDelta);
 }
 
-HRESULT CFrameManager::Ready_Frame(const wstring wsFrameTag, const _float fCallLimit)
+HRESULT CFrameManager::Ready_Frame(const wstring& wsFrameTag, const _float fCallLimit)
 {
 	CFrame* pFrame = Find_Frame(wsFrameTag);
 
@@ -32,7 +32,7 @@ HRESULT CFrameManager::Ready_Frame(const wstring wsFrameTag, const _float fCallL
 
 	if (pFrame = CFrame::Create(fCallLimit))
 	{
-		m_umFrame.insert(pair<const wstring, CFrame*>{wsFrameTag, pFrame});
+		m_umFrame.insert(pair<const wstring&, CFrame*>{wsFrameTag, pFrame});
 		return S_OK;
 	}
 	else
@@ -89,7 +89,7 @@ void CFrameManager::Restart_Game()
 	m_bStepFrame = false;
 }
 
-void CFrameManager::Set_MainFrame(const wstring wsFrameTag)
+void CFrameManager::Set_MainFrame(const wstring& wsFrameTag)
 {
 	m_wsMainFrameTag = wsFrameTag;
 	m_mainFrame = Find_Frame(m_wsMainFrameTag);
@@ -113,10 +113,10 @@ void CFrameManager::Modify_LastTimeDelta(_float* pTimeDelta)
 	Compute_FPS();
 }
 
-CFrame* CFrameManager::Find_Frame(const wstring wsFrameTag)
+CFrame* CFrameManager::Find_Frame(const wstring& wsFrameTag)
 {
 	auto iter = find_if(m_umFrame.begin(), m_umFrame.end()
-		, [&](pair<const wstring, CFrame*> pair) -> _bool
+		, [&](pair<const wstring&, CFrame*> pair) -> _bool
 		{
 			if (wsFrameTag == pair.first)
 				return true;
@@ -133,7 +133,7 @@ CFrame* CFrameManager::Find_Frame(const wstring wsFrameTag)
 void CFrameManager::Free()
 {
 	for_each(m_umFrame.begin(), m_umFrame.end()
-		, [](pair<const wstring, CFrame*> pair)
+		, [](pair<const wstring&, CFrame*> pair)
 		{
 			_ulong dwRefCnt = pair.second->Release();
 

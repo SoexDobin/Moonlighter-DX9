@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CTestRect.h"
 #include "CRenderer.h"
 #include "CPrototypeManager.h"
@@ -44,10 +44,9 @@ HRESULT CTestRect::Ready_GameObject()
     }
     
 
-    pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
-    if (pCom->Get_ComponentType() != TEXTURE)
-        return E_FAIL;
-    
+    //pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
+    //if (pCom->Get_ComponentType() != TEXTURE)
+    //    return E_FAIL;
     //if (m_pStaticTexCom = static_cast<CTexture*>(pCom))
     //{
     //    m_pStaticTexCom->Ready_Texture(L"Item_Potion");

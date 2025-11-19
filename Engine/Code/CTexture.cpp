@@ -1,4 +1,4 @@
-#include "CTexture.h"
+﻿#include "CTexture.h"
 #include "CResourceManager.h"
 
 CTexture::CTexture(LPDIRECT3DDEVICE9 pGraphicDev, _float fSpeed)

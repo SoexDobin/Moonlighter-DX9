@@ -1,5 +1,6 @@
 #pragma once
 #include "CScene.h"
+#include "CTerrainTex.h"
 class CEdit : public CScene
 {
 private:
@@ -13,6 +14,9 @@ private:
 	HRESULT Ready_Environment_Layer(const wstring pLayerTag);
 	HRESULT Ready_GameLogic_Layer(const wstring pLayerTag);
 	HRESULT Ready_UI_Layer(const wstring pLayerTag);
+	HRESULT			Ready_Camera_Layer(const wstring wsLayerTag);
+	//HRESULT Add_Terrain();
+	HRESULT Add_Ex(const wstring temp);
 
 	HRESULT Ready_Prototype();
 	virtual void Free();
@@ -25,4 +29,3 @@ public:
 
 	static CEdit* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 };
-

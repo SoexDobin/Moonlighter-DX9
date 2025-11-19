@@ -1,31 +1,32 @@
 #include "pch.h"
-#include "CEdit.h"
+#include "CDInputManager.h"
 #include "CPrototypeManager.h"
 #include "CDynamicCamera.h"
+#include "CTestRect.h"
+#include "CManagement.h"
+#include "CEdit.h"
 
-CEdit::CEdit(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CScene(pGraphicDev)
+CEdit::CEdit(LPDIRECT3DDEVICE9 pGraphicDev)
+    : CScene(pGraphicDev)
 {
-
 }
-
 
 CEdit::~CEdit()
 {
-
 }
 
 HRESULT CEdit::Ready_Scene()
 {
-    if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
+    if (FAILED(Ready_Prototype()))
+        return E_FAIL;
+
+    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
         return E_FAIL;
 
     if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
         return E_FAIL;
 
-    if (FAILED(Ready_UI_Layer(L"UI_Layer")))
-        return E_FAIL;
-
-    // Make process DPI aware and obtain main monitor scale
+        // Make process DPI aware and obtain main monitor scale
     ImGui_ImplWin32_EnableDpiAwareness();
     float main_scale = ImGui_ImplWin32_GetDpiScaleForMonitor(::MonitorFromPoint(POINT{ 0, 0 }, MONITOR_DEFAULTTOPRIMARY));
 
@@ -48,7 +49,9 @@ HRESULT CEdit::Ready_Scene()
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(g_hWnd);
     ImGui_ImplDX9_Init(m_pGraphicDevice);
-	return S_OK;
+
+
+    return S_OK;
 }
 
 _int CEdit::Update_Scene(const _float fTimeDelta)
@@ -61,7 +64,8 @@ _int CEdit::Update_Scene(const _float fTimeDelta)
 void CEdit::LateUpdate_Scene(const _float fTimeDelta)
 {
     Engine::CScene::LateUpdate_Scene(fTimeDelta);
-    // Start the Dear ImGui frame
+
+        // Start the Dear ImGui frame
     ImGui_ImplDX9_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
@@ -103,11 +107,23 @@ void CEdit::LateUpdate_Scene(const _float fTimeDelta)
         ImGui::End();
     }
 
+    ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2(0, 0), ImGuiCond_Always);
+    ImGui::Begin("Editor", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+
+    if (ImGui::Button("Add TerrainVillege"))
+    {
+        //Add_Terrain();
+        Add_Ex(L"GameLogic_Layer");
+    }
+    ImGui::End();
 }
 
 void CEdit::Render_Scene()
 {
-    // Rendering
+    Engine::CScene::Render_Scene();
+
+        // Rendering
     ImGui::Render();
     ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
     m_pGraphicDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
@@ -115,91 +131,56 @@ void CEdit::Render_Scene()
     m_pGraphicDevice->SetRenderState(D3DRS_SCISSORTESTENABLE, FALSE);
 }
 
-HRESULT CEdit::Ready_Environment_Layer(const wstring pLayerTag)
+HRESULT CEdit::Ready_Camera_Layer(const wstring wsLayerTag)
 {
-    Engine::CLayer* pLayer = Engine::CLayer::Create();
+    CLayer* pCamLayer = CLayer::Create();
 
-    if (nullptr == pLayer)
-        return E_FAIL;
-
-    Engine::CGameObject* pGameObject = nullptr;
-
-
-    _vec3   vEye{ 0.f, 10.f, -10.f };
-    _vec3   vAt{ 0.f, 0.f, 1.f };
-    _vec3   vUp{ 0.f, 1.f, 0.f };
-
-    // dynamicCamera
+    // TODO : 카메라 생성 방식 고려
+    CGameObject* pGameObject = nullptr;
+    _vec3 vEye{ 0.f, 10.f, -10.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
     pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
-
-    if (nullptr == pGameObject)
+    if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
         return E_FAIL;
 
-    if (FAILED(pLayer->Add_GameObject(L"DynamicCamera", pGameObject)))
-        return E_FAIL;
+    m_umLayer.emplace(pair<const wstring, CLayer*>{ wsLayerTag, pCamLayer});
 
-    // skybox
-    //pGameObject = CSkyBox::Create(m_pGraphicDev);
-
-    //if (nullptr == pGameObject)
-    //    return E_FAIL;
-
-    //if (FAILED(pLayer->Add_GameObject(L"SkyBox", pGameObject)))
-    //    return E_FAIL;
-
-
-    m_umLayer.insert({ pLayerTag , pLayer });            // scene -> map
-	return S_OK;
-}
-
-HRESULT CEdit::Ready_GameLogic_Layer(const wstring pLayerTag)
-{
-    Engine::CLayer* pLayer = Engine::CLayer::Create();
-
-    if (nullptr == pLayer)
-        return E_FAIL;
-
-    Engine::CGameObject* pGameObject = nullptr;
-
-    m_umLayer.insert({ pLayerTag , pLayer });
     return S_OK;
 }
 
-HRESULT CEdit::Ready_UI_Layer(const wstring pLayerTag)
+HRESULT CEdit::Ready_Environment_Layer(const wstring wsLayerTag)
 {
-    Engine::CLayer* pLayer = Engine::CLayer::Create();
+    return S_OK;
+}
 
-    if (nullptr == pLayer)
-        return E_FAIL;
+HRESULT CEdit::Ready_GameLogic_Layer(const wstring wsLayerTag)
+{
+    return S_OK;
+}
 
-    Engine::CGameObject* pGameObject = nullptr;
-
-
-
-
-    m_umLayer.insert({ pLayerTag , pLayer });
+HRESULT CEdit::Ready_UI_Layer(const wstring wsLayerTag)
+{
     return S_OK;
 }
 
 HRESULT CEdit::Ready_Prototype()
 {
-    if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(RECTCOLOR, Engine::CRectColor::Create(m_pGraphicDevice))))
-        return E_FAIL;
+
+
     return S_OK;
 }
 
 CEdit* CEdit::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CEdit* pEdit = new CEdit(pGraphicDev);
+    CEdit* pLogo = new CEdit(pGraphicDev);
 
-    if (FAILED(pEdit->Ready_Scene()))
+    if (FAILED(pLogo->Ready_Scene()))
     {
-        MSG_BOX("Stage Create Failed");
-        Safe_Release(pEdit);
+        MSG_BOX("MainScene Create Failed");
+        Safe_Release(pLogo);
         return nullptr;
     }
 
-    return pEdit;
+    return pLogo;
 }
 
 void CEdit::Free()
@@ -207,5 +188,17 @@ void CEdit::Free()
     ImGui_ImplDX9_Shutdown();
     ImGui_ImplWin32_Shutdown();
     ImGui::DestroyContext();
-	Engine::CScene::Free();
+    Engine::CScene::Free();
+}
+
+HRESULT CEdit::Add_Ex(const wstring temp)
+{
+    CLayer* pGameLogicLayer = CLayer::Create();
+
+    CGameObject* pGameObject = nullptr;
+    pGameObject = CTestRect::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp", pGameObject)))
+        return E_FAIL;
+
+    m_umLayer.emplace(pair<const wstring, CLayer*>{ temp, pGameLogicLayer});
 }

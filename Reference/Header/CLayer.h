@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CBase.h"
 #include "CGameObject.h"
 
@@ -33,8 +33,8 @@ private:
 public:
 	void			Display_Editor();
 public :
-	bool			m_bDisplayInEditor;
-	wstring	m_LayerTag;
+	_bool			m_bDisplayInEditor;
+	char            	m_LayerTag[32];
 #pragma endregion
 
 };

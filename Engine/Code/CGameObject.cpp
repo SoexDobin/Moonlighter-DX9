@@ -1,4 +1,4 @@
-#include "CGameObject.h"
+﻿#include "CGameObject.h"
 #include "CEditor.h"
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -88,23 +88,23 @@ void	CGameObject::Display_Editor()
 	ImGui::Begin(m_szBuffer);
 
 #pragma region Component
-	ImGui::Text("--- Component ---");
+	ImGui::Text("------- Component -------");
 
 	_int dwIndex = 0;
 	for (int i = ID_DYNAMIC; i < ID_END; ++i)
 	{
 		for (auto& component : m_umComponent[i])
 		{
-			ImGui::Checkbox(("##" + to_string((uintptr_t)component.second)).c_str(), &component.second->m_bDisplayInEditor);  ImGui::SameLine();
-			ImGui::Text("%ls", component.second->m_szDisplayName);
-
-			component.second->Display_Editor(m_szBuffer);
+            if (ImGui::CollapsingHeader(component.second->m_szDisplayName, component.second->m_bDisplayInEditor))
+            {
+                component.second->Display_Editor(m_szBuffer);
+            }
 		}
 	}
 #pragma endregion
 
 #pragma region Data
-	ImGui::Text("--- Data ---");
+	ImGui::Text("------- Data -------");
 
 	for (auto& field : m_EditorFieldList)
 	{
@@ -116,5 +116,5 @@ void	CGameObject::Display_Editor()
 	}
 #pragma endregion
 
-	ImGui::End();
+    ImGui::End();
 }

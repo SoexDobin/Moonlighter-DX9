@@ -1,11 +1,11 @@
-#include "CVIBuffer.h"
+﻿#include "CVIBuffer.h"
 #include "CRenderer.h"
 
 CVIBuffer::CVIBuffer() : m_pVB(nullptr), m_pIB(nullptr)
 , m_dwTriCnt(0), m_dwVtxCnt(0), m_dwVtxSize(0), m_dwFVF(0)
 , m_dwIdxSize(0), m_IdxFmt(D3DFMT_INDEX32)
 {
-    wcscpy_s(m_szDisplayName, L"Buffer");
+    strcpy_s(m_szDisplayName, "Buffer");
 }
 
 CVIBuffer::CVIBuffer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -14,7 +14,7 @@ CVIBuffer::CVIBuffer(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_dwTriCnt(0), m_dwVtxCnt(0), m_dwVtxSize(0), m_dwFVF(0)
     , m_dwIdxSize(0), m_IdxFmt(D3DFMT_INDEX32)
 {
-    wcscpy_s(m_szDisplayName, L"Buffer");
+    strcpy_s(m_szDisplayName, "Buffer");
 }
 
 CVIBuffer::CVIBuffer(const CVIBuffer& rhs)
@@ -25,7 +25,7 @@ CVIBuffer::CVIBuffer(const CVIBuffer& rhs)
 {
     m_pVB->AddRef();
     m_pIB->AddRef();
-    wcscpy_s(m_szDisplayName, L"Buffer");
+    strcpy_s(m_szDisplayName, "Buffer");
 }
 
 CVIBuffer::~CVIBuffer()
@@ -77,30 +77,22 @@ CComponent* CVIBuffer::Clone()
 
 void CVIBuffer::Display_Editor(const char* pObjTag)
 {
-    if (!m_bDisplayInEditor)
-        return;
 
-    string sName = "[Buffer]_" + string(pObjTag);
+        ImGui::Text("VTX count : %lu", m_dwVtxCnt);
 
-    ImGui::Begin(sName.c_str());
+        TCHAR szBuff[32];
+        switch (m_dwFVF)
+        {
+        case FVF_COL:
+            wcscpy_s(szBuff, L"VTX COL");
+            break;
+        case FVF_TEX:
+            wcscpy_s(szBuff, L"VTX TEX");
+            break;
+        case FVF_CUBE:
+            wcscpy_s(szBuff, L"VTX CUBE");
+            break;
 
-    ImGui::Text("VTX count : %lu", m_dwVtxCnt);
-
-    TCHAR szBuff[32];
-    switch (m_dwFVF)
-    {
-    case FVF_COL:
-        wcscpy_s(szBuff, L"VTX COL");
-        break;
-    case FVF_TEX:
-        wcscpy_s(szBuff, L"VTX TEX");
-        break;
-    case FVF_CUBE:
-        wcscpy_s(szBuff, L"VTX CUBE");
-        break;
-
-    }
-    ImGui::Text("FVF : %ls", szBuff);
-
-    ImGui::End();
+        }
+        ImGui::Text("FVF : %ls", szBuff);
 }

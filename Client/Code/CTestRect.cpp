@@ -2,14 +2,15 @@
 #include "CTestRect.h"
 #include "CRenderer.h"
 #include "CPrototypeManager.h"
+#include "CDInputManager.h"
 
 CTestRect::CTestRect(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CRenderObject(pGraphicDev), m_pTexCom(nullptr), m_fDelta(0)
+    : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_pStaticTexCom(nullptr)
 {
 }
 
 CTestRect::CTestRect(const CTestRect& rhs)
-    : CRenderObject(rhs), m_pTexCom(nullptr), m_fDelta(0)
+    : CRenderObject(rhs), m_pDynamicTexCom(nullptr), m_pStaticTexCom(nullptr)
 {
 }
 
@@ -24,46 +25,68 @@ HRESULT CTestRect::Ready_GameObject()
 
     CComponent* pCom(nullptr);
 
-    pCom = Engine::CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
+    pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
     if (pCom->Get_ComponentType() != TEXTURE)
         return E_FAIL;
     
-    if (m_pTexCom = static_cast<CTexture*>(pCom))
+    if (m_pDynamicTexCom = static_cast<CTexture*>(pCom))
     {
-        m_pTexCom->Ready_Texture(L"Item_Potion", 4);
-        m_pTexCom->Ready_Texture(L"Player_Roll", 8);
+        m_pDynamicTexCom->Set_Speed(10.f);
+        m_pDynamicTexCom->Ready_Texture(L"Item_Potion");
+        m_pDynamicTexCom->Ready_Texture(L"Player_Roll");
+    
+        m_pDynamicTexCom->Set_Texture(POTION);
+    
+        m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pDynamicTexCom));
     }
     
-    m_umComponent[ID_STATIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pTexCom));
+
+    pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
+    if (pCom->Get_ComponentType() != TEXTURE)
+        return E_FAIL;
+    
+    //if (m_pStaticTexCom = static_cast<CTexture*>(pCom))
+    //{
+    //    m_pStaticTexCom->Ready_Texture(L"Item_Potion");
+    //    m_pStaticTexCom->Set_Texture(POTION, 2);
+    //    m_umComponent[ID_STATIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pStaticTexCom));
+    //}
 
     return S_OK;
 }
 
 _int CTestRect::Update_GameObject(const _float fTimeDelta)
 {
-    _int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
-
-    m_fDelta += 10.f * fTimeDelta;
-    //if (m_fDelta > m_pTexCom->Get_FrameCount(0))
-    //    m_fDelta = 0.f;
+    _int iExit = Engine::CRenderObject::Update_GameObject(fTimeDelta);
 
     Engine::CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
+
+    if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_9))
+    {
+        m_pDynamicTexCom->Set_Texture(POTION);
+    }
+    if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_0))
+    {
+        m_pDynamicTexCom->Set_Texture(ROLL);
+    }
 
     return iExit;
 }
 
 void CTestRect::LateUpdate_GameObject(const _float fTimeDelta)
 {
-    Engine::CGameObject::LateUpdate_GameObject(fTimeDelta);
+    Engine::CRenderObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 void CTestRect::Render_GameObject()
 {
     m_pGraphicDevice->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
+    m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-    m_pTexCom->Set_Texture(0, 0);
+    m_pGraphicDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+    
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

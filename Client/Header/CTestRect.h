@@ -8,6 +8,8 @@ namespace Engine {
 class CTestRect : public CRenderObject
 {
 private:
+	enum STATE { POTION, ROLL, STATE_END };
+private:
 	explicit CTestRect(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CTestRect(const CTestRect& rhs);
 	virtual ~CTestRect() override;
@@ -19,8 +21,8 @@ public:
 	void		Render_GameObject() override;
 
 private:
-	CTexture*	m_pTexCom;
-	_float		m_fDelta;
+	CTexture*	m_pDynamicTexCom;
+	CTexture*	m_pStaticTexCom;
 
 public:
 	static CTestRect*	Create(LPDIRECT3DDEVICE9 pGraphicDev);

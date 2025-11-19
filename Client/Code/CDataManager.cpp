@@ -52,7 +52,7 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 		return E_FAIL;
 
 	if (FAILED(Engine::CPrototypeManager::GetInstance()
-		->Ready_Prototype(TEXTURE, CTexture::Create(pGraphicDev))))
+		->Ready_Prototype(TEXTURE, CTexture::Create(pGraphicDev, m_fDefault_AnimSpeed))))
 		return E_FAIL;
 
 

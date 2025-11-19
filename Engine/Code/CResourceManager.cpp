@@ -23,8 +23,20 @@ HRESULT CResourceManager::Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstrin
         TCHAR   szFileName[256] = L"";
         wsprintf(szFileName, wsPath.c_str(), i);
 
-        if (FAILED(D3DXCreateTextureFromFile(pGraphicDev, szFileName, (LPDIRECT3DTEXTURE9*)&pTexture)))
+        if (FAILED(D3DXCreateTextureFromFileEx(
+            pGraphicDev,
+            szFileName,
+            D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2,
+            1, 0,
+            D3DFMT_A8R8G8B8,
+            D3DPOOL_MANAGED,
+            D3DX_DEFAULT, D3DX_DEFAULT,
+            0, NULL, NULL,
+            (LPDIRECT3DTEXTURE9*)&pTexture)))
             return E_FAIL;
+
+        //if (FAILED(D3DXCreateTextureFromFile(pGraphicDev, szFileName, (LPDIRECT3DTEXTURE9*)&pTexture)))
+        //    return E_FAIL;
 
         m_umapSprite[wsKey].push_back(pTexture);
     }

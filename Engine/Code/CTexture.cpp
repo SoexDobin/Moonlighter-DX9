@@ -84,7 +84,7 @@ _int CTexture::Update_Component(const _float fTimeDelta)
     {
         if (m_iCurFrame >= m_vecTexture[m_iCurTex].size())
         {
-            m_iCurFrame = m_vecTexture[m_iCurTex].size() - 1;
+            m_iCurFrame = static_cast<unsigned int>(m_vecTexture[m_iCurTex].size()) - 1;
             m_bOneLoop = true;
         }
     }

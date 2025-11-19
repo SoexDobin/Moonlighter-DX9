@@ -59,8 +59,6 @@ private:
 #pragma region Editor
 public:
 	virtual void Display_Editor(const char* pObjTag) override;
-private:
-	_uint m_iCurFrame = 0;
 #pragma endregion
 
 };

@@ -34,6 +34,13 @@ protected:
 
 protected:
 	virtual void Free();
+
+#pragma region Editor
+public:
+	void			Display_Editor();
+	_bool		m_bDisplayInEditor;
+#pragma endregion
+
 };
 
 END

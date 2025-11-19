@@ -42,6 +42,15 @@
     </Filter>
     <Filter Include="03. GameObject\01. CTerrainVillege">
       <UniqueIdentifier>{d3be0854-a4d2-4d41-a8c0-574438749528}</UniqueIdentifier>
+	</Filter>
+    <Filter Include="98. ImGui">
+      <UniqueIdentifier>{60e9193a-3115-499e-95eb-7af4dfeaf6ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. ImGui\EX_Object">
+      <UniqueIdentifier>{fea0d948-d12d-4183-9274-7f1b311144eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. ImGui\EX_Manager">
+      <UniqueIdentifier>{8c1d9181-9337-446c-b4a4-fe6f408b29da}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +84,7 @@
     <ClInclude Include="..\Header\CTestRect.h">
       <Filter>03. GameObject</Filter>
     </ClInclude>
+
     <ClInclude Include="..\Header\imconfig.h">
       <Filter>98. Imgui</Filter>
     </ClInclude>
@@ -104,6 +114,12 @@
     </ClInclude>
     <ClInclude Include="..\Header\CTerrainVillage.h">
       <Filter>03. GameObject\01. CTerrainVillege</Filter>
+</ClInclude>
+    <ClInclude Include="..\Header\CExampleObject.h">
+      <Filter>98. ImGui\EX_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CExampleManager.h">
+      <Filter>98. ImGui\EX_Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +170,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainVillage.cpp">
       <Filter>03. GameObject\01. CTerrainVillege</Filter>
+	  </ClCompile>
+    <ClCompile Include="..\Code\CExampleObject.cpp">
+      <Filter>98. ImGui\EX_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CExampleManager.cpp">
+      <Filter>98. ImGui\EX_Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

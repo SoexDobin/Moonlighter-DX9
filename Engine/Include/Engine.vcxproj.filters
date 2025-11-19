@@ -97,6 +97,21 @@
     <Filter Include="00. Manager\07. ResourceManager">
       <UniqueIdentifier>{cb2aeed9-3147-452e-8934-08fa54c86e39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. ImGui">
+      <UniqueIdentifier>{cd8f9921-1c81-46b0-9db9-8e4a208a0dbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Manager\08. Editor">
+      <UniqueIdentifier>{6537cee0-0c04-419d-ad7a-06a23940b3b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Manager\08. Editor\00. Panel">
+      <UniqueIdentifier>{eeed105a-6617-4d8e-8df2-6d791e4093de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Manager\08. LightManager">
+      <UniqueIdentifier>{47f0208a-d960-47c6-9f2b-13c3aa1352a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Manager\08. LightManager\00. Light">
+      <UniqueIdentifier>{00ba5a33-3caa-4e3f-8c05-3c5ec483e5a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -186,8 +201,47 @@
     <ClInclude Include="..\Header\CRectTex.h">
       <Filter>02. Prototype\00. VIBuffer\01. RectTex</Filter>
     </ClInclude>
+    <ClInclude Include="..\External\imconfig.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imgui.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imgui_impl_dx9.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imgui_impl_win32.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imgui_internal.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imstb_rectpack.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imstb_textedit.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\External\imstb_truetype.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditor.h">
+      <Filter>00. Manager\08. Editor</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CResourceManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>00. Manager\07. ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPanel.h">
+      <Filter>00. Manager\08. Editor\00. Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ImGui_Define.h">
+      <Filter>98. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLight.h">
+      <Filter>00. Manager\08. LightManager\00. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLightManager.h">
+      <Filter>00. Manager\08. LightManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -260,8 +314,41 @@
     <ClCompile Include="..\Code\CRenderObject.cpp">
       <Filter>01. Logic\03. GameObject\01. RenderObject</Filter>
     </ClCompile>
+    <ClCompile Include="..\External\imgui.cpp">
+      <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\imgui_demo.cpp">
+      <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\imgui_draw.cpp">
+      <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\imgui_impl_dx9.cpp">
+      <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\imgui_impl_win32.cpp">
+      <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\imgui_tables.cpp">
+      <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\External\imgui_widgets.cpp">
+      <Filter>98. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditor.cpp">
+      <Filter>00. Manager\08. Editor</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\CResourceManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>00. Manager\07. ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPanel.cpp">
+      <Filter>00. Manager\08. Editor\00. Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLight.cpp">
+      <Filter>00. Manager\08. LightManager\00. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLightManager.cpp">
+      <Filter>00. Manager\08. LightManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

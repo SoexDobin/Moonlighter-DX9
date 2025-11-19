@@ -1,6 +1,7 @@
 #include "CLayer.h"
 
 CLayer::CLayer()
+	: m_bDisplayInEditor(false)
 {
 }
 
@@ -70,7 +71,7 @@ void CLayer::Render_Layer()
 		});
 }
 
-CLayer* CLayer::Create()
+CLayer* CLayer::Create(wstring layerTag)
 {
 	CLayer* pLayer = new CLayer;
 
@@ -81,6 +82,7 @@ CLayer* CLayer::Create()
 		return nullptr;
 	}
 
+	pLayer->m_LayerTag = layerTag;
 	return pLayer;
 }
 
@@ -88,4 +90,22 @@ void CLayer::Free()
 {
 	for_each(m_umGameObject.begin(), m_umGameObject.end(), CDeleteMap());
 	m_umGameObject.clear();
+}
+
+void CLayer::Display_Editor()
+{
+	if (!m_bDisplayInEditor)
+		return;
+
+	ImGui::Begin("Layer");
+
+	for (auto& gameObject : m_umGameObject)
+	{
+		ImGui::Checkbox(("##" + to_string((uintptr_t)gameObject.second)).c_str(), &gameObject.second->m_bDisplayInEditor); ImGui::SameLine();
+		ImGui::Text("%ls", gameObject.second->m_szDisplayName);
+
+		gameObject.second->Display_Editor();
+	}
+
+	ImGui::End();
 }

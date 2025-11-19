@@ -113,7 +113,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\Header;..\..\Base;..\..\Reference\Header;..\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Header;..\..\Base;..\..\Reference\Header;..\Include;..\..\Engine\External;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -142,6 +142,8 @@
     <ClInclude Include="..\Header\CDataManager.h" />
     <ClInclude Include="..\Header\CDynamicCamera.h" />
     <ClInclude Include="..\Header\CEdit.h" />
+    <ClInclude Include="..\Header\CExampleManager.h" />
+    <ClInclude Include="..\Header\CExampleObject.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMainScene.h" />
     <ClInclude Include="..\Header\CTerrainVillage.h" />
@@ -164,6 +166,8 @@
     <ClCompile Include="..\Code\CDataManager.cpp" />
     <ClCompile Include="..\Code\CDynamicCamera.cpp" />
     <ClCompile Include="..\Code\CEdit.cpp" />
+    <ClCompile Include="..\Code\CExampleManager.cpp" />
+    <ClCompile Include="..\Code\CExampleObject.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CMainScene.cpp" />
     <ClCompile Include="..\Code\CTerrainVillage.cpp" />

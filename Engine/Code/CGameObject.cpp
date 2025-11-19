@@ -1,13 +1,14 @@
 #include "CGameObject.h"
+#include "CEditor.h"
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
-	: m_pGraphicDevice(pGraphicDev)
+	: m_pGraphicDevice(pGraphicDev), m_bDisplayInEditor(false)
 {
 	m_pGraphicDevice->AddRef();
 }
 
 CGameObject::CGameObject(const CGameObject& rhs)
-	: m_pGraphicDevice(rhs.m_pGraphicDevice)
+	: m_pGraphicDevice(rhs.m_pGraphicDevice), m_bDisplayInEditor(false)
 {
 	m_pGraphicDevice->AddRef();
 }
@@ -77,4 +78,43 @@ void CGameObject::Free()
 	}
 		
 	Safe_Release(m_pGraphicDevice);
+}
+
+void	CGameObject::Display_Editor()
+{
+	if (!m_bDisplayInEditor)
+		return;
+
+	ImGui::Begin(m_szBuffer);
+
+#pragma region Component
+	ImGui::Text("--- Component ---");
+
+	_int dwIndex = 0;
+	for (int i = ID_DYNAMIC; i < ID_END; ++i)
+	{
+		for (auto& component : m_umComponent[i])
+		{
+			ImGui::Checkbox(("##" + to_string((uintptr_t)component.second)).c_str(), &component.second->m_bDisplayInEditor);  ImGui::SameLine();
+			ImGui::Text("%ls", component.second->m_szDisplayName);
+
+			component.second->Display_Editor(m_szBuffer);
+		}
+	}
+#pragma endregion
+
+#pragma region Data
+	ImGui::Text("--- Data ---");
+
+	for (auto& field : m_EditorFieldList)
+	{
+		ImGui::PushItemWidth(120);
+
+		CEditor::GetInstance()->Display_Editor(field);
+
+		ImGui::PopItemWidth();
+	}
+#pragma endregion
+
+	ImGui::End();
 }

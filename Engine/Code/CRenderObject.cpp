@@ -57,7 +57,9 @@ HRESULT CRenderObject::Ready_GameObject()
 
 _int CRenderObject::Update_GameObject(const _float fTimeDelta)
 {
-	return Engine::CGameObject::Update_GameObject(fTimeDelta);
+	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
+
+	return iExit;
 }
 
 void CRenderObject::LateUpdate_GameObject(const _float fTimeDelta)

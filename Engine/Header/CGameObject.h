@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CBase.h"
 #include "CComponent.h"
 
@@ -41,7 +41,7 @@ protected:
 public :
 	_bool m_bDisplayInEditor;
 	TCHAR m_szDisplayName[32];
-	char m_szBuffer[32];
+	char       m_szBuffer[32];
 
 protected :
 	list<EDITORFIELD> m_EditorFieldList;

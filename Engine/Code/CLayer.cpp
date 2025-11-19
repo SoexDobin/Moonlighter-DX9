@@ -1,7 +1,7 @@
-#include "CLayer.h"
+﻿#include "CLayer.h"
 
 CLayer::CLayer()
-	: m_bDisplayInEditor(false)
+	: m_bDisplayInEditor(true)
 {
 }
 
@@ -82,8 +82,10 @@ CLayer* CLayer::Create(wstring layerTag)
 		return nullptr;
 	}
 
-	pLayer->m_LayerTag = layerTag;
-	return pLayer;
+    int len = WideCharToMultiByte(CP_UTF8, 0, layerTag.c_str(), -1, nullptr, 0, nullptr, nullptr);
+    WideCharToMultiByte(CP_UTF8, 0, layerTag.c_str(), -1, pLayer->m_LayerTag, len, nullptr, nullptr);
+
+    return pLayer;
 }
 
 void CLayer::Free()
@@ -97,15 +99,11 @@ void CLayer::Display_Editor()
 	if (!m_bDisplayInEditor)
 		return;
 
-	ImGui::Begin("Layer");
+    for (auto& gameObject : m_umGameObject)
+    {
+        ImGui::Checkbox(("##" + to_string((uintptr_t)gameObject.second)).c_str(), &gameObject.second->m_bDisplayInEditor); ImGui::SameLine();
+        ImGui::Text("%ls", gameObject.second->m_szDisplayName);
 
-	for (auto& gameObject : m_umGameObject)
-	{
-		ImGui::Checkbox(("##" + to_string((uintptr_t)gameObject.second)).c_str(), &gameObject.second->m_bDisplayInEditor); ImGui::SameLine();
-		ImGui::Text("%ls", gameObject.second->m_szDisplayName);
-
-		gameObject.second->Display_Editor();
-	}
-
-	ImGui::End();
+        gameObject.second->Display_Editor();
+    }
 }

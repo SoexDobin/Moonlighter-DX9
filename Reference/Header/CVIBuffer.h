@@ -15,9 +15,6 @@ public:
 	virtual HRESULT		Ready_Buffer();
 	virtual void		Render_Buffer();
 
-public:
-	const vector<_vec3>&		Get_VertexPos() const { return m_vecPos; }
-
 protected:
 	LPDIRECT3DVERTEXBUFFER9		m_pVB;
 	_ulong						m_dwVtxSize;
@@ -28,7 +25,6 @@ protected:
 	LPDIRECT3DINDEXBUFFER9		m_pIB;
 	_ulong						m_dwIdxSize;
 	D3DFORMAT					m_IdxFmt;
-	vector<_vec3>				m_vecPos;
 
 public:
 	virtual void			Free();

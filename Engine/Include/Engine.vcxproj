@@ -156,6 +156,8 @@
     <ClInclude Include="..\Header\CGameObject.h" />
     <ClInclude Include="..\Header\CGraphicDevice.h" />
     <ClInclude Include="..\Header\CLayer.h" />
+    <ClInclude Include="..\Header\CLight.h" />
+    <ClInclude Include="..\Header\CLightManager.h" />
     <ClInclude Include="..\Header\CManagement.h" />
     <ClInclude Include="..\Header\CPanel.h" />
     <ClInclude Include="..\Header\CPrototypeManager.h" />
@@ -191,6 +193,8 @@
     <ClCompile Include="..\Code\CGameObject.cpp" />
     <ClCompile Include="..\Code\CGraphicDevice.cpp" />
     <ClCompile Include="..\Code\CLayer.cpp" />
+    <ClCompile Include="..\Code\CLight.cpp" />
+    <ClCompile Include="..\Code\CLightManager.cpp" />
     <ClCompile Include="..\Code\CManagement.cpp" />
     <ClCompile Include="..\Code\CPanel.cpp" />
     <ClCompile Include="..\Code\CPrototypeManager.cpp" />

@@ -82,8 +82,6 @@ HRESULT CTerrainTex::Ready_Buffer()
               (_float)(i * m_dwVtxItv)};
             pVertices[dwIndex].vTexUV = 
             { (_float)j / _float(m_dwCntX - 1), (_float)i / _float(m_dwCntZ - 1) };
-
-            m_vecPos.push_back(pVertices[dwIndex].vPosition);
         }
     }
 

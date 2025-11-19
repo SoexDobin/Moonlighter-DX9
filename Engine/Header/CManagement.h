@@ -29,6 +29,7 @@ public:
 
 private:
 	CScene*				m_pCurScene;
+
 	
 public:
 	virtual void			Free() override;

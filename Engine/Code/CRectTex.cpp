@@ -31,28 +31,24 @@ HRESULT CRectTex::Ready_Buffer()
     if (FAILED(CVIBuffer::Ready_Buffer()))
         return E_FAIL;
 
-    VTXTEX* pVertices = nullptr;
+    VTXTEX* pVertices = NULL;
     m_pVB->Lock(0, 0, (void**)&pVertices, NULL);
 
     pVertices[0].vPosition = { -1.f, 1.f, 0.f };
     pVertices[0].vTexUV = { 0.f, 0.f };
-    m_vecPos.push_back(pVertices[0].vPosition);
 
     pVertices[1].vPosition = { 1.f, 1.f, 0.f };
-    pVertices[1].vTexUV = { 1.f, 0.f};
-    m_vecPos.push_back(pVertices[1].vPosition);
+    pVertices[1].vTexUV = { 1.f, 0.f };
 
     pVertices[2].vPosition = { 1.f, -1.f, 0.f };
     pVertices[2].vTexUV = { 1.f, 1.f };
-    m_vecPos.push_back(pVertices[2].vPosition);
 
     pVertices[3].vPosition = { -1.f, -1.f, 0.f };
     pVertices[3].vTexUV = { 0.f, 1.f };
-    m_vecPos.push_back(pVertices[3].vPosition);
 
     m_pVB->Unlock();
 
-    INDEX32* pIndices = nullptr;
+    INDEX32* pIndices = NULL;
     m_pIB->Lock(0, 0, (void**)&pIndices, NULL);
 
     pIndices[0]._0 = 0;

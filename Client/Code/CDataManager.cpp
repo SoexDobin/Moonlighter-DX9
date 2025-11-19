@@ -24,7 +24,7 @@ HRESULT CDataManager::Ready_Data(LPDIRECT3DDEVICE9 pGraphicDev)
 		if (FAILED(Ready_Sound()))
 			return E_FAIL;
 
-		if (FAILED(Ready_Resource()))
+		if (FAILED(Ready_Resource(pGraphicDev)))
 			return E_FAIL;
 
 		if (FAILED(Ready_Item_Resource(pGraphicDev)))
@@ -51,16 +51,21 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 		->Ready_Prototype(TRANSFORM, CTransform::Create(pGraphicDev))))
 		return E_FAIL;
 
-	//if (FAILED(Engine::CPrototypeManager::GetInstance()
-	//	->Ready_Prototype(TEXTURE, CTexture::Create(pGraphicDev))))
-	//	return E_FAIL;
+	if (FAILED(Engine::CPrototypeManager::GetInstance()
+		->Ready_Prototype(TEXTURE, CTexture::Create(pGraphicDev, m_fDefault_AnimSpeed))))
+		return E_FAIL;
 
 
 	return S_OK;
 }
 
-HRESULT CDataManager::Ready_Resource()
+HRESULT CDataManager::Ready_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 {
+	CResourceManager& Res = *CResourceManager::GetInstance();
+
+	if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Roll",
+		n_wsResSpritePath + L"Player/Will_Roll_Shop_Down_%d.png", 8)))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -69,7 +74,8 @@ HRESULT CDataManager::Ready_Item_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CResourceManager& Res = *CResourceManager::GetInstance();
 
-	if (FAILED(Res.Add_Sprite(pGraphicDev, L"Item_Potion", L"../Bin/Resource/Sprite/Item/Potion/Item_Potion_Heal_%d.png", 4)))
+	if (FAILED(Res.Add_Sprite(pGraphicDev, L"Item_Potion", 
+		n_wsResSpritePath + L"Item/Potion/Item_Potion_Heal_%d.png", 4)))
 		return E_FAIL;
 
 	return S_OK;

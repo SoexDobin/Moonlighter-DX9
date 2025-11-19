@@ -24,14 +24,14 @@ CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring& wsCompone
 
 	if (pComponent = Find_Component(eID, wsComponentTag))
 		return pComponent;
-	else 
+	else
 		return nullptr;
 }
 
 CComponent* CGameObject::Find_Component(COMPONENTID eID, const wstring& wsComponentTag)
 {
 	auto iter = find_if(m_umComponent[eID].begin(), m_umComponent[eID].end()
-		, [&wsComponentTag](pair<const wstring, CComponent*>& pair) -> _bool {
+		, [&wsComponentTag](const pair<const wstring, CComponent*>& pair) -> _bool {
 			if (pair.first == wsComponentTag)
 				return true;
 
@@ -39,7 +39,7 @@ CComponent* CGameObject::Find_Component(COMPONENTID eID, const wstring& wsCompon
 		});
 
 	if (iter == m_umComponent[eID].end()) return nullptr;
-	
+
 	return iter->second;
 }
 
@@ -51,7 +51,7 @@ HRESULT CGameObject::Ready_GameObject()
 _int CGameObject::Update_GameObject(const _float fTimeDelta)
 {
 	for_each(m_umComponent[ID_DYNAMIC].begin(), m_umComponent[ID_DYNAMIC].end()
-		, [fTimeDelta](pair<const wstring, CComponent*>& pair) -> void {
+		, [fTimeDelta](const pair<const wstring, CComponent*>& pair) -> void {
 			pair.second->Update_Component(fTimeDelta);
 		});
 
@@ -61,7 +61,7 @@ _int CGameObject::Update_GameObject(const _float fTimeDelta)
 void CGameObject::LateUpdate_GameObject(const _float fTimeDelta)
 {
 	for_each(m_umComponent[ID_DYNAMIC].begin(), m_umComponent[ID_DYNAMIC].end()
-		, [fTimeDelta](pair<const wstring, CComponent*>& pair) -> void {
+		, [fTimeDelta](const pair<const wstring, CComponent*>& pair) -> void {
 			pair.second->LateUpdate_Component();
 		});
 }
@@ -77,7 +77,7 @@ void CGameObject::Free()
 		for_each(m_umComponent[i].begin(), m_umComponent[i].end(), CDeleteMap());
 		m_umComponent[i].clear();
 	}
-		
+
 	Safe_Release(m_pGraphicDevice);
 }
 
@@ -89,23 +89,23 @@ void	CGameObject::Display_Editor()
 	ImGui::Begin(m_szBuffer);
 
 #pragma region Component
-	ImGui::Text("--- Component ---");
+	ImGui::Text("------- Component -------");
 
 	_int dwIndex = 0;
 	for (int i = ID_DYNAMIC; i < ID_END; ++i)
 	{
 		for (auto& component : m_umComponent[i])
 		{
-			ImGui::Checkbox(("##" + to_string((uintptr_t)component.second)).c_str(), &component.second->m_bDisplayInEditor);  ImGui::SameLine();
-			ImGui::Text("%ls", component.second->m_szDisplayName);
-
-			component.second->Display_Editor(m_szBuffer);
+            if (ImGui::CollapsingHeader(component.second->m_szDisplayName, component.second->m_bDisplayInEditor))
+            {
+                component.second->Display_Editor(m_szBuffer);
+            }
 		}
 	}
 #pragma endregion
 
 #pragma region Data
-	ImGui::Text("--- Data ---");
+	ImGui::Text("------- Data -------");
 
 	for (auto& field : m_EditorFieldList)
 	{
@@ -117,5 +117,5 @@ void	CGameObject::Display_Editor()
 	}
 #pragma endregion
 
-	ImGui::End();
+    ImGui::End();
 }

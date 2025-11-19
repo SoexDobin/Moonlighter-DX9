@@ -1,7 +1,7 @@
 ﻿#include "CLayer.h"
 
 CLayer::CLayer()
-	: m_bDisplayInEditor(false)
+	: m_bDisplayInEditor(true)
 {
 }
 
@@ -52,7 +52,7 @@ _int CLayer::Update_Layer(const _float fTimeDelta)
                 [=, &iResult](CGameObject* pObj) -> void {
                     iResult =pObj->Update_GameObject(fTimeDelta);
                 });
-			
+
 			if (iResult & 0x80000000) return true;
 
 			return false;
@@ -100,8 +100,10 @@ CLayer* CLayer::Create(const wstring& layerTag)
 		return nullptr;
 	}
 
-	pLayer->m_LayerTag = layerTag;
-	return pLayer;
+    int len = WideCharToMultiByte(CP_UTF8, 0, layerTag.c_str(), -1, nullptr, 0, nullptr, nullptr);
+    WideCharToMultiByte(CP_UTF8, 0, layerTag.c_str(), -1, pLayer->m_LayerTag, len, nullptr, nullptr);
+
+    return pLayer;
 }
 
 void CLayer::Free()
@@ -119,18 +121,12 @@ void CLayer::Display_Editor()
 	if (!m_bDisplayInEditor)
 		return;
 
-	ImGui::Begin("Layer");
-    for (auto& gameObjectList : m_umGameObject)
+    for (auto& gameObject : m_umGameObject)
     {
-        for (auto& gameObject : gameObjectList.second)
-        {
-            ImGui::Checkbox(("##" + to_string((uintptr_t)gameObject)).c_str(), &gameObject->m_bDisplayInEditor); ImGui::SameLine();
-            ImGui::Text("%ls", gameObject->m_szDisplayName);
+        ImGui::Checkbox(("##" + to_string((uintptr_t)gameObject.second)).c_str(), &gameObject.second->m_bDisplayInEditor); ImGui::SameLine();
+        ImGui::Text("%ls", gameObject.second->m_szDisplayName);
 
-            gameObject->Display_Editor();
-        }
+        gameObject.second->Display_Editor();
     }
-	
-
-	ImGui::End();
 }
+

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CBase.h"
 #include "Engine_Define.h"
@@ -34,7 +34,7 @@ protected:
 public:
 	virtual void				Display_Editor(const char* pObjTag) {};
 	_bool						m_bDisplayInEditor;
-	TCHAR						m_szDisplayName[32];
+	char					    	m_szDisplayName[32];
 #pragma endregion
 
 };

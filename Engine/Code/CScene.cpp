@@ -74,11 +74,15 @@ void CScene::Display_Editor()
     _uint dwIndex = 0;
     for (auto& layer : m_umLayer)
     {
-        ImGui::Checkbox(("##" + to_string(dwIndex++)).c_str(), &layer.second->m_bDisplayInEditor);       ImGui::SameLine();
-        
-        ImGui::Text("%ls", layer.first.c_str());
-        
-        layer.second->Display_Editor();
+        if (ImGui::CollapsingHeader(layer.second->m_LayerTag, &layer.second->m_bDisplayInEditor))
+        {
+            // ImGui::SameLine();
+            // ImGui::Text("%ls", layer.first.c_str());
+
+            layer.second->Display_Editor();
+
+        }
+
     }
 
     ImGui::End();

@@ -175,6 +175,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     Engine::CEditor::GetInstance()->Editor_WndProc(hWnd, message, wParam, lParam);
 
+
     switch (message)
     {
     case WM_COMMAND:

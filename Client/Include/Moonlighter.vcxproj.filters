@@ -43,6 +43,12 @@
     <Filter Include="98. ImGui\EX_Manager">
       <UniqueIdentifier>{8c1d9181-9337-446c-b4a4-fe6f408b29da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scene\CEditScene">
+      <UniqueIdentifier>{e9370153-4960-448f-859d-9cca4f9908f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. ImGui\Code">
+      <UniqueIdentifier>{5d377977-b947-4ddb-ad60-e4b029adba34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -81,6 +87,39 @@
     <ClInclude Include="..\Header\CExampleManager.h">
       <Filter>98. ImGui\EX_Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEditScene.h">
+      <Filter>02. Scene\CEditScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imconfig.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imgui.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\ImGui_Define.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imgui_impl_dx9.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imgui_impl_win32.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imgui_internal.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\ImGui_Struct.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imstb_rectpack.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imstb_textedit.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imstb_truetype.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -109,6 +148,30 @@
     </ClCompile>
     <ClCompile Include="..\Code\CExampleManager.cpp">
       <Filter>98. ImGui\EX_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditScene.cpp">
+      <Filter>02. Scene\CEditScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui.cpp">
+      <Filter>98. ImGui\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui_demo.cpp">
+      <Filter>98. ImGui\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui_draw.cpp">
+      <Filter>98. ImGui\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui_impl_dx9.cpp">
+      <Filter>98. ImGui\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui_impl_win32.cpp">
+      <Filter>98. ImGui\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui_tables.cpp">
+      <Filter>98. ImGui\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui_widgets.cpp">
+      <Filter>98. ImGui\Code</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

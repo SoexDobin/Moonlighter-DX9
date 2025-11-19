@@ -6,6 +6,7 @@
 #include "CRenderer.h"
 #include "CPrototypeManager.h"
 #include "CDataManager.h"
+#include "CLightManager.h"
 
 #include "CMainScene.h"
 
@@ -48,7 +49,7 @@ void CMainApp::LateUpdate_MainApp(const _float fDeltaTime)
 
 void CMainApp::Render_MainApp()
 {
-	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 0.5f, 1.f));
+	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
 
 	m_pManageClass->Render_Scene(m_pGraphicDevice);
 
@@ -71,6 +72,9 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDevice)
 	(*ppGraphicDevice)->SetRenderState(D3DRS_LIGHTING, FALSE);
 	(*ppGraphicDevice)->SetRenderState(D3DRS_ZENABLE, TRUE);
 	(*ppGraphicDevice)->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+
+	//(*ppGraphicDevice)->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+	//(*ppGraphicDevice)->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 
 	if (FAILED(CDInputManager::GetInstance()->Ready_InputDev(g_hInst, g_hWnd)))
 		return E_FAIL;
@@ -108,6 +112,7 @@ void CMainApp::Free()
 
 	CDataManager::DestroyInstance();
 
+	Engine::CLightManager::DestroyInstance();
 	Engine::CDInputManager::DestroyInstance();
 	Engine::CRenderer::DestroyInstance();
 	Engine::CGraphicDevice::DestroyInstance();

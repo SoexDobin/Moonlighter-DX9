@@ -15,7 +15,7 @@ private:
 
 public:
 	void	Add_RenderGroup(RENDERID eID, CGameObject* pGameObject);
-	void	Render_GameObject(LPDIRECT3DDEVICE9 pGraphicDev);
+	void	Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev);
 	void	Clear_RenderGroup();
 private:
 	void	Render_Priority(LPDIRECT3DDEVICE9& pGraphicDev);
@@ -27,7 +27,7 @@ private:
 	list<CGameObject*>			m_RenderGroup[RENDER_END];
 
 private:
-	virtual void		Free();
+	virtual void		Free() override;
 };
 
 END

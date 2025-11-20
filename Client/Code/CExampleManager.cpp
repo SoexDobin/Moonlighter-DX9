@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CExampleManager.h"
 
 // Must be included
@@ -19,9 +19,9 @@ CExampleManager::~CExampleManager()
 
 HRESULT CExampleManager::Ready_Manager()
 {
-	Add_ExamplePanel1();
-	
-	Add_ExamplePanel2();
+	//Add_ExamplePanel1();
+	//
+	//Add_ExamplePanel2();
 
 	return S_OK;
 }

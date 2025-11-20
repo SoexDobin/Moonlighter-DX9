@@ -112,6 +112,9 @@
     <Filter Include="00. Manager\08. LightManager\00. Light">
       <UniqueIdentifier>{00ba5a33-3caa-4e3f-8c05-3c5ec483e5a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. Manager\08. Editor\01. Mediator">
+      <UniqueIdentifier>{de8572ba-4181-4f7e-8be8-512f8c61d73f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -243,6 +246,9 @@
     <ClInclude Include="..\Header\CLightManager.h">
       <Filter>00. Manager\08. LightManager</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CMediator.h">
+      <Filter>00. Manager\08. Editor\01. Mediator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CTimer.cpp">
@@ -349,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CLightManager.cpp">
       <Filter>00. Manager\08. LightManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMediator.cpp">
+      <Filter>00. Manager\08. Editor\01. Mediator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

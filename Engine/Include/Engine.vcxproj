@@ -161,6 +161,7 @@ xcopy /Y /I "$(SolutionDir)Engine\Header*.*" "$(SolutionDir)Reference\Header"</C
     <ClInclude Include="..\Header\CLight.h" />
     <ClInclude Include="..\Header\CLightManager.h" />
     <ClInclude Include="..\Header\CManagement.h" />
+    <ClInclude Include="..\Header\CMediator.h" />
     <ClInclude Include="..\Header\CPanel.h" />
     <ClInclude Include="..\Header\CPrototypeManager.h" />
     <ClInclude Include="..\Header\CRectColor.h" />
@@ -198,6 +199,7 @@ xcopy /Y /I "$(SolutionDir)Engine\Header*.*" "$(SolutionDir)Reference\Header"</C
     <ClCompile Include="..\Code\CLight.cpp" />
     <ClCompile Include="..\Code\CLightManager.cpp" />
     <ClCompile Include="..\Code\CManagement.cpp" />
+    <ClCompile Include="..\Code\CMediator.cpp" />
     <ClCompile Include="..\Code\CPanel.cpp" />
     <ClCompile Include="..\Code\CPrototypeManager.cpp" />
     <ClCompile Include="..\Code\CRectColor.cpp" />

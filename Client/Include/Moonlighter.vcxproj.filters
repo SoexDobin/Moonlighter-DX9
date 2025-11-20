@@ -61,6 +61,12 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{dd585d7f-ea1b-496c-a1b0-8749e04611a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. ImGui\Mediator">
+      <UniqueIdentifier>{64f31833-3464-4550-a9ac-ddc3d9792578}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\03. MonsterTestScene">
+      <UniqueIdentifier>{e91f5b4e-ec6e-46f8-a3b5-90882e88a029}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -144,6 +150,15 @@
     <ClInclude Include="..\Header\CUtility.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEngineMediator.h">
+      <Filter>98. ImGui\Mediator</Filter>
+    </ClInclude>
+    <ClInclude Include="Client_Define.h">
+      <Filter>99. Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMonsterTestScene.h">
+      <Filter>02. Scene\03. MonsterTestScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -205,6 +220,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainVillage.cpp">
       <Filter>03. GameObject\TerrainVillage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEngineMediator.cpp">
+      <Filter>98. ImGui\Mediator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMonsterTestScene.cpp">
+      <Filter>02. Scene\03. MonsterTestScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

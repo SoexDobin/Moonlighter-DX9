@@ -10,6 +10,8 @@
 #include "CManagement.h"
 #include "CEditScene.h"
 
+#include "CPlayerTestScene.h"
+
 CMainScene::CMainScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
 {
@@ -59,7 +61,6 @@ _int CMainScene::Update_Scene(const _float fTimeDelta)
             return -1;
         }
     }
-
     return iExit;
 }
 

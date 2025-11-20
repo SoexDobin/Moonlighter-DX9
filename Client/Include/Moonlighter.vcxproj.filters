@@ -43,11 +43,18 @@
     <Filter Include="98. ImGui\EX_Manager">
       <UniqueIdentifier>{8c1d9181-9337-446c-b4a4-fe6f408b29da}</UniqueIdentifier>
     </Filter>
+
     <Filter Include="02. Scene\CEditScene">
       <UniqueIdentifier>{e9370153-4960-448f-859d-9cca4f9908f3}</UniqueIdentifier>
     </Filter>
     <Filter Include="98. ImGui\Code">
       <UniqueIdentifier>{5d377977-b947-4ddb-ad60-e4b029adba34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\07. PlayerTestScene">
+      <UniqueIdentifier>{f7f4f60e-af65-4766-802a-b1956ec24339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\01. Player">
+      <UniqueIdentifier>{29a71569-598b-4100-b888-71b07937c4c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +94,7 @@
     <ClInclude Include="..\Header\CExampleManager.h">
       <Filter>98. ImGui\EX_Manager</Filter>
     </ClInclude>
+
     <ClInclude Include="..\Header\CEditScene.h">
       <Filter>02. Scene\CEditScene</Filter>
     </ClInclude>
@@ -119,6 +127,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Reference\Header\imstb_truetype.h">
       <Filter>98. ImGui\Code</Filter>
+</ClInclude>
+    <ClInclude Include="..\Header\CPlayerTestScene.h">
+      <Filter>02. Scene\07. PlayerTestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPlayer.h">
+      <Filter>03. GameObject\01. Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +186,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Reference\Header\imgui_widgets.cpp">
       <Filter>98. ImGui\Code</Filter>
+</ClCompile>
+    <ClCompile Include="..\Code\CPlayerTestScene.cpp">
+      <Filter>02. Scene\07. PlayerTestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPlayer.cpp">
+      <Filter>03. GameObject\01. Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

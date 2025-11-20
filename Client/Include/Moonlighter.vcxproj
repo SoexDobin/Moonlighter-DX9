@@ -156,6 +156,8 @@
     <ClInclude Include="..\Header\CExampleObject.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMainScene.h" />
+    <ClInclude Include="..\Header\CPlayer.h" />
+    <ClInclude Include="..\Header\CPlayerTestScene.h" />
     <ClInclude Include="..\Header\CTestRect.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Moonlighter.h" />
@@ -192,6 +194,8 @@
     <ClCompile Include="..\Code\CExampleObject.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CMainScene.cpp" />
+    <ClCompile Include="..\Code\CPlayer.cpp" />
+    <ClCompile Include="..\Code\CPlayerTestScene.cpp" />
     <ClCompile Include="..\Code\CTestRect.cpp" />
     <ClCompile Include="Moonlighter.cpp" />
     <ClCompile Include="pch.cpp">

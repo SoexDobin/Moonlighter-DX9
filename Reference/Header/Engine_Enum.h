@@ -1,4 +1,4 @@
-#ifndef Engine_Enum_h__
+﻿#ifndef Engine_Enum_h__
 #define Engine_Enum_h__
 
 namespace Engine
@@ -34,6 +34,14 @@ namespace Engine
 
 namespace Engine
 {
+    enum GAMEOBJECT_TYPE
+    {
+        GAME_OBJECT,
+        CAMERA_OBJECT,
+        RENDER_OBJECT,
+        OBJECT_END
+    };
+
 	enum PROTOTYPE_COMPONENT
 	{
 		RECTCOLOR,

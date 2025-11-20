@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CComponent.h"
 
@@ -30,7 +30,7 @@ public:
 
 
 public:
-	HRESULT				Ready_Texture(const wstring wsPath);
+	HRESULT				Ready_Texture(const wstring& wsPath);
 	void				Set_Texture(const _uint iTex, const _uint iFrame = 0);
 
 	_int				Update_Component(const _float fTimeDelta) override;

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CGameObject.h"
 
@@ -19,6 +19,9 @@ public:
 	const CRectTex&		Get_Buffer()	{ return *m_pBufferCom; }
 
 public:
+    virtual GAMEOBJECT_TYPE     Get_Type() override { return RENDER_OBJECT; }
+
+public:
 	virtual		HRESULT		Ready_GameObject() override;
 	virtual		_int		Update_GameObject(const _float fTimeDelta) override;
 	virtual		void		LateUpdate_GameObject(const _float fTimeDelta) override;
@@ -29,8 +32,8 @@ protected:
 	CTransform*			m_pTransformCom;
 
 public:
-	static const wstring	n_wsBufferKey;
-	static const wstring	n_wsTransformKey;
+	static const wstring&	n_wsBufferKey;
+	static const wstring&	n_wsTransformKey;
 	
 public:
 	static CRenderObject*	Create(LPDIRECT3DDEVICE9 pGraphicDev);

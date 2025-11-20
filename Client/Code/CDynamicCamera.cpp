@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CDynamicCamera.h"
 #include "CRenderer.h"
 #include "CDInputManager.h"
@@ -7,10 +7,10 @@ CDynamicCamera::CDynamicCamera(LPDIRECT3DDEVICE9 pGraphicDev,
                                const _vec3* pEye,
                                const _vec3* pAt,
                                const _vec3* pUp,
-                               const _float fFov,
-                               const _float fAspect,
-                               const _float fNear,
-                               const _float fFar)
+                               _float fFov,
+                               _float fAspect,
+                               _float fNear,
+                               _float fFar)
     : CCamera(pGraphicDev, pEye, pAt, pUp, fFov, fAspect, fNear, fFar),
     m_fSpeed(0.f), m_bFix(false), m_bCheck(false)
 {
@@ -159,10 +159,10 @@ CDynamicCamera* CDynamicCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev,
                                        const _vec3* pEye, 
                                        const _vec3* pAt, 
                                        const _vec3* pUp, 
-                                       const _float fFov, 
-                                       const _float fAspect, 
-                                       const _float fNear, 
-                                       const _float fFar)
+                                       _float fFov, 
+                                       _float fAspect, 
+                                       _float fNear, 
+                                       _float fFar)
 {
     CDynamicCamera* pInstance = new CDynamicCamera(pGraphicDev, pEye, pAt, pUp, fFov, fAspect, fNear, fFar);
 

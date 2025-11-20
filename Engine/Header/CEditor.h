@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CBase.h"
 #include "Engine_Define.h"
 
@@ -41,6 +41,9 @@ private :
 
 private:
 	map<const char*, CPanel*> m_pPanelMap;
+
+private :
+    static _bool s_bEditorActive;
 
 private :
 	_bool		m_bGamePaused;

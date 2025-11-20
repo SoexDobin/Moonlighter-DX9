@@ -105,6 +105,9 @@
     <ClInclude Include="..\Header\CUITestScene.h">
       <Filter>02. Scene\08. UITestScene</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CUIStatic.h">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -145,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CUITestScene.cpp">
       <Filter>02. Scene\08. UITestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUIStatic.cpp">
+      <Filter>03. GameObject\10. UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

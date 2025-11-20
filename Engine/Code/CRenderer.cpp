@@ -137,6 +137,10 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
     pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, oldAlphaBlend);
     */
 
+    wchar_t buf[128];
+    swprintf_s(buf, L"[UI] count = %d\n", (int)m_RenderGroup[RENDER_UI].size());
+    OutputDebugString(buf);
+
     _matrix matOldView, matOldProj;
     pGraphicDev->GetTransform(D3DTS_VIEW, &matOldView);
     pGraphicDev->GetTransform(D3DTS_PROJECTION, &matOldProj);
@@ -165,10 +169,12 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
     pGraphicDev->SetRenderState(D3DRS_ZENABLE, FALSE);
 
 
+    for_each(m_RenderGroup[RENDER_UI].begin(), m_RenderGroup[RENDER_UI].end()
+        , [](CGameObject* pGameObject) -> void {
+            pGameObject->Render_GameObject();
+        });
 
-    for (auto& pObj : m_RenderGroup[RENDER_UI])
-        pObj->Render_GameObject();
-
+    
 
     // 복원
 

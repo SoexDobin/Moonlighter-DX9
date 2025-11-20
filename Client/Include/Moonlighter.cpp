@@ -105,10 +105,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
                 Engine::CFrameManager::GetInstance()->Set_LastTimeDelta(fDeltaTime * fTimeScale);
             }
-            else
-            {
-                pMainApp->Render_MainApp();
-            }
+            
         }
     }
 

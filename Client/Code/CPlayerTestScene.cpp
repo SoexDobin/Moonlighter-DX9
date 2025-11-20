@@ -27,6 +27,8 @@ HRESULT CPlayerTestScene::Ready_Scene()
 
 _int CPlayerTestScene::Update_Scene(const _float fTimeDelta)
 {
+  
+
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
     return iExit;

@@ -161,6 +161,30 @@ HRESULT CDataManager::Ready_UI_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
         L"../Bin/Resource/Sprite/UI/Inven/Inventory_Base.png", 1)))
         return E_FAIL;
 
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"hp_barBack",
+        L"../Bin/Resource/Sprite/UI/Static/hp_barBack.png", 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"icon_bag",
+        L"../Bin/Resource/Sprite/UI/Static/icon_bag.png", 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"icon_coin",
+        L"../Bin/Resource/Sprite/UI/Static/icon_coin.png", 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"icon_hp",
+        L"../Bin/Resource/Sprite/UI/Static/icon_hp.png", 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"icon_Pouch",
+        L"../Bin/Resource/Sprite/UI/Static/icon_Pouch.png", 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"interface_key",
+        L"../Bin/Resource/Sprite/UI/Static/interface_key.png", 1)))
+        return E_FAIL;
+
 
 
     return S_OK;

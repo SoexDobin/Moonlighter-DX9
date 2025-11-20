@@ -2,7 +2,7 @@
 #include "CUITestScene.h"
 #include "CUIInven.h"
 #include "CDynamicCamera.h"
-#include "CPlayer.h"
+#include "CUIStatic.h"
 
 CUITestScene::CUITestScene(LPDIRECT3DDEVICE9 pGraphicDev)
     :CScene(pGraphicDev)
@@ -30,6 +30,7 @@ HRESULT CUITestScene::Ready_Scene()
 
 _int CUITestScene::Update_Scene(const _float fTimeDelta)
 {
+
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
 
@@ -79,6 +80,15 @@ HRESULT CUITestScene::Ready_UIInven_Layer(const wstring& wsLayerTag)
 
     if (FAILED(pLayer->Add_GameObject(L"UI_Invnen", pGameObject)))
         return E_FAIL;
+
+    //Static UI
+    //pGameObject = CUIStatic::Create(m_pGraphicDevice);
+    //
+    //if (pGameObject == nullptr)
+    //    return E_FAIL;
+    //
+    //if (FAILED(pLayer->Add_GameObject(L"UI_Static", pGameObject)))
+    //    return E_FAIL;
 
 
     m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pLayer});

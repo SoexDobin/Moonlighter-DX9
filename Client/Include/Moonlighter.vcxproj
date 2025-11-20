@@ -149,6 +149,10 @@
     <ClInclude Include="..\Header\CPlayerTestScene.h" />
     <ClInclude Include="..\Header\CTestRect.h" />
     <ClInclude Include="..\Header\CUIInven.h" />
+    <ClInclude Include="..\Header\CUIStatic.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\Header\CUITestScene.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Moonlighter.h" />
@@ -167,6 +171,10 @@
     <ClCompile Include="..\Code\CPlayerTestScene.cpp" />
     <ClCompile Include="..\Code\CTestRect.cpp" />
     <ClCompile Include="..\Code\CUIInven.cpp" />
+    <ClCompile Include="..\Code\CUIStatic.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Code\CUITestScene.cpp" />
     <ClCompile Include="Moonlighter.cpp" />
     <ClCompile Include="pch.cpp">

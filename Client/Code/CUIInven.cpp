@@ -30,9 +30,9 @@ HRESULT CUIInven::Ready_GameObject()
         return E_FAIL;
 
     m_pTextureCom = static_cast<CTexture*>(pCom);
-
+   
     m_pTextureCom->Ready_Texture(L"Inventory_Base");
-    m_pTextureCom->Set_Texture(0);
+    m_pTextureCom->Set_Texture(0, 0);
 
     m_umComponent[ID_STATIC].insert(pair<wstring, CComponent*>(L"Inventory_Base", m_pTextureCom));
 
@@ -47,6 +47,9 @@ HRESULT CUIInven::Ready_GameObject()
 _int CUIInven::Update_GameObject(const _float fTimeDelta)
 {
     _int iExit = Engine::CRenderObject::Update_GameObject(fTimeDelta);
+
+    OutputDebugString(L"CUIInven::Update_GameObject called\n");
+
     Engine::CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
     
 
@@ -56,13 +59,12 @@ _int CUIInven::Update_GameObject(const _float fTimeDelta)
 void CUIInven::LateUpdate_GameObject(const _float fTimeDelta)
 {
     Engine::CRenderObject::LateUpdate_GameObject(fTimeDelta);
+
     
 }
 
 void CUIInven::Render_GameObject()
 {
-
-
     m_pGraphicDevice->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
     //m_pTextureCom->Set_Texture(0); // 세팅, 바인딩
     m_pBufferCom->Render_Buffer();

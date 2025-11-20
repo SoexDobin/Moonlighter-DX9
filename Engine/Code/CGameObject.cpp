@@ -1,7 +1,6 @@
 ﻿#include "CGameObject.h"
 #include "CEditor.h"
 
-
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	: m_pGraphicDevice(pGraphicDev), m_bDisplayInEditor(false)
 {

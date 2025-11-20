@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "CBase.h"
+#include "Engine_Define.h"
 #include "CComponent.h"
 
 BEGIN(Engine)

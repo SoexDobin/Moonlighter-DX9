@@ -14,6 +14,8 @@ protected:
 	virtual ~CComponent() override;
 
 public:
+    //CGameObject*                Get_Owner() { return m_pOwner; }
+    //void                        Set_Owner(CGameObject* pOwner);
 	virtual	PROTOTYPE_COMPONENT	Get_ComponentType() PURE;
 
 public:
@@ -26,6 +28,9 @@ public:
 protected:
 	LPDIRECT3DDEVICE9			m_pGraphicDevice;
 	_bool						m_bClone;
+
+    //CGameObject*                m_pOwner;
+    //CTransform*                 m_pTrans;
 
 protected:
 	virtual void				Free();

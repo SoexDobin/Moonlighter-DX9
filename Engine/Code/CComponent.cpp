@@ -1,4 +1,5 @@
-#include "CComponent.h"
+﻿#include "CComponent.h"
+
 
 CComponent::CComponent()
     : m_pGraphicDevice(nullptr), m_bClone(false), m_bDisplayInEditor(false)

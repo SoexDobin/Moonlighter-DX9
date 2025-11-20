@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "CBase.h"
 #include "CScene.h"
@@ -14,14 +14,10 @@ private:
 	virtual	~CManagement() override;
 
 public:
-    CGameObject*               Get_Object(const wstring& wsLayerTag, const wstring& wsObjTag);
-    CGameObject*               Get_Object(const wstring& wsObjTag);
-    const list<CGameObject*>*  Get_Object_List(const wstring& wsObjTag);
-
 	CComponent*		Get_Component(COMPONENTID eID,
-							const wstring& wsLayerTag,
-							const wstring& wsObjTag,
-							const wstring& wsComponentTag);
+							const wstring wsLayerTag,
+							const wstring wsObjTag,
+							const wstring wsComponentTag);
 
 public:
 	HRESULT			Set_Scene(CScene* pScene);
@@ -33,7 +29,6 @@ public:
 
 private:
 	CScene*				m_pCurScene;
-
 	
 public:
 	virtual void			Free() override;

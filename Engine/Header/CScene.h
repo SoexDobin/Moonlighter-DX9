@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "CBase.h"
 #include "CLayer.h"
@@ -15,13 +15,11 @@ public:
 	const _int		Get_SceneIndex() const				{ return m_iSceneIdx; };
 	void			Set_SceneIndex(const _int idx)		{ m_iSceneIdx = idx; };
 
-    const unordered_map<wstring, CLayer*>&  Get_Layers() { return m_umLayer; }
-
 public:
 	CComponent*		Get_Component(COMPONENTID eID,
-								const wstring& wsLayerTag,
-								const wstring& wsObjTag,
-								const wstring& wsComponentTag);
+								const wstring wsLayerTag,
+								const wstring wsObjTag,
+								const wstring wsComponentTag);
 
 public:
 	virtual		HRESULT		Ready_Scene();
@@ -32,17 +30,10 @@ public:
 protected:
 	_int										m_iSceneIdx;
 	LPDIRECT3DDEVICE9							m_pGraphicDevice;
-	unordered_map<wstring, CLayer*>		        m_umLayer;
+	unordered_map<wstring, CLayer*>		m_umLayer;
 
 protected:
 	virtual void Free();
-
-#pragma region Editor
-public:
-	void			Display_Editor();
-	_bool		m_bDisplayInEditor;
-#pragma endregion
-
 };
 
 END

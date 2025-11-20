@@ -1,4 +1,4 @@
-﻿#ifndef Engine_Enum_h__
+#ifndef Engine_Enum_h__
 #define Engine_Enum_h__
 
 namespace Engine
@@ -24,24 +24,10 @@ namespace Engine
 		, CHANNEL_8, CHANNEL_9, CHANNEL_10, CHANNEL_11, CHANNEL_12, CHANNEL_13, CHANNEL_14, CHANNEL_15
 		, MAXCHANNEL
 	};
-
-	enum DATATYPE {
-		DATA_BOOL, DATA_BYTE, DATA_UBYTE, DATA_TCHAR, DATA_SHORT, DATA_USHORT,
-		DATA_INT, DATA_UINT, DATA_LONG, DATA_ULONG, DATA_FLOAT, DATA_DOUBLE,
-		DATA_VEC2, DATA_VEC3, DATA_VEC4, DATA_MAT, DATA_END
-	};
 }
 
 namespace Engine
 {
-    enum GAMEOBJECT_TYPE
-    {
-        GAME_OBJECT,
-        CAMERA_OBJECT,
-        RENDER_OBJECT,
-        OBJECT_END
-    };
-
 	enum PROTOTYPE_COMPONENT
 	{
 		RECTCOLOR,

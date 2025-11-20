@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "CBase.h"
 #include "Engine_Define.h"
@@ -29,14 +29,6 @@ protected:
 
 protected:
 	virtual void				Free();
-
-#pragma region Editor
-public:
-	virtual void				Display_Editor(const char* pObjTag) {};
-	_bool						m_bDisplayInEditor;
-	char					    	m_szDisplayName[32];
-#pragma endregion
-
 };
 
 END

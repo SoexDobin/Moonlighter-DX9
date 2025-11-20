@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "CComponent.h"
 
 BEGIN(Engine)
@@ -14,25 +14,24 @@ private:
 public:
 	const _vec3&	Get_Scale() const { return m_vScale; }
 	void			Set_Scale(const _vec3& vScale) { m_vScale = { vScale.x , vScale.y, vScale.z }; }
-	void			Set_Scale(_float fX, _float fY, _float fZ) { m_vScale = { fX ,fY, fZ }; }
+	void			Set_Scale(const _float fX, const _float fY, const _float fZ) { m_vScale = { fX ,fY, fZ }; }
 
 	const _vec3&	Get_Angle() const { return m_vAngle; }
 	void			Set_Angle(const _vec3& vAngle) { m_vAngle = { vAngle.x , vAngle.y, vAngle.z }; }
-	void			Set_Angle(_float fX, _float fY, _float fZ) { m_vAngle = { fX ,fY, fZ }; }
+	void			Set_Angle(const _float fX, const _float fY, const _float fZ) { m_vAngle = { fX ,fY, fZ }; }
 
 	const _vec3&	Get_Pos() const { return m_vInfo[INFO_POS]; }
 	void			Set_Pos(const _vec3& vPos) { m_vInfo[INFO_POS] = { vPos.x , vPos.y, vPos.z }; }
-	void			Set_Pos(_float fX, _float fY, _float fZ) { m_vInfo[INFO_POS] = { fX ,fY, fZ }; }
+	void			Set_Pos(const _float fX, const _float fY, const _float fZ) { m_vInfo[INFO_POS] = { fX ,fY, fZ }; }
 
 	void			Get_Info(INFO eType, _vec3* pInfo) { memcpy(pInfo, &m_matWorld.m[eType][0], sizeof(_vec3)); }
 
-	void			Move_Pos(const _vec3* pDir, _float fTimeDelta, _float fSpeed)
+	void			Move_Pos(const _vec3* pDir, const _float fTimeDelta, const _float fSpeed)
 	{
 		m_vInfo[INFO_POS] += *pDir * fTimeDelta * fSpeed;
 	}
 
-	void			Add_Rotation(ROTATION eType, _float fAngle) { *(((_float*)&m_vAngle) + eType) += fAngle; }
-    void            Set_World(const _matrix& matWorld) { m_matWorld = matWorld; }
+	void			Rotation(ROTATION eType, const _float fAngle) { *(((_float*)&m_vAngle) + eType) += fAngle; }
 	_matrix*		Get_World() { return &m_matWorld; }
 
 public:
@@ -53,12 +52,6 @@ public:
 
 private:
 	virtual void			Free() override;
-
-#pragma region Editor
-public:
-	virtual void Display_Editor(const char* pObjTag) override;
-#pragma endregion
-
 };
 
 END

@@ -3,7 +3,6 @@
 IMPLEMENT_SINGLETON(CRenderer)
 
 CRenderer::CRenderer()
-	: m_iDrawCalls(0)
 {
 }
 
@@ -21,10 +20,8 @@ void CRenderer::Add_RenderGroup(RENDERID eID, CGameObject* pGameObject)
 	pGameObject->AddRef();
 }
 
-void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
+void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	m_iDrawCalls = 0;
-
 	Render_Priority(pGraphicDev);
 	Render_NonAlpha(pGraphicDev);
 	Render_Alpha(pGraphicDev);
@@ -64,11 +61,6 @@ void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 
 	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-
-	pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-	pGraphicDev->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
-
-	pGraphicDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
 	for_each(m_RenderGroup[RENDER_ALPHA].begin(), m_RenderGroup[RENDER_ALPHA].end()
 		, [](CGameObject* pGameObject) -> void {

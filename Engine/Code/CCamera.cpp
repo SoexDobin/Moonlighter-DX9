@@ -1,13 +1,13 @@
-﻿#include "CCamera.h"
+#include "CCamera.h"
 
 CCamera::CCamera(LPDIRECT3DDEVICE9 pGraphicDev, 
                  const _vec3* pEye,
                  const _vec3* pAt,
                  const _vec3* pUp,
-                 _float fFov,
-                 _float fAspect,
-                 _float fNear,
-                 _float fFar)
+                 const _float fFov,
+                 const _float fAspect,
+                 const _float fNear,
+                 const _float fFar)
     : CGameObject(pGraphicDev), 
     m_fFov(fFov), m_fAspect(fAspect), m_fNear(fNear), m_fFar(fFar),
     m_vEye(*pEye), m_vAt(*pAt), m_vUp(*pUp)

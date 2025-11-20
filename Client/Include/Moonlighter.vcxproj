@@ -113,7 +113,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\Header;..\..\Base;..\..\Reference\Header;..\Include;..\..\Engine\External;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Header;..\..\Base;..\..\Reference\Header;..\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -139,25 +139,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Reference\Header\imconfig.h" />
-    <ClInclude Include="..\..\Reference\Header\imgui.h" />
-    <ClInclude Include="..\..\Reference\Header\ImGui_Define.h" />
-    <ClInclude Include="..\..\Reference\Header\imgui_impl_dx9.h" />
-    <ClInclude Include="..\..\Reference\Header\imgui_impl_win32.h" />
-    <ClInclude Include="..\..\Reference\Header\imgui_internal.h" />
-    <ClInclude Include="..\..\Reference\Header\ImGui_Struct.h" />
-    <ClInclude Include="..\..\Reference\Header\imstb_rectpack.h" />
-    <ClInclude Include="..\..\Reference\Header\imstb_textedit.h" />
-    <ClInclude Include="..\..\Reference\Header\imstb_truetype.h" />
     <ClInclude Include="..\Header\CDataManager.h" />
     <ClInclude Include="..\Header\CDynamicCamera.h" />
-    <ClInclude Include="..\Header\CEditScene.h" />
-    <ClInclude Include="..\Header\CExampleManager.h" />
-    <ClInclude Include="..\Header\CExampleObject.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMainScene.h" />
-    <ClInclude Include="..\Header\CPlayer.h" />
-    <ClInclude Include="..\Header\CPlayerTestScene.h" />
     <ClInclude Include="..\Header\CTestRect.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Moonlighter.h" />
@@ -166,36 +151,10 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Reference\Header\imgui.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Reference\Header\imgui_demo.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Reference\Header\imgui_draw.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Reference\Header\imgui_impl_dx9.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Reference\Header\imgui_impl_win32.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Reference\Header\imgui_tables.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\..\Reference\Header\imgui_widgets.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="..\Code\CDataManager.cpp" />
     <ClCompile Include="..\Code\CDynamicCamera.cpp" />
-    <ClCompile Include="..\Code\CEditScene.cpp" />
-    <ClCompile Include="..\Code\CExampleManager.cpp" />
-    <ClCompile Include="..\Code\CExampleObject.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CMainScene.cpp" />
-    <ClCompile Include="..\Code\CPlayer.cpp" />
-    <ClCompile Include="..\Code\CPlayerTestScene.cpp" />
     <ClCompile Include="..\Code\CTestRect.cpp" />
     <ClCompile Include="Moonlighter.cpp" />
     <ClCompile Include="pch.cpp">

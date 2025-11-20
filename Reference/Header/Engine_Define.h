@@ -44,23 +44,6 @@
 #endif
 #endif
 
-#ifdef new
-
-#undef new
-#include "imgui.h"
-#include "imgui_impl_dx9.h"
-#include "imgui_impl_win32.h"
-#include "ImGui_Define.h"
-
-#endif
-
-#ifdef _DEBUG
-
-#define new DBG_NEW
-
-#endif
-
-
 using namespace std;
 using namespace Engine;
 

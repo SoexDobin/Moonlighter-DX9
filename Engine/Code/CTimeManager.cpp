@@ -1,4 +1,4 @@
-#include "CTimeManager.h"
+﻿#include "CTimeManager.h"
 #include "CTimer.h"
 
 IMPLEMENT_SINGLETON(CTimeManager)
@@ -13,7 +13,7 @@ CTimeManager::~CTimeManager()
 	Free();
 }
 
-_float CTimeManager::Get_TimeDelta(const wstring wsTimeTag)
+_float CTimeManager::Get_TimeDelta(const wstring& wsTimeTag)
 {
 	CTimer* pTimer = Find_Timer(wsTimeTag);
 	if (pTimer == nullptr)
@@ -22,7 +22,7 @@ _float CTimeManager::Get_TimeDelta(const wstring wsTimeTag)
 	return pTimer->GetDeltaTime();
 }
 
-void CTimeManager::Set_TimeDelta(const wstring wsTimeTag)
+void CTimeManager::Set_TimeDelta(const wstring& wsTimeTag)
 {
 	CTimer* pTimer = Find_Timer(wsTimeTag);
 	if (pTimer == nullptr)
@@ -31,7 +31,7 @@ void CTimeManager::Set_TimeDelta(const wstring wsTimeTag)
 	pTimer->Update_Timer();
 }
 
-HRESULT CTimeManager::Ready_Timer(const wstring wsTimerTag)
+HRESULT CTimeManager::Ready_Timer(const wstring& wsTimerTag)
 {
 	CTimer* pTimer = Find_Timer(wsTimerTag);
 
@@ -40,7 +40,7 @@ HRESULT CTimeManager::Ready_Timer(const wstring wsTimerTag)
 
 	if (pTimer = CTimer::Create())
 	{
-		m_umTimer.insert(pair<const wstring, CTimer*>{ wsTimerTag, pTimer});
+		m_umTimer.insert(pair<const wstring&, CTimer*>{ wsTimerTag, pTimer});
 		return S_OK;
 	}
 	else
@@ -49,10 +49,10 @@ HRESULT CTimeManager::Ready_Timer(const wstring wsTimerTag)
 	}
 }
 
-CTimer* CTimeManager::Find_Timer(const wstring wsTimerTag)
+CTimer* CTimeManager::Find_Timer(const wstring& wsTimerTag)
 {
 	auto iter = find_if(m_umTimer.begin(), m_umTimer.end()
-		, [&](pair<const wstring, CTimer*> pair) -> _bool {
+		, [&](pair<const wstring&, CTimer*> pair) -> _bool {
 			if (wsTimerTag == pair.first)
 				return true;
 			
@@ -68,7 +68,7 @@ CTimer* CTimeManager::Find_Timer(const wstring wsTimerTag)
 void CTimeManager::Free()
 {
 	for_each(m_umTimer.begin(), m_umTimer.end(), 
-		[](pair<const wstring, CTimer*> pair) 
+		[](pair<const wstring&, CTimer*> pair) 
 		{
 			_ulong dwRefCnt = pair.second->Release();
 

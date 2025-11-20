@@ -1,0 +1,4 @@
+﻿#pragma once
+
+
+enum SCENETYPE { SC_MAIN, SC_PLAYER, SC_MAP, SC_MONSTER, SC_END };

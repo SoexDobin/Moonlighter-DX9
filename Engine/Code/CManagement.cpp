@@ -1,4 +1,4 @@
-#include "CManagement.h"
+ï»¿#include "CManagement.h"
 #include "CRenderer.h"
 
 IMPLEMENT_SINGLETON(CManagement)
@@ -13,10 +13,62 @@ CManagement::~CManagement()
     Free();
 }
 
+CGameObject* CManagement::Get_Object(const wstring& wsLayerTag, const wstring& wsObjTag)
+{
+    auto itBegin = m_pCurScene->Get_Layers().at(wsLayerTag)->Get_Objects().begin();
+    auto itEnd = m_pCurScene->Get_Layers().at(wsLayerTag)->Get_Objects().end();
+
+    auto iter = find_if(itBegin, itEnd,
+        [&wsObjTag](const pair<wstring, const list<CGameObject*>>& pair) -> _bool {
+            if (pair.first == wsObjTag)
+                return true;
+
+            return false;
+        });
+
+    if (iter == itEnd) return nullptr;
+
+    return iter->second.front();
+}
+
+CGameObject* CManagement::Get_Object(const wstring& wsObjTag)
+{
+    if (const list<CGameObject*>* pObj = Get_Object_List(wsObjTag))
+        return pObj->front();
+
+    return nullptr;
+}
+
+const list<CGameObject*>* CManagement::Get_Object_List(const wstring& wsObjTag)
+{
+    const list<CGameObject*>* pList = nullptr;
+    for_each(m_pCurScene->Get_Layers().begin(), m_pCurScene->Get_Layers().end(),
+        [&wsObjTag, &pList](const pair<const wstring, CLayer*>& layer) -> void {
+
+            auto iter = find_if(layer.second->Get_Objects().begin(), layer.second->Get_Objects().end(),
+                [&wsObjTag, &pList](const pair<const wstring, list<CGameObject*>>& pair) -> _bool {
+                    if (pair.first == wsObjTag)
+                        return true;
+
+                    return false;
+                });
+
+            if (iter != layer.second->Get_Objects().end())
+            {
+                pList = &(iter->second);
+                return;
+            }
+        });
+
+    if (pList != nullptr) return pList;
+
+    return nullptr;
+}
+
 CComponent* CManagement::Get_Component(COMPONENTID eID, 
-                                    const wstring wsLayerTag, 
-                                    const wstring wsObjTag, 
-                                    const wstring wsComponentTag)
+                                    const wstring& wsLayerTag, 
+                                    const wstring& wsObjTag, 
+                                    const wstring& wsComponentTag)
 {
     if (nullptr == m_pCurScene)
         return nullptr;
@@ -29,8 +81,8 @@ HRESULT CManagement::Set_Scene(CScene* pScene)
     if (pScene == nullptr) return E_FAIL;
 
     Safe_Release(m_pCurScene);
-    // TODO : Scene º¯°æ °úÁ¤°£ º¯µ¿ Á¦¾î´Â?
-    // TODO :  ¾À º¯°æ ½Ã ¸±¸®Áî¿Í Àç»ç¿ë
+    // TODO : Scene ë³€ê²½ ê³¼ì •ê°„ ë³€ë™ ì œì–´ëŠ”?
+    // TODO :  ì”¬ ë³€ê²½ ì‹œ ë¦´ë¦¬ì¦ˆì™€ ì¬ì‚¬ìš©
     m_pCurScene = pScene;
 
     return S_OK;

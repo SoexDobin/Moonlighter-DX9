@@ -105,6 +105,7 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 
 HRESULT CMainScene::Ready_UI_Layer(const wstring& wsLayerTag)
 {
+ 
     return S_OK;
 }
 

@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -48,6 +44,16 @@
     </Filter>
     <Filter Include="03. GameObject\01. Player">
       <UniqueIdentifier>{29a71569-598b-4100-b888-71b07937c4c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\10. UI">
+      <UniqueIdentifier>{cb561ffc-cd0f-452e-bc6b-597dc91551aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\08. UITestScene">
+      <UniqueIdentifier>{94731203-deb5-4cdd-bc22-e3398f03bfb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +99,12 @@
     <ClInclude Include="..\Header\CPlayer.h">
       <Filter>03. GameObject\01. Player</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CUIInven.h">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUITestScene.h">
+      <Filter>02. Scene\08. UITestScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -127,6 +139,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPlayer.cpp">
       <Filter>03. GameObject\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUIInven.cpp">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUITestScene.cpp">
+      <Filter>02. Scene\08. UITestScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

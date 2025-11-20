@@ -33,6 +33,9 @@ HRESULT CDataManager::Ready_Data(LPDIRECT3DDEVICE9 pGraphicDev)
 		if (FAILED(Ready_Item_Resource(pGraphicDev)))
 			return E_FAIL;
 
+        if (FAILED(Ready_UI_Resource(pGraphicDev)))
+            return E_FAIL;
+
 		if (FAILED(Ready_Prototype(pGraphicDev)))
 			return E_FAIL;
 	}
@@ -147,6 +150,20 @@ HRESULT CDataManager::Ready_Item_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 		return E_FAIL;
 
 	return S_OK;
+}
+
+HRESULT CDataManager::Ready_UI_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    CResourceManager& Res = *CResourceManager::GetInstance();
+
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Inventory_Base",
+        L"../Bin/Resource/Sprite/UI/Inven/Inventory_Base.png", 1)))
+        return E_FAIL;
+
+
+
+    return S_OK;
 }
 
 HRESULT CDataManager::Ready_Sound()

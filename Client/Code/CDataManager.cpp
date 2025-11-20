@@ -188,7 +188,7 @@ HRESULT CDataManager::Ready_UI_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
         L"../Bin/Resource/Sprite/UI/Static/interface_key.png", 1)))
         return E_FAIL;
 
-        return S_OK
+    return S_OK;
 }
 
 

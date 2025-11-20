@@ -1,6 +1,7 @@
 ﻿#include "CGameObject.h"
 #include "CEditor.h"
 
+
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	: m_pGraphicDevice(pGraphicDev), m_bDisplayInEditor(false)
 {
@@ -17,17 +18,17 @@ CGameObject::~CGameObject()
 {
 }
 
-CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring wsComponentTag)
+CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring& wsComponentTag)
 {
 	CComponent* pComponent(nullptr);
 
 	if (pComponent = Find_Component(eID, wsComponentTag))
 		return pComponent;
-	else 
+	else
 		return nullptr;
 }
 
-CComponent* CGameObject::Find_Component(COMPONENTID eID, const wstring wsComponentTag)
+CComponent* CGameObject::Find_Component(COMPONENTID eID, const wstring& wsComponentTag)
 {
 	auto iter = find_if(m_umComponent[eID].begin(), m_umComponent[eID].end()
 		, [&wsComponentTag](const pair<const wstring, CComponent*>& pair) -> _bool {
@@ -38,7 +39,7 @@ CComponent* CGameObject::Find_Component(COMPONENTID eID, const wstring wsCompone
 		});
 
 	if (iter == m_umComponent[eID].end()) return nullptr;
-	
+
 	return iter->second;
 }
 
@@ -76,7 +77,7 @@ void CGameObject::Free()
 		for_each(m_umComponent[i].begin(), m_umComponent[i].end(), CDeleteMap());
 		m_umComponent[i].clear();
 	}
-		
+
 	Safe_Release(m_pGraphicDevice);
 }
 

@@ -12,10 +12,11 @@ protected:
 	virtual ~CGameObject() override;
 
 public:
-	CComponent*		Get_Component(COMPONENTID eID, const wstring wsComponentTag);
+	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentTag);
+    virtual GAMEOBJECT_TYPE Get_Type() { return GAME_OBJECT; }
 
 private:
-	CComponent*		Find_Component(COMPONENTID eID, const wstring wsComponentTag);
+	CComponent*		Find_Component(COMPONENTID eID, const wstring& wsComponentTag);
 
 public:
 	virtual		HRESULT		Ready_GameObject();

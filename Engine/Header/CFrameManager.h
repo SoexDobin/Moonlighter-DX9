@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CBase.h"
 #include "CFrame.h"
@@ -15,8 +15,8 @@ private:
 	virtual ~CFrameManager() override;
 
 public:
-	_bool		IsPermit_Call(const wstring wsFrameTag, const _float fTimeDelta);
-	HRESULT		Ready_Frame(const wstring wsFrameTag, const _float fCallLimit);
+	_bool		IsPermit_Call(const wstring& wsFrameTag, const _float fTimeDelta);
+	HRESULT		Ready_Frame(const wstring& wsFrameTag, const _float fCallLimit);
 
 	_bool		IsTransit_NextFrame(_float fTimeDelta);
 	void			Transit_NextFrame();
@@ -26,12 +26,12 @@ public:
 
 public :
 	void			Modify_LastTimeDelta(_float* pTimeDelta);
-	void			Set_MainFrame(const wstring wsFrameTag);
+	void			Set_MainFrame(const wstring& wsFrameTag);
 	void			Set_LastTimeDelta(const _float& fTimeDelta) { m_fLastTimeDelta = fTimeDelta; }
 	_uint		Get_CurFPS() { return m_iLastFPS; }
 
 private :
-	CFrame*		Find_Frame(const wstring wsFrameTag);
+	CFrame*		Find_Frame(const wstring& wsFrameTag);
 	void				Compute_FPS();
 
 private :

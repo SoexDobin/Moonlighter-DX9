@@ -7,6 +7,7 @@ CTexture::CTexture(LPDIRECT3DDEVICE9 pGraphicDev, _float fSpeed)
     m_iCurTex(0), m_iCurFrame(0),
     m_fSpeed(fSpeed), m_fFrameAcc(0.f)
 {
+    strcpy_s(m_szDisplayName, "Texture");
 }
 
 CTexture::CTexture(const CTexture& rhs)
@@ -29,6 +30,8 @@ CTexture::CTexture(const CTexture& rhs)
             m_vecTexture[i][j]->AddRef();
         }
     }
+
+    strcpy_s(m_szDisplayName, "Texture");
 }
 
 CTexture::~CTexture()
@@ -39,7 +42,7 @@ const _uint CTexture::Get_FrameCount(const _uint iTex) {
     return (_uint)m_vecTexture[iTex].size(); 
 }
 
-HRESULT CTexture::Ready_Texture(const wstring wsKey)
+HRESULT CTexture::Ready_Texture(const wstring& wsKey)
 {
     m_vecTexture.push_back(CResourceManager::GetInstance()->Get_Sprite(wsKey));
 
@@ -130,18 +133,15 @@ void CTexture::Free()
 
 void CTexture::Display_Editor(const char* pObjTag)
 {
-    if (!m_bDisplayInEditor)
-        return;
+     ImGui::PushItemWidth(60);
 
-    string sName = "[Texture]_" + string(pObjTag);
+     ImGui::Checkbox("stop", &m_bStop);
 
-    ImGui::Begin(sName.c_str());
+     ImGui::DragFloat("speed", &m_fSpeed, 0.1f, 0.f, 40.f, "%.2f");
+     ImGui::DragInt("frame", (int*)(&m_iCurFrame), 1.f, 0, m_vecTexture[m_iCurTex].size() - 1);
 
-    ImGui::PushItemWidth(40);
+     ImGui::Text("cur frame : %lu", m_iCurFrame);
+     ImGui::Text("cur Tex : %lu", m_iCurTex);
 
-    ImGui::Text("texture frame : %lu", m_iCurFrame);
-
-    ImGui::PopItemWidth();
-
-    ImGui::End();
+     ImGui::PopItemWidth();
 }

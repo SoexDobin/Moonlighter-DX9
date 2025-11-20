@@ -1,11 +1,14 @@
-#include "CEditor.h"
+﻿#include "CEditor.h"
 #include "CPanel.h"
 #include "CFrameManager.h"
 #include "CRenderer.h"
+#include "CDInputManager.h"
 
 IMPLEMENT_SINGLETON(CEditor)
 
-CEditor::CEditor() 
+bool CEditor::s_bEditorActive = true;
+
+CEditor::CEditor()
     : m_bGamePaused(false), m_fFPS(0.f)
 {
     strcpy_s(m_szPaused, "Pause");
@@ -53,7 +56,10 @@ HRESULT CEditor::Ready_Editor(HWND hWnd, LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CEditor::Render_Begin()
 {
-    // ���� Render_Update()
+    if (!s_bEditorActive)
+        return;
+
+    // 원래 Render_Update()
     // Must be called before ImGui::Begin()
 #pragma region ImGui Begin
     ImGui_ImplDX9_NewFrame();
@@ -65,17 +71,33 @@ void CEditor::Render_Begin()
 
 void CEditor::Render_Editor()
 {
+    // 에디터 on/off 임시 매핑
+    {
+        if (GetAsyncKeyState(VK_TAB) & 0x0001)
+        {
+            s_bEditorActive = !s_bEditorActive;
+        }
+    }
+
+    if (!s_bEditorActive)
+        return;
+
     Display_MainPanel();
 
     for (const auto& kv : m_pPanelMap)
     {
         kv.second->Display_Editor();
     }
+
+
 }
 
 
 void	CEditor::Render_End()
 {
+    if (!s_bEditorActive)
+        return;
+
 #pragma region ImGui Render
     ImGui::EndFrame();
     ImGui::Render();

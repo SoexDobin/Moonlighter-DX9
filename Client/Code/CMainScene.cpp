@@ -10,7 +10,6 @@
 #include "CManagement.h"
 #include "CEditScene.h"
 
-
 CMainScene::CMainScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
 {
@@ -39,7 +38,7 @@ HRESULT CMainScene::Ready_Scene()
 
 _int CMainScene::Update_Scene(const _float fTimeDelta)
 {
-    _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
+    _int iExit = Engine::CScene::Update_Scene(fTimeDelta);    
 
 #pragma region Examples for ImGui
 
@@ -74,7 +73,7 @@ void CMainScene::Render_Scene()
     Engine::CScene::Render_Scene();
 }
 
-HRESULT CMainScene::Ready_Camera_Layer(const wstring wsLayerTag)
+HRESULT CMainScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 {
     CLayer* pCamLayer = CLayer::Create(wsLayerTag);
 
@@ -85,17 +84,17 @@ HRESULT CMainScene::Ready_Camera_Layer(const wstring wsLayerTag)
    if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
        return E_FAIL;
 
-   m_umLayer.emplace( pair<const wstring, CLayer*>{ wsLayerTag, pCamLayer} );
+   m_umLayer.emplace( pair<const wstring&, CLayer*>{ wsLayerTag, pCamLayer} );
 
     return S_OK;
 }
 
-HRESULT CMainScene::Ready_Environment_Layer(const wstring wsLayerTag)
+HRESULT CMainScene::Ready_Environment_Layer(const wstring& wsLayerTag)
 {
     return S_OK;
 }
 
-HRESULT CMainScene::Ready_GameLogic_Layer(const wstring wsLayerTag)
+HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 {
     CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
 
@@ -114,12 +113,12 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring wsLayerTag)
 #pragma endregion
 
 
-    m_umLayer.emplace(pair<const wstring, CLayer*>{ wsLayerTag, pGameLogicLayer});
+    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pGameLogicLayer});
 
     return S_OK;
 }
 
-HRESULT CMainScene::Ready_UI_Layer(const wstring wsLayerTag)
+HRESULT CMainScene::Ready_UI_Layer(const wstring& wsLayerTag)
 {
     return S_OK;
 }

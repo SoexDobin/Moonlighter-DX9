@@ -20,6 +20,7 @@ private:
 	// ex. Ready_Dungeon_Resource()
 	HRESULT		Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT		Ready_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
+    HRESULT		Ready_Player_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT		Ready_Item_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT		Ready_Sound();
 

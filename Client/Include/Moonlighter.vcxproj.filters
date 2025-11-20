@@ -39,6 +39,12 @@
     <Filter Include="98. ImGui\EX_Manager">
       <UniqueIdentifier>{8c1d9181-9337-446c-b4a4-fe6f408b29da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scene\CEditScene">
+      <UniqueIdentifier>{e9370153-4960-448f-859d-9cca4f9908f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. ImGui\Code">
+      <UniqueIdentifier>{5d377977-b947-4ddb-ad60-e4b029adba34}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. Scene\07. PlayerTestScene">
       <UniqueIdentifier>{f7f4f60e-af65-4766-802a-b1956ec24339}</UniqueIdentifier>
     </Filter>
@@ -54,6 +60,21 @@
     <Filter Include="소스 파일\헤더 파일">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="98. ImGui\Mediator">
+      <UniqueIdentifier>{64f31833-3464-4550-a9ac-ddc3d9792578}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\03. MonsterTestScene">
+      <UniqueIdentifier>{e91f5b4e-ec6e-46f8-a3b5-90882e88a029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster">
+      <UniqueIdentifier>{abb3af13-14a8-4afc-9a49-93b1a5ed350a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\00. Boss">
+      <UniqueIdentifier>{64c5c5a7-ae86-4518-92ec-3b03623024e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\01. Tree">
+      <UniqueIdentifier>{1640c762-15b8-4557-8ae4-4988911d6fe6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +114,39 @@
     <ClInclude Include="..\Header\CExampleManager.h">
       <Filter>98. ImGui\EX_Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEditScene.h">
+      <Filter>02. Scene\CEditScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imconfig.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imgui.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\ImGui_Define.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imgui_impl_dx9.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imgui_impl_win32.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imgui_internal.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\ImGui_Struct.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imstb_rectpack.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imstb_textedit.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Reference\Header\imstb_truetype.h">
+      <Filter>98. ImGui\Code</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CPlayerTestScene.h">
       <Filter>02. Scene\07. PlayerTestScene</Filter>
     </ClInclude>
@@ -107,6 +161,21 @@
     </ClInclude>
     <ClInclude Include="..\Header\CUIStatic.h">
       <Filter>03. GameObject\10. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEngineMediator.h">
+      <Filter>98. ImGui\Mediator</Filter>
+    </ClInclude>
+    <ClInclude Include="Client_Define.h">
+      <Filter>99. Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMonsterTestScene.h">
+      <Filter>02. Scene\03. MonsterTestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBoss.h">
+      <Filter>03. GameObject\02. Monster\00. Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeMob.h">
+      <Filter>03. GameObject\02. Monster\01. Tree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +206,30 @@
     <ClCompile Include="..\Code\CExampleManager.cpp">
       <Filter>98. ImGui\EX_Manager</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CEditScene.cpp">
+      <Filter>02. Scene\CEditScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui.cpp">
+      <Filter>98. ImGui\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui_demo.cpp">
+      <Filter>98. ImGui\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui_draw.cpp">
+      <Filter>98. ImGui\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui_impl_dx9.cpp">
+      <Filter>98. ImGui\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui_impl_win32.cpp">
+      <Filter>98. ImGui\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui_tables.cpp">
+      <Filter>98. ImGui\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Reference\Header\imgui_widgets.cpp">
+      <Filter>98. ImGui\Code</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\CPlayerTestScene.cpp">
       <Filter>02. Scene\07. PlayerTestScene</Filter>
     </ClCompile>
@@ -151,6 +244,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CUIStatic.cpp">
       <Filter>03. GameObject\10. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEngineMediator.cpp">
+      <Filter>98. ImGui\Mediator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMonsterTestScene.cpp">
+      <Filter>02. Scene\03. MonsterTestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBoss.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeMob.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
 #include "CMainScene.h"
-
+#include "CDInputManager.h"
 #include "CPrototypeManager.h"
 #include "CDynamicCamera.h"
 #include "CTestRect.h"
@@ -8,6 +8,9 @@
 #include "CExampleManager.h"
 #include "CLightManager.h"
 #include "CManagement.h"
+#include "CEditScene.h"
+
+#include "CPlayerTestScene.h"
 
 CMainScene::CMainScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -45,6 +48,19 @@ _int CMainScene::Update_Scene(const _float fTimeDelta)
 
 #pragma endregion
 
+    if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_E))
+    {
+        Engine::CScene* pEdit = CEditScene::Create(m_pGraphicDevice);
+
+        if (nullptr == pEdit)
+            return -1;
+
+        if (FAILED(CManagement::GetInstance()->Set_Scene(pEdit)))
+        {
+            MSG_BOX("Stage Setting Failed");
+            return -1;
+        }
+    }
     return iExit;
 }
 

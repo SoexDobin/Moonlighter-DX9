@@ -6,7 +6,8 @@
 
 IMPLEMENT_SINGLETON(CEditor)
 
-bool CEditor::s_bEditorActive = true;
+_bool CEditor::s_bEditorActive = true;
+_float CEditor::s_fEditorAlpha = 0.8f;
 
 CEditor::CEditor()
     : m_bGamePaused(false), m_fFPS(0.f)
@@ -40,6 +41,7 @@ HRESULT CEditor::Ready_Editor(HWND hWnd, LPDIRECT3DDEVICE9 pGraphicDev)
 
     ImGuiStyle& style = ImGui::GetStyle();
     style.ScaleAllSizes(main_scale);
+    style.Alpha = s_fEditorAlpha;
 
     ImGui_ImplWin32_Init(hWnd);
     ImGui_ImplDX9_Init(pGraphicDev);
@@ -88,8 +90,6 @@ void CEditor::Render_Editor()
     {
         kv.second->Display_Editor();
     }
-
-
 }
 
 

@@ -5,6 +5,9 @@
 #include "CDynamicCamera.h"
 #include "CPlayer.h"
 
+#include "CManagement.h"
+#include "CEditScene.h"
+
 CPlayerTestScene::CPlayerTestScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
 {

@@ -36,14 +36,18 @@ public:
 public :
 	void			Set_pTimeScale(_float* pTimeScale) { m_pTimeScale = pTimeScale; }
 
-private :
+public :
 	void			Display_MainPanel();
 
 private:
 	map<const char*, CPanel*> m_pPanelMap;
 
+public :
+    static _float s_fEditorAlpha;
+
 private :
     static _bool s_bEditorActive;
+    
 
 private :
 	_bool		m_bGamePaused;

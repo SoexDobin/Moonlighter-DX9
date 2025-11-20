@@ -7,7 +7,7 @@
 IMPLEMENT_SINGLETON(CEditor)
 
 _bool CEditor::s_bEditorActive = true;
-_float CEditor::s_fEditorAlpha = 0.9f;
+_float CEditor::s_fEditorAlpha = 0.8f;
 
 CEditor::CEditor()
     : m_bGamePaused(false), m_fFPS(0.f)
@@ -358,17 +358,6 @@ void CEditor::Display_MainPanel()
     ImGui::PopItemWidth();
 
     ImGui::End();
-}
-
-void CEditor::Display_ScenePanel()
-{
-
-   if (ImGui::BeginTabItem("All Scenes"))
-   {
-       ImGui::Text("s");
-
-       ImGui::EndTabItem();
-   }
 }
 
 void CEditor::Free()

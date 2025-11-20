@@ -61,15 +61,6 @@ _int CMainScene::Update_Scene(const _float fTimeDelta)
             return -1;
         }
     }
-
-#pragma region Test Scene Transition
-    if (GetAsyncKeyState('M') & 0x0001)
-    {
-        CManagement::GetInstance()->Set_Scene(CPlayerTestScene::Create(m_pGraphicDevice));
-    }
-#pragma endregion
-
-
     return iExit;
 }
 

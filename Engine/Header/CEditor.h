@@ -38,7 +38,6 @@ public :
 
 public :
 	void			Display_MainPanel();
-    void         Display_ScenePanel();
 
 private:
 	map<const char*, CPanel*> m_pPanelMap;

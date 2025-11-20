@@ -86,7 +86,6 @@ void	CGameObject::Display_Editor()
 	if (!m_bDisplayInEditor)
 		return;
 
-    ImGui::SetNextWindowBgAlpha(CEditor::s_fEditorAlpha);
 	ImGui::Begin(m_szBuffer);
 
 #pragma region Component

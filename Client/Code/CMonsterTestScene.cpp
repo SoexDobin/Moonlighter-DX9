@@ -1,23 +1,22 @@
 ﻿#include "pch.h"
-#include "CPlayerTestScene.h"
+#include "CMonsterTestScene.h"
 
 #include "CLayer.h"
 #include "CDynamicCamera.h"
-#include "CPlayer.h"
+// #include "CBoss.h"
 
 #include "CManagement.h"
-#include "CEditScene.h"
 
-CPlayerTestScene::CPlayerTestScene(LPDIRECT3DDEVICE9 pGraphicDev)
+CMonsterTestScene::CMonsterTestScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
 {
 }
 
-CPlayerTestScene::~CPlayerTestScene()
+CMonsterTestScene::~CMonsterTestScene()
 {
 }
 
-HRESULT CPlayerTestScene::Ready_Scene()
+HRESULT CMonsterTestScene::Ready_Scene()
 {
     if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
         return E_FAIL;
@@ -28,24 +27,24 @@ HRESULT CPlayerTestScene::Ready_Scene()
     return S_OK;
 }
 
-_int CPlayerTestScene::Update_Scene(const _float fTimeDelta)
+_int CMonsterTestScene::Update_Scene(const _float fTimeDelta)
 {
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
     return iExit;
 }
 
-void CPlayerTestScene::LateUpdate_Scene(const _float fTimeDelta)
+void CMonsterTestScene::LateUpdate_Scene(const _float fTimeDelta)
 {
     Engine::CScene::LateUpdate_Scene(fTimeDelta);
 }
 
-void CPlayerTestScene::Render_Scene()
+void CMonsterTestScene::Render_Scene()
 {
     Engine::CScene::Render_Scene();
 }
 
-HRESULT CPlayerTestScene::Ready_Camera_Layer(const wstring& wsLayerTag)
+HRESULT CMonsterTestScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 {
     CLayer* pCamLayer = CLayer::Create(wsLayerTag);
 
@@ -60,23 +59,23 @@ HRESULT CPlayerTestScene::Ready_Camera_Layer(const wstring& wsLayerTag)
     return S_OK;
 }
 
-HRESULT CPlayerTestScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
+HRESULT CMonsterTestScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 {
     CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
 
-    CGameObject* pPlayer = nullptr;
-    pPlayer = CPlayer::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Player", pPlayer)))
-        return E_FAIL;
+    //CGameObject* pPlayer = nullptr;
+    //pPlayer = CPlayer::Create(m_pGraphicDevice);
+    //if (FAILED(pGameLogicLayer->Add_GameObject(L"Player", pPlayer)))
+    //    return E_FAIL;
 
     m_umLayer.emplace(pair<const wstring, CLayer*>{ wsLayerTag, pGameLogicLayer});
 
     return S_OK;
 }
 
-CPlayerTestScene* CPlayerTestScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CMonsterTestScene* CMonsterTestScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CPlayerTestScene* pLogo = new CPlayerTestScene(pGraphicDev);
+    CMonsterTestScene* pLogo = new CMonsterTestScene(pGraphicDev);
 
     if (FAILED(pLogo->Ready_Scene()))
     {
@@ -88,7 +87,7 @@ CPlayerTestScene* CPlayerTestScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
     return pLogo;
 }
 
-void CPlayerTestScene::Free()
+void CMonsterTestScene::Free()
 {
     CScene::Free();
 }

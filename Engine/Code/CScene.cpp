@@ -84,9 +84,6 @@ void CScene::Display_Editor()
             }
             ImGui::EndTabItem();
         }
-        CEditor::GetInstance()->Display_ScenePanel();
-
-
         ImGui::EndTabBar();
     }
 }

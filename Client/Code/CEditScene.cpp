@@ -5,9 +5,10 @@
 #include "CTestRect.h"
 #include "CManagement.h"
 #include "CEditScene.h"
+#include "CUtility.h"
 
 CEditScene::CEditScene(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CScene(pGraphicDev)
+    : CScene(pGraphicDev), pVillage(nullptr)
 {
 }
 
@@ -110,11 +111,29 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
     ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiCond_Once);
     ImGui::SetNextWindowSize(ImVec2(0, 0), ImGuiCond_Always);
     ImGui::Begin("Editor", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-
     if (ImGui::Button("Add TerrainVillege"))
     {
-        //Add_Terrain();
-        Add_Ex(L"GameLogic_Layer");
+        Add_TerrainVillage(L"GameLogic_Layer");
+    }
+    if (ImGui::Button("Save Terrain"))
+    {
+        CUtility::SaveMap(static_cast<CTerrainVillage*>(pVillage));
+    }
+    if (ImGui::Button("Load Terrain"))
+    {
+        _ulong pCntX, pCntZ, pInterval;
+        wstring heightMap;
+
+        CUtility::LoadMap(&pCntX, &pCntZ, &pInterval, heightMap);
+
+        CLayer* pGameLogicLayer = CLayer::Create();
+
+        CGameObject* pGameObject = nullptr;
+        pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
+        if (FAILED(pGameLogicLayer->Add_GameObject(L"TerrainVillage", pGameObject)))
+            return;
+
+        m_umLayer.emplace(pair<const wstring, CLayer*>{ L"GameLogic_Layer", pGameLogicLayer});
     }
     ImGui::End();
 }
@@ -136,7 +155,6 @@ HRESULT CEditScene::Ready_Camera_Layer(const wstring wsLayerTag)
 {
     CLayer* pCamLayer = CLayer::Create();
 
-    // TODO : Ä«¸Þ¶ó »ý¼º ¹æ½Ä °í·Á
     CGameObject* pGameObject = nullptr;
     _vec3 vEye{ 0.f, 10.f, -10.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
     pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
@@ -144,7 +162,6 @@ HRESULT CEditScene::Ready_Camera_Layer(const wstring wsLayerTag)
         return E_FAIL;
 
     m_umLayer.emplace(pair<const wstring, CLayer*>{ wsLayerTag, pCamLayer});
-
     return S_OK;
 }
 
@@ -165,6 +182,9 @@ HRESULT CEditScene::Ready_UI_Layer(const wstring wsLayerTag)
 
 HRESULT CEditScene::Ready_Prototype()
 {
+    //if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINTEX, Engine::CTerrainTex::Create(m_pGraphicDevice, 128, 128, 1, L""))))
+    //    return E_FAIL;
+
     return S_OK;
 }
 
@@ -190,14 +210,16 @@ void CEditScene::Free()
     Engine::CScene::Free();
 }
 
-HRESULT CEditScene::Add_Ex(const wstring temp)
+HRESULT CEditScene::Add_TerrainVillage(const wstring temp)
 {
     CLayer* pGameLogicLayer = CLayer::Create();
 
     CGameObject* pGameObject = nullptr;
-    pGameObject = CTestRect::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp", pGameObject)))
+    pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"TerrainVillage", pGameObject)))
         return E_FAIL;
 
     m_umLayer.emplace(pair<const wstring, CLayer*>{ temp, pGameLogicLayer});
+    pVillage = pGameObject;
+    return S_OK;
 }

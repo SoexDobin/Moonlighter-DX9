@@ -43,7 +43,6 @@
     <Filter Include="98. ImGui\EX_Manager">
       <UniqueIdentifier>{8c1d9181-9337-446c-b4a4-fe6f408b29da}</UniqueIdentifier>
     </Filter>
-
     <Filter Include="02. Scene\CEditScene">
       <UniqueIdentifier>{e9370153-4960-448f-859d-9cca4f9908f3}</UniqueIdentifier>
     </Filter>
@@ -55,6 +54,12 @@
     </Filter>
     <Filter Include="03. GameObject\01. Player">
       <UniqueIdentifier>{29a71569-598b-4100-b888-71b07937c4c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\TerrainVillage">
+      <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{dd585d7f-ea1b-496c-a1b0-8749e04611a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +99,6 @@
     <ClInclude Include="..\Header\CExampleManager.h">
       <Filter>98. ImGui\EX_Manager</Filter>
     </ClInclude>
-
     <ClInclude Include="..\Header\CEditScene.h">
       <Filter>02. Scene\CEditScene</Filter>
     </ClInclude>
@@ -127,12 +131,18 @@
     </ClInclude>
     <ClInclude Include="..\..\Reference\Header\imstb_truetype.h">
       <Filter>98. ImGui\Code</Filter>
-</ClInclude>
+    </ClInclude>
     <ClInclude Include="..\Header\CPlayerTestScene.h">
       <Filter>02. Scene\07. PlayerTestScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CPlayer.h">
       <Filter>03. GameObject\01. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTerrainVillage.h">
+      <Filter>03. GameObject\TerrainVillage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUtility.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -186,12 +196,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Reference\Header\imgui_widgets.cpp">
       <Filter>98. ImGui\Code</Filter>
-</ClCompile>
+    </ClCompile>
     <ClCompile Include="..\Code\CPlayerTestScene.cpp">
       <Filter>02. Scene\07. PlayerTestScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CPlayer.cpp">
       <Filter>03. GameObject\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerrainVillage.cpp">
+      <Filter>03. GameObject\TerrainVillage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

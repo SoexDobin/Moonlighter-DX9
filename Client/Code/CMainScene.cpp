@@ -86,6 +86,7 @@ HRESULT CMainScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 
    m_umLayer.emplace( pair<const wstring&, CLayer*>{ wsLayerTag, pCamLayer} );
 
+
     return S_OK;
 }
 
@@ -102,6 +103,8 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     pGameObject = CTestRect::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp", pGameObject)))
         return E_FAIL;
+
+
     
 #pragma region Examples for ImGui
     pGameObject = CExampleObject::Create(m_pGraphicDevice);
@@ -111,7 +114,6 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     CExampleManager::GetInstance()->Ready_Manager();
 
 #pragma endregion
-
 
     m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pGameLogicLayer});
 
@@ -146,7 +148,8 @@ HRESULT CMainScene::Ready_Light()
 
 HRESULT CMainScene::Ready_Prototype()
 {
-
+    if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINTEX, Engine::CTerrainTex::Create(m_pGraphicDevice, 128, 128, 1, L""))))
+        return E_FAIL;
     
     return S_OK;
 }

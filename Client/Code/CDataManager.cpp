@@ -29,10 +29,10 @@ HRESULT CDataManager::Ready_Data(LPDIRECT3DDEVICE9 pGraphicDev)
 
         if (FAILED(Ready_Player_Resource(pGraphicDev)))
             return E_FAIL;
-
+        if (FAILED(Ready_Map_Resource(pGraphicDev)))
+            return E_FAIL;
 		if (FAILED(Ready_Item_Resource(pGraphicDev)))
 			return E_FAIL;
-
 		if (FAILED(Ready_Prototype(pGraphicDev)))
 			return E_FAIL;
 	}
@@ -147,6 +147,17 @@ HRESULT CDataManager::Ready_Item_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 		return E_FAIL;
 
 	return S_OK;
+}
+
+HRESULT CDataManager::Ready_Map_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    CResourceManager& Res = *CResourceManager::GetInstance();
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Village",
+        n_wsResSpritePath + L"Village/Village_Background.png", 1)))
+        return E_FAIL;
+
+    return S_OK;
 }
 
 HRESULT CDataManager::Ready_Sound()

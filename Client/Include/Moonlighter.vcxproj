@@ -158,7 +158,9 @@
     <ClInclude Include="..\Header\CMainScene.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CPlayerTestScene.h" />
+    <ClInclude Include="..\Header\CTerrainVillage.h" />
     <ClInclude Include="..\Header\CTestRect.h" />
+    <ClInclude Include="..\Header\CUtility.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Moonlighter.h" />
     <ClInclude Include="pch.h" />
@@ -196,6 +198,7 @@
     <ClCompile Include="..\Code\CMainScene.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CPlayerTestScene.cpp" />
+    <ClCompile Include="..\Code\CTerrainVillage.cpp" />
     <ClCompile Include="..\Code\CTestRect.cpp" />
     <ClCompile Include="Moonlighter.cpp" />
     <ClCompile Include="pch.cpp">

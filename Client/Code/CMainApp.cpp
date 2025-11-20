@@ -93,7 +93,7 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDevice)
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDevice)
 {
-	if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(CPlayerTestScene::Create(pGraphicDevice))))
+	if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(CMainScene::Create(pGraphicDevice))))
 		return E_FAIL;
 	
 	return S_OK;

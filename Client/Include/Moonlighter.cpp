@@ -5,12 +5,14 @@
 #include "framework.h"
 #include "Moonlighter.h"
 #include "CMainApp.h"
+#include "CEditor.h"
 
 #define MAX_LOADSTRING 100
 
 HWND g_hWnd;
 HINSTANCE g_hInst;
 const _float FPS = 60.f;
+_float  fTimeScale = 1.f;
 
 #define MAX_LOADSTRING 100
 
@@ -29,6 +31,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ int       nCmdShow)
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+    //_CrtSetBreakAlloc(517);
 
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
@@ -63,6 +67,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         return E_FAIL;
     }
+    else
+    {
+        CFrameManager::GetInstance()->Set_MainFrame(L"Frame60");
+    }
+
+    CEditor::GetInstance()->Set_pTimeScale(&fTimeScale);
 
     while (true)
     {
@@ -82,13 +92,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             Engine::CTimeManager::GetInstance()->Set_TimeDelta(L"DELTA");
             _float fDeltaTime_Immediate = Engine::CTimeManager::GetInstance()->Get_TimeDelta(L"DELTA");
 
-            if (Engine::CFrameManager::GetInstance()->IsPermit_Call(L"Frame60", fDeltaTime_Immediate))
+            if (Engine::CFrameManager::GetInstance()->IsTransit_NextFrame(fDeltaTime_Immediate))
             {
                 Engine::CTimeManager::GetInstance()->Set_TimeDelta(L"DELTA_FPS60");
                 _float fDeltaTime = Engine::CTimeManager::GetInstance()->Get_TimeDelta(L"DELTA_FPS60");
 
-                pMainApp->Update_MainApp(fDeltaTime);
-                pMainApp->LateUpdate_MainApp(fDeltaTime);
+                Engine::CFrameManager::GetInstance()->Modify_LastTimeDelta(&fDeltaTime);
+
+                pMainApp->Update_MainApp(fDeltaTime * fTimeScale);
+                pMainApp->LateUpdate_MainApp(fDeltaTime * fTimeScale);
+                pMainApp->Render_MainApp();
+
+                Engine::CFrameManager::GetInstance()->Set_LastTimeDelta(fDeltaTime * fTimeScale);
+            }
+            else
+            {
                 pMainApp->Render_MainApp();
             }
         }
@@ -152,8 +170,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam);
+    Engine::CEditor::GetInstance()->Editor_WndProc(hWnd, message, wParam, lParam);
+
+
     switch (message)
     {
     case WM_COMMAND:

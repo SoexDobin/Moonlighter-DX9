@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "CBase.h"
 #include "Engine_Define.h"
@@ -11,23 +11,23 @@ private:
 	virtual ~CDataManager() override;
 
 public:
-	// MainApp ½ÃÀÛ½Ã È£Ãâ µÇ´Â ÇÔ¼ö
+	// MainApp ì‹œì‘ì‹œ í˜¸ì¶œ ë˜ëŠ” í•¨ìˆ˜
 	HRESULT		Ready_Data(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 
-	// °¢ ¾À¿¡ ¸Â´Â ÇÔ¼ö·Î Á¦ÀÛÇÏ¿© Ready_Data()¿¡¼­ ÃÖÁ¾ È£Ãâ
+	// ê° ì”¬ì— ë§ëŠ” í•¨ìˆ˜ë¡œ ì œì‘í•˜ì—¬ Ready_Data()ì—ì„œ ìµœì¢… í˜¸ì¶œ
 	// ex. Ready_Dungeon_Resource()
 	HRESULT		Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev);
-
-	HRESULT		Ready_Resource();
-
+	HRESULT		Ready_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
+    HRESULT		Ready_Player_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT		Ready_Item_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
-
 	HRESULT		Ready_Sound();
 
 private:
-	const wstring n_wsResSpritePath = L"../Bin/Resource/Sprite/";
+	const wstring& n_wsResSpritePath = L"../Bin/Resource/Sprite/";
+
+	const _float m_fDefault_AnimSpeed = 10.f;
 
 private:
 	void		Free() override;

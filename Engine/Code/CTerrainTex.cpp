@@ -1,4 +1,4 @@
-#include "CTerrainTex.h"
+﻿#include "CTerrainTex.h"
 
 CTerrainTex::CTerrainTex()
     : m_dwCntX(0), m_dwCntZ(0), m_dwVtxItv(0), m_wsHeightMapPath(L"")
@@ -9,7 +9,7 @@ CTerrainTex::CTerrainTex(LPDIRECT3DDEVICE9 pGraphicDev,
     const _ulong dwCntX, 
     const _ulong dwCntZ, 
     const _ulong dwVtxItv, 
-    const wstring wsHeightMapPath)
+    const wstring& wsHeightMapPath)
     : CVIBuffer(pGraphicDev), 
     m_dwCntX(dwCntX), m_dwCntZ(dwCntZ), m_dwVtxItv(dwVtxItv), m_wsHeightMapPath(wsHeightMapPath)
 {
@@ -82,8 +82,6 @@ HRESULT CTerrainTex::Ready_Buffer()
               (_float)(i * m_dwVtxItv)};
             pVertices[dwIndex].vTexUV = 
             { (_float)j / _float(m_dwCntX - 1), (_float)i / _float(m_dwCntZ - 1) };
-
-            m_vecPos.push_back(pVertices[dwIndex].vPosition);
         }
     }
 
@@ -130,7 +128,7 @@ CTerrainTex* CTerrainTex::Create(LPDIRECT3DDEVICE9 pGraphicDev,
                                  const _ulong dwCntX,
                                  const _ulong dwCntZ,
                                  const _ulong dwVtxItv,
-                                 const wstring wsHeightMapPath)
+                                 const wstring& wsHeightMapPath)
 {
     CTerrainTex* pInstance = new CTerrainTex(pGraphicDev, dwCntX, dwCntZ, dwVtxItv, wsHeightMapPath);
 

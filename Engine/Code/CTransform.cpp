@@ -1,10 +1,11 @@
-#include "CTransform.h"
+﻿#include "CTransform.h"
 
 CTransform::CTransform()
     : m_vScale(1.f, 1.f, 1.f), m_vAngle(0.f, 0.f, 0.f)
 {
     ZeroMemory(m_vInfo, sizeof(m_vInfo));
     D3DXMatrixIdentity(&m_matWorld);
+    strcpy_s(m_szDisplayName, "Transform");
 }
 
 CTransform::CTransform(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -12,6 +13,7 @@ CTransform::CTransform(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     ZeroMemory(m_vInfo, sizeof(m_vInfo));
     D3DXMatrixIdentity(&m_matWorld);
+    strcpy_s(m_szDisplayName, "Transform");
 }
 
 CTransform::CTransform(const CTransform& rhs)
@@ -22,6 +24,7 @@ CTransform::CTransform(const CTransform& rhs)
         m_vInfo[i] = rhs.m_vInfo[i];
     }
     m_matWorld = rhs.m_matWorld;
+    strcpy_s(m_szDisplayName, "Transform");
 }
 
 CTransform::~CTransform()
@@ -102,4 +105,47 @@ CComponent* CTransform::Clone()
 void CTransform::Free()
 {
     Engine::CComponent::Free();
+}
+
+void CTransform::Display_Editor(const char* pObjTag)
+{
+
+        ImGui::Text("scale");
+        {
+            ImGui::PushItemWidth(40);
+
+            ImGui::InputFloat("s X", &m_vScale.x, 0.f, 0.f, "%.2f", ImGuiInputTextFlags_None); ImGui::SameLine();
+            ImGui::InputFloat("s Y", &m_vScale.y, 0.f, 0.f, "%.2f", ImGuiInputTextFlags_None); ImGui::SameLine();
+            ImGui::InputFloat("s Z", &m_vScale.z, 0.f, 0.f, "%.2f", ImGuiInputTextFlags_None);
+
+            ImGui::PopItemWidth();
+        }
+
+        ImGui::Text("Rotation");
+        {
+            ImGui::PushItemWidth(40);
+
+            ImGui::Text("r X : %.4f(%2.f))", m_vAngle.x, D3DXToDegree(m_vAngle.x));
+            ImGui::Text("r Y : %.4f(%2.f))", m_vAngle.y, D3DXToDegree(m_vAngle.y));
+            ImGui::Text("r Z : %.4f(%2.f))", m_vAngle.z, D3DXToDegree(m_vAngle.z));
+
+            ImGui::PushItemWidth(40);
+            ImGui::InputFloat("r X##Rot", &m_vAngle.x, 0.f, 0.f, "%.2f"); ImGui::SameLine();
+            ImGui::InputFloat("r Y##Rot", &m_vAngle.y, 0.f, 0.f, "%.2f"); ImGui::SameLine();
+            ImGui::InputFloat("r Z##Rot", &m_vAngle.z, 0.f, 0.f, "%.2f");
+            ImGui::PopItemWidth();
+
+            ImGui::PopItemWidth();
+        }
+
+        ImGui::Text("position");
+        {
+            ImGui::PushItemWidth(40);
+
+            ImGui::InputFloat("p X", &m_vInfo[INFO_POS].x, 0.f, 0.f, "%.2f", ImGuiInputTextFlags_None); ImGui::SameLine();
+            ImGui::InputFloat("p Y", &m_vInfo[INFO_POS].y, 0.f, 0.f, "%.2f", ImGuiInputTextFlags_None); ImGui::SameLine();
+            ImGui::InputFloat("p Z", &m_vInfo[INFO_POS].z, 0.f, 0.f, "%.2f", ImGuiInputTextFlags_None);
+
+            ImGui::PopItemWidth();
+        }
 }

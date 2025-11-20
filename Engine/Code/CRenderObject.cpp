@@ -1,8 +1,8 @@
-#include "CRenderObject.h"
+﻿#include "CRenderObject.h"
 #include "CPrototypeManager.h"
 
-const wstring CRenderObject::n_wsBufferKey = L"Buffer_Com";
-const wstring CRenderObject::n_wsTransformKey = L"Transform_Com";
+const wstring& CRenderObject::n_wsBufferKey = L"Buffer_Com";
+const wstring& CRenderObject::n_wsTransformKey = L"Transform_Com";
 
 CRenderObject::CRenderObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev), m_pBufferCom(nullptr), m_pTransformCom(nullptr)
@@ -29,7 +29,7 @@ HRESULT CRenderObject::Ready_GameObject()
 		if (pCom->Get_ComponentType() == RECTTEX)
 		{
 			m_pBufferCom = static_cast<CRectTex*>(pCom);
-			m_umComponent[ID_STATIC].emplace(pair<const wstring, CComponent*>
+			m_umComponent[ID_STATIC].emplace(pair<const wstring&, CComponent*>
 			{ n_wsBufferKey, pCom });
 		}
 		else
@@ -43,7 +43,7 @@ HRESULT CRenderObject::Ready_GameObject()
 		if (pCom->Get_ComponentType() == TRANSFORM)
 		{
 			m_pTransformCom = static_cast<CTransform*>(pCom);
-			m_umComponent[ID_DYNAMIC].emplace(pair<const wstring, CComponent*>
+			m_umComponent[ID_DYNAMIC].emplace(pair<const wstring&, CComponent*>
 			{ n_wsTransformKey, pCom });
 		}
 		else
@@ -57,7 +57,9 @@ HRESULT CRenderObject::Ready_GameObject()
 
 _int CRenderObject::Update_GameObject(const _float fTimeDelta)
 {
-	return Engine::CGameObject::Update_GameObject(fTimeDelta);
+	_int iExit = Engine::CGameObject::Update_GameObject(fTimeDelta);
+
+	return iExit;
 }
 
 void CRenderObject::LateUpdate_GameObject(const _float fTimeDelta)

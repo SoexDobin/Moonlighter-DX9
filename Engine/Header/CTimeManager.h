@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "CBase.h"
 #include "CTimer.h"
@@ -14,12 +14,12 @@ private:
 	virtual ~CTimeManager() override;
 
 public:
-	_float		Get_TimeDelta(const wstring& wsTimeTag);
-	void		Set_TimeDelta(const wstring& wsTimeTag);
+	_float		Get_TimeDelta(const wstring wsTimeTag);
+	void		Set_TimeDelta(const wstring wsTimeTag);
 
 public:
-	HRESULT		Ready_Timer(const wstring& wsTimerTag);
-	CTimer*		Find_Timer(const wstring& wsTimerTag);
+	HRESULT		Ready_Timer(const wstring wsTimerTag);
+	CTimer*		Find_Timer(const wstring wsTimerTag);
 	
 private:
 	unordered_map<wstring, CTimer*>	m_umTimer;

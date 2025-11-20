@@ -1,4 +1,4 @@
-﻿#include "CResourceManager.h"
+#include "CResourceManager.h"
 
 IMPLEMENT_SINGLETON(CResourceManager)
 
@@ -11,31 +11,19 @@ CResourceManager::~CResourceManager()
     Free();
 }
 
-
-HRESULT CResourceManager::Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& wsKey, const wstring& wsPath, _uint iFrameCnt, _uint iStartOffset)
+HRESULT CResourceManager::Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstring wsKey, const wstring wsPath, _uint iCnt)
 {
     m_umapSprite.insert({ wsKey, vector<IDirect3DBaseTexture9*>()});
-    m_umapSprite[wsKey].reserve(iFrameCnt);
+    m_umapSprite[wsKey].reserve(iCnt);
     IDirect3DBaseTexture9* pTexture = nullptr;
 
-    for (_uint i = iStartOffset; i < iFrameCnt + iStartOffset; ++i)
+    for (_uint i = 0; i < iCnt; ++i)
     {
         TCHAR   szFileName[256] = L"";
         wsprintf(szFileName, wsPath.c_str(), i);
 
-        if (FAILED(D3DXCreateTextureFromFileEx(
-            pGraphicDev,
-            szFileName,
-            D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2,
-            1, 0,
-            D3DFMT_A8R8G8B8,
-            D3DPOOL_MANAGED,
-            D3DX_DEFAULT, D3DX_DEFAULT,
-            0, NULL, NULL,
-            (LPDIRECT3DTEXTURE9*)&pTexture)))
+        if (FAILED(D3DXCreateTextureFromFile(pGraphicDev, szFileName, (LPDIRECT3DTEXTURE9*)&pTexture)))
             return E_FAIL;
-        //if (FAILED(D3DXCreateTextureFromFile(pGraphicDev, szFileName, (LPDIRECT3DTEXTURE9*)&pTexture)))
-        //    return E_FAIL;
 
         m_umapSprite[wsKey].push_back(pTexture);
     }
@@ -43,12 +31,12 @@ HRESULT CResourceManager::Add_Sprite(LPDIRECT3DDEVICE9 pGraphicDev, const wstrin
     return S_OK;
 }
 
-HRESULT CResourceManager::Add_Cube(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& swKey, const wstring& swPath)
+HRESULT CResourceManager::Add_Cube(LPDIRECT3DDEVICE9 pGraphicDev, const wstring swKey, const wstring swPath)
 {
     return S_OK;
 }
 
-const vector<IDirect3DBaseTexture9*>& CResourceManager::Get_Sprite(const wstring& swKey)
+const vector<IDirect3DBaseTexture9*>& CResourceManager::Get_Sprite(const wstring swKey)
 {
     for (_uint i = 0; i < m_umapSprite[swKey].size(); ++i)
         m_umapSprite[swKey][i]->AddRef();

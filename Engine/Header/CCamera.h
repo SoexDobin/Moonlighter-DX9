@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "CGameObject.h"
 
@@ -11,10 +11,10 @@ protected:
 					 const _vec3* pEye,
 					 const _vec3* pAt,
 					 const _vec3* pUp,
-					 _float fFov,
-					 _float fAspect,
-					 _float fNear,
-					 _float fFar);
+					 const _float fFov,
+					 const _float fAspect,
+					 const _float fNear,
+					 const _float fFar);
 	explicit CCamera(const CCamera& rhs);
 	virtual ~CCamera() override;
 
@@ -22,9 +22,6 @@ public:
 	virtual HRESULT		Ready_GameObject() override;
 	virtual _int		Update_GameObject(const _float fTimeDelta) override;
 	virtual void		LateUpdate_GameObject(const _float fTimeDelta) override;
-
-public:
-    virtual GAMEOBJECT_TYPE     Get_Type() override { return CAMERA_OBJECT; }
 
 protected:
 	_matrix		m_matView, m_matProj;

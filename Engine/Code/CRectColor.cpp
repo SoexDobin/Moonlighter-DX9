@@ -37,15 +37,19 @@ HRESULT CRectColor::Ready_Buffer()
 
 	pVertices[0].vPosition = { -1.f, 1.f, 0.f };
 	pVertices[0].dwColor = D3DXCOLOR(0.f, 1.f, 0.f, 1.f);
+	m_vecPos.push_back(pVertices[0].vPosition);
 
 	pVertices[1].vPosition = { 1.f, 1.f, 0.f };
 	pVertices[1].dwColor = D3DXCOLOR(0.f, 1.f, 0.f, 1.f);
+	m_vecPos.push_back(pVertices[1].vPosition);
 
 	pVertices[2].vPosition = { 1.f, -1.f, 0.f };
 	pVertices[2].dwColor = D3DXCOLOR(0.f, 1.f, 0.f, 1.f);
+	m_vecPos.push_back(pVertices[2].vPosition);
 
 	pVertices[3].vPosition = { -1.f, -1.f, 0.f };
 	pVertices[3].dwColor = D3DXCOLOR(0.f, 1.f, 0.f, 1.f);
+	m_vecPos.push_back(pVertices[3].vPosition);
 
 	m_pVB->Unlock();
 

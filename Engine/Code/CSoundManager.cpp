@@ -1,4 +1,4 @@
-ï»¿#include "CSoundManager.h"
+#include "CSoundManager.h"
 
 IMPLEMENT_SINGLETON(CSoundManager)
 
@@ -20,7 +20,7 @@ HRESULT CSoundManager::Ready_SoundManager()
 	return S_OK;
 }
 
-void CSoundManager::PlaySoundOnce(const wstring& wsSoundKey, CHANNELID eID, float fVolume)
+void CSoundManager::PlaySoundOnce(const wstring wsSoundKey, CHANNELID eID, float fVolume)
 {
 	unordered_map<wstring, FMOD_SOUND*>::iterator iter;
 
@@ -45,7 +45,7 @@ void CSoundManager::PlaySoundOnce(const wstring& wsSoundKey, CHANNELID eID, floa
 	FMOD_System_Update(m_pSystem);
 }
 
-void CSoundManager::PlaySound(const wstring& wsSoundKey, CHANNELID eID, float fVolume)
+void CSoundManager::PlaySound(const wstring wsSoundKey, CHANNELID eID, float fVolume)
 {
 	unordered_map<wstring, FMOD_SOUND*>::iterator iter;
 
@@ -67,7 +67,7 @@ void CSoundManager::PlaySound(const wstring& wsSoundKey, CHANNELID eID, float fV
 	FMOD_System_Update(m_pSystem);
 }
 
-void CSoundManager::PlayBGM(const wstring& wsSoundKey, float fVolume)
+void CSoundManager::PlayBGM(const wstring wsSoundKey, float fVolume)
 {
 	unordered_map<wstring, FMOD_SOUND*>::iterator iter;
 
@@ -106,8 +106,8 @@ void CSoundManager::SetChannelVolume(CHANNELID eID, float fVolume)
 
 void CSoundManager::LoadSoundFile()
 {
-	// TODO : ì‚¬ìš´ë“œ ê°€ì ¸ì˜¤ëŠ” ë°©ì‹ ë‹¤ì‹œ ì²´ê·¸ í•„ìš”í•¨
-	// READYì—ì„œ íŒ¨ìŠ¤ ì§€ì •í•´ì„œ ë˜ì €ì£¼ëŠ” ë°©ì‹ì´ ì´ë¡œìš¸ ë“¯
+	// TODO : »ç¿îµå °¡Á®¿À´Â ¹æ½Ä ´Ù½Ã Ã¼±× ÇÊ¿äÇÔ
+	// READY¿¡¼­ ÆĞ½º ÁöÁ¤ÇØ¼­ ´øÀúÁÖ´Â ¹æ½ÄÀÌ ÀÌ·Î¿ï µí
 	_finddata_t fd;
 	intptr_t lHandle = _findfirst("../Resource/Sound/*.mp3", &fd);
 	if (lHandle == -1) return;

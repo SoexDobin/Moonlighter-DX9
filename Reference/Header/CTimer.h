@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "CBase.h"
 #include "Engine_Define.h"
@@ -20,6 +20,7 @@ public:
 
 private:
 	LARGE_INTEGER		m_FrameTime;
+	LARGE_INTEGER		m_FixTime;
 	LARGE_INTEGER		m_LastTime;
 	LARGE_INTEGER		m_CpuTick;
 

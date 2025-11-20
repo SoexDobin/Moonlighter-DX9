@@ -1,6 +1,5 @@
-﻿#include "CScene.h"
+#include "CScene.h"
 #include "CManagement.h"
-#include "CEditor.h"
 
 CScene::CScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : m_pGraphicDevice(pGraphicDev), m_iSceneIdx(0)
@@ -13,10 +12,10 @@ CScene::~CScene()
 
 }
 
-CComponent* CScene::Get_Component(COMPONENTID eID, const wstring& wsLayerTag, const wstring& wsObjTag, const wstring& wsComponentTag)
+CComponent* CScene::Get_Component(COMPONENTID eID, const wstring wsLayerTag, const wstring wsObjTag, const wstring wsComponentTag)
 {
     auto iter = find_if(m_umLayer.begin(), m_umLayer.end()
-        , [&wsLayerTag](pair<const std::wstring, CLayer*>& pair) -> _bool {
+        , [&wsLayerTag](pair<const wstring, CLayer*>& pair) -> _bool {
             if (pair.first == wsLayerTag)
                 return true;
 
@@ -56,8 +55,6 @@ void CScene::Render_Scene()
         , [](pair<const wstring, CLayer*>& pair) -> void {
             pair.second->Render_Layer();
         });
-
-    Display_Editor();
 }
 
 void CScene::Free()
@@ -66,24 +63,4 @@ void CScene::Free()
     m_umLayer.clear();
 
     Safe_Release(m_pGraphicDevice);
-}
-
-void CScene::Display_Editor()
-{
-    if (ImGui::BeginTabBar("Debugging"))
-    {
-        if (ImGui::BeginTabItem("Current Scene"))
-        {
-            _uint dwIndex = 0;
-            for (auto& layer : m_umLayer)
-            {
-                if (ImGui::CollapsingHeader(layer.second->m_LayerTag, &layer.second->m_bDisplayInEditor))
-                {
-                    layer.second->Display_Editor();
-                }
-            }
-            ImGui::EndTabItem();
-        }
-        ImGui::EndTabBar();
-    }
 }

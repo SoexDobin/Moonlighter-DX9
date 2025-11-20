@@ -79,7 +79,7 @@ CRectTex* CRectTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
     if (FAILED(pInstance->Ready_Buffer()))
     {
-        MSG_BOX("Failed CRectTex Create");
+        MSG_BOX("Failed CSingleRectTex Create");
         Safe_Release(pInstance);
         return nullptr;
     }

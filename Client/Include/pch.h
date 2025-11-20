@@ -14,8 +14,6 @@
 
 #include <process.h>
 
-#include "Client_Define.h"
-
 #ifdef _DEBUG
 
 #define _CRTDBG_MAP_ALLOC

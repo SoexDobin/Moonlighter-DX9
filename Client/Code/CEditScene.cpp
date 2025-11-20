@@ -51,6 +51,9 @@ HRESULT CEditScene::Ready_Scene()
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(g_hWnd);
     ImGui_ImplDX9_Init(m_pGraphicDevice);
+
+     Sleep(100);
+
     return S_OK;
 }
 

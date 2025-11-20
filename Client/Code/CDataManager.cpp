@@ -33,6 +33,9 @@ HRESULT CDataManager::Ready_Data(LPDIRECT3DDEVICE9 pGraphicDev)
 		if (FAILED(Ready_Item_Resource(pGraphicDev)))
 			return E_FAIL;
 
+        if (FAILED(Ready_Boss_Resource(pGraphicDev)))
+            return E_FAIL;
+
 		if (FAILED(Ready_Prototype(pGraphicDev)))
 			return E_FAIL;
 	}
@@ -147,6 +150,24 @@ HRESULT CDataManager::Ready_Item_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 		return E_FAIL;
 
 	return S_OK;
+}
+
+HRESULT CDataManager::Ready_Boss_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    CResourceManager& Res = *CResourceManager::GetInstance();
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Boss_Idle",
+        n_wsResSpritePath + L"Monster/Boss/Boss_Idle/Boss_Idle%d.png", 8, 1)))
+        return E_FAIL;
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Boss_Jump",
+        n_wsResSpritePath + L"Monster/Boss/Boss_Jump/Boss_Jump%d.png", 30, 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"TEST",
+        n_wsResSpritePath + L"Monster/Boss/Test%d.png", 1)))
+        return E_FAIL;
+
+    return S_OK;
 }
 
 HRESULT CDataManager::Ready_Sound()

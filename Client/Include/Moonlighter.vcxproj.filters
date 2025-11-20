@@ -43,7 +43,6 @@
     <Filter Include="98. ImGui\EX_Manager">
       <UniqueIdentifier>{8c1d9181-9337-446c-b4a4-fe6f408b29da}</UniqueIdentifier>
     </Filter>
-
     <Filter Include="02. Scene\CEditScene">
       <UniqueIdentifier>{e9370153-4960-448f-859d-9cca4f9908f3}</UniqueIdentifier>
     </Filter>
@@ -55,6 +54,21 @@
     </Filter>
     <Filter Include="03. GameObject\01. Player">
       <UniqueIdentifier>{29a71569-598b-4100-b888-71b07937c4c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. ImGui\Mediator">
+      <UniqueIdentifier>{64f31833-3464-4550-a9ac-ddc3d9792578}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\03. MonsterTestScene">
+      <UniqueIdentifier>{e91f5b4e-ec6e-46f8-a3b5-90882e88a029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster">
+      <UniqueIdentifier>{abb3af13-14a8-4afc-9a49-93b1a5ed350a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\00. Boss">
+      <UniqueIdentifier>{64c5c5a7-ae86-4518-92ec-3b03623024e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\01. Tree">
+      <UniqueIdentifier>{1640c762-15b8-4557-8ae4-4988911d6fe6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +108,6 @@
     <ClInclude Include="..\Header\CExampleManager.h">
       <Filter>98. ImGui\EX_Manager</Filter>
     </ClInclude>
-
     <ClInclude Include="..\Header\CEditScene.h">
       <Filter>02. Scene\CEditScene</Filter>
     </ClInclude>
@@ -127,12 +140,27 @@
     </ClInclude>
     <ClInclude Include="..\..\Reference\Header\imstb_truetype.h">
       <Filter>98. ImGui\Code</Filter>
-</ClInclude>
+    </ClInclude>
     <ClInclude Include="..\Header\CPlayerTestScene.h">
       <Filter>02. Scene\07. PlayerTestScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CPlayer.h">
       <Filter>03. GameObject\01. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEngineMediator.h">
+      <Filter>98. ImGui\Mediator</Filter>
+    </ClInclude>
+    <ClInclude Include="Client_Define.h">
+      <Filter>99. Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMonsterTestScene.h">
+      <Filter>02. Scene\03. MonsterTestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBoss.h">
+      <Filter>03. GameObject\02. Monster\00. Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeMob.h">
+      <Filter>03. GameObject\02. Monster\01. Tree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -186,12 +214,24 @@
     </ClCompile>
     <ClCompile Include="..\..\Reference\Header\imgui_widgets.cpp">
       <Filter>98. ImGui\Code</Filter>
-</ClCompile>
+    </ClCompile>
     <ClCompile Include="..\Code\CPlayerTestScene.cpp">
       <Filter>02. Scene\07. PlayerTestScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CPlayer.cpp">
       <Filter>03. GameObject\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEngineMediator.cpp">
+      <Filter>98. ImGui\Mediator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMonsterTestScene.cpp">
+      <Filter>02. Scene\03. MonsterTestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBoss.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeMob.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

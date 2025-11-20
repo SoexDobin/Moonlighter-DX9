@@ -10,6 +10,8 @@
 #include "CManagement.h"
 #include "CEditScene.h"
 
+#include "CPlayerTestScene.h"
+
 CMainScene::CMainScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
 {
@@ -59,6 +61,14 @@ _int CMainScene::Update_Scene(const _float fTimeDelta)
             return -1;
         }
     }
+
+#pragma region Test Scene Transition
+    if (GetAsyncKeyState('M') & 0x0001)
+    {
+        CManagement::GetInstance()->Set_Scene(CPlayerTestScene::Create(m_pGraphicDevice));
+    }
+#pragma endregion
+
 
     return iExit;
 }

@@ -5,6 +5,9 @@
 #include "CDynamicCamera.h"
 #include "CPlayer.h"
 
+#include "CManagement.h"
+#include "CEditScene.h"
+
 CPlayerTestScene::CPlayerTestScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
 {
@@ -28,6 +31,14 @@ HRESULT CPlayerTestScene::Ready_Scene()
 _int CPlayerTestScene::Update_Scene(const _float fTimeDelta)
 {
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
+
+
+#pragma region Test Scene Transition
+    if (GetAsyncKeyState('M') & 0x0001)
+    {
+        CManagement::GetInstance()->Set_Scene(CEditScene::Create(m_pGraphicDevice));
+    }
+#pragma endregion
 
     return iExit;
 }

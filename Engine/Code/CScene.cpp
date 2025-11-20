@@ -1,5 +1,6 @@
 ﻿#include "CScene.h"
 #include "CManagement.h"
+#include "CEditor.h"
 
 CScene::CScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : m_pGraphicDevice(pGraphicDev), m_iSceneIdx(0)
@@ -69,21 +70,23 @@ void CScene::Free()
 
 void CScene::Display_Editor()
 {
-    ImGui::Begin("Scene");
-
-    _uint dwIndex = 0;
-    for (auto& layer : m_umLayer)
+    if (ImGui::BeginTabBar("Debugging"))
     {
-        if (ImGui::CollapsingHeader(layer.second->m_LayerTag, &layer.second->m_bDisplayInEditor))
+        if (ImGui::BeginTabItem("Current Scene"))
         {
-            // ImGui::SameLine();
-            // ImGui::Text("%ls", layer.first.c_str());
-
-            layer.second->Display_Editor();
-
+            _uint dwIndex = 0;
+            for (auto& layer : m_umLayer)
+            {
+                if (ImGui::CollapsingHeader(layer.second->m_LayerTag, &layer.second->m_bDisplayInEditor))
+                {
+                    layer.second->Display_Editor();
+                }
+            }
+            ImGui::EndTabItem();
         }
+        CEditor::GetInstance()->Display_ScenePanel();
 
+
+        ImGui::EndTabBar();
     }
-
-    ImGui::End();
 }

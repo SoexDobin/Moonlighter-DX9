@@ -3,6 +3,7 @@
 
 #include "CManagement.h"
 
+#include "CMonsterTestScene.h"
 #include "CPlayerTestScene.h"
 #include "CMainScene.h"
 #include "CEditScene.h"
@@ -66,6 +67,10 @@ void CEngineMediator::Change_Scene(_uint dwSceneIdx)
         }
         break;
     case SC_MONSTER:
+        if (FAILED(CManagement::GetInstance()->Set_Scene(CMonsterTestScene::Create(m_pGraphicDev))))
+        {
+            bFailed = true;
+        }
         break;
     case SC_END:
         break;

@@ -61,6 +61,15 @@
     <Filter Include="02. Scene\03. MonsterTestScene">
       <UniqueIdentifier>{e91f5b4e-ec6e-46f8-a3b5-90882e88a029}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObject\02. Monster">
+      <UniqueIdentifier>{abb3af13-14a8-4afc-9a49-93b1a5ed350a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\00. Boss">
+      <UniqueIdentifier>{64c5c5a7-ae86-4518-92ec-3b03623024e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\01. Tree">
+      <UniqueIdentifier>{1640c762-15b8-4557-8ae4-4988911d6fe6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -147,6 +156,12 @@
     <ClInclude Include="..\Header\CMonsterTestScene.h">
       <Filter>02. Scene\03. MonsterTestScene</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CBoss.h">
+      <Filter>03. GameObject\02. Monster\00. Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeMob.h">
+      <Filter>03. GameObject\02. Monster\01. Tree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -211,6 +226,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMonsterTestScene.cpp">
       <Filter>02. Scene\03. MonsterTestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBoss.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeMob.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

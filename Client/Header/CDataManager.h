@@ -22,6 +22,7 @@ private:
 	HRESULT		Ready_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
     HRESULT		Ready_Player_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT		Ready_Item_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
+    HRESULT        Ready_Boss_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT		Ready_Sound();
 
 private:

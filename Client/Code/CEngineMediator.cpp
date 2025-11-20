@@ -3,9 +3,11 @@
 
 #include "CManagement.h"
 
+#include "CMonsterTestScene.h"
 #include "CPlayerTestScene.h"
 #include "CMainScene.h"
 #include "CEditScene.h"
+#include "CUITestScene.h"
 
 IMPLEMENT_SINGLETON(CEngineMediator)
 
@@ -28,6 +30,7 @@ HRESULT CEngineMediator::Ready_Mediator(LPDIRECT3DDEVICE9 pGraphicDev)
     m_vecScene[SCENETYPE::SC_PLAYER] = "PLAYER";
     m_vecScene[SCENETYPE::SC_MAP] = "MAP";
     m_vecScene[SCENETYPE::SC_MONSTER] = "MONSTER";
+    m_vecScene[SCENETYPE::SC_UI] = "UI";
 
     // TODO : Get_CurrentScene()으로 받아와야 한다
     m_dwCurSceneIdx = static_cast<int>(SC_MAIN);
@@ -66,6 +69,16 @@ void CEngineMediator::Change_Scene(_uint dwSceneIdx)
         }
         break;
     case SC_MONSTER:
+        if (FAILED(CManagement::GetInstance()->Set_Scene(CMonsterTestScene::Create(m_pGraphicDev))))
+        {
+            bFailed = true;
+        }
+        break;
+    case SC_UI:
+        if (FAILED(CManagement::GetInstance()->Set_Scene(CUITestScene::Create(m_pGraphicDev))))
+        {
+            bFailed = true;
+        }
         break;
     case SC_END:
         break;

@@ -21,7 +21,7 @@ public:
 public:
     virtual GAMEOBJECT_TYPE     Get_Type() override { return RENDER_OBJECT; }
 
-public:
+public: 
 	virtual		HRESULT		Ready_GameObject() override;
 	virtual		_int		Update_GameObject(const _float fTimeDelta) override;
 	virtual		void		LateUpdate_GameObject(const _float fTimeDelta) override;

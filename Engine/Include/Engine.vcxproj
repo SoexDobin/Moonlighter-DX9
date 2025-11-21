@@ -119,7 +119,13 @@
       <AdditionalLibraryDirectories>./FMOD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>call $(ProjectDir)Copy.bat</Command>
+      <Command>xcopy	/y		"./FMOD/*.h*"	"../../Reference/Header\"
+xcopy	/y		"./FMOD/fmod.dll"	"../../Client/Bin\"
+
+
+xcopy /Y /I "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin"
+xcopy /Y /I "$(SolutionDir)Engine\Bin\Engine.lib" "$(SolutionDir)Reference\Library"
+xcopy /Y /I "$(SolutionDir)Engine\Header*.*" "$(SolutionDir)Reference\Header"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -151,6 +157,8 @@
     <ClInclude Include="..\Header\CCubeTex.h" />
     <ClInclude Include="..\Header\CDInputManager.h" />
     <ClInclude Include="..\Header\CEditor.h" />
+    <ClInclude Include="..\Header\CFont.h" />
+    <ClInclude Include="..\Header\CFontManager.h" />
     <ClInclude Include="..\Header\CFrame.h" />
     <ClInclude Include="..\Header\CFrameManager.h" />
     <ClInclude Include="..\Header\CGameObject.h" />
@@ -189,6 +197,8 @@
     <ClCompile Include="..\Code\CCubeTex.cpp" />
     <ClCompile Include="..\Code\CDInputManager.cpp" />
     <ClCompile Include="..\Code\CEditor.cpp" />
+    <ClCompile Include="..\Code\CFont.cpp" />
+    <ClCompile Include="..\Code\CFontManager.cpp" />
     <ClCompile Include="..\Code\CFrame.cpp" />
     <ClCompile Include="..\Code\CFrameManager.cpp" />
     <ClCompile Include="..\Code\CGameObject.cpp" />

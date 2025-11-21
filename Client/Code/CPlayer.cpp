@@ -8,12 +8,12 @@
 #include "CTransform.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CRenderObject(pGraphicDev), m_pTexCom(nullptr), m_eState(IDLE), m_eDir(DIR_DOWN), m_ePrevState(STATE_END), m_ePrevDir(DIR_END)
+    : CRenderObject(pGraphicDev), m_pTexCom(nullptr), m_eState(IDLE), m_eDir(DIR_DOWN), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(0.5f), m_vRollDir{ 0.f, 0.f, 0.f }
 {
 }
 
 CPlayer::CPlayer(const CPlayer& rhs)
-    : CRenderObject(rhs), m_pTexCom(nullptr), m_eState(rhs.m_eState), m_eDir(rhs.m_eDir), m_ePrevState(STATE_END), m_ePrevDir(DIR_END)
+    : CRenderObject(rhs), m_pTexCom(nullptr), m_eState(rhs.m_eState), m_eDir(rhs.m_eDir), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(rhs.m_fRollDuration), m_vRollDir{0.f, 0.f, 0.f}
 {
 }
 
@@ -32,10 +32,11 @@ HRESULT CPlayer::Ready_GameObject()
     m_pTransformCom->Set_Scale(27.f, 27.f, 1.f);
     m_pTransformCom->Set_Pos(0.f, 0.f, 0.f);
 
-    m_eState = IDLE;
-    m_eDir = DIR_DOWN;
-    m_ePrevState = STATE_END;
-    m_ePrevDir = DIR_END;
+    m_eState        = IDLE;
+    m_eDir          = DIR_DOWN;
+    m_ePrevState    = STATE_END;
+    m_ePrevDir      = DIR_END;
+    m_fRollTime     = 0.f;
 
     return S_OK;
 }
@@ -47,7 +48,7 @@ HRESULT CPlayer::Ready_Animation()
         return E_FAIL;
 
     m_pTexCom = static_cast<CTexture*>(pCom);
-    m_pTexCom->Set_Speed(10.f);
+    m_pTexCom->Set_Speed(8.5f);
 
     // Idle
     m_pTexCom->Ready_Texture(L"Player_Idle_Down");
@@ -89,6 +90,9 @@ _uint CPlayer::Get_AnimationIndex()
 
 void CPlayer::Key_Input(const _float& fTimeDelta)
 {
+    if (m_eState == ROLL)
+        return;
+
     auto* pInput = CDInputManager::GetInstance();
 
     _vec3 vDir = { 0.f, 0.f, 0.f };
@@ -131,8 +135,49 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 
     if (pInput->Get_DIKeyState(DIK_SPACE) & 0x80)
     {
-        m_eState = ROLL;
-        return;
+        if (m_eState != ROLL)
+        {
+            m_eState = ROLL;
+
+            m_pTexCom->Set_Speed(15.f);
+
+            m_fRollTime = 0.f;
+
+            switch (m_eDir)
+            {
+            case DIR_UP:
+                m_vRollDir = { 0.f, 0.f, 1.f };
+                break;
+            case DIR_DOWN:
+                m_vRollDir = { 0.f, 0.f, -1.f };
+                break;
+            case DIR_LEFT:
+                m_vRollDir = { -1.f, 0.f, 0.f };
+                break;
+            case DIR_RIGHT:
+                m_vRollDir = { 1.f, 0.f, 0.f };
+                break;
+            default:
+                m_vRollDir = { 0.f, 0.f, 0.f };
+                break;
+            }
+
+            _uint iRollIdx     = Get_AnimationIndex();
+            _uint iFrameCount  = m_pTexCom->Get_FrameCount(iRollIdx);
+            _float fSpeed       = m_pTexCom->Get_Speed();
+
+            if (fSpeed > 0.f)
+                m_fRollDuration = static_cast<_float>(iFrameCount) / fSpeed;
+            else
+                m_fRollDuration = 0.5f;
+
+            m_pTexCom->Set_Loop(false);
+
+            _uint iIdx = Get_AnimationIndex();
+            m_pTexCom->Set_Texture(iIdx, 0);
+
+            return;
+        }
     }
 
     if (bMoving)
@@ -152,7 +197,29 @@ _int CPlayer::Update_GameObject(const _float fTimeDelta)
 {
     _int iExit = Engine::CRenderObject::Update_GameObject(fTimeDelta);
 
-    Key_Input(fTimeDelta);
+    if (m_eState == ROLL)
+    {
+        m_fRollTime += fTimeDelta;
+
+        _vec3 vMove = m_vRollDir;
+        if (vMove.x != 0.f || vMove.y != 0.f || vMove.z != 0.f)
+        {
+            D3DXVec3Normalize(&vMove, &vMove);
+            m_pTransformCom->Move_Pos(&vMove, fTimeDelta, 100.f);
+        }
+
+        if (m_fRollTime >= m_fRollDuration)
+        {
+            m_eState = IDLE;
+            m_pTexCom->Set_Loop(true);
+
+            m_pTexCom->Set_Speed(8.5f);
+        }
+    }
+    else
+    {
+        Key_Input(fTimeDelta);
+    }
 
     if (m_ePrevState != m_eState || m_ePrevDir != m_eDir)
     {

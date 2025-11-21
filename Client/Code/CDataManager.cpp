@@ -29,13 +29,15 @@ HRESULT CDataManager::Ready_Data(LPDIRECT3DDEVICE9 pGraphicDev)
 
         if (FAILED(Ready_Player_Resource(pGraphicDev)))
             return E_FAIL;
-
+        if (FAILED(Ready_Map_Resource(pGraphicDev)))
+            return E_FAIL;
 		if (FAILED(Ready_Item_Resource(pGraphicDev)))
 			return E_FAIL;
-
+        if (FAILED(Ready_UI_Resource(pGraphicDev)))
+            return E_FAIL;
+        
         if (FAILED(Ready_Boss_Resource(pGraphicDev)))
             return E_FAIL;
-
 		if (FAILED(Ready_Prototype(pGraphicDev)))
 			return E_FAIL;
 	}
@@ -152,6 +154,53 @@ HRESULT CDataManager::Ready_Item_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 	return S_OK;
 }
 
+HRESULT CDataManager::Ready_UI_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    CResourceManager& Res = *CResourceManager::GetInstance();
+
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Inventory_Base",
+        L"../Bin/Resource/Sprite/UI/Inven/Inventory_Base.png", 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"hp_barBack",
+        L"../Bin/Resource/Sprite/UI/Static/hp_barBack.png", 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"icon_bag",
+        L"../Bin/Resource/Sprite/UI/Static/icon_bag.png", 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"icon_coin",
+        L"../Bin/Resource/Sprite/UI/Static/icon_coin.png", 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"icon_hp",
+        L"../Bin/Resource/Sprite/UI/Static/icon_hp.png", 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"icon_Pouch",
+        L"../Bin/Resource/Sprite/UI/Static/icon_Pouch.png", 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"interface_key",
+        L"../Bin/Resource/Sprite/UI/Static/interface_key.png", 1)))
+        return E_FAIL;
+
+    return S_OK;
+}
+
+
+HRESULT CDataManager::Ready_Map_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    CResourceManager& Res = *CResourceManager::GetInstance();
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Village",
+        n_wsResSpritePath + L"Village/Village_Background.png", 1)))
+    {
+        return E_FAIL;
+    }
+}
 HRESULT CDataManager::Ready_Boss_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     CResourceManager& Res = *CResourceManager::GetInstance();
@@ -165,6 +214,7 @@ HRESULT CDataManager::Ready_Boss_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"TEST",
         n_wsResSpritePath + L"Monster/Boss/Test%d.png", 1)))
+
         return E_FAIL;
 
     return S_OK;

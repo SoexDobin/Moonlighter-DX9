@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "CScene.h"
 #include "CTerrainTex.h"
+#include "CTerrainVillage.h"
 
 
 class CEditScene : public CScene
@@ -14,13 +15,15 @@ private:
     bool show_another_window = true;
 
     ImGuiContext* g_MapEditor;
+    CGameObject* pVillage;
+
 
     HRESULT Ready_Environment_Layer(const wstring pLayerTag);
     HRESULT Ready_GameLogic_Layer(const wstring pLayerTag);
     HRESULT Ready_UI_Layer(const wstring pLayerTag);
     HRESULT	Ready_Camera_Layer(const wstring wsLayerTag);
-    //HRESULT Add_Terrain();
-    HRESULT Add_Ex(const wstring temp);
+
+    HRESULT Add_TerrainVillage(const wstring temp);
 
     HRESULT Ready_Prototype();
     virtual void Free();

@@ -149,6 +149,7 @@
     <ClInclude Include="..\..\Reference\Header\imstb_rectpack.h" />
     <ClInclude Include="..\..\Reference\Header\imstb_textedit.h" />
     <ClInclude Include="..\..\Reference\Header\imstb_truetype.h" />
+    <ClInclude Include="..\Header\CBoss.h" />
     <ClInclude Include="..\Header\CDataManager.h" />
     <ClInclude Include="..\Header\CDynamicCamera.h" />
     <ClInclude Include="..\Header\CEditScene.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="..\Header\CTerrainVillage.h" />
     <ClInclude Include="..\Header\CTestRect.h" />
     <ClInclude Include="..\Header\CUtility.h" />
+    <ClInclude Include="..\Header\CTreeMob.h" />
     <ClInclude Include="Client_Define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Moonlighter.h" />
@@ -192,6 +194,7 @@
     <ClCompile Include="..\..\Reference\Header\imgui_widgets.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\Code\CBoss.cpp" />
     <ClCompile Include="..\Code\CDataManager.cpp" />
     <ClCompile Include="..\Code\CDynamicCamera.cpp" />
     <ClCompile Include="..\Code\CEditScene.cpp" />
@@ -205,6 +208,7 @@
     <ClCompile Include="..\Code\CPlayerTestScene.cpp" />
     <ClCompile Include="..\Code\CTerrainVillage.cpp" />
     <ClCompile Include="..\Code\CTestRect.cpp" />
+    <ClCompile Include="..\Code\CTreeMob.cpp" />
     <ClCompile Include="Moonlighter.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

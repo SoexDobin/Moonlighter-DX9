@@ -3,9 +3,11 @@
 
 #include "CLayer.h"
 #include "CDynamicCamera.h"
-// #include "CBoss.h"
+#include "CBoss.h"
 
 #include "CManagement.h"
+
+#include "CTreeMob.h"
 
 CMonsterTestScene::CMonsterTestScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -30,6 +32,16 @@ HRESULT CMonsterTestScene::Ready_Scene()
 _int CMonsterTestScene::Update_Scene(const _float fTimeDelta)
 {
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
+
+    if (GetAsyncKeyState('P') & 0x0001)
+    {
+        CGameObject* pTreeMob = nullptr;
+        pTreeMob = CTreeMob::Create(m_pGraphicDevice);
+
+        CLayer* pGameLogicLayer = m_umLayer[L"GameLogic_Layer"];
+        if (FAILED(pGameLogicLayer->Add_GameObject(L"TreeMob", pTreeMob)))
+            return E_FAIL;
+    }
 
     return iExit;
 }
@@ -63,10 +75,13 @@ HRESULT CMonsterTestScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 {
     CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
 
-    //CGameObject* pPlayer = nullptr;
-    //pPlayer = CPlayer::Create(m_pGraphicDevice);
-    //if (FAILED(pGameLogicLayer->Add_GameObject(L"Player", pPlayer)))
-    //    return E_FAIL;
+    CGameObject* pBoss = nullptr;
+    pBoss = CBoss::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Boss", pBoss)))
+        return E_FAIL;
+
+
+
 
     m_umLayer.emplace(pair<const wstring, CLayer*>{ wsLayerTag, pGameLogicLayer});
 

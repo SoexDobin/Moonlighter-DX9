@@ -115,6 +115,12 @@
     <Filter Include="00. Manager\08. Editor\01. Mediator">
       <UniqueIdentifier>{de8572ba-4181-4f7e-8be8-512f8c61d73f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. Manager\09. FontManager">
+      <UniqueIdentifier>{09be09b1-564d-46c5-a6fb-9c4e6927b8e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Manager\09. FontManager\00. Font">
+      <UniqueIdentifier>{ab232aba-c7ce-448b-a224-7f224832fe2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -249,6 +255,12 @@
     <ClInclude Include="..\Header\CMediator.h">
       <Filter>00. Manager\08. Editor\01. Mediator</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CFontManager.h">
+      <Filter>00. Manager\09. FontManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFont.h">
+      <Filter>00. Manager\09. FontManager\00. Font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CTimer.cpp">
@@ -358,6 +370,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMediator.cpp">
       <Filter>00. Manager\08. Editor\01. Mediator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFontManager.cpp">
+      <Filter>00. Manager\09. FontManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFont.cpp">
+      <Filter>00. Manager\09. FontManager\00. Font</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

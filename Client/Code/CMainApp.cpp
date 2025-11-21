@@ -10,6 +10,9 @@
 #include "CLightManager.h"
 
 #include "CMainScene.h"
+#include "CPlayerTestScene.h"
+#include "CUITestScene.h"
+#include "CEngineMediator.h"
 
 CMainApp::CMainApp()
 	: m_pDeviceClass(nullptr), m_pGraphicDevice(nullptr)
@@ -53,10 +56,15 @@ void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
 
-	CEditor::GetInstance()->Render_Begin();
+    // ImGui::Begin() must be called between CEditor::Render_Begin() and CEditor::Render_End().
+    CEditor::GetInstance()->Render_Begin();
 	CEditor::GetInstance()->Render_Editor();
+
 	m_pManageClass->Render_Scene(m_pGraphicDevice);
+
+    CEngineMediator::GetInstance()->Render_Mediator();
 	CEditor::GetInstance()->Render_End();
+
 	m_pDeviceClass->Render_End();
 }
 
@@ -86,12 +94,17 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDevice)
 		return E_FAIL;
 	if (FAILED(CEditor::GetInstance()->Ready_Editor(g_hWnd, m_pGraphicDevice)))
 		return E_FAIL;
+    if (FAILED(CEngineMediator::GetInstance()->Ready_Mediator(m_pGraphicDevice)))
+        return E_FAIL;
 
 	return S_OK;
 }
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDevice)
 {
+	if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(CUITestScene::Create(pGraphicDevice))))
+		return E_FAIL;
+	
 	if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(CMainScene::Create(pGraphicDevice))))
 		return E_FAIL;
 	
@@ -117,7 +130,8 @@ void CMainApp::Free()
 	Safe_Release(m_pGraphicDevice);
 
 	CDataManager::DestroyInstance();
-
+    CEngineMediator::DestroyInstance();
+    
 	Engine::CEditor::DestroyInstance();
 	Engine::CLightManager::DestroyInstance();
 	Engine::CDInputManager::DestroyInstance();

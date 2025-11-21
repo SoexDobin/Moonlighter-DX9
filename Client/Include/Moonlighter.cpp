@@ -105,10 +105,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
                 Engine::CFrameManager::GetInstance()->Set_LastTimeDelta(fDeltaTime * fTimeScale);
             }
-            else
-            {
-                pMainApp->Render_MainApp();
-            }
         }
     }
 
@@ -170,10 +166,13 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-
+    ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam);
     Engine::CEditor::GetInstance()->Editor_WndProc(hWnd, message, wParam, lParam);
+
 
     switch (message)
     {

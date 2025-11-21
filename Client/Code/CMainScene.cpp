@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
 #include "CMainScene.h"
-
+#include "CDInputManager.h"
 #include "CPrototypeManager.h"
 #include "CDynamicCamera.h"
 #include "CTestRect.h"
@@ -8,6 +8,10 @@
 #include "CExampleManager.h"
 #include "CLightManager.h"
 #include "CManagement.h"
+#include "CEditScene.h"
+
+#include "CPlayerTestScene.h"
+#include "CUtility.h"
 
 CMainScene::CMainScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -45,6 +49,19 @@ _int CMainScene::Update_Scene(const _float fTimeDelta)
 
 #pragma endregion
 
+    if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_E))
+    {
+        Engine::CScene* pEdit = CEditScene::Create(m_pGraphicDevice);
+
+        if (nullptr == pEdit)
+            return -1;
+
+        if (FAILED(CManagement::GetInstance()->Set_Scene(pEdit)))
+        {
+            MSG_BOX("Stage Setting Failed");
+            return -1;
+        }
+    }
     return iExit;
 }
 
@@ -71,6 +88,7 @@ HRESULT CMainScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 
    m_umLayer.emplace( pair<const wstring&, CLayer*>{ wsLayerTag, pCamLayer} );
 
+
     return S_OK;
 }
 
@@ -87,16 +105,21 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     pGameObject = CTestRect::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp", pGameObject)))
         return E_FAIL;
-    
-#pragma region Examples for ImGui
-    pGameObject = CExampleObject::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Example", pGameObject)))
+
+    // fix
+    pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Vill", pGameObject)))
         return E_FAIL;
 
-    CExampleManager::GetInstance()->Ready_Manager();
+    
+#pragma region Examples for ImGui
+    //pGameObject = CExampleObject::Create(m_pGraphicDevice);
+    //if (FAILED(pGameLogicLayer->Add_GameObject(L"Example", pGameObject)))
+    //    return E_FAIL;
+
+    //CExampleManager::GetInstance()->Ready_Manager();
 
 #pragma endregion
-
 
     m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pGameLogicLayer});
 
@@ -105,6 +128,7 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 
 HRESULT CMainScene::Ready_UI_Layer(const wstring& wsLayerTag)
 {
+ 
     return S_OK;
 }
 
@@ -131,7 +155,8 @@ HRESULT CMainScene::Ready_Light()
 
 HRESULT CMainScene::Ready_Prototype()
 {
-
+    if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINTEX, Engine::CTerrainTex::Create(m_pGraphicDevice, 128, 128, 1, L""))))
+        return E_FAIL;
     
     return S_OK;
 }

@@ -185,8 +185,11 @@ HRESULT CEditScene::Ready_UI_Layer(const wstring wsLayerTag)
 
 HRESULT CEditScene::Ready_Prototype()
 {
-    //if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINTEX, Engine::CTerrainTex::Create(m_pGraphicDevice, 128, 128, 1, L""))))
+    //if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINTEX, Engine::CTerrainTex::Create(m_pGraphicDevice, 64, 64, 1, L""))))
+    //{
+    //    MSG_BOX("Edit Scene CTerrainTex Prototype Create Error");
     //    return E_FAIL;
+    //}
 
     return S_OK;
 }

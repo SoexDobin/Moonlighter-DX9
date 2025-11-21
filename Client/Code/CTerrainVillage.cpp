@@ -4,12 +4,12 @@
 #include "CRenderer.h"
 
 CTerrainVillage::CTerrainVillage(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CGameObject(pGraphicDev), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
+    : CRenderObject(pGraphicDev), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
 {
 }
 
 CTerrainVillage::CTerrainVillage(const CTerrainVillage& rhs)
-    :CGameObject(rhs), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
+    :CRenderObject(rhs), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
 {
 }
 
@@ -43,6 +43,17 @@ void CTerrainVillage::LateUpdate_GameObject(const _float fTimeDelta)
 
 void CTerrainVillage::Render_GameObject()
 {
+
+    if(m_pTransformCom != nullptr)
+    {
+        m_pGraphicDevice->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
+    }
+
+    if (m_pTextureCom != nullptr)
+    {
+        m_pTextureCom->Set_Texture(0);
+    }
+
     if (m_pBufferCom != nullptr)
     {
         m_pBufferCom->Render_Buffer();

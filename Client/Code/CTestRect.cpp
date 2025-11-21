@@ -88,10 +88,13 @@ void CTestRect::Render_GameObject()
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
     m_pGraphicDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-    
+
+    m_pDynamicTexCom->Set_Texture(0);
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+    m_pGraphicDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+    //m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 }
 
 CTestRect* CTestRect::Create(LPDIRECT3DDEVICE9 pGraphicDev)

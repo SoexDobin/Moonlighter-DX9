@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "CGameObject.h"
+#include "CRenderObject.h"
 
 namespace Engine
 {
@@ -7,7 +7,7 @@ namespace Engine
     class CTexture;
 }
 
-class CTerrainVillage : public CGameObject
+class CTerrainVillage : public CRenderObject
 {
 private:
     explicit CTerrainVillage(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -16,7 +16,6 @@ private:
 
     Engine::CTerrainTex* m_pBufferCom;
     Engine::CTexture* m_pTextureCom;
-    //Engine::CTransform* m_pTransformCom;
 
     HRESULT	Add_Component();
     virtual void Free();
@@ -28,13 +27,13 @@ public:
     virtual	void Render_GameObject()override;
 
     CTerrainTex* Get_TerrainBuffer() { return m_pBufferCom; }
-    void Set_BufferCom(Engine::CTerrainTex* pTex)
-    {
-        if (m_pBufferCom)
-            Safe_Release(m_pBufferCom);
+    //void Set_BufferCom(Engine::CTerrainTex* pTex)
+    //{
+    //    if (m_pBufferCom)
+    //        Safe_Release(m_pBufferCom);
 
-        m_pBufferCom = pTex;
-    }
+    //    m_pBufferCom = pTex;
+    //}
 
     static CTerrainVillage* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 };

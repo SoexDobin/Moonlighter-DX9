@@ -33,8 +33,11 @@ private:
     CTransform* m_pOwnerTransformCom;
 
 private :
-    _float      m_fCurStateElapsedTime;
-    _float      m_fDistToPlayer;
-    _vec3       m_vDirToPlayer;
+    _float      m_fCurStateElapsedTime; // 현재 지속 시간
+    _float      m_fMinStateTime;              // 최소 지속 시간  
+    _bool       m_bMinStateTimePassed;  // 최소 지속 시간 달성 확인용
+
+    _float      m_fDistToPlayer;        // 플레이어로의 거리
+    _vec3       m_vDirToPlayer;         // 플레이어로지 방향
 };
 

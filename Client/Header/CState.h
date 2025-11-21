@@ -28,6 +28,7 @@ public :
     virtual void               Render_State() {};
 
 public:
+    // enum State...
     virtual _uint   Get_StateKey() const { return m_dwCurStateKey; }
 
 protected:

@@ -1,28 +1,26 @@
 ﻿#pragma region INCLUDE
 #include "pch.h"
 #include "CMonsterState.h"
-#include "CMonsterStateMachine.h"
-
 #include "CManagement.h"
-
 #include "CPlayer.h"
-
 #include "CTransform.h"
 #pragma endregion
 
 CMonsterState::CMonsterState()
     : m_pMonsterStateMachine(nullptr),
-    m_pPlayer(nullptr), m_pPlayerTransformCom(nullptr)
+    m_pPlayer(nullptr), m_pPlayerTransformCom(nullptr), m_fMinStateTime(0.f)
 {
-
+    m_bStarted = false;
+    m_bCanTransit = false;
+    m_bExited = false;
 }
 
 CMonsterState::CMonsterState(CStateMachine* pStateMachine)
-    :  m_pMonsterStateMachine(static_cast<CMonsterStateMachine*>(pStateMachine)),
-    m_pPlayer(nullptr), m_pPlayerTransformCom(nullptr)
-
+    :  m_pPlayer(nullptr), m_pPlayerTransformCom(nullptr), m_fMinStateTime(0.f)
 {
-
+    m_bStarted = false;
+    m_bCanTransit = false;
+    m_bExited = false;
 }
 
 CMonsterState::~CMonsterState()
@@ -33,10 +31,18 @@ void CMonsterState::Enter()
 {
     Find_Player();
 
+    m_bStarted = true;
+    m_bExited = false;
+
+    m_fCurStateElapsedTime = 0.f;
+    m_bMinStateTimePassed = false;
 }
 
 void CMonsterState::Exit()
 {
+    m_bStarted = false;
+
+    m_bExited = true;
 }
 
 void CMonsterState::Find_Player()
@@ -79,5 +85,11 @@ void CMonsterState::Detect_Player()
 
 void CMonsterState::Check_ShouldTransiti(const _float& fTimeDelta)
 {
+    m_fCurStateElapsedTime += fTimeDelta;
+
+    if (m_fCurStateElapsedTime >= m_fMinStateTime)
+    {
+        m_bMinStateTimePassed = true;
+    }
 
 }

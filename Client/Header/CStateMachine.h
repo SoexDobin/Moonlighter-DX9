@@ -6,9 +6,8 @@ class CState;
 
 class CStateMachine : public CBase
 {
-private:
+protected:
     explicit CStateMachine();
-    explicit CStateMachine(CRenderObject* pOwner);
     virtual ~CStateMachine();
 
 public:
@@ -16,7 +15,6 @@ public:
     virtual void                Change_State(_uint dwStateKey) = 0;
 
 protected:
-    CRenderObject* m_pOwner;
     vector<CState*> m_vecState;
     CState* m_pCurState;
 

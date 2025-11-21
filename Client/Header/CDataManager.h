@@ -25,7 +25,6 @@ private:
 	HRESULT		Ready_UI_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
     HRESULT     Ready_Boss_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
     HRESULT     Ready_Map_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
-    HRESULT        Ready_Boss_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT		Ready_Sound();
 
 private:

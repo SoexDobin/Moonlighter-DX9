@@ -161,6 +161,7 @@
     <ClInclude Include="..\Header\CMonsterTestScene.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CPlayerTestScene.h" />
+    <ClInclude Include="..\Header\CTerrainVillage.h" />
     <ClInclude Include="..\Header\CTestRect.h" />
     <ClInclude Include="..\Header\CUIInven.h" />
     <ClInclude Include="..\Header\CUIStatic.h">
@@ -168,6 +169,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\Header\CUITestScene.h" />
+    <ClInclude Include="..\Header\CUtility.h" />
     <ClInclude Include="..\Header\CTreeMob.h" />
     <ClInclude Include="Client_Define.h" />
     <ClInclude Include="framework.h" />
@@ -210,6 +212,7 @@
     <ClCompile Include="..\Code\CMonsterTestScene.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CPlayerTestScene.cpp" />
+    <ClCompile Include="..\Code\CTerrainVillage.cpp" />
     <ClCompile Include="..\Code\CTestRect.cpp" />
     <ClCompile Include="..\Code\CUIInven.cpp" />
     <ClCompile Include="..\Code\CUIStatic.cpp">

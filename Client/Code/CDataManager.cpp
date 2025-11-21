@@ -158,6 +158,9 @@ HRESULT CDataManager::Ready_Map_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Village",
         n_wsResSpritePath + L"Village/Village_Background.png", 1)))
+    {
+        return E_FAIL;
+    }
 }
 
 HRESULT CDataManager::Ready_Boss_Resource(LPDIRECT3DDEVICE9 pGraphicDev)

@@ -19,7 +19,7 @@ HRESULT CLoading::Ready_Loading(LOADINGID eID)
 
 	m_hThread = (HANDLE)_beginthreadex(NULL,	// 보안속성(핸들의 상속 여부, NULL인 경우 상속에서 제외)
 										0,		// 디폴트 스택 사이즈(1바이트)
-										Thread_Main,　// 쓰레드 함수(__stdcall 호출 규약)
+										Thread_Main, // 쓰레드 함수(__stdcall 호출 규약)
 										this,	// 쓰레드 함수를 이용하여 가공할 데이터 주소
 										0,		// 쓰레드 생성 및 실행을 조절하기 flag
 										NULL);	// 쓰레드 id 반환

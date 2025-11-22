@@ -154,6 +154,7 @@ xcopy /Y /I "$(SolutionDir)Engine\Header*.*" "$(SolutionDir)Reference\Header"</C
     <ClInclude Include="..\External\imstb_truetype.h" />
     <ClInclude Include="..\Header\CCamera.h" />
     <ClInclude Include="..\Header\CCollider.h" />
+    <ClInclude Include="..\Header\CCollisionManager.h" />
     <ClInclude Include="..\Header\CComponent.h" />
     <ClInclude Include="..\Header\CCubeTex.h" />
     <ClInclude Include="..\Header\CDInputManager.h" />
@@ -178,6 +179,7 @@ xcopy /Y /I "$(SolutionDir)Engine\Header*.*" "$(SolutionDir)Reference\Header"</C
     <ClInclude Include="..\Header\CScene.h" />
     <ClInclude Include="..\Header\CRectTex.h" />
     <ClInclude Include="..\Header\CSoundManager.h" />
+    <ClInclude Include="..\Header\CSphereCollider.h" />
     <ClInclude Include="..\Header\CTerrainTex.h" />
     <ClInclude Include="..\Header\CTexture.h" />
     <ClInclude Include="..\Header\CTimeManager.h" />
@@ -195,6 +197,7 @@ xcopy /Y /I "$(SolutionDir)Engine\Header*.*" "$(SolutionDir)Reference\Header"</C
   <ItemGroup>
     <ClCompile Include="..\Code\CCamera.cpp" />
     <ClCompile Include="..\Code\CCollider.cpp" />
+    <ClCompile Include="..\Code\CCollisionManager.cpp" />
     <ClCompile Include="..\Code\CComponent.cpp" />
     <ClCompile Include="..\Code\CCubeTex.cpp" />
     <ClCompile Include="..\Code\CDInputManager.cpp" />
@@ -219,6 +222,7 @@ xcopy /Y /I "$(SolutionDir)Engine\Header*.*" "$(SolutionDir)Reference\Header"</C
     <ClCompile Include="..\Code\CResourceManager.cpp" />
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CSoundManager.cpp" />
+    <ClCompile Include="..\Code\CSphereCollider.cpp" />
     <ClCompile Include="..\Code\CTerrainTex.cpp" />
     <ClCompile Include="..\Code\CTexture.cpp" />
     <ClCompile Include="..\Code\CTimeManager.cpp" />

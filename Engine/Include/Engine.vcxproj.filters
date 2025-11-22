@@ -124,6 +124,12 @@
     <Filter Include="02. Prototype\03. Collider">
       <UniqueIdentifier>{5decb496-e98b-47eb-ba19-79e7c96edfbd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. Manager\10. CollisionManager">
+      <UniqueIdentifier>{82ee2780-7b6e-43b8-a50e-f430d34e70db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Prototype\03. Collider\00. SphereCollider">
+      <UniqueIdentifier>{0d5a72a7-3241-404f-ab22-85c27d75d635}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -267,6 +273,12 @@
     <ClInclude Include="..\Header\CCollider.h">
       <Filter>02. Prototype\03. Collider</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCollisionManager.h">
+      <Filter>00. Manager\10. CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSphereCollider.h">
+      <Filter>02. Prototype\03. Collider\00. SphereCollider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CTimer.cpp">
@@ -385,6 +397,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CCollider.cpp">
       <Filter>02. Prototype\03. Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCollisionManager.cpp">
+      <Filter>00. Manager\10. CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSphereCollider.cpp">
+      <Filter>02. Prototype\03. Collider\00. SphereCollider</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

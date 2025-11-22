@@ -14,7 +14,6 @@ class CState : public CBase
 {
 protected:
     explicit CState();
-    explicit CState(CRenderObject* pOnwer, CStateMachine* pStateMachine);
     virtual ~CState();
 
 public:
@@ -22,17 +21,17 @@ public:
     virtual void    Exit() = 0;
 
 public :
-    virtual HRESULT     Ready_State() { return S_OK};
-    virtual _uint             Update_State(const _float& fTimeDelta) {};
-    virtual void               LateUpdate_State(const _float& fTimeDelta) {};
-    virtual void               Render_State() {};
+    virtual HRESULT     Ready_State() { return S_OK;  }
+    virtual _uint             Update_State(const _float& fTimeDelta) { return 0;  }
+    virtual void               LateUpdate_State(const _float& fTimeDelta) {}
+    virtual void               Render_State() {}
 
 public:
     // enum State...
     virtual _uint   Get_StateKey() const { return m_dwCurStateKey; }
 
 protected:
-    unordered_map<wstring, CTexture*>   m_pTexture;
+    //unordered_map<wstring>   m_pTexture;
 
 protected:
     wstring           m_wsCurTex;

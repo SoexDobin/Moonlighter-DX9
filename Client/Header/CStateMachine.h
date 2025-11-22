@@ -21,6 +21,8 @@ protected:
     _uint                   m_dwPrevStateKey;
     _uint                   m_dwCurStateKey;
 
-protected:
-    virtual void Free();
+    virtual void Free() override;
+
+//protected:
+//    virtual void Free();
 };

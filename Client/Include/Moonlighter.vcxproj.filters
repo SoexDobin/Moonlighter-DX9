@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="00. MainApp">
       <UniqueIdentifier>{f78fba57-93cc-4793-b7c2-3c0cb24f4833}</UniqueIdentifier>
     </Filter>
@@ -69,6 +65,40 @@
     </Filter>
     <Filter Include="03. GameObject\02. Monster\01. Tree">
       <UniqueIdentifier>{1640c762-15b8-4557-8ae4-4988911d6fe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. StateMachine">
+      <UniqueIdentifier>{28e75f8d-8cc8-4fbc-a048-165a46624d73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. StateMachine\00. State">
+      <UniqueIdentifier>{d5545231-28cd-442e-a4f5-1712f658023d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. StateMachine\01. StateMachine">
+      <UniqueIdentifier>{67fb3ed9-cd0e-48c6-b957-7e7e1a820976}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. StateMachine\03. MonsterState">
+      <UniqueIdentifier>{189b08f2-81da-4052-81f2-5ccf552aa5ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\00. Boss\00. BossStateMachine">
+      <UniqueIdentifier>{3673b610-4466-4960-855f-a810afa7e3c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\99. Entity">
+      <UniqueIdentifier>{2e8ca6d0-adeb-4e64-8dd6-89f29ff39ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\00. Boss\00. BossStateMachine\BossStateMachine">
+      <UniqueIdentifier>{453d39b8-855a-4ff5-81b4-b21ad38ca20f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\02. Slime">
+      <UniqueIdentifier>{0ae6b442-4ba8-471f-9f0c-a13d0096f8ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\01. Tree\00. TreeStateMachine">
+      <UniqueIdentifier>{5b73b49f-3e66-43a3-ae30-cd75a426ca3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\01. Tree\00. TreeStateMachine\TreeStateMachine">
+      <UniqueIdentifier>{3d925e36-c4cc-4470-b58a-c2cd1844e05b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +192,57 @@
     <ClInclude Include="..\Header\CTreeMob.h">
       <Filter>03. GameObject\02. Monster\01. Tree</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CState.h">
+      <Filter>97. StateMachine\00. State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CStateMachine.h">
+      <Filter>97. StateMachine\01. StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMonsterState.h">
+      <Filter>97. StateMachine\03. MonsterState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEntity.h">
+      <Filter>03. GameObject\99. Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossIdleState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossStateMachine.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine\BossStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossWalkState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossAwakeState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossJumpState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossThrowState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossShakeState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossRootState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossDeadState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeShakeState.h">
+      <Filter>03. GameObject\02. Monster\01. Tree\00. TreeStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeAwakeState.h">
+      <Filter>03. GameObject\02. Monster\01. Tree\00. TreeStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeStateMachine.h">
+      <Filter>03. GameObject\02. Monster\01. Tree\00. TreeStateMachine\TreeStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeIdleState.h">
+      <Filter>03. GameObject\02. Monster\01. Tree\00. TreeStateMachine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -232,6 +313,57 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTreeMob.cpp">
       <Filter>03. GameObject\02. Monster\01. Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CState.cpp">
+      <Filter>97. StateMachine\00. State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CStateMachine.cpp">
+      <Filter>97. StateMachine\01. StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMonsterState.cpp">
+      <Filter>97. StateMachine\03. MonsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEntity.cpp">
+      <Filter>03. GameObject\99. Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossIdleState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossStateMachine.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine\BossStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossWalkState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossAwakeState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossJumpState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossThrowState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossShakeState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossDeadState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossRootState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeShakeState.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree\00. TreeStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeAwakeState.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree\00. TreeStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeStateMachine.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree\00. TreeStateMachine\TreeStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeIdleState.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree\00. TreeStateMachine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

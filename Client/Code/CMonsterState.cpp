@@ -4,23 +4,13 @@
 #include "CManagement.h"
 #include "CPlayer.h"
 #include "CTransform.h"
+#include "CTexture.h"
 #pragma endregion
 
 CMonsterState::CMonsterState()
-    : m_pMonsterStateMachine(nullptr),
-    m_pPlayer(nullptr), m_pPlayerTransformCom(nullptr), m_fMinStateTime(0.f)
+    : m_pPlayer(nullptr), m_pPlayerTransformCom(nullptr), m_pOwnerTransformCom(nullptr), m_pOwnerTextureCom(nullptr),
+    m_fMinStateTime(0.f), m_fCurStateElapsedTime(0.f), m_bMinStateTimePassed(false), m_fDistToPlayer(0.f)
 {
-    m_bStarted = false;
-    m_bCanTransit = false;
-    m_bExited = false;
-}
-
-CMonsterState::CMonsterState(CStateMachine* pStateMachine)
-    :  m_pPlayer(nullptr), m_pPlayerTransformCom(nullptr), m_fMinStateTime(0.f)
-{
-    m_bStarted = false;
-    m_bCanTransit = false;
-    m_bExited = false;
 }
 
 CMonsterState::~CMonsterState()
@@ -33,6 +23,7 @@ void CMonsterState::Enter()
 
     m_bStarted = true;
     m_bExited = false;
+    m_bCanTransit = false;
 
     m_fCurStateElapsedTime = 0.f;
     m_bMinStateTimePassed = false;
@@ -60,7 +51,7 @@ void CMonsterState::Find_Player()
 
     m_pPlayer = static_cast<CPlayer*>(pObject);
 
-    CComponent* pComponent = CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform");
+    CComponent* pComponent = CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Transform_Com");
     if (nullptr == dynamic_cast<CTransform*>(pComponent))
     {
         MSG_BOX("MonsterState can't find player's transform!");
@@ -92,4 +83,9 @@ void CMonsterState::Check_ShouldTransiti(const _float& fTimeDelta)
         m_bMinStateTimePassed = true;
     }
 
+}
+
+void CMonsterState::Check_EventFrame()
+{
+    m_dwCurFrame = m_pOwnerTextureCom->Get_CurFrame();
 }

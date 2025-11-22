@@ -1,4 +1,4 @@
-#include "CPrototypeManager.h"
+﻿#include "CPrototypeManager.h"
 
 IMPLEMENT_SINGLETON(CPrototypeManager)
 
@@ -35,6 +35,18 @@ CComponent* CPrototypeManager::Clone_Prototype(PROTOTYPE_COMPONENT pComponentTag
         return nullptr;
 
     return pComponent->Clone();
+}
+
+CComponent* CPrototypeManager::Clone_Prototype(PROTOTYPE_COMPONENT pComponentTag, CGameObject* pOwner)
+{
+    if (pOwner == nullptr) return nullptr;
+    if (CComponent* pCom = Clone_Prototype(pComponentTag))
+    {
+        pCom->Set_Owner(pOwner);
+        return pCom;
+    }
+
+    return nullptr;
 }
 
 CComponent* CPrototypeManager::Find_Prototype(PROTOTYPE_COMPONENT pComponentTag)

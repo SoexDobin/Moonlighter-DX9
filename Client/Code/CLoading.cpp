@@ -80,7 +80,7 @@ CLoading* CLoading::Create(LPDIRECT3DDEVICE9 pGraphicDev, LOADINGID eID)
 
 		MSG_BOX("Loading Create Failed");
 		return nullptr;
-	}	
+	}
 
 	return pLoading;
 }

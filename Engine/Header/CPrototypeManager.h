@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CRectColor.h"
 #include "CRectTex.h"
 #include "CCubeTex.h"
@@ -19,7 +19,8 @@ private:
 
 public:
 	HRESULT			Ready_Prototype(PROTOTYPE_COMPONENT pComponentTag, CComponent* pComponent);
-	CComponent*		Clone_Prototype(PROTOTYPE_COMPONENT pComponentTag);
+    CComponent* Clone_Prototype(PROTOTYPE_COMPONENT pComponentTag, CGameObject* pOwner);
+    CComponent* Clone_Prototype(PROTOTYPE_COMPONENT pComponentTag);
 
 private:
 	CComponent*		Find_Prototype(PROTOTYPE_COMPONENT pComponentTag);

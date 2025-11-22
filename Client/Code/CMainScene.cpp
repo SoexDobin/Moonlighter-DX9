@@ -32,7 +32,8 @@ HRESULT CMainScene::Ready_Scene()
 
     if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
         return E_FAIL;
-
+    if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
+        return E_FAIL;
     if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
         return E_FAIL;
 
@@ -49,7 +50,7 @@ _int CMainScene::Update_Scene(const _float fTimeDelta)
 
 #pragma endregion
 
-    if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_E))
+    if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_M))
     {
         Engine::CScene* pEdit = CEditScene::Create(m_pGraphicDevice);
 
@@ -94,6 +95,14 @@ HRESULT CMainScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 
 HRESULT CMainScene::Ready_Environment_Layer(const wstring& wsLayerTag)
 {
+    CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
+
+    CGameObject* pGameObject = nullptr;
+    pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Village", pGameObject)))
+        return E_FAIL;
+
+    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pGameLogicLayer});
     return S_OK;
 }
 
@@ -104,11 +113,6 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     CGameObject* pGameObject = nullptr;
     pGameObject = CTestRect::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp", pGameObject)))
-        return E_FAIL;
-
-    // fix
-    pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Vill", pGameObject)))
         return E_FAIL;
 
     
@@ -154,10 +158,7 @@ HRESULT CMainScene::Ready_Light()
 }
 
 HRESULT CMainScene::Ready_Prototype()
-{
-    if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINTEX, Engine::CTerrainTex::Create(m_pGraphicDevice, 128, 128, 1, L""))))
-        return E_FAIL;
-    
+{   
     return S_OK;
 }
 

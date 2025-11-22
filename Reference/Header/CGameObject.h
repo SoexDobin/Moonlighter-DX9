@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "CBase.h"
+#include "Engine_Define.h"
 #include "CComponent.h"
 
 BEGIN(Engine)
@@ -13,6 +14,7 @@ protected:
 
 public:
 	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentTag);
+    CComponent*             Get_Component(COMPONENTID eID, PROTOTYPE_COMPONENT ePrototype);
     virtual GAMEOBJECT_TYPE Get_Type() { return GAME_OBJECT; }
 
 private:

@@ -73,9 +73,6 @@
     <Filter Include="00. Manager\05. DInputManager">
       <UniqueIdentifier>{ed8051d8-47ca-4011-913a-17833340fa7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Prototype\00. VIBuffer\04. CubeTex">
-      <UniqueIdentifier>{b0c5caf7-7083-44b2-913a-f6b1cd678c05}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Prototype\00. VIBuffer\00. RectColor">
       <UniqueIdentifier>{8abee842-b88b-464a-8275-1511a566d71d}</UniqueIdentifier>
     </Filter>
@@ -84,9 +81,6 @@
     </Filter>
     <Filter Include="01. Logic\03. GameObject\01. RenderObject">
       <UniqueIdentifier>{33122df4-f885-43b3-8b9f-544831b95569}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Prototype\00. VIBuffer\03. TerrainTex">
-      <UniqueIdentifier>{01580e91-d2cf-40b5-b462-58d026527bc4}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Prototype\00. VIBuffer\01. RectTex">
       <UniqueIdentifier>{e43d650f-74c4-4061-b5cb-b07e1799aaa2}</UniqueIdentifier>
@@ -120,6 +114,21 @@
     </Filter>
     <Filter Include="01. Logic\04. Component">
       <UniqueIdentifier>{ebb584f0-e8a5-48cc-a0f7-66dca72ad676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Prototype\00. VIBuffer\02. TerrainTex">
+      <UniqueIdentifier>{01580e91-d2cf-40b5-b462-58d026527bc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Prototype\00. VIBuffer\03. CubeTex">
+      <UniqueIdentifier>{b0c5caf7-7083-44b2-913a-f6b1cd678c05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Prototype\03. Collider">
+      <UniqueIdentifier>{5decb496-e98b-47eb-ba19-79e7c96edfbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Manager\10. CollisionManager">
+      <UniqueIdentifier>{82ee2780-7b6e-43b8-a50e-f430d34e70db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Prototype\03. Collider\00. SphereCollider">
+      <UniqueIdentifier>{0d5a72a7-3241-404f-ab22-85c27d75d635}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +199,7 @@
       <Filter>00. Manager\04. Renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTerrainTex.h">
-      <Filter>02. Prototype\00. VIBuffer\03. TerrainTex</Filter>
+      <Filter>02. Prototype\00. VIBuffer\02. TerrainTex</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCamera.h">
       <Filter>01. Logic\03. GameObject\00. Camera</Filter>
@@ -199,7 +208,7 @@
       <Filter>00. Manager\05. DInputManager</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCubeTex.h">
-      <Filter>02. Prototype\00. VIBuffer\04. CubeTex</Filter>
+      <Filter>02. Prototype\00. VIBuffer\03. CubeTex</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CSoundManager.h">
       <Filter>00. Manager\06. SoundManager</Filter>
@@ -261,6 +270,15 @@
     <ClInclude Include="..\Header\CFont.h">
       <Filter>00. Manager\09. FontManager\00. Font</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCollider.h">
+      <Filter>02. Prototype\03. Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCollisionManager.h">
+      <Filter>00. Manager\10. CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSphereCollider.h">
+      <Filter>02. Prototype\03. Collider\00. SphereCollider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CTimer.cpp">
@@ -315,7 +333,7 @@
       <Filter>00. Manager\04. Renderer</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainTex.cpp">
-      <Filter>02. Prototype\00. VIBuffer\03. TerrainTex</Filter>
+      <Filter>02. Prototype\00. VIBuffer\02. TerrainTex</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCamera.cpp">
       <Filter>01. Logic\03. GameObject\00. Camera</Filter>
@@ -324,7 +342,7 @@
       <Filter>00. Manager\05. DInputManager</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCubeTex.cpp">
-      <Filter>02. Prototype\00. VIBuffer\04. CubeTex</Filter>
+      <Filter>02. Prototype\00. VIBuffer\03. CubeTex</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSoundManager.cpp">
       <Filter>00. Manager\06. SoundManager</Filter>
@@ -376,6 +394,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CFont.cpp">
       <Filter>00. Manager\09. FontManager\00. Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCollider.cpp">
+      <Filter>02. Prototype\03. Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCollisionManager.cpp">
+      <Filter>00. Manager\10. CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSphereCollider.cpp">
+      <Filter>02. Prototype\03. Collider\00. SphereCollider</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

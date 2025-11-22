@@ -97,6 +97,11 @@ _int CTexture::Update_Component(const _float fTimeDelta)
 
 void CTexture::LateUpdate_Component()
 {
+    
+}
+
+void CTexture::SetUp_Texture()
+{
     m_pGraphicDevice->SetTexture(0, m_vecTexture[m_iCurTex][m_iCurFrame]);
 }
 

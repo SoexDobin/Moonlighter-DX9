@@ -1,7 +1,6 @@
 ﻿#include "CGameObject.h"
 #include "CEditor.h"
 
-
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	: m_pGraphicDevice(pGraphicDev), m_bDisplayInEditor(false)
 {
@@ -17,7 +16,7 @@ CGameObject::CGameObject(const CGameObject& rhs)
 CGameObject::~CGameObject()
 {
 }
-
+// 기존에 사용하던 가지고 있는 컴포넌트의 wstring 테그를 통한 검색
 CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring& wsComponentTag)
 {
 	CComponent* pComponent(nullptr);
@@ -26,6 +25,21 @@ CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring& wsCompone
 		return pComponent;
 	else
 		return nullptr;
+}
+// 컴포넌트 타입을 검색해서 맨 먼저 발견된 첫번째 컴포넌트를 반환
+CComponent* CGameObject::Get_Component(COMPONENTID eID, PROTOTYPE_COMPONENT ePrototype)
+{
+    auto iter = find_if(m_umComponent[eID].begin(), m_umComponent[eID].end()
+        , [&ePrototype](const pair<const wstring, CComponent*>& pair) -> _bool {
+            if (pair.second->Get_ComponentType() == ePrototype)
+                return true;
+
+            return false;
+        });
+
+    if (iter == m_umComponent[eID].end()) return nullptr;
+
+    return iter->second;
 }
 
 CComponent* CGameObject::Find_Component(COMPONENTID eID, const wstring& wsComponentTag)

@@ -19,9 +19,14 @@ public:
     virtual			void		LateUpdate_GameObject(const _float fTimeDelta)override;
     virtual			void		Render_GameObject()override;
 
+public:
+    void          InvenButton();
+
 private:
     CTexture*     m_pTextureCom;
-    
+    _bool         m_bVisible;
+    void          UI_KeyInput(const _float& fTimeDelta);
+
 
 public:
     static CUIInven* Create(LPDIRECT3DDEVICE9 pGraphicDev);

@@ -62,6 +62,7 @@ namespace Engine
 
     enum COL_TYPE
     {
+        RECT_COL,
         SPHERE_COL,
         SQURARE_COL,
         COL_END

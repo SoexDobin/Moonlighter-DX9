@@ -1,4 +1,5 @@
 ﻿#include "CSphereCollider.h"
+#include "CCollisionManager.h"
 
 CSphereCollider::CSphereCollider()
 {
@@ -21,6 +22,15 @@ CSphereCollider::~CSphereCollider()
 HRESULT CSphereCollider::Ready_SphereCollider()
 {
     return S_OK;
+}
+
+_bool CSphereCollider::Check_Collision(CCollider* pCol)
+{
+    switch (pCol->Get_ColType())
+    {
+    case SPHERE_COL:
+        return CCollisionManager::GetInstance()->SphereCollision(this, static_cast<CSphereCollider*>(pCol));
+    }
 }
 
 #ifdef _DEBUG

@@ -28,19 +28,23 @@ public:
 
     const Collision&            Get_Collision() const                { return m_tCollision; }
     void                        Set_Collision(const Collision& tCol) { m_tCollision = tCol; }
+    COL_STATE                   Get_ColState() const                 { return m_eState; }
+    void                        Set_ColState(COL_STATE eState)       { m_eState = eState; }
 
 public:
-    void            Add_OverlapMember(CCollider* pOverlap);
-    void            Release_OverlapMember(CCollider* pOverlap);
-    void            Frame_Release();
+    void                        Add_OverlapMember(CCollider* pOverlap);
+    void                        Release_OverlapMember(CCollider* pOverlap);
+    void                        Frame_Release();
 
+public:
+    virtual _bool                Check_Collision(CCollider* pCol) PURE;
 #ifdef _DEBUG
-    virtual void    Render_DebugCollider() PURE;
+    virtual void                Render_DebugCollider() PURE;
 #endif
 
 protected:
     Collision                      m_tCollision;
-
+    COL_STATE                      m_eState;
     _bool                          m_bIsCol;
     unordered_set<CCollider*>      m_usetOverlapCol;
     

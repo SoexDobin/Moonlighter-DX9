@@ -17,6 +17,7 @@ public:
 
 public:
     HRESULT         Ready_SphereCollider();
+    virtual _bool   Check_Collision(CCollider* pCol) override;
 
 #ifdef _DEBUG
     virtual void    Render_DebugCollider() override;

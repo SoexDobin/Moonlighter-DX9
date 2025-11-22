@@ -13,32 +13,57 @@ CCollisionManager::~CCollisionManager()
 
 void CCollisionManager::Add_Collider(const wstring& wsLayerTag, CCollider* pColComonent)
 {
-    m_umCollider[wsLayerTag].push_back(pColComonent);
+    m_vecCollider.push_back(pColComonent);
     pColComonent->AddRef();
 }
 
 void CCollisionManager::Release_Collider()
 {
-    for_each(m_umCollider.begin(), m_umCollider.end(),
-        [](pair<const wstring, vector<CCollider*>>& pair) -> void {
-            for_each(pair.second.begin(), pair.second.end(),
-                [](CCollider* pCol) -> void {
-                    Safe_Release(pCol);
-                });
-            pair.second.clear();
+    for_each(m_vecCollider.begin(), m_vecCollider.end(),
+        [](CCollider* pCol) -> void {
+            Safe_Release(pCol);
         });
-    m_umCollider.clear();
+    m_vecCollider.clear();
 }
 
-void CCollisionManager::Update_Collision(const wstring& wsLayerTag)
+void CCollisionManager::Update_Collision()
 {
-    for (auto& pSrc : m_umCollider[wsLayerTag])
+    size_t iColSize = m_vecCollider.size();
+
+    for (size_t i = 0; i < iColSize; ++i)
     {
-        for (auto& pDst : m_umCollider[wsLayerTag])
+        CCollider* pSrc = m_vecCollider[i];
+        if (pSrc == nullptr || pSrc->Get_Owner() == nullptr) continue;
+
+        for (size_t j = i + 1; j < iColSize; ++j)
         {
+            CCollider* pDst = m_vecCollider[j];
+            if (pDst == nullptr || pDst->Get_Owner() == nullptr) continue;
+
+            pSrc->Check_Collision(pDst);
+
+            if (pDst->Get_IsCol())
+            {
+
+            }
+            else
+            {
+
+            }
             
         }
     }
+}
+
+_bool CCollisionManager::RectCollision()
+{
+    return true;
+}
+
+_bool CCollisionManager::SphereCollision(CSphereCollider* pSrc, CSphereCollider* pDst)
+{
+
+    return true;
 }
 
 void CCollisionManager::Free()

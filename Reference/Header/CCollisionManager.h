@@ -4,7 +4,11 @@
 #include "Engine_Define.h"
 #include "CCollider.h"
 
+
+
 BEGIN(Engine)
+
+class CSphereCollider;
 
 class ENGINE_DLL CCollisionManager final : public CBase
 {
@@ -18,10 +22,14 @@ public:
     void        Release_Collider();
 
 public:
-    void        Update_Collision(const wstring& wsLayerTag);
+    void        Update_Collision();
+
+    static      _bool RectCollision();
+    static      _bool SphereCollision(CSphereCollider* pSrc, CSphereCollider* pDst);
+
 
 private:
-    unordered_map<wstring, vector<CCollider*>>      m_umCollider;
+    vector<CCollider*>      m_vecCollider;
 
 private:
     void            Free() override;

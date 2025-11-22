@@ -10,15 +10,18 @@
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTexCom(nullptr), m_eState(IDLE), m_eDir(DIR_DOWN), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(0.5f), m_vRollDir{ 0.f, 0.f, 0.f }
 {
+    PANEL_NAME(L"Player");
 }
 
 CPlayer::CPlayer(const CPlayer& rhs)
-    : CRenderObject(rhs), m_pTexCom(nullptr), m_eState(rhs.m_eState), m_eDir(rhs.m_eDir), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(rhs.m_fRollDuration), m_vRollDir{0.f, 0.f, 0.f}
+    : CRenderObject(rhs), m_pTexCom(nullptr), m_eState(rhs.m_eState), m_eDir(rhs.m_eDir), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(rhs.m_fRollDuration), m_vRollDir{ 0.f, 0.f, 0.f }
 {
+    PANEL_NAME(L"Player");
 }
 
 CPlayer::~CPlayer()
 {
+    PANEL_NAME(L"Player");
 }
 
 HRESULT CPlayer::Ready_GameObject()
@@ -76,16 +79,25 @@ HRESULT CPlayer::Ready_Animation()
 
 _uint CPlayer::Get_AnimationIndex()
 {
-    if (m_eState == IDLE)
-        return m_eDir;
+    _uint iBase = 0;
 
-    if (m_eState == WALK)
-        return 4 + m_eDir;
+    switch (m_eState)
+    {
+    case IDLE: iBase = 0; break;
+    case WALK: iBase = 4; break;
+    case ROLL: iBase = 8; break;
+    default:   iBase = 0; break;
+    }
 
-    if (m_eState == ROLL)
-        return 8 + m_eDir;
+    switch (m_eDir)
+    {
+    case DIR_DOWN:  return iBase + 0;
+    case DIR_UP:    return iBase + 1;
+    case DIR_LEFT:  return iBase + 2;
+    case DIR_RIGHT: return iBase + 3;
+    }
 
-    return 0;
+    return iBase;
 }
 
 void CPlayer::Key_Input(const _float& fTimeDelta)
@@ -95,39 +107,39 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 
     auto* pInput = CDInputManager::GetInstance();
 
-    _vec3 vDir = { 0.f, 0.f, 0.f };
+    _vec3 vDir   = { 0.f, 0.f, 0.f };
     bool bMoving = false;
 
-    if (pInput->Get_DIKeyState(DIK_W) & 0x80)
+    if (pInput->Get_DIKeyState(DIK_UP) & 0x80)
     {
         vDir.z += 1.f;
-        m_eDir = DIR_UP;
+        m_eDir  = DIR_UP;
         bMoving = true;
     }
-    if (pInput->Get_DIKeyState(DIK_S) & 0x80)
+    if (pInput->Get_DIKeyState(DIK_DOWN) & 0x80)
     {
         vDir.z -= 1.f;
-        m_eDir = DIR_DOWN;
+        m_eDir  = DIR_DOWN;
         bMoving = true;
     }
-    if (pInput->Get_DIKeyState(DIK_A) & 0x80)
+    if (pInput->Get_DIKeyState(DIK_LEFT) & 0x80)
     {
         vDir.x -= 1.f;
-        m_eDir = DIR_LEFT;
+        m_eDir  = DIR_LEFT;
         bMoving = true;
     }
-    if (pInput->Get_DIKeyState(DIK_D) & 0x80)
+    if (pInput->Get_DIKeyState(DIK_RIGHT) & 0x80)
     {
         vDir.x += 1.f;
-        m_eDir = DIR_RIGHT;
+        m_eDir  = DIR_RIGHT;
         bMoving = true;
     }
-    if (pInput->Get_DIKeyState(DIK_UP) & 0x80)
+    if (pInput->Get_DIKeyState(DIK_J) & 0x80)
     {
         vDir.y += 1.f;
         bMoving = true;
     }
-    if (pInput->Get_DIKeyState(DIK_DOWN) & 0x80)
+    if (pInput->Get_DIKeyState(DIK_K) & 0x80)
     {
         vDir.y -= 1.f;
         bMoving = true;
@@ -137,7 +149,7 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
     {
         if (m_eState != ROLL)
         {
-            m_eState = ROLL;
+            m_eState  = ROLL;
 
             m_pTexCom->Set_Speed(15.f);
 
@@ -162,8 +174,8 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
                 break;
             }
 
-            _uint iRollIdx     = Get_AnimationIndex();
-            _uint iFrameCount  = m_pTexCom->Get_FrameCount(iRollIdx);
+            _uint iRollIdx      = Get_AnimationIndex();
+            _uint iFrameCount   = m_pTexCom->Get_FrameCount(iRollIdx);
             _float fSpeed       = m_pTexCom->Get_Speed();
 
             if (fSpeed > 0.f)
@@ -223,11 +235,11 @@ _int CPlayer::Update_GameObject(const _float fTimeDelta)
 
     if (m_ePrevState != m_eState || m_ePrevDir != m_eDir)
     {
-        _uint iAnim = Get_AnimationIndex();
+        _uint iAnim  = Get_AnimationIndex();
         m_pTexCom->Set_Texture(iAnim, 0);
 
         m_ePrevState = m_eState;
-        m_ePrevDir = m_eDir;
+        m_ePrevDir   = m_eDir;
     }
 
     return iExit;
@@ -242,6 +254,10 @@ void CPlayer::LateUpdate_GameObject(const _float fTimeDelta)
 void CPlayer::Render_GameObject()
 {
     m_pGraphicDevice->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
+
+    _uint curTex   = m_pTexCom->Get_CurTex();
+    _uint curFrame = m_pTexCom->Get_CurFrame();
+    m_pTexCom->Set_Texture(curTex, curFrame);
 
     m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);

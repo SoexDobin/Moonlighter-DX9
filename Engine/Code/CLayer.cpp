@@ -1,5 +1,6 @@
 ﻿#include "CLayer.h"
 #include "CCollisionManager.h"
+
 CLayer::CLayer()
 	: m_bDisplayInEditor(true)
 {
@@ -79,7 +80,7 @@ void CLayer::LateUpdate_Layer(const _float fTimeDelta)
 
 		});
 }
-#include "CCollisionManager.h"
+
 void CLayer::Render_Layer()
 {
 	for_each(m_umGameObject.begin(), m_umGameObject.end()
@@ -91,7 +92,7 @@ void CLayer::Render_Layer()
                 });
 
 		});
-    CCollisionManager::GetInstance()->Update_Collision()
+    CCollisionManager::GetInstance()->Update_Collision(m_wsLayerName);
 }
 
 CLayer* CLayer::Create(const wstring& layerTag)

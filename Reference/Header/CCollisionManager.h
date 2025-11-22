@@ -18,7 +18,7 @@ public:
     void        Release_Collider();
 
 public:
-    void        Update_Collision();
+    void        Update_Collision(const wstring& wsLayerTag);
 
 private:
     unordered_map<wstring, vector<CCollider*>>      m_umCollider;

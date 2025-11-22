@@ -5,6 +5,9 @@
 
 BEGIN(Engine)
 
+class CGameObject;
+class CTransform;
+
 class ENGINE_DLL CComponent : public CBase
 {
 protected:
@@ -14,8 +17,8 @@ protected:
 	virtual ~CComponent() override;
 
 public:
-    //CGameObject*                Get_Owner() { return m_pOwner; }
-    //void                        Set_Owner(CGameObject* pOwner);
+    void                        Set_Owner(CGameObject* pOwner);
+    CGameObject*                Get_Owner() const { return m_pOwner; }
 	virtual	PROTOTYPE_COMPONENT	Get_ComponentType() PURE;
 
 public:
@@ -29,8 +32,8 @@ protected:
 	LPDIRECT3DDEVICE9			m_pGraphicDevice;
 	_bool						m_bClone;
 
-    //CGameObject*                m_pOwner;
-    //CTransform*                 m_pTrans;
+    CGameObject*                m_pOwner;
+    CTransform*                 m_pTrans;
 
 protected:
 	virtual void				Free();

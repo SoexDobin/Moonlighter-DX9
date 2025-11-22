@@ -1,4 +1,4 @@
-#ifndef Engine_Define_h__
+﻿#ifndef Engine_Define_h__
 #define Engine_Define_h__
 
 #include <d3d9.h>
@@ -11,6 +11,7 @@
 #include <functional>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <io.h>
 #include <ctime>
 

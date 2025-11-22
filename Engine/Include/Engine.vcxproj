@@ -119,13 +119,13 @@
       <AdditionalLibraryDirectories>./FMOD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy	/y		"./FMOD/*.h*"	"../../Reference/Header\"
-xcopy	/y		"./FMOD/fmod.dll"	"../../Client/Bin\"
-
-
-xcopy /Y /I "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin"
+      <Command>xcopy /Y /I "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin"
 xcopy /Y /I "$(SolutionDir)Engine\Bin\Engine.lib" "$(SolutionDir)Reference\Library"
-xcopy /Y /I "$(SolutionDir)Engine\Header*.*" "$(SolutionDir)Reference\Header"</Command>
+xcopy /Y /I "$(SolutionDir)Engine\Header\*.h*" "$(SolutionDir)Reference\Header"
+
+xcopy	/y /I "$(SolutionDir)Engine\Include\FMOD\*.h*"	"$(SolutionDir)Reference\Header\"
+xcopy	/y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\Bin\"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

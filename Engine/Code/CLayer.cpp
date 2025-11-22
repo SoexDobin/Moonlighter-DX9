@@ -34,8 +34,6 @@ HRESULT CLayer::Add_GameObject(const wstring& wsObjTag, CGameObject* pGameObject
 	if (nullptr == pGameObject) return E_FAIL;
 
     m_umGameObject[wsObjTag].push_back(pGameObject);	
-    if (CComponent* pCol = pGameObject->Get_Component(ID_DYNAMIC, COLLIDER))
-        CCollisionManager::GetInstance()->Add_Collider(m_wsLayerName, static_cast<CCollider*>(pCol));
 
     return S_OK;
 }
@@ -120,8 +118,6 @@ void CLayer::Free()
                 Safe_Release(pObj);
         });
 	m_umGameObject.clear();
-
-    CCollisionManager::GetInstance()->Release_Collider();
 }
 
 void CLayer::Display_Editor()

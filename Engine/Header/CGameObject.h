@@ -2,6 +2,7 @@
 #include "CBase.h"
 #include "Engine_Define.h"
 #include "CComponent.h"
+#include "CCollider.h"
 
 BEGIN(Engine)
 
@@ -25,6 +26,8 @@ public:
 	virtual		_int		Update_GameObject(const _float fTimeDelta);
 	virtual		void		LateUpdate_GameObject(const _float fTimeDelta);
 	virtual		void		Render_GameObject();
+
+    virtual     void        On_Collision(const Collision& tCollision) {};
 
 protected:
 	LPDIRECT3DDEVICE9							m_pGraphicDevice;

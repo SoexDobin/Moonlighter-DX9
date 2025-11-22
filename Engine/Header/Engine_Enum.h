@@ -56,6 +56,7 @@ namespace Engine
 		TEXTURE_TERRAIN,
 
         COLLIDER,
+        SPHERE_COLLIDER,
 
 		COMPONENT_END
 	};

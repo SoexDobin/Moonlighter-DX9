@@ -106,10 +106,18 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp", pGameObject)))
         return E_FAIL;
 
-    // fix
-    pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Vill", pGameObject)))
+    pGameObject = CTestRect::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp2", pGameObject)))
         return E_FAIL;
+
+    pGameObject = CTestRect::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp3", pGameObject)))
+        return E_FAIL;
+
+    // fix
+    //pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
+    //if (FAILED(pGameLogicLayer->Add_GameObject(L"Vill", pGameObject)))
+    //    return E_FAIL;
 
     
 #pragma region Examples for ImGui

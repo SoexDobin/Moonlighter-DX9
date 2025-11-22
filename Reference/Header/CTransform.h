@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include "CComponent.h"
 
 BEGIN(Engine)

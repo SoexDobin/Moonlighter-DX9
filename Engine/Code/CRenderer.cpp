@@ -138,7 +138,7 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
     */
 
     wchar_t buf[128];
-    swprintf_s(buf, L"[UI] count = %d\n", (int)m_RenderGroup[RENDER_UI].size());
+    //swprintf_s(buf, L"[UI] count = %d\n", (int)m_RenderGroup[RENDER_UI].size());
     OutputDebugString(buf);
 
     _matrix matOldView, matOldProj;

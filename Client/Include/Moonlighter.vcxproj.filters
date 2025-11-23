@@ -57,13 +57,6 @@
     <Filter Include="02. Scene\08. UITestScene">
       <UniqueIdentifier>{94731203-deb5-4cdd-bc22-e3398f03bfb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="03. GameObject\TerrainVillage">
-      <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utility">
       <UniqueIdentifier>{dd585d7f-ea1b-496c-a1b0-8749e04611a6}</UniqueIdentifier>
     </Filter>
@@ -84,6 +77,22 @@
     </Filter>
     <Filter Include="97. Loading">
       <UniqueIdentifier>{75a6cdc1-e405-47e9-bd43-4c9814b46055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map">
+      <UniqueIdentifier>{648cfc60-3c9e-4a56-a0a4-fa478ba6e55a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\TerrainVillage">
+      <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\House">
+      <UniqueIdentifier>{81673ab7-5e6e-4619-add7-ea83b34954e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Tree">
+      <UniqueIdentifier>{420576ff-11c6-4e3e-8055-8f0d484e5c98}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -172,7 +181,7 @@
       <Filter>03. GameObject\10. UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTerrainVillage.h">
-      <Filter>03. GameObject\TerrainVillage</Filter>
+      <Filter>03. GameObject\11. Map\TerrainVillage</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CUtility.h">
       <Filter>Utility</Filter>
@@ -194,6 +203,12 @@
     </ClInclude>
     <ClInclude Include="..\Header\CLoading.h">
       <Filter>97. Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHouse.h">
+      <Filter>03. GameObject\11. Map\House</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTree.h">
+      <Filter>03. GameObject\11. Map\Tree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -264,7 +279,7 @@
       <Filter>03. GameObject\10. UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainVillage.cpp">
-      <Filter>03. GameObject\TerrainVillage</Filter>
+      <Filter>03. GameObject\11. Map\TerrainVillage</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CEngineMediator.cpp">
       <Filter>98. ImGui\Mediator</Filter>
@@ -280,6 +295,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CLoading.cpp">
       <Filter>97. Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHouse.cpp">
+      <Filter>03. GameObject\11. Map\House</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTree.cpp">
+      <Filter>03. GameObject\11. Map\Tree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

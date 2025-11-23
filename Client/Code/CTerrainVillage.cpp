@@ -6,11 +6,13 @@
 CTerrainVillage::CTerrainVillage(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
 {
+    PANEL_NAME(L"Terrain_Village")
 }
 
 CTerrainVillage::CTerrainVillage(const CTerrainVillage& rhs)
     :CRenderObject(rhs), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
 {
+    PANEL_NAME(L"Terrain_Village")
 }
 
 CTerrainVillage::~CTerrainVillage()
@@ -19,7 +21,8 @@ CTerrainVillage::~CTerrainVillage()
 
 HRESULT CTerrainVillage::Ready_GameObject()
 {
-
+    if (FAILED(Engine::CRenderObject::Ready_GameObject()))
+        return E_FAIL;
     if (FAILED(Add_Component()))
         return E_FAIL;
 

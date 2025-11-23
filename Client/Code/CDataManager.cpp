@@ -200,8 +200,22 @@ HRESULT CDataManager::Ready_Map_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Village",
         n_wsResSpritePath + L"Map/Village_Background.png", 1)))
     {
+        MSG_BOX("Village Terrain Image Load Fail");
         return E_FAIL;
     }
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Village_House",
+        n_wsResSpritePath + L"Map/Village_House.png", 1)))
+    {
+        MSG_BOX("Village House Image Load Fail");
+        return E_FAIL;
+    }
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Village_Tree",
+        n_wsResSpritePath + L"Map/Village_tree.png", 1)))
+    {
+        MSG_BOX("Village Tree Image Load Fail");
+        return E_FAIL;
+    }
+    return S_OK;
 }
 HRESULT CDataManager::Ready_Boss_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 {

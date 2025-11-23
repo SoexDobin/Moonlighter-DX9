@@ -114,6 +114,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>..\Header;..\..\Base;..\..\Reference\Header;..\Include;..\..\Engine\External;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -156,6 +157,7 @@
     <ClInclude Include="..\Header\CEngineMediator.h" />
     <ClInclude Include="..\Header\CExampleManager.h" />
     <ClInclude Include="..\Header\CExampleObject.h" />
+    <ClInclude Include="..\Header\CHouse.h" />
     <ClInclude Include="..\Header\CLoading.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMainScene.h" />
@@ -164,6 +166,7 @@
     <ClInclude Include="..\Header\CPlayerTestScene.h" />
     <ClInclude Include="..\Header\CTerrainVillage.h" />
     <ClInclude Include="..\Header\CTestRect.h" />
+    <ClInclude Include="..\Header\CTree.h" />
     <ClInclude Include="..\Header\CUIInven.h" />
     <ClInclude Include="..\Header\CUIStatic.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -208,6 +211,7 @@
     <ClCompile Include="..\Code\CEngineMediator.cpp" />
     <ClCompile Include="..\Code\CExampleManager.cpp" />
     <ClCompile Include="..\Code\CExampleObject.cpp" />
+    <ClCompile Include="..\Code\CHouse.cpp" />
     <ClCompile Include="..\Code\CLoading.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CMainScene.cpp" />
@@ -216,6 +220,7 @@
     <ClCompile Include="..\Code\CPlayerTestScene.cpp" />
     <ClCompile Include="..\Code\CTerrainVillage.cpp" />
     <ClCompile Include="..\Code\CTestRect.cpp" />
+    <ClCompile Include="..\Code\CTree.cpp" />
     <ClCompile Include="..\Code\CUIInven.cpp" />
     <ClCompile Include="..\Code\CUIStatic.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

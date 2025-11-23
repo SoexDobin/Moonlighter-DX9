@@ -81,7 +81,7 @@ void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 // 직교 투영 적용
 void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 {
-  
+
     _matrix matOldView, matOldProj;
     pGraphicDev->GetTransform(D3DTS_VIEW, &matOldView);
     pGraphicDev->GetTransform(D3DTS_PROJECTION, &matOldProj);

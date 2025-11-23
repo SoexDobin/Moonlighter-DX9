@@ -140,7 +140,10 @@ CSphereCollider* CSphereCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 CComponent* CSphereCollider::Clone()
 {
-    return new CSphereCollider(*this);
+    CCollider* pClone = new CSphereCollider(*this);
+    CCollisionManager::GetInstance()->Add_Collider(pClone);
+
+    return pClone;
 }
 
 void CSphereCollider::Free()

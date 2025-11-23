@@ -64,9 +64,6 @@
     <Filter Include="03. GameObject\TerrainVillage">
       <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utility">
-      <UniqueIdentifier>{dd585d7f-ea1b-496c-a1b0-8749e04611a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="98. ImGui\Mediator">
       <UniqueIdentifier>{64f31833-3464-4550-a9ac-ddc3d9792578}</UniqueIdentifier>
     </Filter>
@@ -84,6 +81,9 @@
     </Filter>
     <Filter Include="97. Loading">
       <UniqueIdentifier>{75a6cdc1-e405-47e9-bd43-4c9814b46055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="96. Utility">
+      <UniqueIdentifier>{dd585d7f-ea1b-496c-a1b0-8749e04611a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -175,7 +175,7 @@
       <Filter>03. GameObject\TerrainVillage</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CUtility.h">
-      <Filter>Utility</Filter>
+      <Filter>96. Utility</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CEngineMediator.h">
       <Filter>98. ImGui\Mediator</Filter>

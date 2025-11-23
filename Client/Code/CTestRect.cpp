@@ -29,35 +29,16 @@ HRESULT CTestRect::Ready_GameObject()
     if (FAILED(Engine::CRenderObject::Ready_GameObject()))
         return E_FAIL;
 
-    CComponent* pCom(nullptr);
-
-    pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
-    if (pCom->Get_ComponentType() != TEXTURE)
-        return E_FAIL;
     
-    if (m_pDynamicTexCom = static_cast<CTexture*>(pCom))
+    if (m_pDynamicTexCom = Add_Component<CTexture>(ID_DYNAMIC, L"Texture_Com", TEXTURE))
     {
         m_pDynamicTexCom->Set_Speed(10.f);
         m_pDynamicTexCom->Ready_Texture(L"Item_Potion");
         m_pDynamicTexCom->Ready_Texture(L"Player_Roll");
-    
         m_pDynamicTexCom->Set_Texture(POTION);
-    
-        m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pDynamicTexCom));
     }
 
-    pCom = CPrototypeManager::GetInstance()->Clone_Prototype(SPHERE_COLLIDER);
-    if (pCom->Get_ComponentType() != SPHERE_COLLIDER)
-        return E_FAIL;
-
-    if (m_pColCom = static_cast<CSphereCollider*>(pCom))
-    {
-        m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Collision_Com", m_pColCom));
-        m_pColCom->Set_Owner(this);
-        CCollisionManager::GetInstance()->Add_Collider(static_cast<CCollider*>(pCom));
-    }
-
-    
+    m_pColCom = Add_Component<CSphereCollider>(ID_DYNAMIC, L"Collider_Com", SPHERE_COLLIDER);
 
     //pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
     //if (pCom->Get_ComponentType() != TEXTURE)
@@ -104,12 +85,12 @@ void CTestRect::Render_GameObject()
 
     m_pGraphicDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 
-    m_pDynamicTexCom->Set_Texture(0);
+    m_pDynamicTexCom->SetUp_Texture();
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
     m_pGraphicDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
-    //m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+    m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 }
 
 void CTestRect::On_Collision(const Collision& tCollision)

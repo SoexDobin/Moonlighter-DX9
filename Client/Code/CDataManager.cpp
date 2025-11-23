@@ -69,9 +69,9 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 
     if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINTEX, Engine::CTerrainTex::Create(pGraphicDev, 128, 128, 1, L""))))
         return E_FAIL;
-    if (FAILED(Engine::CPrototypeManager::GetInstance()
-        ->Ready_Prototype(SPHERE_COLLIDER, CSphereCollider::Create(pGraphicDev))))
-        return E_FAIL;
+    //if (FAILED(Engine::CPrototypeManager::GetInstance()
+    //    ->Ready_Prototype(SPHERE_COLLIDER, CSphereCollider::Create(pGraphicDev))))
+    //    return E_FAIL;
 
 	return S_OK;
 }
@@ -247,6 +247,7 @@ HRESULT CDataManager::Ready_Map_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
     }
     return S_OK;
 }
+
 HRESULT CDataManager::Ready_Boss_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     CResourceManager& Res = *CResourceManager::GetInstance();
@@ -331,8 +332,6 @@ HRESULT CDataManager::Ready_Monster_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
             n_wsResSpritePath + L"Monster/Slime/Slime_Big/Slime_Big%d.png", 23, 1)))
             return E_FAIL;
     }
-
-
 
     return S_OK;
 }

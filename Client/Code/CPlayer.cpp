@@ -116,6 +116,7 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 
     _vec3 vDir   = { 0.f, 0.f, 0.f };
     bool bMoving = false;
+    bool bAttack = false;
 
     if (pInput->Get_DIKeyState(DIK_UP) & 0x80)
     {
@@ -141,6 +142,32 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         m_eDir  = DIR_RIGHT;
         bMoving = true;
     }
+
+    if (pInput->Get_DIKeyState(DIK_W) & 0x80)
+    {
+        vDir.z += 1.f;
+        m_eDir = DIR_UP;
+        bAttack = true;
+    }
+    if (pInput->Get_DIKeyState(DIK_A) & 0x80)
+    {
+        vDir.z -= 1.f;
+        m_eDir = DIR_LEFT;
+        bAttack = true;
+    }
+    if (pInput->Get_DIKeyState(DIK_S) & 0x80)
+    {
+        vDir.x -= 1.f;
+        m_eDir = DIR_DOWN;
+        bAttack = true;
+    }
+    if (pInput->Get_DIKeyState(DIK_D) & 0x80)
+    {
+        vDir.x += 1.f;
+        m_eDir = DIR_RIGHT;
+        bAttack = true;
+    }
+
     if (pInput->Get_DIKeyState(DIK_J) & 0x80)
     {
         vDir.y += 1.f;
@@ -197,6 +224,17 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 
             return;
         }
+    }
+
+    if (bAttack)
+    {
+        m_eState = COMBOATTACK;
+
+        D3DXVec3Normalize(&vDir, &vDir);
+    }
+    else
+    {
+        m_eState = IDLE;
     }
 
     if (bMoving)

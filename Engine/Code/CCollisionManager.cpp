@@ -2,6 +2,7 @@
 #include "CGameObject.h"
 #include "CTransform.h"
 #include "CSphereCollider.h"
+#include "CRectCollider.h"
 
 IMPLEMENT_SINGLETON(CCollisionManager)
 
@@ -99,8 +100,9 @@ void CCollisionManager::Render_Collision()
 }
 #endif
 
-_bool CCollisionManager::RectCollision()
+_bool CCollisionManager::RectCollision(CRectCollider* pSrc, CRectCollider* pDst)
 {
+
     return true;
 }
 
@@ -111,8 +113,8 @@ _bool CCollisionManager::SphereCollision(CSphereCollider* pSrc, CSphereCollider*
     _vec3 vDistance = vDstPos - vSrcPos;
     _float fDistance = D3DXVec3LengthSq(&vDistance);
     
-    _float m_fRadiusSum = (pSrc->Get_Radius() * pSrc->Get_Scale() * 0.5f)
-                        + (pDst->Get_Radius() * pSrc->Get_Scale() * 0.5f);
+    _float m_fRadiusSum = (pSrc->Get_Radius() * pSrc->Get_Scale() )
+                        + (pDst->Get_Radius() * pSrc->Get_Scale() ) * 0.5f;
 
     return m_fRadiusSum >= fDistance;
 }

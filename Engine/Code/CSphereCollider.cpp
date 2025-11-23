@@ -56,69 +56,85 @@ void CSphereCollider::Render_DebugCollider()
     if (m_pTrans == nullptr || m_pGraphicDevice == nullptr)
         return;
 
-    // Save states we'll change
+    // 상태 백업
     DWORD prevFillMode = 0;
     m_pGraphicDevice->GetRenderState(D3DRS_FILLMODE, &prevFillMode);
 
     BOOL prevLighting = FALSE;
     m_pGraphicDevice->GetRenderState(D3DRS_LIGHTING, (DWORD*)&prevLighting);
 
-    // Build world matrix (scale by radius/scale, then translate)
-    _vec3 vPos = m_pTrans->Get_Pos();
-    float radius = (m_fRadius * m_fScale); // m_fRadius * m_fScale 조합 사용
-    D3DXMATRIX matS, matT, matWorld;
-    D3DXMatrixScaling(&matS, radius, radius, radius);
-    D3DXMatrixTranslation(&matT, vPos.x, vPos.y, vPos.z);
-    matWorld = matS * matT;
-    m_pGraphicDevice->SetTransform(D3DTS_WORLD, &matWorld);
+    D3DXMATRIX prevWorld;
+    m_pGraphicDevice->GetTransform(D3DTS_WORLD, &prevWorld);
 
-    // Set render states for debug lines
+    // 월드 행렬은 단위행렬로 두고, 월드좌표로 직접 찍는다
+    D3DXMATRIX matIdentity;
+    D3DXMatrixIdentity(&matIdentity);
+    m_pGraphicDevice->SetTransform(D3DTS_WORLD, &matIdentity);
+
+    // 디버그용 정점
+    struct DebugVtx
+    {
+        float x, y, z;
+        DWORD color;
+    };
+
+    const DWORD color = D3DCOLOR_ARGB(255, 0, 255, 0);
+    const int   segments = 32;   // 원 세그먼트 수
+
+    _vec3 center = m_pTrans->Get_Pos();
+    float radius = m_fRadius * m_fScale; // 필요하면 충돌 공식에 맞게 조정
+
     m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
     m_pGraphicDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
     m_pGraphicDevice->SetTexture(0, nullptr);
-
-    struct DebugVtx { float x, y, z; DWORD color; };
-    const DWORD color = D3DCOLOR_ARGB(255, 0, 255, 0);
     m_pGraphicDevice->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
 
-    const int slices = 16;
-    const int stacks = 12;
-
-    // latitude lines
-    for (int i = 1; i < stacks; ++i)
-    {
-        float phi = D3DX_PI * float(i) / float(stacks);
-        float y = cosf(phi);
-        float r = sinf(phi);
-        for (int j = 0; j < slices; ++j)
+    auto DrawCircle = [&](int plane)
         {
-            float t1 = 2.f * D3DX_PI * float(j) / float(slices);
-            float t2 = 2.f * D3DX_PI * float(j + 1) / float(slices);
-            DebugVtx v[2] = {
-                { r * cosf(t1), y, r * sinf(t1), color },
-                { r * cosf(t2), y, r * sinf(t2), color }
-            };
-            m_pGraphicDevice->DrawPrimitiveUP(D3DPT_LINELIST, 1, v, sizeof(DebugVtx));
-        }
-    }
+            // plane: 0 = XZ, 1 = XY, 2 = YZ
+            DebugVtx v[segments + 1];
 
-    // longitude lines
-    for (int j = 0; j < slices; ++j)
-    {
-        float theta = 2.f * D3DX_PI * float(j) / float(slices);
-        for (int i = 0; i < stacks; ++i)
-        {
-            float p1 = D3DX_PI * float(i) / float(stacks);
-            float p2 = D3DX_PI * float(i + 1) / float(stacks);
-            DebugVtx v[2] = {
-                { sinf(p1) * cosf(theta), cosf(p1), sinf(p1) * sinf(theta), color },
-                { sinf(p2) * cosf(theta), cosf(p2), sinf(p2) * sinf(theta), color }
-            };
-            m_pGraphicDevice->DrawPrimitiveUP(D3DPT_LINELIST, 1, v, sizeof(DebugVtx));
-        }
-    }
+            for (int i = 0; i <= segments; ++i)
+            {
+                float t = (2.f * D3DX_PI * i) / segments;
+                float ct = cosf(t);
+                float st = sinf(t);
 
-    // Restore states
+                switch (plane)
+                {
+                case 0: // XZ 평면 (바닥면)
+                    v[i].x = center.x + ct * radius;
+                    v[i].y = center.y;
+                    v[i].z = center.z + st * radius;
+                    break;
+
+                case 1: // XY 평면 (정면)
+                    v[i].x = center.x + ct * radius;
+                    v[i].y = center.y + st * radius;
+                    v[i].z = center.z;
+                    break;
+
+                case 2: // YZ 평면 (측면)
+                    v[i].x = center.x;
+                    v[i].y = center.y + ct * radius;
+                    v[i].z = center.z + st * radius;
+                    break;
+                }
+
+                v[i].color = color;
+            }
+
+            // LINESTRIP은 정점개수 - 1 이 primitiveCount
+            m_pGraphicDevice->DrawPrimitiveUP(D3DPT_LINESTRIP, segments, v, sizeof(DebugVtx));
+        };
+
+    // 필요에 따라 원하는 평면만 호출해도 된다.
+    DrawCircle(0); // XZ
+    DrawCircle(1); // XY
+    DrawCircle(2); // YZ
+
+    // 상태 복원
+    m_pGraphicDevice->SetTransform(D3DTS_WORLD, &prevWorld);
     m_pGraphicDevice->SetRenderState(D3DRS_FILLMODE, prevFillMode);
     m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, prevLighting);
 }

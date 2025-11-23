@@ -66,7 +66,7 @@ void CMainApp::Render_MainApp()
 	m_pManageClass->Render_Scene(m_pGraphicDevice);
 
 #ifdef _DEBUG
-    //Engine::CCollisionManager::GetInstance()->Render_Collision();
+    Engine::CCollisionManager::GetInstance()->Render_Collision();
 #endif 
 
     CEngineMediator::GetInstance()->Render_Mediator();

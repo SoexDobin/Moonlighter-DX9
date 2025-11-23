@@ -57,6 +57,7 @@ namespace Engine
 
         COLLIDER,
         SPHERE_COLLIDER,
+        RECT_COLLIDER,
 
 		COMPONENT_END
 	};

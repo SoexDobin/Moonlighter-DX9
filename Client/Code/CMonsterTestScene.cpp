@@ -7,6 +7,7 @@
 #include "CPlayer.h"
 #include "CTreeMob.h"
 #include "CSlimeMob.h"
+#include "CTerrainVillage.h"
 
 #include "CManagement.h"
 
@@ -66,6 +67,11 @@ HRESULT CMonsterTestScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 HRESULT CMonsterTestScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 {
     CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
+
+    CGameObject* pVillage = nullptr;
+    pVillage = CTerrainVillage::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Village", pVillage)))
+        return E_FAIL;
 
     CGameObject* pPlayer = nullptr;
     pPlayer = CPlayer::Create(m_pGraphicDevice);

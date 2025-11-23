@@ -126,7 +126,7 @@ void CTreeMob::Set_CurStateKey(_uint dwStateKey, CMonsterState* pCurState)
 void CTreeMob::Configure_Component()
 {
     m_pTransformCom->Set_Scale(11.f, 11.f, 1.f);
-    m_pTransformCom->Set_Pos(-5.f, 0.f, -5.f);
+    m_pTransformCom->Set_Pos(15.f, 5.f, 10.f);
 }
 
 CTreeMob* CTreeMob::Create(LPDIRECT3DDEVICE9 pGraphicDev)

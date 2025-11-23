@@ -8,6 +8,7 @@
 #include "CDataManager.h"
 #include "CEditor.h"
 #include "CLightManager.h"
+#include "CCollisionManager.h"
 
 #include "CMainScene.h"
 #include "CPlayerTestScene.h"
@@ -141,4 +142,5 @@ void CMainApp::Free()
 	Engine::CTimeManager::DestroyInstance();
 	Engine::CFrameManager::DestroyInstance();
 	Engine::CPrototypeManager::DestroyInstance();
+    Engine::CCollisionManager::DestroyInstance();
 }

@@ -15,8 +15,8 @@ protected:
 	virtual ~CRenderObject() override;
 
 public:
-	const CTransform&	Get_Trans()		{ return *m_pTransformCom; }
-	const CRectTex&		Get_Buffer()	{ return *m_pBufferCom; }
+	CTransform*	    Get_Trans()		{ return m_pTransformCom; }
+	CRectTex*		Get_Buffer()	{ return m_pBufferCom; }
 
 public:
     virtual GAMEOBJECT_TYPE     Get_Type() override { return RENDER_OBJECT; }

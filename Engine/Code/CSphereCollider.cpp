@@ -135,7 +135,6 @@ void CSphereCollider::Render_DebugCollider()
             m_pGraphicDevice->DrawPrimitiveUP(D3DPT_LINESTRIP, segments, v, sizeof(DebugVtx));
         };
 
-    // 필요에 따라 원하는 평면만 호출해도 된다.
     DrawCircle(0); // XZ
     DrawCircle(1); // XY
     DrawCircle(2); // YZ

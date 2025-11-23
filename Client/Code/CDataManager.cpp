@@ -154,15 +154,15 @@ HRESULT CDataManager::Ready_Player_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
         return E_FAIL;
 
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Combo_Up",
-        n_wsResSpritePath + L"Player/Spear/ComboAttack/Down/PLAYER_SPEAR_COMBO_UP_%02d.png", 7)))
+        n_wsResSpritePath + L"Player/Spear/ComboAttack/Up/PLAYER_SPEAR_COMBO_UP_%02d.png", 7)))
         return E_FAIL;
 
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Combo_Left",
-        n_wsResSpritePath + L"Player/Spear/ComboAttack/Down/PLAYER_SPEAR_COMBO_LEFT_%02d.png", 7)))
+        n_wsResSpritePath + L"Player/Spear/ComboAttack/Left/PLAYER_SPEAR_COMBO_LEFT_%02d.png", 7)))
         return E_FAIL;
 
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Combo_Right",
-        n_wsResSpritePath + L"Player/Spear/ComboAttack/Down/PLAYER_SPEAR_COMBO_RIGHT_%02d.png", 7)))
+        n_wsResSpritePath + L"Player/Spear/ComboAttack/Right/PLAYER_SPEAR_COMBO_RIGHT_%02d.png", 7)))
         return E_FAIL;
 
     return S_OK;

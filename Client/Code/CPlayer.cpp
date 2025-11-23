@@ -32,8 +32,7 @@ HRESULT CPlayer::Ready_GameObject()
     if (FAILED(Ready_Animation()))
         return E_FAIL;
 
-//    m_pTransformCom->Set_Scale(27.f, 27.f, 1.f);
-    m_pTransformCom->Set_Scale(3.f, 3.f, 1.f);
+    m_pTransformCom->Set_Scale(8.f, 8.f, 1.f);
     m_pTransformCom->Set_Pos(5.f, 0.f, 0.f);
 
     m_eState        = IDLE;

@@ -6,6 +6,9 @@
 
 BEGIN(Engine)
 
+class CSphereCollider;
+class CRectCollider;
+
 class ENGINE_DLL CCollisionManager final : public CBase
 {
     DECLARE_SINGLETON(CCollisionManager)
@@ -14,14 +17,18 @@ private:
     virtual ~CCollisionManager() override;
 
 public:
-    void        Add_Collider(const wstring& wsLayerTag, CCollider* pColComonent);
-    void        Release_Collider();
+    void        Add_Collider(CCollider* pColComonent);
 
 public:
-    void        Update_Collision(const wstring& wsLayerTag);
+    void        Update_Collision();
+#ifdef _DEBUG
+    void        Render_Collision();
+#endif
+    static      _bool RectCollision(CRectCollider* pSrc, CRectCollider* pDst);
+    static      _bool SphereCollision(CSphereCollider* pSrc, CSphereCollider* pDst);
 
 private:
-    unordered_map<wstring, vector<CCollider*>>      m_umCollider;
+    vector<CCollider*>      m_vecCollider;
 
 private:
     void            Free() override;

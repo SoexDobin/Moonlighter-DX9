@@ -1,4 +1,5 @@
 ﻿#include "CGameObject.h"
+#include "CPrototypeManager.h"
 #include "CEditor.h"
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -16,12 +17,13 @@ CGameObject::CGameObject(const CGameObject& rhs)
 CGameObject::~CGameObject()
 {
 }
+
 // 기존에 사용하던 가지고 있는 컴포넌트의 wstring 테그를 통한 검색
-CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring& wsComponentTag)
+CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring& wsComponentKey)
 {
 	CComponent* pComponent(nullptr);
 
-	if (pComponent = Find_Component(eID, wsComponentTag))
+	if (pComponent = Find_Component(eID, wsComponentKey))
 		return pComponent;
 	else
 		return nullptr;

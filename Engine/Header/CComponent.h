@@ -18,7 +18,8 @@ protected:
 
 public:
     void                        Set_Owner(CGameObject* pOwner);
-    CGameObject*                Get_Owner() const { return m_pOwner; }
+    CGameObject*                Get_Owner() const       { return m_pOwner; }
+    CTransform*                 Get_Transform() const   { return m_pTrans; }
 	virtual	PROTOTYPE_COMPONENT	Get_ComponentType() PURE;
 
 public:
@@ -42,7 +43,7 @@ protected:
 public:
 	virtual void				Display_Editor(const char* pObjTag) {};
 	_bool						m_bDisplayInEditor;
-	char					    	m_szDisplayName[32];
+	char					    m_szDisplayName[32];
 #pragma endregion
 
 };

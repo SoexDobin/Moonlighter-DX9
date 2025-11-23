@@ -4,11 +4,11 @@
 #include "CTerrainTex.h"
 #include "CPrototypeManager.h"
 #include "CManagement.h"
+#include "CCollisionManager.h"
 #include <fstream>
 
-class CUtility : public CBase
+namespace CUtility 
 {
-public:
     static void SaveMap(CTerrainVillage* pTerrain)
     {
         if (!pTerrain) return;

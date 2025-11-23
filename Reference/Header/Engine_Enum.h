@@ -56,12 +56,15 @@ namespace Engine
 		TEXTURE_TERRAIN,
 
         COLLIDER,
+        SPHERE_COLLIDER,
+        RECT_COLLIDER,
 
 		COMPONENT_END
 	};
 
     enum COL_TYPE
     {
+        RECT_COL,
         SPHERE_COL,
         SQURARE_COL,
         COL_END

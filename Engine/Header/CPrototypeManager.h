@@ -6,6 +6,7 @@
 #include "CTransform.h"
 
 #include "CTexture.h"
+#include "CSphereCollider.h"
 
 BEGIN(Engine)
 
@@ -18,7 +19,7 @@ private:
 	virtual ~CPrototypeManager() override;
 
 public:
-	HRESULT			Ready_Prototype(PROTOTYPE_COMPONENT pComponentTag, CComponent* pComponent);
+	HRESULT		Ready_Prototype(PROTOTYPE_COMPONENT pComponentTag, CComponent* pComponent);
     CComponent* Clone_Prototype(PROTOTYPE_COMPONENT pComponentTag, CGameObject* pOwner);
     CComponent* Clone_Prototype(PROTOTYPE_COMPONENT pComponentTag);
 

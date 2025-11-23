@@ -80,7 +80,6 @@ HRESULT CMainScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 {
     CLayer* pCamLayer = CLayer::Create(wsLayerTag);
 
-   // TODO : ī�޶� ���� ��� ����
    CGameObject* pGameObject = nullptr;
    _vec3 vEye{0.f, 10.f, -10.f}, vAt{0.f, 0.f, 10.f}, vUp{0.f, 1.f, 0.f};
    pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
@@ -115,6 +114,18 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp", pGameObject)))
         return E_FAIL;
 
+    pGameObject = CTestRect::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp2", pGameObject)))
+        return E_FAIL;
+
+    pGameObject = CTestRect::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp3", pGameObject)))
+        return E_FAIL;
+
+    // fix
+    //pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
+    //if (FAILED(pGameLogicLayer->Add_GameObject(L"Vill", pGameObject)))
+    //    return E_FAIL;
     
 #pragma region Examples for ImGui
     //pGameObject = CExampleObject::Create(m_pGraphicDevice);

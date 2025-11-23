@@ -2,6 +2,7 @@
 #include "CBase.h"
 #include "Engine_Define.h"
 #include "CComponent.h"
+#include "CPrototypeManager.h"
 
 BEGIN(Engine)
 
@@ -13,7 +14,10 @@ protected:
 	virtual ~CGameObject() override;
 
 public:
-	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentTag);
+    template <typename T>
+    T*                 Add_Component(COMPONENTID eID, const wstring& wsComponentKey, PROTOTYPE_COMPONENT eComponentTag);
+
+	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentKey);
     CComponent*             Get_Component(COMPONENTID eID, PROTOTYPE_COMPONENT ePrototype);
     virtual GAMEOBJECT_TYPE Get_Type() { return GAME_OBJECT; }
 
@@ -25,6 +29,8 @@ public:
 	virtual		_int		Update_GameObject(const _float fTimeDelta);
 	virtual		void		LateUpdate_GameObject(const _float fTimeDelta);
 	virtual		void		Render_GameObject();
+
+    virtual     void        On_Collision(const Collision& tCollision) {};
 
 protected:
 	LPDIRECT3DDEVICE9							m_pGraphicDevice;
@@ -51,5 +57,21 @@ protected :
 #pragma endregion
 
 };
+
+template <typename T>
+T* CGameObject::Add_Component(COMPONENTID eID, const wstring& wsComponentKey, PROTOTYPE_COMPONENT eComponentTag)
+{
+    CComponent* pComponent = CPrototypeManager::GetInstance()->Clone_Prototype(eComponentTag);
+    if (pComponent->Get_ComponentType() != eComponentTag)
+    {
+        MSG_BOX("Prototype Clone Failed");
+        return nullptr;
+    }
+
+    pComponent->Set_Owner(this);
+    m_umComponent[eID].insert(pair<wstring, CComponent*>(wsComponentKey, pComponent));
+
+    return static_cast<T*>(pComponent);
+}
 
 END

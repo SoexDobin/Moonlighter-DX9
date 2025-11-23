@@ -60,6 +60,13 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{dd585d7f-ea1b-496c-a1b0-8749e04611a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="03. GameObject\TerrainVillage">
+      <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
+    </Filter>
     <Filter Include="98. ImGui\Mediator">
       <UniqueIdentifier>{64f31833-3464-4550-a9ac-ddc3d9792578}</UniqueIdentifier>
     </Filter>
@@ -93,6 +100,9 @@
     </Filter>
     <Filter Include="03. GameObject\11. Map\Tree">
       <UniqueIdentifier>{420576ff-11c6-4e3e-8055-8f0d484e5c98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="96. Utility">
+      <UniqueIdentifier>{dd585d7f-ea1b-496c-a1b0-8749e04611a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -184,7 +194,7 @@
       <Filter>03. GameObject\11. Map\TerrainVillage</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CUtility.h">
-      <Filter>Utility</Filter>
+      <Filter>96. Utility</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CEngineMediator.h">
       <Filter>98. ImGui\Mediator</Filter>

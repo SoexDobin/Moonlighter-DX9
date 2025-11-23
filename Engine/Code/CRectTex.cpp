@@ -1,4 +1,4 @@
-#include "CRectTex.h"
+﻿#include "CRectTex.h"
 
 CRectTex::CRectTex()
 {
@@ -34,16 +34,16 @@ HRESULT CRectTex::Ready_Buffer()
     VTXTEX* pVertices = NULL;
     m_pVB->Lock(0, 0, (void**)&pVertices, NULL);
 
-    pVertices[0].vPosition = { -1.f, 1.f, 0.f };
+    pVertices[0].vPosition = { -0.5f, 0.5f, 0.f };
     pVertices[0].vTexUV = { 0.f, 0.f };
 
-    pVertices[1].vPosition = { 1.f, 1.f, 0.f };
+    pVertices[1].vPosition = { 0.5f, 0.5f, 0.f };
     pVertices[1].vTexUV = { 1.f, 0.f };
 
-    pVertices[2].vPosition = { 1.f, -1.f, 0.f };
+    pVertices[2].vPosition = { 0.5f, -0.5f, 0.f };
     pVertices[2].vTexUV = { 1.f, 1.f };
 
-    pVertices[3].vPosition = { -1.f, -1.f, 0.f };
+    pVertices[3].vPosition = { -0.5f, -0.5f, 0.f };
     pVertices[3].vTexUV = { 0.f, 1.f };
 
     m_pVB->Unlock();

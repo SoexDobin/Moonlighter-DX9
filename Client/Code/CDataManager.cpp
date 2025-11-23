@@ -60,10 +60,13 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 		return E_FAIL;
 
 	if (FAILED(Engine::CPrototypeManager::GetInstance()
-		->Ready_Prototype(TEXTURE, CTexture::Create(pGraphicDev, m_fDefault_AnimSpeed))))
+		->Ready_Prototype(TEXTURE, CTexture::Create(pGraphicDev, n_fDefault_AnimSpeed))))
 		return E_FAIL;
 
     if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINTEX, Engine::CTerrainTex::Create(pGraphicDev, 128, 128, 1, L""))))
+        return E_FAIL;
+    if (FAILED(Engine::CPrototypeManager::GetInstance()
+        ->Ready_Prototype(SPHERE_COLLIDER, CSphereCollider::Create(pGraphicDev))))
         return E_FAIL;
 
 	return S_OK;

@@ -4,15 +4,14 @@
 
 BEGIN(Engine)
 
+typedef struct tagCollision
+{
+    CGameObject* pColTarget;
+    COL_STATE    eColState;
+} Collision;
+
 class ENGINE_DLL CCollider : public CComponent
 {
-public:
-    typedef struct tagCollision
-    {
-        CGameObject* pColTarget;
-        COL_STATE    eColState;
-    } Collision;
-
 protected:
     explicit CCollider();
     explicit CCollider(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -20,7 +19,7 @@ protected:
     virtual ~CCollider() override;
 
 public:
-    PROTOTYPE_COMPONENT         Get_ComponentType() override { return COLLIDER; }
+    virtual PROTOTYPE_COMPONENT Get_ComponentType() override { return COLLIDER; }
     virtual COL_TYPE            Get_ColType() PURE;
 
     _bool                       Get_IsCol() const               { return m_bIsCol; }
@@ -28,19 +27,23 @@ public:
 
     const Collision&            Get_Collision() const                { return m_tCollision; }
     void                        Set_Collision(const Collision& tCol) { m_tCollision = tCol; }
+    COL_STATE                   Get_ColState() const                 { return m_eState; }
+    void                        Set_ColState(COL_STATE eState)       { m_eState = eState; }
 
 public:
-    void            Add_OverlapMember(CCollider* pOverlap);
-    void            Release_OverlapMember(CCollider* pOverlap);
-    void            Frame_Release();
+    _bool                       Is_Overlapped(CCollider* pOverlap);
+    void                        Add_OverlapMember(CCollider* pOverlap);
+    void                        Release_OverlapMember(CCollider* pOverlap);
 
+public:
+    virtual _bool                Check_Collision(CCollider* pCol) PURE;
 #ifdef _DEBUG
-    virtual void    Render_DebugCollider() PURE;
+    virtual void                Render_DebugCollider() PURE;
 #endif
 
 protected:
     Collision                      m_tCollision;
-
+    COL_STATE                      m_eState;
     _bool                          m_bIsCol;
     unordered_set<CCollider*>      m_usetOverlapCol;
     

@@ -173,6 +173,7 @@ xcopy	/y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CMediator.h" />
     <ClInclude Include="..\Header\CPanel.h" />
     <ClInclude Include="..\Header\CPrototypeManager.h" />
+    <ClInclude Include="..\Header\CRectCollider.h" />
     <ClInclude Include="..\Header\CRectColor.h" />
     <ClInclude Include="..\Header\CRenderer.h" />
     <ClInclude Include="..\Header\CRenderObject.h" />
@@ -216,6 +217,7 @@ xcopy	/y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CMediator.cpp" />
     <ClCompile Include="..\Code\CPanel.cpp" />
     <ClCompile Include="..\Code\CPrototypeManager.cpp" />
+    <ClCompile Include="..\Code\CRectCollider.cpp" />
     <ClCompile Include="..\Code\CRectColor.cpp" />
     <ClCompile Include="..\Code\CRectTex.cpp" />
     <ClCompile Include="..\Code\CRenderer.cpp" />

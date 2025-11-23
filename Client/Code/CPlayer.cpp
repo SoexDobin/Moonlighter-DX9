@@ -29,8 +29,9 @@ HRESULT CPlayer::Ready_GameObject()
     if (FAILED(Ready_Animation()))
         return E_FAIL;
 
-    m_pTransformCom->Set_Scale(27.f, 27.f, 1.f);
-    m_pTransformCom->Set_Pos(0.f, 0.f, 0.f);
+//    m_pTransformCom->Set_Scale(27.f, 27.f, 1.f);
+    m_pTransformCom->Set_Scale(3.f, 3.f, 1.f);
+    m_pTransformCom->Set_Pos(5.f, 0.f, 0.f);
 
     m_eState        = IDLE;
     m_eDir          = DIR_DOWN;
@@ -185,7 +186,7 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         m_eState = WALK;
 
         D3DXVec3Normalize(&vDir, &vDir);
-        m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 100.f);
+        m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 10.f);
     }
     else
     {
@@ -247,6 +248,7 @@ void CPlayer::Render_GameObject()
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
     m_pGraphicDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 
+    m_pTexCom->Set_Texture(Get_AnimationIndex());
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

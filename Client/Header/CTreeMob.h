@@ -6,11 +6,13 @@ namespace Engine {
 }
 
 class CPlayer;
+class CMonsterState;
+class CTreeStateMachine;
 
 class CTreeMob : public CRenderObject
 {
-private :
-    enum TREE_STATE { T_IDLE, T_END };
+public :
+    enum TREE_STATE { AWAKE, IDLE, ATK_SHAKE, DEAD, T_END };
 
 private:
     explicit CTreeMob(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -24,19 +26,34 @@ public:
     void		Render_GameObject() override;
 
 private:
+    HRESULT     Ready_Animation();
+
+public:
+    void    Set_CurStateKey(_uint dwStateKey, CMonsterState* pCurState);
+    void    Set_CurAnimKey(_uint dwAinmKey) { m_dwAnimKey = dwAinmKey; }
+
+private:
     void    Configure_Component();
 
 private:
-    void    Find_Player();
-    void    Chase_Player();
-    CPlayer* pPlayer = nullptr;
+    CTexture* m_pDynamicTexCom;
 
 private:
-    CTexture* m_pDynamicTexCom;
+    CTreeStateMachine*      m_pStateMachine;
+    CMonsterState*             m_pCurState;
+    _uint                               m_dwCurStateKey;
+    _uint                               m_dwAnimKey;
 
 public:
     static CTreeMob* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 private:
     void				Free() override;
+
+#pragma region Debugging
+private:
+    void    Add_EditorFiled();
+    void    Display_CurrentState();
+    _tchar m_szState[16];
+#pragma endregion
 };
 

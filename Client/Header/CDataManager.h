@@ -30,7 +30,7 @@ private:
 private:
 	const wstring& n_wsResSpritePath = L"../Bin/Resource/Sprite/";
 
-	const _float m_fDefault_AnimSpeed = 10.f;
+	const _float n_fDefault_AnimSpeed = 10.f;
 
 private:
 	void		Free() override;

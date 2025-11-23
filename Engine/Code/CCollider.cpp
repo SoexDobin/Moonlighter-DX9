@@ -22,29 +22,22 @@ CCollider::~CCollider()
 {
 }
 
+_bool CCollider::Is_Overlapped(CCollider* pOverlap)
+{
+     return m_usetOverlapCol.find(pOverlap) != m_usetOverlapCol.end();
+}
+
 void CCollider::Add_OverlapMember(CCollider* pOverlap)
 {
     m_usetOverlapCol.insert(pOverlap);
-    pOverlap->AddRef();
 }
 
 void CCollider::Release_OverlapMember(CCollider* pOverlap)
 {
-    Safe_Release(pOverlap);
     m_usetOverlapCol.erase(pOverlap);
-}
-
-void CCollider::Frame_Release()
-{
-    for_each(m_usetOverlapCol.begin(), m_usetOverlapCol.end(),
-        [](CCollider* pCol) -> void {
-            Safe_Release(pCol);
-        });
-    m_usetOverlapCol.clear();
 }
 
 void CCollider::Free()
 {
-    Frame_Release();
     CComponent::Free();
 }

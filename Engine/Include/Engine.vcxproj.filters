@@ -130,6 +130,9 @@
     <Filter Include="02. Prototype\03. Collider\00. SphereCollider">
       <UniqueIdentifier>{0d5a72a7-3241-404f-ab22-85c27d75d635}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Prototype\03. Collider\01. RectCollider">
+      <UniqueIdentifier>{ec7333f4-f1f0-4e94-9aa2-9b56b1697e35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -279,6 +282,9 @@
     <ClInclude Include="..\Header\CSphereCollider.h">
       <Filter>02. Prototype\03. Collider\00. SphereCollider</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CRectCollider.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CTimer.cpp">
@@ -403,6 +409,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSphereCollider.cpp">
       <Filter>02. Prototype\03. Collider\00. SphereCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRectCollider.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

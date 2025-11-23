@@ -122,6 +122,13 @@
       <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../Reference/Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y /I "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin"
+xcopy /Y /I "$(SolutionDir)Engine\Bin\Engine.lib" "$(SolutionDir)Reference\Library"
+xcopy /Y /I "$(SolutionDir)Engine\Header\*.h*" "$(SolutionDir)Reference\Header"
+xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\*.h*" "$(SolutionDir)Reference\Header\"
+xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\Bin\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

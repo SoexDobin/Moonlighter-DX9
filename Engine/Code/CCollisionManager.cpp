@@ -90,6 +90,11 @@ void CCollisionManager::Update_Collision()
     }
 }
 
+void CCollisionManager::Clear_CollisionGroup()
+{
+    m_vecCollider.clear();
+}
+
 #ifdef _DEBUG
 void CCollisionManager::Render_Collision()
 {

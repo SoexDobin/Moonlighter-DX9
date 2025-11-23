@@ -38,7 +38,7 @@ HRESULT CTestRect::Ready_GameObject()
         m_pDynamicTexCom->Set_Texture(POTION);
     }
 
-    //m_pColCom = Add_Component<CSphereCollider>(ID_DYNAMIC, L"Collider_Com", SPHERE_COLLIDER);
+    m_pColCom = Add_Component<CSphereCollider>(ID_DYNAMIC, L"Collider_Com", SPHERE_COLLIDER);
 
     //pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
     //if (pCom->Get_ComponentType() != TEXTURE)

@@ -35,6 +35,8 @@ _bool CSphereCollider::Check_Collision(CCollider* pCol)
     {
     case SPHERE_COL:
         return CCollisionManager::GetInstance()->SphereCollision(this, static_cast<CSphereCollider*>(pCol));
+    default:
+        return false;
     }
 }
 
@@ -78,11 +80,16 @@ void CSphereCollider::Render_DebugCollider()
         DWORD color;
     };
 
-    const DWORD color = D3DCOLOR_ARGB(255, 0, 255, 0);
+    DWORD color(0);
+    if (m_eState == ENTER_COL || m_eState == STAY_COL)
+        color = D3DCOLOR_ARGB(255, 255, 0, 0);
+    else
+        color = D3DCOLOR_ARGB(255, 0, 255, 0);
+
     const int   segments = 32;   // 원 세그먼트 수
 
     _vec3 center = m_pTrans->Get_Pos();
-    float radius = m_fRadius * m_fScale; // 필요하면 충돌 공식에 맞게 조정
+    float radius = m_fRadius * m_fScale * 0.5f; // 필요하면 충돌 공식에 맞게 조정
 
     m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
     m_pGraphicDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);

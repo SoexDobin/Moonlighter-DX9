@@ -21,6 +21,7 @@ public:
 
 public:
     void        Update_Collision();
+    void        Clear_CollisionGroup();
 #ifdef _DEBUG
     void        Render_Collision();
 #endif

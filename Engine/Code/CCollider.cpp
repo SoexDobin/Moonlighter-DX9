@@ -1,19 +1,19 @@
 ﻿#include "CCollider.h"
 
 CCollider::CCollider()
-    : CComponent(), m_bIsCol(false)
+    : CComponent(), m_bIsCol(false), m_eState(COL_STATE_END)
 {
     ZeroMemory(&m_tCollision, sizeof(Collision));
 }
 
 CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CComponent(pGraphicDev), m_bIsCol(false)
+    : CComponent(pGraphicDev), m_bIsCol(false), m_eState(COL_STATE_END)
 {
     ZeroMemory(&m_tCollision, sizeof(Collision));
 }
 
 CCollider::CCollider(const CCollider& rhs)
-    : CComponent(rhs), m_bIsCol(false)
+    : CComponent(rhs), m_bIsCol(false), m_eState(COL_STATE_END)
 {
     ZeroMemory(&m_tCollision, sizeof(Collision));
 }
@@ -24,7 +24,7 @@ CCollider::~CCollider()
 
 _bool CCollider::Is_Overlapped(CCollider* pOverlap)
 {
-     return m_usetOverlapCol.find(pOverlap) != m_usetOverlapCol.end();
+     return (m_usetOverlapCol.find(pOverlap) != m_usetOverlapCol.end());
 }
 
 void CCollider::Add_OverlapMember(CCollider* pOverlap)

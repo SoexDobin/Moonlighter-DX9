@@ -10,12 +10,9 @@ private:
     explicit CEditScene(LPDIRECT3DDEVICE9 pGraphciDev);
     virtual ~CEditScene();
 
-    _vec4 clear_color = { 0.f, 0.f, 0.f, 0.f };
-    bool show_demo_window = true;
-    bool show_another_window = true;
-
     ImGuiContext* g_MapEditor;
     CGameObject* pVillage;
+    CGameObject* m_pSelectedObject = nullptr;
 
 
     HRESULT Ready_Environment_Layer(const wstring pLayerTag);
@@ -23,7 +20,11 @@ private:
     HRESULT Ready_UI_Layer(const wstring pLayerTag);
     HRESULT	Ready_Camera_Layer(const wstring wsLayerTag);
 
-    HRESULT Add_TerrainVillage(const wstring temp);
+    HRESULT Add_TerrainVillage(const wstring pLayerTag);
+    HRESULT Add_House(const wstring pLayerTag);
+    HRESULT Add_Tree(const wstring pLayerTag);
+
+    inline string WStringToUTF8(const std::wstring& wstr);
 
     HRESULT Ready_Prototype();
     virtual void Free();

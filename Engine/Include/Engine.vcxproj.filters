@@ -49,9 +49,6 @@
     <Filter Include="01. Logic\03. GameObject">
       <UniqueIdentifier>{4a8754e7-21ae-4c0e-a9cb-873417bfe01b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Logic\04. Component">
-      <UniqueIdentifier>{ebb584f0-e8a5-48cc-a0f7-66dca72ad676}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Prototype\00. VIBuffer">
       <UniqueIdentifier>{ffbd8c90-7645-4f52-b47c-866590643ee7}</UniqueIdentifier>
     </Filter>
@@ -114,6 +111,9 @@
     </Filter>
     <Filter Include="00. Manager\09. FontManager\00. Font">
       <UniqueIdentifier>{ab232aba-c7ce-448b-a224-7f224832fe2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Logic\04. Component">
+      <UniqueIdentifier>{ebb584f0-e8a5-48cc-a0f7-66dca72ad676}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Prototype\00. VIBuffer\02. TerrainTex">
       <UniqueIdentifier>{01580e91-d2cf-40b5-b462-58d026527bc4}</UniqueIdentifier>

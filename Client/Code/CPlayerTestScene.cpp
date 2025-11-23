@@ -30,8 +30,6 @@ HRESULT CPlayerTestScene::Ready_Scene()
 
 _int CPlayerTestScene::Update_Scene(const _float fTimeDelta)
 {
-  
-
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
     return iExit;
@@ -68,6 +66,7 @@ HRESULT CPlayerTestScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 
     CGameObject* pPlayer = nullptr;
     pPlayer = CPlayer::Create(m_pGraphicDevice);
+
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Player", pPlayer)))
         return E_FAIL;
 

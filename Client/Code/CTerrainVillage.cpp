@@ -6,11 +6,13 @@
 CTerrainVillage::CTerrainVillage(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
 {
+    PANEL_NAME(L"Terrain_Village")
 }
 
 CTerrainVillage::CTerrainVillage(const CTerrainVillage& rhs)
     :CRenderObject(rhs), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
 {
+    PANEL_NAME(L"Terrain_Village")
 }
 
 CTerrainVillage::~CTerrainVillage()
@@ -19,7 +21,8 @@ CTerrainVillage::~CTerrainVillage()
 
 HRESULT CTerrainVillage::Ready_GameObject()
 {
-
+    if (FAILED(Engine::CRenderObject::Ready_GameObject()))
+        return E_FAIL;
     if (FAILED(Add_Component()))
         return E_FAIL;
 
@@ -44,6 +47,8 @@ void CTerrainVillage::LateUpdate_GameObject(const _float fTimeDelta)
 void CTerrainVillage::Render_GameObject()
 {
 
+    m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+
     if(m_pTransformCom != nullptr)
     {
         m_pGraphicDevice->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
@@ -58,6 +63,8 @@ void CTerrainVillage::Render_GameObject()
     {
         m_pBufferCom->Render_Buffer();
     }
+
+    m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 }
 
 HRESULT CTerrainVillage::Add_Component()

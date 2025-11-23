@@ -85,6 +85,9 @@
     <Filter Include="97. Loading">
       <UniqueIdentifier>{75a6cdc1-e405-47e9-bd43-4c9814b46055}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObject\11.Item">
+      <UniqueIdentifier>{25bb53bf-90e9-489f-a3f7-da3da26ba5fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -195,6 +198,12 @@
     <ClInclude Include="..\Header\CLoading.h">
       <Filter>97. Loading</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CItemManager.h">
+      <Filter>03. GameObject\11.Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUIInvenSlot.h">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -280,6 +289,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CLoading.cpp">
       <Filter>97. Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CItemManager.cpp">
+      <Filter>03. GameObject\11.Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUIInvenSlot.cpp">
+      <Filter>03. GameObject\10. UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

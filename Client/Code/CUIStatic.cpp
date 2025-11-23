@@ -5,12 +5,12 @@
 #include "CPrototypeManager.h"
 
 CUIStatic::CUIStatic(LPDIRECT3DDEVICE9 pGraphicDev)
-    :CRenderObject(pGraphicDev)
+    :CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
 {
 }
 
 CUIStatic::CUIStatic(const CUIStatic& rhs)
-    : CRenderObject(rhs)
+    : CRenderObject(rhs), m_pTextureCom(nullptr)
 {
 }
 
@@ -64,7 +64,63 @@ HRESULT CUIStatic::UI_Initialize()
     m_VecUI.clear();
     m_VecUI.reserve(10);
 
+   
     CComponent* pCom(nullptr);
+    /*
+    pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
+    if (!pCom || pCom->Get_ComponentType() != TEXTURE)
+        return E_FAIL;
+
+    m_pTextureCom = static_cast<CTexture*>(pCom);
+
+    m_pTextureCom->Ready_Texture(L"icon_hp");
+    m_pTextureCom->Ready_Texture(L"icon_Pouch");
+    m_pTextureCom->Ready_Texture(L"hp_barBack");
+
+    m_pTextureCom->Set_Texture(0);
+    m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pTextureCom));
+
+
+
+
+    UIElement vStaticIcon{};
+    vStaticIcon.m_pTexture = m_pTextureCom;
+
+    if (vStaticIcon.m_pTexture)
+    {
+        vStaticIcon.vPos = _vec3(60.f, 50.f, 0.f);
+        vStaticIcon.vScale = _vec3(40.f, 40.f, 0.f);
+
+        m_VecUI.push_back(vStaticIcon);
+    }
+
+    
+    vStaticIcon= {};
+    m_pTextureCom->Set_Texture(1);
+
+    vStaticIcon.m_pTexture = m_pTextureCom;
+
+    if (vStaticIcon.m_pTexture)
+    {
+        vStaticIcon.vPos = _vec3(209.f, 28.f, 0.f);
+        vStaticIcon.vScale = _vec3(63.f, 54.f, 0.f);
+
+        m_VecUI.push_back(vStaticIcon);
+    }
+
+    vStaticIcon = {};
+    m_pTextureCom->Set_Texture(2);
+
+    vStaticIcon.m_pTexture = m_pTextureCom;
+
+    if (vStaticIcon.m_pTexture)
+    {
+        vStaticIcon.vPos = _vec3(140.f, 28.f, 0.f);
+        vStaticIcon.vScale = _vec3(25.f, 25.f, 0.f);
+
+        m_VecUI.push_back(vStaticIcon);
+    }
+    */
     
     // 왼쪽 위
     // 코인 보따리
@@ -77,7 +133,7 @@ HRESULT CUIStatic::UI_Initialize()
         vStaticIcon.m_pTexture = static_cast<CTexture*>(pCom);
         vStaticIcon.m_pTexture->Ready_Texture(L"icon_Pouch");
         vStaticIcon.m_pTexture->Set_Texture(0, 0);
-        m_umComponent[ID_STATIC].insert(pair<wstring, CComponent*>(L"icon_Pouch", vStaticIcon.m_pTexture));
+        m_umComponent[ID_STATIC].insert(pair<wstring, CComponent*>(L"icon_Pouch", vStaticIcon.m_pTexture ));
 
         if (vStaticIcon.m_pTexture)
         {
@@ -100,6 +156,7 @@ HRESULT CUIStatic::UI_Initialize()
         vStaticIcon.m_pTexture = static_cast<CTexture*>(pCom);
         vStaticIcon.m_pTexture->Ready_Texture(L"hp_barBack");
         vStaticIcon.m_pTexture->Set_Texture(0, 0);
+
         m_umComponent[ID_STATIC].insert(pair<wstring, CComponent*>(L"hp_barBack", vStaticIcon.m_pTexture));
         
         if (vStaticIcon.m_pTexture)
@@ -201,7 +258,7 @@ HRESULT CUIStatic::UI_Initialize()
             m_VecUI.push_back(vStaticIcon);
         }
     }
-
+   
 }
 
 CUIStatic* CUIStatic::Create(LPDIRECT3DDEVICE9 pGraphicDev)

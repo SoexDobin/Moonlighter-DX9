@@ -118,7 +118,6 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
     
 
     // 복원
-
     pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
     pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 

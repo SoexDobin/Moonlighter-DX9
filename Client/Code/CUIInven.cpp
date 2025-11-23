@@ -4,6 +4,7 @@
 #include "CTexture.h"
 #include "CPrototypeManager.h"
 #include "CDInputManager.h"
+#include "CUIInvenSlot.h"
 
 CUIInven::CUIInven(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTextureCom(nullptr), m_bVisible(false)
@@ -33,7 +34,7 @@ HRESULT CUIInven::Ready_GameObject()
     m_pTextureCom = static_cast<CTexture*>(pCom);
    
     m_pTextureCom->Ready_Texture(L"Inventory_Base");
-    m_pTextureCom->Set_Texture(0, 0);
+    m_pTextureCom->Set_Texture(0);
 
     m_umComponent[ID_STATIC].insert(pair<wstring, CComponent*>(L"Inventory_Base", m_pTextureCom));
 
@@ -41,6 +42,7 @@ HRESULT CUIInven::Ready_GameObject()
     m_pTransformCom->Set_Pos(WINCX * 0.5f, WINCY * 0.5f, 0.f);
 
 
+    //Create_Slots();
 
     return S_OK;
 }
@@ -84,6 +86,25 @@ void CUIInven::Render_GameObject()
     m_pBufferCom->Render_Buffer();
 }
 
+void CUIInven::Create_Slots(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    m_vecSlots.clear();
+    m_vecSlots.reserve(10);
+
+    _float fPosX = 100.f;
+    _float fPosY = 100.f;
+
+    CUIInvenSlot* pSlot = CUIInvenSlot::Create(pGraphicDev, fPosX, fPosY);
+
+    if (pSlot)
+    {
+        //m_vecSlots.push_back(pSlot);
+
+    }
+}
+
+
+
 void CUIInven::UI_KeyInput(const _float& fTimeDelta)
 {
 
@@ -100,8 +121,7 @@ void CUIInven::UI_KeyInput(const _float& fTimeDelta)
 
 }
 
-
-
+// 인벤토리 온오프 확인용
 void CUIInven::InvenButton()
 {
    m_bVisible =  !m_bVisible;
@@ -124,3 +144,4 @@ void CUIInven::Free()
 {
     Engine::CRenderObject::Free();
 }
+

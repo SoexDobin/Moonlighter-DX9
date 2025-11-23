@@ -12,6 +12,10 @@
 #include <map>
 #include <algorithm>
 
+#include <string>
+using std::string;
+using std::wstring;
+
 #include <process.h>
 
 #include "Client_Define.h"

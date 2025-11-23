@@ -6,6 +6,18 @@ namespace Engine
     class CTexture;
 }
 
+struct ITEM_DATA
+{
+    int         iID;
+    wstring		IName;
+};
+
+struct ITEM_SLOT
+{
+    bool        bEmpty;
+    ITEM_DATA   Item;
+};
+
 class CUIInven : public CRenderObject
 {
 private:
@@ -33,6 +45,8 @@ public:
 
 private:
     virtual void Free()override;
+    void         Create_Slots(LPDIRECT3DDEVICE9 pGraphicDev);
+    vector<ITEM_SLOT>   m_vecSlots;
 
 };
 

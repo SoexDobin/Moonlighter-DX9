@@ -4,6 +4,8 @@
 #include "CPrototypeManager.h"
 #include "CDInputManager.h"
 #include "CManagement.h"
+#include "CSphereCollider.h"
+#include "CCollisionManager.h"
 
 CTestRect::CTestRect(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_pStaticTexCom(nullptr)
@@ -27,22 +29,16 @@ HRESULT CTestRect::Ready_GameObject()
     if (FAILED(Engine::CRenderObject::Ready_GameObject()))
         return E_FAIL;
 
-    CComponent* pCom(nullptr);
-
-    pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
-    if (pCom->Get_ComponentType() != TEXTURE)
-        return E_FAIL;
     
-    if (m_pDynamicTexCom = static_cast<CTexture*>(pCom))
+    if (m_pDynamicTexCom = Add_Component<CTexture>(ID_DYNAMIC, L"Texture_Com", TEXTURE))
     {
         m_pDynamicTexCom->Set_Speed(10.f);
         m_pDynamicTexCom->Ready_Texture(L"Item_Potion");
         m_pDynamicTexCom->Ready_Texture(L"Player_Roll");
-    
         m_pDynamicTexCom->Set_Texture(POTION);
-    
-        m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pDynamicTexCom));
     }
+
+    m_pColCom = Add_Component<CSphereCollider>(ID_DYNAMIC, L"Collider_Com", SPHERE_COLLIDER);
 
     //pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
     //if (pCom->Get_ComponentType() != TEXTURE)
@@ -88,10 +84,18 @@ void CTestRect::Render_GameObject()
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
     m_pGraphicDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-    
+
+    m_pDynamicTexCom->SetUp_Texture();
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+    m_pGraphicDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+    m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+}
+
+void CTestRect::On_Collision(const Collision& tCollision)
+{
+    int a = 0;
 }
 
 CTestRect* CTestRect::Create(LPDIRECT3DDEVICE9 pGraphicDev)

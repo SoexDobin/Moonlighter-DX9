@@ -1,4 +1,4 @@
-#ifndef Engine_Struct_h__
+ï»¿#ifndef Engine_Struct_h__
 #define Engine_Struct_h__
 
 #include "Engine_Typedef.h"
@@ -31,7 +31,7 @@ namespace Engine
 
 	}VTXCUBE;
 
-	const _ulong	FVF_CUBE = D3DFVF_XYZ | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE3(0); // ÅØ½ºÃ³ÀÇ UV ÁÂÇ¥ °ªÀ» FLOATÇü 3°³·Î Ç¥ÇöÇÏ°Ú´Ù´Â ¸ÅÅ©·Î(°ýÈ£¾ÈÀÇ ¼ýÀÚ 0ÀÇ ÀÇ¹Ì´Â º»·¡ ¹öÅØ½º¿¡ ÅØ½ºÃÄ UV°ªÀÌ ¿©·¯°³°¡ ¿Ã ¼ö ÀÖ´Âµ¥ ±×Áß 0¹øÂ° °ªÀ» ÁöÁ¤ÇÏ°Ú´Ù´Â ÀÇ¹Ì)
+	const _ulong	FVF_CUBE = D3DFVF_XYZ | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE3(0); // í…ìŠ¤ì²˜ì˜ UV ì¢Œí‘œ ê°’ì„ FLOATí˜• 3ê°œë¡œ í‘œí˜„í•˜ê² ë‹¤ëŠ” ë§¤í¬ë¡œ(ê´„í˜¸ì•ˆì˜ ìˆ«ìž 0ì˜ ì˜ë¯¸ëŠ” ë³¸ëž˜ ë²„í…ìŠ¤ì— í…ìŠ¤ì³ UVê°’ì´ ì—¬ëŸ¬ê°œê°€ ì˜¬ ìˆ˜ ìžˆëŠ”ë° ê·¸ì¤‘ 0ë²ˆì§¸ ê°’ì„ ì§€ì •í•˜ê² ë‹¤ëŠ” ì˜ë¯¸)
 
 	typedef struct tagIndex16
 	{
@@ -48,9 +48,6 @@ namespace Engine
 		_ulong	_2;
 
 	}INDEX32;	
-
-
-
 
 }
 

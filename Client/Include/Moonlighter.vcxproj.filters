@@ -9,6 +9,10 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
     <Filter Include="00. MainApp">
       <UniqueIdentifier>{f78fba57-93cc-4793-b7c2-3c0cb24f4833}</UniqueIdentifier>
     </Filter>
@@ -50,6 +54,19 @@
     </Filter>
     <Filter Include="03. GameObject\01. Player">
       <UniqueIdentifier>{29a71569-598b-4100-b888-71b07937c4c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\10. UI">
+      <UniqueIdentifier>{cb561ffc-cd0f-452e-bc6b-597dc91551aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene\08. UITestScene">
+      <UniqueIdentifier>{94731203-deb5-4cdd-bc22-e3398f03bfb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="03. GameObject\TerrainVillage">
+      <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
     </Filter>
     <Filter Include="98. ImGui\Mediator">
       <UniqueIdentifier>{64f31833-3464-4550-a9ac-ddc3d9792578}</UniqueIdentifier>
@@ -114,6 +131,12 @@
     </Filter>
     <Filter Include="03. GameObject\99. Entity\00. EntityComponent">
       <UniqueIdentifier>{59c2c4b0-667f-45bb-97c5-e24c57d404cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. Loading">
+      <UniqueIdentifier>{75a6cdc1-e405-47e9-bd43-4c9814b46055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="96. Utility">
+      <UniqueIdentifier>{dd585d7f-ea1b-496c-a1b0-8749e04611a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +214,21 @@
     </ClInclude>
     <ClInclude Include="..\Header\CPlayer.h">
       <Filter>03. GameObject\01. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUIInven.h">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUITestScene.h">
+      <Filter>02. Scene\08. UITestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUIStatic.h">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTerrainVillage.h">
+      <Filter>03. GameObject\TerrainVillage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUtility.h">
+      <Filter>96. Utility</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CEngineMediator.h">
       <Filter>98. ImGui\Mediator</Filter>
@@ -291,6 +329,9 @@
     <ClInclude Include="CStat.h">
       <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLoading.h">
+      <Filter>97. Loading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -349,6 +390,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPlayer.cpp">
       <Filter>03. GameObject\01. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUIInven.cpp">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUITestScene.cpp">
+      <Filter>02. Scene\08. UITestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUIStatic.cpp">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerrainVillage.cpp">
+      <Filter>03. GameObject\TerrainVillage</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CEngineMediator.cpp">
       <Filter>98. ImGui\Mediator</Filter>
@@ -445,6 +498,9 @@
     </ClCompile>
     <ClCompile Include="CStat.cpp">
       <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLoading.cpp">
+      <Filter>97. Loading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

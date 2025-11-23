@@ -6,19 +6,19 @@ BEGIN(Engine)
 
 class ENGINE_DLL CMediator :public CBase
 {
-protected:
+protected :
     explicit CMediator();
     virtual ~CMediator();
 
-public:
+public :
     virtual HRESULT Ready_Mediator(LPDIRECT3DDEVICE9 pGraphicDev);
     virtual void    Render_Mediator();
     virtual void    Display_AllScenePanel();
 
-public:
+public :
     virtual void    Change_Scene(_uint dwSceneIdx);
 
-protected:
+protected :
     // Scene
     vector<string> m_vecScene;
     _uint                   m_dwCurSceneIdx;

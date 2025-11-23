@@ -55,8 +55,27 @@ namespace Engine
 		TEXTURE,
 		TEXTURE_TERRAIN,
 
+        COLLIDER,
+        SPHERE_COLLIDER,
+        RECT_COLLIDER,
+
 		COMPONENT_END
 	};
+
+    enum COL_TYPE
+    {
+        RECT_COL,
+        SPHERE_COL,
+        SQURARE_COL,
+        COL_END
+    };
+    enum COL_STATE
+    {
+        ENTER_COL,
+        STAY_COL,
+        EXIT_COL, 
+        COL_STATE_END
+    };
 }
 
 #endif // Engine_Enum_h__

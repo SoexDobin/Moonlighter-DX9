@@ -73,7 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(LibraryPath)</LibraryPath>
-    <OutDir>..\Bin\</OutDir>
+    <OutDir>../Bin\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -150,48 +150,29 @@
     <ClInclude Include="..\..\Reference\Header\imstb_textedit.h" />
     <ClInclude Include="..\..\Reference\Header\imstb_truetype.h" />
     <ClInclude Include="..\Header\CBoss.h" />
-    <ClInclude Include="..\Header\CBossAwakeState.h" />
-    <ClInclude Include="..\Header\CBossDeadState.h" />
-    <ClInclude Include="..\Header\CBossRootState.h" />
-    <ClInclude Include="..\Header\CBossShakeState.h" />
-    <ClInclude Include="..\Header\CBossThrowState.h" />
-    <ClInclude Include="..\Header\CBossIdleState.h" />
-    <ClInclude Include="..\Header\CBossJumpState.h" />
-    <ClInclude Include="..\Header\CBossStateMachine.h" />
-    <ClInclude Include="..\Header\CBossWalkState.h" />
     <ClInclude Include="..\Header\CDataManager.h" />
     <ClInclude Include="..\Header\CDynamicCamera.h" />
     <ClInclude Include="..\Header\CEditScene.h" />
     <ClInclude Include="..\Header\CEngineMediator.h" />
-    <ClInclude Include="..\Header\CEntity.h" />
     <ClInclude Include="..\Header\CExampleManager.h" />
     <ClInclude Include="..\Header\CExampleObject.h" />
+    <ClInclude Include="..\Header\CLoading.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMainScene.h" />
-    <ClInclude Include="..\Header\CMonsterState.h" />
     <ClInclude Include="..\Header\CMonsterTestScene.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CPlayerTestScene.h" />
-    <ClInclude Include="..\Header\CSheederAttackState.h" />
-    <ClInclude Include="..\Header\CSheederIdleState.h" />
-    <ClInclude Include="..\Header\CSheederStateMachine.h" />
-    <ClInclude Include="..\Header\CSheederWalkState.h" />
-    <ClInclude Include="..\Header\CSlimeBigState.h" />
-    <ClInclude Include="..\Header\CSlimeCircleState.h" />
-    <ClInclude Include="..\Header\CSlimeIdleState.h" />
-    <ClInclude Include="..\Header\CSlimeMob.h" />
-    <ClInclude Include="..\Header\CSlimeStateMachine.h" />
-    <ClInclude Include="..\Header\CSlimeWalkState.h" />
-    <ClInclude Include="..\Header\CState.h" />
-    <ClInclude Include="..\Header\CStateMachine.h" />
+    <ClInclude Include="..\Header\CTerrainVillage.h" />
     <ClInclude Include="..\Header\CTestRect.h" />
-    <ClInclude Include="..\Header\CTreeAwakeState.h" />
-    <ClInclude Include="..\Header\CTreeIdleState.h" />
+    <ClInclude Include="..\Header\CUIInven.h" />
+    <ClInclude Include="..\Header\CUIStatic.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUITestScene.h" />
+    <ClInclude Include="..\Header\CUtility.h" />
     <ClInclude Include="..\Header\CTreeMob.h" />
-    <ClInclude Include="..\Header\CTreeShakeState.h" />
-    <ClInclude Include="..\Header\CTreeStateMachine.h" />
     <ClInclude Include="Client_Define.h" />
-    <ClInclude Include="CStat.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Moonlighter.h" />
     <ClInclude Include="pch.h" />
@@ -221,47 +202,27 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\Code\CBoss.cpp" />
-    <ClCompile Include="..\Code\CBossAwakeState.cpp" />
-    <ClCompile Include="..\Code\CBossDeadState.cpp" />
-    <ClCompile Include="..\Code\CBossRootState.cpp" />
-    <ClCompile Include="..\Code\CBossShakeState.cpp" />
-    <ClCompile Include="..\Code\CBossThrowState.cpp" />
-    <ClCompile Include="..\Code\CBossIdleState.cpp" />
-    <ClCompile Include="..\Code\CBossJumpState.cpp" />
-    <ClCompile Include="..\Code\CBossStateMachine.cpp" />
-    <ClCompile Include="..\Code\CBossWalkState.cpp" />
     <ClCompile Include="..\Code\CDataManager.cpp" />
     <ClCompile Include="..\Code\CDynamicCamera.cpp" />
     <ClCompile Include="..\Code\CEditScene.cpp" />
     <ClCompile Include="..\Code\CEngineMediator.cpp" />
-    <ClCompile Include="..\Code\CEntity.cpp" />
     <ClCompile Include="..\Code\CExampleManager.cpp" />
     <ClCompile Include="..\Code\CExampleObject.cpp" />
+    <ClCompile Include="..\Code\CLoading.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CMainScene.cpp" />
-    <ClCompile Include="..\Code\CMonsterState.cpp" />
     <ClCompile Include="..\Code\CMonsterTestScene.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CPlayerTestScene.cpp" />
-    <ClCompile Include="..\Code\CSheederAttackState.cpp" />
-    <ClCompile Include="..\Code\CSheederIdleState.cpp" />
-    <ClCompile Include="..\Code\CSheederStateMachine.cpp" />
-    <ClCompile Include="..\Code\CSheederWalkState.cpp" />
-    <ClCompile Include="..\Code\CSlimeBigState.cpp" />
-    <ClCompile Include="..\Code\CSlimeCircleState.cpp" />
-    <ClCompile Include="..\Code\CSlimeIdleState.cpp" />
-    <ClCompile Include="..\Code\CSlimeMob.cpp" />
-    <ClCompile Include="..\Code\CSlimeStateMachine.cpp" />
-    <ClCompile Include="..\Code\CSlimeWalkState.cpp" />
-    <ClCompile Include="..\Code\CState.cpp" />
-    <ClCompile Include="..\Code\CStateMachine.cpp" />
+    <ClCompile Include="..\Code\CTerrainVillage.cpp" />
     <ClCompile Include="..\Code\CTestRect.cpp" />
-    <ClCompile Include="..\Code\CTreeAwakeState.cpp" />
-    <ClCompile Include="..\Code\CTreeIdleState.cpp" />
+    <ClCompile Include="..\Code\CUIInven.cpp" />
+    <ClCompile Include="..\Code\CUIStatic.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUITestScene.cpp" />
     <ClCompile Include="..\Code\CTreeMob.cpp" />
-    <ClCompile Include="..\Code\CTreeShakeState.cpp" />
-    <ClCompile Include="..\Code\CTreeStateMachine.cpp" />
-    <ClCompile Include="CStat.cpp" />
     <ClCompile Include="Moonlighter.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

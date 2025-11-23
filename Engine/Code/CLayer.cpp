@@ -1,4 +1,5 @@
 ﻿#include "CLayer.h"
+#include "CCollisionManager.h"
 
 CLayer::CLayer()
 	: m_bDisplayInEditor(true)
@@ -37,8 +38,10 @@ HRESULT CLayer::Add_GameObject(const wstring& wsObjTag, CGameObject* pGameObject
     return S_OK;
 }
 
-HRESULT CLayer::Ready_Layer()
+HRESULT CLayer::Ready_Layer(const wstring& wsLayerName)
 {
+    m_wsLayerName = wsLayerName;
+    
 	return S_OK;
 }
 
@@ -87,19 +90,20 @@ void CLayer::Render_Layer()
                 });
 
 		});
+    CCollisionManager::GetInstance()->Update_Collision();
 }
 
 CLayer* CLayer::Create(const wstring& layerTag)
 {
 	CLayer* pLayer = new CLayer;
 
-	if (FAILED(pLayer->Ready_Layer()))
+	if (FAILED(pLayer->Ready_Layer(layerTag)))
 	{
 		MSG_BOX("Layer Create Failed");
 		Safe_Release(pLayer);
 		return nullptr;
 	}
-
+    
     int len = WideCharToMultiByte(CP_UTF8, 0, layerTag.c_str(), -1, nullptr, 0, nullptr, nullptr);
     WideCharToMultiByte(CP_UTF8, 0, layerTag.c_str(), -1, pLayer->m_LayerTag, len, nullptr, nullptr);
 

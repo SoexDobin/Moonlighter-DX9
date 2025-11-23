@@ -38,6 +38,10 @@ HRESULT CDataManager::Ready_Data(LPDIRECT3DDEVICE9 pGraphicDev)
         
         if (FAILED(Ready_Boss_Resource(pGraphicDev)))
             return E_FAIL;
+
+        if (FAILED(Ready_Monster_Resource(pGraphicDev)))
+            return E_FAIL;
+
 		if (FAILED(Ready_Prototype(pGraphicDev)))
 			return E_FAIL;
 	}
@@ -224,17 +228,88 @@ HRESULT CDataManager::Ready_Boss_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     CResourceManager& Res = *CResourceManager::GetInstance();
 
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Boss_Awake",
+        n_wsResSpritePath + L"Monster/Boss/Boss_Awake/Boss_Awake%d.png", 129, 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Boss_Cutting_Growing",
+        n_wsResSpritePath + L"Monster/Boss/Boss_Cutting_Growing/Boss_Cutting_Growing%d.png", 16, 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Boss_Cutting_Idle",
+        n_wsResSpritePath + L"Monster/Boss/Boss_Cutting_Idle/Boss_Cutting_Idle%d.png", 5, 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Boss_Cutting_Shot",
+        n_wsResSpritePath + L"Monster/Boss/Boss_Cutting_Shot/Boss_Cutting_Shot%d.png", 15, 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Boss_Death",
+        n_wsResSpritePath + L"Monster/Boss/Boss_Death/Boss_Death%d.png", 46, 1)))
+        return E_FAIL;
+
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"Boss_Idle",
         n_wsResSpritePath + L"Monster/Boss/Boss_Idle/Boss_Idle%d.png", 8, 1)))
         return E_FAIL;
+
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"Boss_Jump",
         n_wsResSpritePath + L"Monster/Boss/Boss_Jump/Boss_Jump%d.png", 30, 1)))
         return E_FAIL;
 
-    if (FAILED(Res.Add_Sprite(pGraphicDev, L"TEST",
-        n_wsResSpritePath + L"Monster/Boss/Test%d.png", 1)))
-
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Boss_Roots",
+        n_wsResSpritePath + L"Monster/Boss/Boss_Roots/Boss_Roots%d.png", 56, 1)))
         return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Boss_Shake",
+        n_wsResSpritePath + L"Monster/Boss/Boss_Shake/Boss_Shake%d.png", 83, 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Boss_Throwing",
+        n_wsResSpritePath + L"Monster/Boss/Boss_Throwing/Boss_Throwing%d.png", 40, 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Root1",
+        n_wsResSpritePath + L"Monster/Boss/Root1/Root%d.png", 54, 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Root2",
+        n_wsResSpritePath + L"Monster/Boss/Root2/Root%d.png", 52, 2)))
+        return E_FAIL;
+
+    return S_OK;
+}
+
+HRESULT CDataManager::Ready_Monster_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    CResourceManager& Res = *CResourceManager::GetInstance();
+
+    // Tree Monster
+    {
+        if (FAILED(Res.Add_Sprite(pGraphicDev, L"Tree_Awake",
+            n_wsResSpritePath + L"Monster/Tree/Tree_Awake/Tree_Awake%d.png", 8, 1)))
+            return E_FAIL;
+
+        if (FAILED(Res.Add_Sprite(pGraphicDev, L"Tree_Shake",
+            n_wsResSpritePath + L"Monster/Tree/Tree_Shake/Tree_Shake%d.png", 9, 1)))
+            return E_FAIL;
+    }
+
+    // Slime Monster
+    {
+        if (FAILED(Res.Add_Sprite(pGraphicDev, L"Slime_Idle",
+            n_wsResSpritePath + L"Monster/Slime/Slime_Idle/Slime_Idle%d.png", 8, 1)))
+            return E_FAIL;
+
+        if (FAILED(Res.Add_Sprite(pGraphicDev, L"Slime_Circle",
+            n_wsResSpritePath + L"Monster/Slime/Slime_Circle/Slime_Circle%d.png", 16, 1)))
+            return E_FAIL;
+
+        if (FAILED(Res.Add_Sprite(pGraphicDev, L"Slime_Big",
+            n_wsResSpritePath + L"Monster/Slime/Slime_Big/Slime_Big%d.png", 23, 1)))
+            return E_FAIL;
+    }
+
+
 
     return S_OK;
 }

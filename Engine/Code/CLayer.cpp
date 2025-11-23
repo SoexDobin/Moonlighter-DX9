@@ -90,7 +90,7 @@ void CLayer::Render_Layer()
                 });
 
 		});
-    CCollisionManager::GetInstance()->Update_Collision();
+    // CCollisionManager::GetInstance()->Update_Collision();
 }
 
 CLayer* CLayer::Create(const wstring& layerTag)

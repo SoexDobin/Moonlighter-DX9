@@ -138,9 +138,6 @@
     <Filter Include="03. GameObject\11. Map">
       <UniqueIdentifier>{648cfc60-3c9e-4a56-a0a4-fa478ba6e55a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObject\11. Map\TerrainVillage">
-      <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. GameObject\11. Map\House">
       <UniqueIdentifier>{81673ab7-5e6e-4619-add7-ea83b34954e0}</UniqueIdentifier>
     </Filter>
@@ -159,6 +156,9 @@
     </Filter>
     <Filter Include="03. GameObject\02. Monster\03. Sheeder\01. SheederState">
       <UniqueIdentifier>{e84c3397-6465-4053-8b61-a6375e6aaff6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\TerrainVillage">
+      <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

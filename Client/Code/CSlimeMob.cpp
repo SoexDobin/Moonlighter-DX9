@@ -127,7 +127,7 @@ void CSlimeMob::Set_CurStateKey(_uint dwStateKey, CMonsterState* pCurState)
 void CSlimeMob::Configure_Component()
 {
     m_pTransformCom->Set_Scale(11.f, 11.f, 1.f);
-    m_pTransformCom->Set_Pos(-10.f, 0.f, -5.f);
+    m_pTransformCom->Set_Pos(10.f, 5.f, 10.f);
 }
 
 CSlimeMob* CSlimeMob::Create(LPDIRECT3DDEVICE9 pGraphicDev)

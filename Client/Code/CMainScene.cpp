@@ -10,6 +10,11 @@
 #include "CManagement.h"
 #include "CEditScene.h"
 
+#include "CPlayer.h"
+#include "CBoss.h"
+#include "CSlimeMob.h"
+#include "CTreeMob.h"
+
 #include "CPlayerTestScene.h"
 #include "CUtility.h"
 
@@ -81,7 +86,7 @@ HRESULT CMainScene::Ready_Camera_Layer(const wstring& wsLayerTag)
     CLayer* pCamLayer = CLayer::Create(wsLayerTag);
 
    CGameObject* pGameObject = nullptr;
-   _vec3 vEye{0.f, 10.f, -10.f}, vAt{0.f, 0.f, 10.f}, vUp{0.f, 1.f, 0.f};
+   _vec3 vEye{0.f, 5.f, -20.f}, vAt{0.f, 0.f, 10.f}, vUp{0.f, 1.f, 0.f};
    pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
    if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
        return E_FAIL;
@@ -126,6 +131,26 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     //pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
     //if (FAILED(pGameLogicLayer->Add_GameObject(L"Vill", pGameObject)))
     //    return E_FAIL;
+
+    CGameObject* pPlayer = nullptr;
+    pPlayer = CPlayer::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Player", pPlayer)))
+        return E_FAIL;
+
+    CGameObject* pBoss = nullptr;
+    pBoss = CBoss::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Boss", pBoss)))
+        return E_FAIL;
+
+    CGameObject* pTreeMob = nullptr;
+    pTreeMob = CTreeMob::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"TreeMob", pTreeMob)))
+        return E_FAIL;
+
+    CGameObject* pSlimeMob = nullptr;
+    pSlimeMob = CSlimeMob::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"SlimeMob", pSlimeMob)))
+        return E_FAIL;
     
 #pragma region Examples for ImGui
     //pGameObject = CExampleObject::Create(m_pGraphicDevice);

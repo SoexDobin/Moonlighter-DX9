@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="소스 파일">
@@ -61,13 +61,6 @@
     <Filter Include="02. Scene\08. UITestScene">
       <UniqueIdentifier>{94731203-deb5-4cdd-bc22-e3398f03bfb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utility">
-      <UniqueIdentifier>{dd585d7f-ea1b-496c-a1b0-8749e04611a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="03. GameObject\TerrainVillage">
       <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
     </Filter>
@@ -98,10 +91,7 @@
     <Filter Include="97. StateMachine\03. MonsterState">
       <UniqueIdentifier>{189b08f2-81da-4052-81f2-5ccf552aa5ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    
     <Filter Include="03. GameObject\99. Entity">
       <UniqueIdentifier>{2e8ca6d0-adeb-4e64-8dd6-89f29ff39ab5}</UniqueIdentifier>
     </Filter>
@@ -134,6 +124,9 @@
     </Filter>
     <Filter Include="97. Loading">
       <UniqueIdentifier>{75a6cdc1-e405-47e9-bd43-4c9814b46055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11.Item">
+      <UniqueIdentifier>{25bb53bf-90e9-489f-a3f7-da3da26ba5fe}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. GameObject\11. Map">
       <UniqueIdentifier>{648cfc60-3c9e-4a56-a0a4-fa478ba6e55a}</UniqueIdentifier>
@@ -266,6 +259,12 @@
     </ClInclude>
     <ClInclude Include="..\Header\CLoading.h">
       <Filter>97. Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CItemManager.h">
+      <Filter>03. GameObject\11.Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUIInvenSlot.h">
+      <Filter>03. GameObject\10. UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CHouse.h">
       <Filter>03. GameObject\11. Map\House</Filter>
@@ -436,6 +435,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CLoading.cpp">
       <Filter>97. Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CItemManager.cpp">
+      <Filter>03. GameObject\11.Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUIInvenSlot.cpp">
+      <Filter>03. GameObject\10. UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CHouse.cpp">
       <Filter>03. GameObject\11. Map\House</Filter>

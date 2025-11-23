@@ -69,9 +69,9 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 
     if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINTEX, Engine::CTerrainTex::Create(pGraphicDev, 128, 128, 1, L""))))
         return E_FAIL;
-    if (FAILED(Engine::CPrototypeManager::GetInstance()
-        ->Ready_Prototype(SPHERE_COLLIDER, CSphereCollider::Create(pGraphicDev))))
-        return E_FAIL;
+    //if (FAILED(Engine::CPrototypeManager::GetInstance()
+    //    ->Ready_Prototype(SPHERE_COLLIDER, CSphereCollider::Create(pGraphicDev))))
+    //    return E_FAIL;
 
 	return S_OK;
 }
@@ -147,6 +147,24 @@ HRESULT CDataManager::Ready_Player_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
         n_wsResSpritePath + L"Player/Roll/Right/PLAYER_ROLL_RIGHT_%02d.png", 8)))
         return E_FAIL;
 
+    // Player Spear Combo Attack
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Combo_Down",
+        n_wsResSpritePath + L"Player/Spear/ComboAttack/Down/PLAYER_SPEAR_COMBO_DOWN_%02d.png", 7)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Combo_Up",
+        n_wsResSpritePath + L"Player/Spear/ComboAttack/Up/PLAYER_SPEAR_COMBO_UP_%02d.png", 7)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Combo_Left",
+        n_wsResSpritePath + L"Player/Spear/ComboAttack/Left/PLAYER_SPEAR_COMBO_LEFT_%02d.png", 7)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Combo_Right",
+        n_wsResSpritePath + L"Player/Spear/ComboAttack/Right/PLAYER_SPEAR_COMBO_RIGHT_%02d.png", 7)))
+        return E_FAIL;
+
     return S_OK;
 }
 
@@ -196,6 +214,11 @@ HRESULT CDataManager::Ready_UI_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
         L"../Bin/Resource/Sprite/UI/Static/interface_key.png", 1)))
         return E_FAIL;
 
+    //slot
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"TestSlot",
+        L"../Bin/Resource/Sprite/UI/TestSlot.png", 1)))
+        return E_FAIL;
+
     return S_OK;
 }
 
@@ -224,6 +247,7 @@ HRESULT CDataManager::Ready_Map_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
     }
     return S_OK;
 }
+
 HRESULT CDataManager::Ready_Boss_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     CResourceManager& Res = *CResourceManager::GetInstance();
@@ -308,8 +332,6 @@ HRESULT CDataManager::Ready_Monster_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
             n_wsResSpritePath + L"Monster/Slime/Slime_Big/Slime_Big%d.png", 23, 1)))
             return E_FAIL;
     }
-
-
 
     return S_OK;
 }

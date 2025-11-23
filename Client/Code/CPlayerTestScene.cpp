@@ -30,8 +30,6 @@ HRESULT CPlayerTestScene::Ready_Scene()
 
 _int CPlayerTestScene::Update_Scene(const _float fTimeDelta)
 {
-  
-
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
     return iExit;
@@ -66,9 +64,16 @@ HRESULT CPlayerTestScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 {
     CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
 
-    CGameObject* pPlayer = nullptr;
+    CGameObject* pPlayer     = nullptr;
+    CGameObject* pGameObject = nullptr;
+
     pPlayer = CPlayer::Create(m_pGraphicDevice);
+    pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
+
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Player", pPlayer)))
+        return E_FAIL;
+
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Village", pGameObject)))
         return E_FAIL;
 
     m_umLayer.emplace(pair<const wstring, CLayer*>{ wsLayerTag, pGameLogicLayer});

@@ -14,11 +14,15 @@ public:
 
 private:
     HRESULT Ready_Camera_Layer(const wstring& wsLayerTag);
-   // HRESULT Ready_Environment_Layer(const wstring& wsLayerTag);
+    HRESULT Ready_Environment_Layer(const wstring& wsLayerTag);
     HRESULT Ready_UIInven_Layer(const wstring& wsLayerTag);
 
 public:
     static CUITestScene* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
+private:
+    void   UI_KeyInput(const _float& fTimeDelta);
+    _bool  m_bCheck;
 
 private:
     void Free() override;

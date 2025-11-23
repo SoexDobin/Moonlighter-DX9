@@ -45,7 +45,7 @@ _int CMainApp::Update_MainApp(const _float fDeltaTime)
 
 	m_pManageClass->Update_Scene(fDeltaTime);
 
-   //  Engine::CCollisionManager::GetInstance()->Update_Collision();
+    //Engine::CCollisionManager::GetInstance()->Update_Collision();
 
 	return 0;
 }
@@ -110,10 +110,9 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDevice)
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDevice)
 {
-
 	if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(CMainScene::Create(pGraphicDevice))))
-		return E_FAIL;
-	
+    	return E_FAIL;
+
 	return S_OK;
 }
 
@@ -147,5 +146,5 @@ void CMainApp::Free()
 	Engine::CTimeManager::DestroyInstance();
 	Engine::CFrameManager::DestroyInstance();
 	Engine::CPrototypeManager::DestroyInstance();
-    Engine::CCollisionManager::DestroyInstance();
+    // Engine::CCollisionManager::DestroyInstance();
 }

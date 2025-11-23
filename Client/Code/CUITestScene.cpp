@@ -1,11 +1,15 @@
 ﻿#include "pch.h"
 #include "CUITestScene.h"
+#include "CDInputManager.h"
+#include "CManagement.h"
+
 #include "CUIInven.h"
 #include "CDynamicCamera.h"
 #include "CUIStatic.h"
 
+
 CUITestScene::CUITestScene(LPDIRECT3DDEVICE9 pGraphicDev)
-    :CScene(pGraphicDev)
+    :CScene(pGraphicDev), m_bCheck(false)
 {
 }
 
@@ -19,8 +23,8 @@ HRESULT CUITestScene::Ready_Scene()
     if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
         return E_FAIL;
 
-    //if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
-    //    return E_FAIL;
+    if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
+        return E_FAIL;
 
     if (FAILED(Ready_UIInven_Layer(L"UI_Layer")))
         return E_FAIL;
@@ -30,16 +34,17 @@ HRESULT CUITestScene::Ready_Scene()
 
 _int CUITestScene::Update_Scene(const _float fTimeDelta)
 {
-
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
-
 
     return iExit;
 }
 
 void CUITestScene::LateUpdate_Scene(const _float fTimeDelta)
 {
+    UI_KeyInput(fTimeDelta);
+
     Engine::CScene::LateUpdate_Scene(fTimeDelta);
+
 }
 
 void CUITestScene::Render_Scene()
@@ -62,6 +67,18 @@ HRESULT CUITestScene::Ready_Camera_Layer(const wstring& wsLayerTag)
     return S_OK;
 }
 
+HRESULT CUITestScene::Ready_Environment_Layer(const wstring& wsLayerTag)
+{
+    CLayer* CEnviroment = CLayer::Create(wsLayerTag);
+
+    
+
+    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, CEnviroment});
+
+    return S_OK;
+}
+
+
 
 HRESULT CUITestScene::Ready_UIInven_Layer(const wstring& wsLayerTag)
 {
@@ -71,6 +88,8 @@ HRESULT CUITestScene::Ready_UIInven_Layer(const wstring& wsLayerTag)
         return E_FAIL;
 
     Engine::CGameObject* pGameObject = nullptr;
+
+   
 
     //인벤 UI
     pGameObject = CUIInven::Create(m_pGraphicDevice);
@@ -82,13 +101,14 @@ HRESULT CUITestScene::Ready_UIInven_Layer(const wstring& wsLayerTag)
         return E_FAIL;
 
     //Static UI
-    //pGameObject = CUIStatic::Create(m_pGraphicDevice);
-    //
-    //if (pGameObject == nullptr)
-    //    return E_FAIL;
-    //
-    //if (FAILED(pLayer->Add_GameObject(L"UI_Static", pGameObject)))
-    //    return E_FAIL;
+    pGameObject = CUIStatic::Create(m_pGraphicDevice);
+
+    if (pGameObject == nullptr)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(L"UI_Static", pGameObject)))
+        return E_FAIL;
+    
 
 
     m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pLayer});
@@ -108,6 +128,33 @@ CUITestScene* CUITestScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
     }
 
     return CTestScene;
+}
+
+void CUITestScene::UI_KeyInput(const _float& fTimeDelta)
+{ 
+
+    if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_I) & 0x80)
+    {
+        
+        if (m_bCheck == false)
+        {
+            CUIInven* pInventory = static_cast<CUIInven*>
+                (CManagement::GetInstance()->Get_Object(L"UI_Layer", L"UI_Invnen"));
+
+            if (pInventory)
+            {
+                pInventory->InvenButton();
+            }
+
+            m_bCheck = true;
+
+        }
+        
+    }
+    else
+    {
+        m_bCheck = false;
+    }
 }
 
 void CUITestScene::Free()

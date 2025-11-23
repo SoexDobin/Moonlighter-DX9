@@ -5,9 +5,12 @@
 #include "CTestRect.h"
 #include "CManagement.h"
 #include "CEditScene.h"
+#include "CUtility.h"
+#include "CHouse.h"
+#include "CTree.h"
 
 CEditScene::CEditScene(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CScene(pGraphicDev)
+    : CScene(pGraphicDev), pVillage(nullptr), g_MapEditor(nullptr)
 {
 }
 
@@ -22,8 +25,11 @@ HRESULT CEditScene::Ready_Scene()
 
     if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
         return E_FAIL;
-
+    if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
+        return E_FAIL;
     if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
+        return E_FAIL;
+    if (FAILED(Ready_UI_Layer(L"Ui_Layer")))
         return E_FAIL;
 
     // Make process DPI aware and obtain main monitor scale
@@ -73,52 +79,137 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 
-    // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-    if (show_demo_window)
-        ImGui::ShowDemoWindow(&show_demo_window);
-
-    // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
-    {
-        static float f = 0.0f;
-        static int counter = 0;
-
-        ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-        ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-        ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-        ImGui::Checkbox("Another Window", &show_another_window);
-
-        ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-        ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-        if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-            counter++;
-        ImGui::SameLine();
-        ImGui::Text("counter = %d", counter);
-
-        //ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-        ImGui::End();
-    }
-
-    // 3. Show another simple window.
-    if (show_another_window)
-    {
-        ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-        ImGui::Text("Hello from another window!");
-        if (ImGui::Button("Close Me"))
-            show_another_window = false;
-        ImGui::End();
-    }
-
+    // Add object
     ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiCond_Once);
     ImGui::SetNextWindowSize(ImVec2(0, 0), ImGuiCond_Always);
     ImGui::Begin("Editor", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-
     if (ImGui::Button("Add TerrainVillege"))
     {
-        //Add_Terrain();
-        Add_Ex(L"GameLogic_Layer");
+        Add_TerrainVillage(L"Environment_Layer");
     }
+    if (ImGui::Button("Save Terrain"))
+    {
+        CUtility::SaveMap(static_cast<CTerrainVillage*>(pVillage));
+    }
+    if (ImGui::Button("Load Terrain"))
+    {
+        _ulong pCntX, pCntZ, pInterval;
+        wstring heightMap;
+
+        CUtility::LoadMap(&pCntX, &pCntZ, &pInterval, heightMap);
+
+        auto iter = m_umLayer.find(L"Environment_Layer");
+        if (iter != m_umLayer.end())
+        {
+            CLayer* pLayer = iter->second;
+
+            CGameObject* pMapVillage = CTerrainVillage::Create(m_pGraphicDevice);
+
+            if (FAILED(pLayer->Add_GameObject(L"TerrainVillage", pMapVillage)))
+            {
+                MSG_BOX("Add Terrain Village Fail");
+                return;
+            }
+        }
+        else
+        {
+            CLayer* pGameLogicLayer = CLayer::Create();
+
+            CGameObject* pGameObject = nullptr;
+            pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
+            if (FAILED(pGameLogicLayer->Add_GameObject(L"TerrainVillage", pGameObject)))
+            {
+                MSG_BOX("Add Terrain Village Fail");
+                return;
+            }
+
+            m_umLayer.emplace(pair<const wstring, CLayer*>{ L"Environment_Layer", pGameLogicLayer});
+        }
+    }
+
+    if (ImGui::Button("Add House"))
+    {
+        Add_House(L"Environment_Layer");
+    }
+
+    if (ImGui::Button("Add Tree"))
+    {
+        Add_Tree(L"Environment_Layer");
+    }
+    ImGui::End();
+
+    // Layer & Object edit
+    ImGui::SetNextWindowPos(ImVec2(200, 100), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2(0, 0), ImGuiCond_Always);
+    ImGui::Begin("Scene Object Hierarchy", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+    for (const auto& layerPair : m_umLayer)
+    {
+        const wstring& layerName = layerPair.first;
+        CLayer* pLayer = layerPair.second;
+
+        string layerLabel = WStringToUTF8(layerName);
+
+        if (ImGui::CollapsingHeader(layerLabel.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+        {
+            const auto& objectMap = pLayer->Get_Objects();
+
+            for (const auto& objListPair : objectMap)
+            {
+                const list<CGameObject*>& objectList = objListPair.second;
+
+                for (CGameObject* pObj : objectList)
+                {
+                    if (!pObj)
+                    {
+                        MSG_BOX("Get Object Fail");
+                        continue;
+                    }
+
+                    string displayName = "Unnamed";
+                    if (pObj->m_szDisplayName[0] != 0)
+                    {
+                        wstring wname = pObj->m_szDisplayName;
+                        displayName = WStringToUTF8(wname);
+                    }
+                    else
+                    {
+                        MSG_BOX("DisplayName Null");
+                        return;
+                    }
+
+                    string objNodeLabel = displayName + "##" + to_string(reinterpret_cast<uintptr_t>(pObj));
+                    if (ImGui::TreeNode(objNodeLabel.c_str()))
+                    {
+                        CTransform* pTrans = static_cast<CRenderObject*>(pObj)->Get_Trans();
+
+                        if (pTrans)
+                        {
+                            _vec3 vPos = pTrans->Get_Pos();
+                            _vec3 vScale = pTrans->Get_Scale();
+
+                            if (ImGui::DragFloat3("Position", reinterpret_cast<float*>(&vPos), 0.1f))
+                            {
+                                pTrans->Set_Pos(vPos.x, vPos.y, vPos.z);
+                            }
+
+                            if (ImGui::DragFloat3("Scale", reinterpret_cast<float*>(&vScale), 0.1f, 0.1f, 100.f))
+                            {
+                                pTrans->Set_Scale(vScale.x, vScale.y, vScale.z);
+                            }
+                        }
+                        else
+                        {
+                            MSG_BOX("Get Transform Fail");
+                            return;
+                        }
+
+                        ImGui::TreePop();
+                    }
+                }
+            }
+        }
+    }
+
     ImGui::End();
 }
 
@@ -139,7 +230,6 @@ HRESULT CEditScene::Ready_Camera_Layer(const wstring wsLayerTag)
 {
     CLayer* pCamLayer = CLayer::Create();
 
-    // TODO : Ä«¸Þ¶ó »ý¼º ¹æ½Ä °í·Á
     CGameObject* pGameObject = nullptr;
     _vec3 vEye{ 0.f, 10.f, -10.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
     pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
@@ -147,7 +237,6 @@ HRESULT CEditScene::Ready_Camera_Layer(const wstring wsLayerTag)
         return E_FAIL;
 
     m_umLayer.emplace(pair<const wstring, CLayer*>{ wsLayerTag, pCamLayer});
-
     return S_OK;
 }
 
@@ -193,14 +282,163 @@ void CEditScene::Free()
     Engine::CScene::Free();
 }
 
-HRESULT CEditScene::Add_Ex(const wstring temp)
+HRESULT CEditScene::Add_TerrainVillage(const wstring pLayerTag)
 {
-    CLayer* pGameLogicLayer = CLayer::Create();
+    auto iter = m_umLayer.find(pLayerTag);
+    if (iter != m_umLayer.end())
+    {
+        CLayer* pLayer = iter->second;
 
-    CGameObject* pGameObject = nullptr;
-    pGameObject = CTestRect::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp", pGameObject)))
-        return E_FAIL;
+        CGameObject* pHouse = CTerrainVillage::Create(m_pGraphicDevice);
 
-    m_umLayer.emplace(pair<const wstring, CLayer*>{ temp, pGameLogicLayer});
+        if (FAILED(pLayer->Add_GameObject(L"Village", pHouse)))
+        {
+            MSG_BOX("Add Village Fail");
+            return E_FAIL;
+        }
+    }
+    else
+    {
+        CLayer* pGameLogicLayer = CLayer::Create();
+
+        CGameObject* pGameObject = nullptr;
+        pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
+        if (FAILED(pGameLogicLayer->Add_GameObject(L"Village", pGameObject)))
+        {
+            MSG_BOX("Add Village Fail");
+            return E_FAIL;
+        }
+
+        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
+    }
+    return S_OK;
+}
+
+HRESULT CEditScene::Add_House(const wstring pLayerTag)
+{
+    auto iter = m_umLayer.find(pLayerTag);
+    if (iter != m_umLayer.end())
+    {
+        CLayer* pLayer = iter->second;
+
+        CGameObject* pHouse = CHouse::Create(m_pGraphicDevice);
+
+        if (pHouse != nullptr)
+        {
+            _int randA, randB;
+
+            srand(_uint(time(nullptr)));
+
+            randA = rand() % 100 + 1;
+            randB = rand() % 100 + 1;
+
+            static_cast<CRenderObject*>(pHouse)->Get_Trans()->Set_Pos(_float(randA), 4.f, _float(randB));
+        }
+        else
+        {
+            MSG_BOX("House Create Fail");
+            return E_FAIL;
+        }
+
+        if (FAILED(pLayer->Add_GameObject(L"House", pHouse)))
+        {
+            MSG_BOX("Add House Fail");
+            return E_FAIL;
+        }
+    }
+    else
+    {
+        CLayer* pGameLogicLayer = CLayer::Create();
+
+        CGameObject* pGameObject = nullptr;
+        pGameObject = CHouse::Create(m_pGraphicDevice);
+        if (pGameObject != nullptr)
+        {
+            _int randA, randB;
+
+            srand(_uint(time(nullptr)));
+
+            randA = rand() % 100 + 1;
+            randB = rand() % 100 + 1;
+
+            static_cast<CRenderObject*>(pGameObject)->Get_Trans()->Set_Pos(_float(randA), 4.f, _float(randB));
+        }
+        if (FAILED(pGameLogicLayer->Add_GameObject(L"House", pGameObject)))
+            return E_FAIL;
+
+        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag , pGameLogicLayer});
+    }
+
+    return S_OK;
+}
+
+HRESULT CEditScene::Add_Tree(const wstring pLayerTag)
+{
+    auto iter = m_umLayer.find(pLayerTag);
+    if (iter != m_umLayer.end())
+    {
+        CLayer* pLayer = iter->second;
+
+        CGameObject* pHouse = CTree::Create(m_pGraphicDevice);
+
+        if (pHouse != nullptr)
+        {
+            _int randA, randB;
+
+            srand(_uint(time(nullptr)));
+
+            randA = rand() % 100 + 1;
+            randB = rand() % 100 + 1;
+
+            static_cast<CRenderObject*>(pHouse)->Get_Trans()->Set_Pos(_float(randA), 4.f, _float(randB));
+        }
+        else
+        {
+            MSG_BOX("House Create Fail");
+            return E_FAIL;
+        }
+
+        if (FAILED(pLayer->Add_GameObject(L"House", pHouse)))
+        {
+            MSG_BOX("Add House Fail");
+            return E_FAIL;
+        }
+    }
+    else
+    {
+        CLayer* pGameLogicLayer = CLayer::Create();
+
+        CGameObject* pGameObject = nullptr;
+        pGameObject = CTree::Create(m_pGraphicDevice);
+        if (pGameObject != nullptr)
+        {
+            _int randA, randB;
+
+            srand(_uint(time(nullptr)));
+
+            randA = rand() % 100 + 1;
+            randB = rand() % 100 + 1;
+
+            static_cast<CRenderObject*>(pGameObject)->Get_Trans()->Set_Pos(_float(randA), 4.f, _float(randB));
+        }
+        if (FAILED(pGameLogicLayer->Add_GameObject(L"House", pGameObject)))
+            return E_FAIL;
+
+        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
+    }
+
+    return S_OK;
+}
+
+
+inline string CEditScene::WStringToUTF8(const std::wstring& wstr)
+{
+    if (wstr.empty()) return {};
+
+    int size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(),nullptr, 0, nullptr, nullptr);
+
+    string strTo(size_needed, 0);
+
+    WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(),&strTo[0], size_needed, nullptr, nullptr);
+    return strTo;
 }

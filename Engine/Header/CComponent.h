@@ -5,6 +5,9 @@
 
 BEGIN(Engine)
 
+class CGameObject;
+class CTransform;
+
 class ENGINE_DLL CComponent : public CBase
 {
 protected:
@@ -14,6 +17,9 @@ protected:
 	virtual ~CComponent() override;
 
 public:
+    void                        Set_Owner(CGameObject* pOwner);
+    CGameObject*                Get_Owner() const       { return m_pOwner; }
+    CTransform*                 Get_Transform() const   { return m_pTrans; }
 	virtual	PROTOTYPE_COMPONENT	Get_ComponentType() PURE;
 
 public:
@@ -27,6 +33,9 @@ protected:
 	LPDIRECT3DDEVICE9			m_pGraphicDevice;
 	_bool						m_bClone;
 
+    CGameObject*                m_pOwner;
+    CTransform*                 m_pTrans;
+
 protected:
 	virtual void				Free();
 
@@ -34,7 +43,7 @@ protected:
 public:
 	virtual void				Display_Editor(const char* pObjTag) {};
 	_bool						m_bDisplayInEditor;
-	char					    	m_szDisplayName[32];
+	char					    m_szDisplayName[32];
 #pragma endregion
 
 };

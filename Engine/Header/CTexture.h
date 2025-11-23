@@ -35,6 +35,7 @@ public:
 
 	_int				Update_Component(const _float fTimeDelta) override;
 	void				LateUpdate_Component() override;
+    void                SetUp_Texture();
 
 private:
 	vector<vector<IDirect3DBaseTexture9*>>	m_vecTexture;

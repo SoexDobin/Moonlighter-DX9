@@ -1,6 +1,7 @@
 ﻿#include "CTimer.h"
 #include "CGraphicDevice.h"
 #include "CLayer.h"
+#include "CSphereCollider.h"
 
 CTimer::CTimer()
 	: m_fDeltaTime(0.f)
@@ -31,8 +32,6 @@ void CTimer::Update_Timer()
 	m_fDeltaTime = (m_FrameTime.QuadPart - m_LastTime.QuadPart) / _float(m_CpuTick.QuadPart);
 	m_LastTime = m_FrameTime;
 }
-
-
 
 CTimer* CTimer::Create()
 {

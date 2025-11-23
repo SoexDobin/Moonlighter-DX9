@@ -1,8 +1,10 @@
-#pragma once
+﻿#pragma once
 
 #include "CRenderObject.h"
+
 namespace Engine {
 	class CTexture;
+    class CSphereCollider;
 }
 
 class CTestRect : public CRenderObject
@@ -20,9 +22,12 @@ public:
 	void		LateUpdate_GameObject(const _float fTimeDelta) override;
 	void		Render_GameObject() override;
 
+    void        On_Collision(const Collision& tCollision) override;
+
 private:
 	CTexture*	m_pDynamicTexCom;
 	CTexture*	m_pStaticTexCom;
+    CSphereCollider* m_pColCom;
 
 public:
 	static CTestRect*	Create(LPDIRECT3DDEVICE9 pGraphicDev);

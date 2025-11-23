@@ -22,14 +22,16 @@ private:
 	HRESULT		Ready_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
     HRESULT		Ready_Player_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT		Ready_Item_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT		Ready_UI_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
     HRESULT     Ready_Boss_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
+    HRESULT     Ready_Monster_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
+	HRESULT		Ready_UI_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
+    HRESULT     Ready_Map_Resource(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT		Ready_Sound();
 
 private:
 	const wstring& n_wsResSpritePath = L"../Bin/Resource/Sprite/";
 
-	const _float m_fDefault_AnimSpeed = 10.f;
+	const _float n_fDefault_AnimSpeed = 10.f;
 
 private:
 	void		Free() override;

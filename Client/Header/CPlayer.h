@@ -36,6 +36,10 @@ private:
     STATE       m_ePrevState;
     DIRECTION   m_ePrevDir;
 
+    _float      m_fRollDuration;
+    _float      m_fRollTime;
+    _vec3       m_vRollDir;
+
 public:
     static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

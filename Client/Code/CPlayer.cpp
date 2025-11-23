@@ -46,11 +46,7 @@ HRESULT CPlayer::Ready_GameObject()
 
 HRESULT CPlayer::Ready_Animation()
 {
-    CComponent* pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
-    if (!pCom || pCom->Get_ComponentType() != TEXTURE)
-        return E_FAIL;
-
-    m_pTexCom = static_cast<CTexture*>(pCom);
+    m_pTexCom = Add_Component<CTexture>(ID_DYNAMIC, L"Player_TexCom", TEXTURE);
     m_pTexCom->Set_Speed(8.5f);
 
     // Idle
@@ -208,20 +204,20 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
                 break;
             }
 
-            _uint iRollIdx      = Get_AnimationIndex();
-            _uint iFrameCount   = m_pTexCom->Get_FrameCount(iRollIdx);
-            _float fSpeed       = m_pTexCom->Get_Speed();
-
-            if (fSpeed > 0.f)
-                m_fRollDuration = static_cast<_float>(iFrameCount) / fSpeed;
-            else
-                m_fRollDuration = 0.5f;
-
-            m_pTexCom->Set_Loop(false);
-
-            _uint iIdx = Get_AnimationIndex();
-            m_pTexCom->Set_Texture(iIdx, 0);
-
+            //_uint iRollIdx      = Get_AnimationIndex();
+            //_uint iFrameCount   = m_pTexCom->Get_FrameCount(iRollIdx);
+            //_float fSpeed       = m_pTexCom->Get_Speed();
+            //
+            //if (fSpeed > 0.f)
+            //    m_fRollDuration = static_cast<_float>(iFrameCount) / fSpeed;
+            //else
+            //    m_fRollDuration = 0.5f;
+            //
+            //m_pTexCom->Set_Loop(false);
+            //
+            //_uint iIdx = Get_AnimationIndex();
+            //m_pTexCom->Set_Texture(iIdx, 0);
+            //
             return;
         }
     }
@@ -299,16 +295,13 @@ void CPlayer::LateUpdate_GameObject(const _float fTimeDelta)
 void CPlayer::Render_GameObject()
 {
     m_pGraphicDevice->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
-
-    _uint curTex   = m_pTexCom->Get_CurTex();
-    _uint curFrame = m_pTexCom->Get_CurFrame();
-    m_pTexCom->Set_Texture(curTex, curFrame);
+    
 
     m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
     m_pGraphicDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 
-    m_pTexCom->Set_Texture(Get_AnimationIndex());
+    m_pTexCom->SetUp_Texture();
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

@@ -78,7 +78,7 @@ HRESULT CUIStatic::UI_Initialize()
     m_pTextureCom->Ready_Texture(L"hp_barBack");
 
     m_pTextureCom->Set_Texture(0);
-    m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pTextureCom));
+    m_umComponent[ID_STATIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pTextureCom));
 
 
 

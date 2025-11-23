@@ -4,7 +4,7 @@
 #include "CTexture.h"
 #include "CPrototypeManager.h"
 #include "CDInputManager.h"
-#include "CUIInvenSlot.h"
+//#include "CUIInvenSlot.h"
 
 CUIInven::CUIInven(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTextureCom(nullptr), m_bVisible(false)
@@ -94,13 +94,13 @@ void CUIInven::Create_Slots(LPDIRECT3DDEVICE9 pGraphicDev)
     _float fPosX = 100.f;
     _float fPosY = 100.f;
 
-    CUIInvenSlot* pSlot = CUIInvenSlot::Create(pGraphicDev, fPosX, fPosY);
-
-    if (pSlot)
-    {
-        //m_vecSlots.push_back(pSlot);
-
-    }
+    //CUIInvenSlot* pSlot = CUIInvenSlot::Create(pGraphicDev, fPosX, fPosY);
+    //
+    //if (pSlot)
+    //{
+    //    //m_vecSlots.push_back(pSlot);
+    //
+    //}
 }
 
 

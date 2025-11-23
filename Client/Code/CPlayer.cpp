@@ -71,6 +71,12 @@ HRESULT CPlayer::Ready_Animation()
     m_pTexCom->Ready_Texture(L"Player_Roll_Left");
     m_pTexCom->Ready_Texture(L"Player_Roll_Right");
 
+    // ComboAttack
+    m_pTexCom->Ready_Texture(L"Player_Spear_Combo_Down");
+    m_pTexCom->Ready_Texture(L"Player_Spear_Combo_Up");
+    m_pTexCom->Ready_Texture(L"Player_Spear_Combo_Left");
+    m_pTexCom->Ready_Texture(L"Player_Spear_Combo_Right");
+
     m_pTexCom->Set_Texture(IDLE);
     m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Player_TexCom", m_pTexCom));
 
@@ -83,10 +89,11 @@ _uint CPlayer::Get_AnimationIndex()
 
     switch (m_eState)
     {
-    case IDLE: iBase = 0; break;
-    case WALK: iBase = 4; break;
-    case ROLL: iBase = 8; break;
-    default:   iBase = 0; break;
+    case IDLE:          iBase = 0; break;
+    case WALK:          iBase = 4; break;
+    case ROLL:          iBase = 8; break;
+    case COMBOATTACK:   iBase = 12; break;
+    default:            iBase = 0; break;
     }
 
     switch (m_eDir)

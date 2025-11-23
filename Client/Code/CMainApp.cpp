@@ -44,7 +44,7 @@ _int CMainApp::Update_MainApp(const _float fDeltaTime)
 
 	m_pManageClass->Update_Scene(fDeltaTime);
 
-    Engine::CCollisionManager::GetInstance()->Update_Collision();
+    //Engine::CCollisionManager::GetInstance()->Update_Collision();
 
 	return 0;
 }
@@ -65,9 +65,9 @@ void CMainApp::Render_MainApp()
 
 	m_pManageClass->Render_Scene(m_pGraphicDevice);
 
-#ifdef _DEBUG
-    Engine::CCollisionManager::GetInstance()->Render_Collision();
-#endif 
+//#ifdef _DEBUG
+//    Engine::CCollisionManager::GetInstance()->Render_Collision();
+//#endif 
 
     CEngineMediator::GetInstance()->Render_Mediator();
 	CEditor::GetInstance()->Render_End();
@@ -109,12 +109,12 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDevice)
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDevice)
 {
-	if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(CUITestScene::Create(pGraphicDevice))))
-		return E_FAIL;
+	//if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(CUITestScene::Create(pGraphicDevice))))
+	//	return E_FAIL;
 	
 	if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(CMainScene::Create(pGraphicDevice))))
-		return E_FAIL;
-	
+    	return E_FAIL;
+	//
 	return S_OK;
 }
 

@@ -47,6 +47,8 @@ void CTerrainVillage::LateUpdate_GameObject(const _float fTimeDelta)
 void CTerrainVillage::Render_GameObject()
 {
 
+    m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+
     if(m_pTransformCom != nullptr)
     {
         m_pGraphicDevice->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
@@ -61,6 +63,8 @@ void CTerrainVillage::Render_GameObject()
     {
         m_pBufferCom->Render_Buffer();
     }
+
+    m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
 }
 
 HRESULT CTerrainVillage::Add_Component()

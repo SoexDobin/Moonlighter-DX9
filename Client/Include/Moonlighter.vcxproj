@@ -172,6 +172,16 @@
     <ClInclude Include="..\Header\CMonsterTestScene.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CPlayerTestScene.h" />
+    <ClInclude Include="..\Header\CSheederAttackState.h" />
+    <ClInclude Include="..\Header\CSheederIdleState.h" />
+    <ClInclude Include="..\Header\CSheederStateMachine.h" />
+    <ClInclude Include="..\Header\CSheederWalkState.h" />
+    <ClInclude Include="..\Header\CSlimeBigState.h" />
+    <ClInclude Include="..\Header\CSlimeCircleState.h" />
+    <ClInclude Include="..\Header\CSlimeIdleState.h" />
+    <ClInclude Include="..\Header\CSlimeMob.h" />
+    <ClInclude Include="..\Header\CSlimeStateMachine.h" />
+    <ClInclude Include="..\Header\CSlimeWalkState.h" />
     <ClInclude Include="..\Header\CState.h" />
     <ClInclude Include="..\Header\CStateMachine.h" />
     <ClInclude Include="..\Header\CTestRect.h" />
@@ -181,6 +191,7 @@
     <ClInclude Include="..\Header\CTreeShakeState.h" />
     <ClInclude Include="..\Header\CTreeStateMachine.h" />
     <ClInclude Include="Client_Define.h" />
+    <ClInclude Include="CStat.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Moonlighter.h" />
     <ClInclude Include="pch.h" />
@@ -232,6 +243,16 @@
     <ClCompile Include="..\Code\CMonsterTestScene.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CPlayerTestScene.cpp" />
+    <ClCompile Include="..\Code\CSheederAttackState.cpp" />
+    <ClCompile Include="..\Code\CSheederIdleState.cpp" />
+    <ClCompile Include="..\Code\CSheederStateMachine.cpp" />
+    <ClCompile Include="..\Code\CSheederWalkState.cpp" />
+    <ClCompile Include="..\Code\CSlimeBigState.cpp" />
+    <ClCompile Include="..\Code\CSlimeCircleState.cpp" />
+    <ClCompile Include="..\Code\CSlimeIdleState.cpp" />
+    <ClCompile Include="..\Code\CSlimeMob.cpp" />
+    <ClCompile Include="..\Code\CSlimeStateMachine.cpp" />
+    <ClCompile Include="..\Code\CSlimeWalkState.cpp" />
     <ClCompile Include="..\Code\CState.cpp" />
     <ClCompile Include="..\Code\CStateMachine.cpp" />
     <ClCompile Include="..\Code\CTestRect.cpp" />
@@ -240,6 +261,7 @@
     <ClCompile Include="..\Code\CTreeMob.cpp" />
     <ClCompile Include="..\Code\CTreeShakeState.cpp" />
     <ClCompile Include="..\Code\CTreeStateMachine.cpp" />
+    <ClCompile Include="CStat.cpp" />
     <ClCompile Include="Moonlighter.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

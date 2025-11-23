@@ -225,6 +225,22 @@ HRESULT CDataManager::Ready_Monster_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
             return E_FAIL;
     }
 
+    // Slime Monster
+    {
+        if (FAILED(Res.Add_Sprite(pGraphicDev, L"Slime_Idle",
+            n_wsResSpritePath + L"Monster/Slime/Slime_Idle/Slime_Idle%d.png", 8, 1)))
+            return E_FAIL;
+
+        if (FAILED(Res.Add_Sprite(pGraphicDev, L"Slime_Circle",
+            n_wsResSpritePath + L"Monster/Slime/Slime_Circle/Slime_Circle%d.png", 16, 1)))
+            return E_FAIL;
+
+        if (FAILED(Res.Add_Sprite(pGraphicDev, L"Slime_Big",
+            n_wsResSpritePath + L"Monster/Slime/Slime_Big/Slime_Big%d.png", 23, 1)))
+            return E_FAIL;
+    }
+
+
 
     return S_OK;
 }

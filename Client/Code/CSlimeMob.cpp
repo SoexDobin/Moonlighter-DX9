@@ -1,34 +1,34 @@
 ﻿#pragma region INCLUDE
 #include "pch.h"
-#include "CTreeMob.h"
+#include "CSlimeMob.h"
 #include "CRenderer.h"
 #include "CPrototypeManager.h"
 #include "CManagement.h"
 
 #include "CPlayer.h"
 #include "CMonsterState.h"
-#include "CTreeStateMachine.h"
+#include "CSlimeStateMachine.h"
 #pragma endregion
 
 
-CTreeMob::CTreeMob(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_dwCurStateKey(TREE_STATE::T_END), m_dwAnimKey(TREE_STATE::T_END),
+CSlimeMob::CSlimeMob(LPDIRECT3DDEVICE9 pGraphicDev)
+    : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_dwCurStateKey(SLIME_STATE::S_END), m_dwAnimKey(SLIME_STATE::S_END),
     m_pStateMachine(nullptr), m_pCurState(nullptr)
 {
-    PANEL_NAME(L"Tree");
+    PANEL_NAME(L"Slime");
 }
 
-CTreeMob::CTreeMob(const CTreeMob& rhs)
+CSlimeMob::CSlimeMob(const CSlimeMob& rhs)
     : CRenderObject(rhs), m_pDynamicTexCom(nullptr)
 {
-    PANEL_NAME(L"Tree");
+    PANEL_NAME(L"Slime");
 }
 
-CTreeMob::~CTreeMob()
+CSlimeMob::~CSlimeMob()
 {
 }
 
-HRESULT CTreeMob::Ready_GameObject()
+HRESULT CSlimeMob::Ready_GameObject()
 {
 #pragma region Ready_Component
     // Texture, Transform 컴포넌트 생성 
@@ -47,7 +47,7 @@ HRESULT CTreeMob::Ready_GameObject()
     }
 #pragma endregion
     Ready_Animation();
-    m_pStateMachine = CTreeStateMachine::Create(this);
+    m_pStateMachine = CSlimeStateMachine::Create(this);
 
     // after all components are set up
     Configure_Component();
@@ -59,7 +59,7 @@ HRESULT CTreeMob::Ready_GameObject()
     return S_OK;
 }
 
-_int CTreeMob::Update_GameObject(const _float fTimeDelta)
+_int CSlimeMob::Update_GameObject(const _float fTimeDelta)
 {
     m_pCurState->Update_State(fTimeDelta);
 
@@ -70,14 +70,14 @@ _int CTreeMob::Update_GameObject(const _float fTimeDelta)
     return iExit;
 }
 
-void CTreeMob::LateUpdate_GameObject(const _float fTimeDelta)
+void CSlimeMob::LateUpdate_GameObject(const _float fTimeDelta)
 {
     m_pCurState->LateUpdate_State(fTimeDelta);
 
     Engine::CRenderObject::LateUpdate_GameObject(fTimeDelta);
 }
 
-void CTreeMob::Render_GameObject()
+void CSlimeMob::Render_GameObject()
 {
     m_pCurState->Render_State();
 
@@ -102,10 +102,11 @@ void CTreeMob::Render_GameObject()
 
 }
 
-HRESULT CTreeMob::Ready_Animation()
+HRESULT CSlimeMob::Ready_Animation()
 {
-    m_pDynamicTexCom->Ready_Texture(L"Tree_Awake");                //BOSS_STATE::AWAKE
-    m_pDynamicTexCom->Ready_Texture(L"Tree_Shake");                 //BOSS_STATE::IDLE
+    m_pDynamicTexCom->Ready_Texture(L"Slime_Idle");                //SLIME_STATE::AWAKE
+    m_pDynamicTexCom->Ready_Texture(L"Slime_Circle");           //SLIME_STATE::ATK_CIRCLE
+    m_pDynamicTexCom->Ready_Texture(L"Slime_Big");                  //SLIME_STATE::ATK_BIG
 
     // Configure boss animation values
     m_pDynamicTexCom->Set_Speed(10.f);
@@ -113,7 +114,7 @@ HRESULT CTreeMob::Ready_Animation()
     return S_OK;
 }
 
-void CTreeMob::Set_CurStateKey(_uint dwStateKey, CMonsterState* pCurState)
+void CSlimeMob::Set_CurStateKey(_uint dwStateKey, CMonsterState* pCurState)
 {
     if (dwStateKey == m_dwCurStateKey)
         return;
@@ -123,19 +124,19 @@ void CTreeMob::Set_CurStateKey(_uint dwStateKey, CMonsterState* pCurState)
     m_pDynamicTexCom->Set_Texture(dwStateKey);
 }
 
-void CTreeMob::Configure_Component()
+void CSlimeMob::Configure_Component()
 {
     m_pTransformCom->Set_Scale(11.f, 11.f, 1.f);
-    m_pTransformCom->Set_Pos(-5.f, 0.f, -5.f);
+    m_pTransformCom->Set_Pos(-10.f, 0.f, -5.f);
 }
 
-CTreeMob* CTreeMob::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CSlimeMob* CSlimeMob::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CTreeMob* pInstance = new CTreeMob(pGraphicDev);
+    CSlimeMob* pInstance = new CSlimeMob(pGraphicDev);
 
     if (FAILED(pInstance->Ready_GameObject()))
     {
-        MSG_BOX("CTreeMob Create Failed");
+        MSG_BOX("CSlimeMob Create Failed");
         Safe_Release(pInstance);
         return nullptr;
     }
@@ -143,41 +144,40 @@ CTreeMob* CTreeMob::Create(LPDIRECT3DDEVICE9 pGraphicDev)
     return pInstance;
 }
 
-void CTreeMob::Free()
+void CSlimeMob::Free()
 {
     Engine::CGameObject::Free();
 
     m_pStateMachine->Release();
 }
 
-void CTreeMob::Add_EditorFiled()
+void CSlimeMob::Add_EditorFiled()
 {
     CGameObject::Add_EditorField("State", DATATYPE::DATA_TCHAR, &m_szState);
 }
 
-void CTreeMob::Display_CurrentState()
+void CSlimeMob::Display_CurrentState()
 {
-    switch ((TREE_STATE)m_dwCurStateKey)
+    switch ((SLIME_STATE)m_dwCurStateKey)
     {
-    case TREE_STATE::AWAKE:
-    {
-        wcscpy_s(m_szState, L"AWAKE\n");
-    }
-    break;
-
-    case TREE_STATE::IDLE:
+    case SLIME_STATE::IDLE:
     {
         wcscpy_s(m_szState, L"IDLE\n");
     }
     break;
 
-    case TREE_STATE::ATK_SHAKE:
+    case SLIME_STATE::ATK_BIG:
     {
-        wcscpy_s(m_szState, L"SHAKE\n");
+        wcscpy_s(m_szState, L"ATK_BIG\n");
+    }
+    break;
+    case SLIME_STATE::ATK_CIRCLE:
+    {
+        wcscpy_s(m_szState, L"ATK_CIRCLE\n");
     }
     break;
 
-    case TREE_STATE::DEAD:
+    case SLIME_STATE::DEAD:
     {
         wcscpy_s(m_szState, L"DEAD\n");
     }

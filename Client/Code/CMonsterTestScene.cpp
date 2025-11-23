@@ -6,6 +6,7 @@
 #include "CBoss.h"
 #include "CPlayer.h"
 #include "CTreeMob.h"
+#include "CSlimeMob.h"
 
 #include "CManagement.h"
 
@@ -79,6 +80,11 @@ HRESULT CMonsterTestScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     CGameObject* pTreeMob = nullptr;
     pTreeMob = CTreeMob::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"TreeMob", pTreeMob)))
+        return E_FAIL;
+
+    CGameObject* pSlimeMob = nullptr;
+    pSlimeMob = CSlimeMob::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"SlimeMob", pSlimeMob)))
         return E_FAIL;
 
     m_umLayer.emplace(pair<const wstring, CLayer*>{ wsLayerTag, pGameLogicLayer});

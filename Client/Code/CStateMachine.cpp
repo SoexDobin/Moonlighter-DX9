@@ -11,3 +11,9 @@ CStateMachine::~CStateMachine()
 {
 
 }
+
+void CStateMachine::Free()
+{
+    for_each(m_vecState.begin(), m_vecState.end(), CDeleteObj());
+    m_vecState.clear();
+}

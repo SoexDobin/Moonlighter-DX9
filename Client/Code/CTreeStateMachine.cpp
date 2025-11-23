@@ -48,15 +48,12 @@ void CTreeStateMachine::Change_State(_uint dwStateKey)
     m_pOwner->Set_CurStateKey((CTreeMob::TREE_STATE)m_dwCurStateKey, static_cast<CMonsterState*>(m_pCurState));
 }
 
-void CStateMachine::Free()
-{
-    for_each(m_vecState.begin(), m_vecState.end(), CDeleteObj());
-    m_vecState.clear();
-}
-
 HRESULT CTreeStateMachine::Ready_TreeStates()
 {
-    m_vecState.resize(CTreeMob::TREE_STATE::T_END);
+    // TODO : DEAD STATE를 만들어야 하는가?
+    // T_END만큼 공간 할당 시 마지막 원소가 남게 된다
+
+    m_vecState.resize(static_cast<int>(CTreeMob::TREE_STATE::T_END) - 1);
 
     CMonsterState* pState = nullptr;
     if (!(pState = CTreeAwakeState::Create(m_pOwner, this)))
@@ -73,7 +70,6 @@ HRESULT CTreeStateMachine::Ready_TreeStates()
         return E_FAIL;
     m_vecState[CTreeMob::TREE_STATE::ATK_SHAKE] = pState;
     
-
     return S_OK;
 }
 

@@ -108,9 +108,6 @@
     <Filter Include="03. GameObject\02. Monster\03. Sheeder">
       <UniqueIdentifier>{f2168696-49f1-48c7-9141-3b3a72dfbc76}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObject\02. Monster\03. Sheeder\00. SheederState">
-      <UniqueIdentifier>{e6dc9c52-8c71-46e4-8f93-2ed68a49bddf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. GameObject\02. Monster\02. Slime\01. SlimeState">
       <UniqueIdentifier>{20d4b1c0-8442-4da6-8f23-eaa59cbecea1}</UniqueIdentifier>
     </Filter>
@@ -137,6 +134,12 @@
     </Filter>
     <Filter Include="96. Utility">
       <UniqueIdentifier>{dd585d7f-ea1b-496c-a1b0-8749e04611a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\03. Sheeder\00. SheederStateMachine">
+      <UniqueIdentifier>{e6dc9c52-8c71-46e4-8f93-2ed68a49bddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\03. Sheeder\01. SheederState">
+      <UniqueIdentifier>{e84c3397-6465-4053-8b61-a6375e6aaff6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -242,8 +245,80 @@
     <ClInclude Include="..\Header\CBoss.h">
       <Filter>03. GameObject\02. Monster\00. Boss</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLoading.h">
+      <Filter>97. Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossStateMachine.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossAwakeState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossDeadState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossIdleState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossJumpState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossRootState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossShakeState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossThrowState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossWalkState.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeStateMachine.h">
+      <Filter>03. GameObject\02. Monster\01. Tree\00. TreeStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeAwakeState.h">
+      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeIdleState.h">
+      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CTreeMob.h">
-      <Filter>03. GameObject\02. Monster\01. Tree</Filter>
+      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeShakeState.h">
+      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlimeStateMachine.h">
+      <Filter>03. GameObject\02. Monster\02. Slime\00. SlimeStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlimeBigState.h">
+      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlimeCircleState.h">
+      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlimeIdleState.h">
+      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlimeMob.h">
+      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlimeWalkState.h">
+      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSheederWalkState.h">
+      <Filter>03. GameObject\02. Monster\03. Sheeder\01. SheederState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSheederAttackState.h">
+      <Filter>03. GameObject\02. Monster\03. Sheeder\01. SheederState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSheederIdleState.h">
+      <Filter>03. GameObject\02. Monster\03. Sheeder\01. SheederState</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSheederStateMachine.h">
+      <Filter>03. GameObject\02. Monster\03. Sheeder\00. SheederStateMachine</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CState.h">
       <Filter>97. StateMachine\00. State</Filter>
@@ -253,84 +328,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\CMonsterState.h">
       <Filter>97. StateMachine\03. MonsterState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CEntity.h">
-      <Filter>03. GameObject\99. Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CBossIdleState.h">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CBossStateMachine.h">
-      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CBossWalkState.h">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CBossAwakeState.h">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CBossJumpState.h">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CBossThrowState.h">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CBossShakeState.h">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CBossRootState.h">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CBossDeadState.h">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CTreeStateMachine.h">
-      <Filter>03. GameObject\02. Monster\01. Tree\00. TreeStateMachine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CSlimeStateMachine.h">
-      <Filter>03. GameObject\02. Monster\02. Slime\00. SlimeStateMachine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CSlimeIdleState.h">
-      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CSlimeBigState.h">
-      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CSlimeCircleState.h">
-      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CSlimeWalkState.h">
-      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CSlimeMob.h">
-      <Filter>03. GameObject\02. Monster\02. Slime</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CSheederStateMachine.h">
-      <Filter>03. GameObject\02. Monster\03. Sheeder\00. SheederState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CSheederIdleState.h">
-      <Filter>03. GameObject\02. Monster\03. Sheeder</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CSheederWalkState.h">
-      <Filter>03. GameObject\02. Monster\03. Sheeder</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CTreeAwakeState.h">
-      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CTreeIdleState.h">
-      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CTreeShakeState.h">
-      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CSheederAttackState.h">
-      <Filter>03. GameObject\02. Monster\03. Sheeder</Filter>
-    </ClInclude>
-    <ClInclude Include="CStat.h">
-      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CLoading.h">
-      <Filter>97. Loading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -412,8 +409,80 @@
     <ClCompile Include="..\Code\CBoss.cpp">
       <Filter>03. GameObject\02. Monster\00. Boss</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CLoading.cpp">
+      <Filter>97. Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossAwakeState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossDeadState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossIdleState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossJumpState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossRootState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossShakeState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossThrowState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossWalkState.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossStateMachine.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeStateMachine.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree\00. TreeStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeAwakeState.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeIdleState.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\CTreeMob.cpp">
-      <Filter>03. GameObject\02. Monster\01. Tree</Filter>
+      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeShakeState.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlimeStateMachine.cpp">
+      <Filter>03. GameObject\02. Monster\02. Slime\00. SlimeStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlimeBigState.cpp">
+      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlimeCircleState.cpp">
+      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlimeIdleState.cpp">
+      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlimeMob.cpp">
+      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlimeWalkState.cpp">
+      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSheederAttackState.cpp">
+      <Filter>03. GameObject\02. Monster\03. Sheeder\01. SheederState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSheederIdleState.cpp">
+      <Filter>03. GameObject\02. Monster\03. Sheeder\01. SheederState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSheederWalkState.cpp">
+      <Filter>03. GameObject\02. Monster\03. Sheeder\01. SheederState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSheederStateMachine.cpp">
+      <Filter>03. GameObject\02. Monster\03. Sheeder\00. SheederStateMachine</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CState.cpp">
       <Filter>97. StateMachine\00. State</Filter>
@@ -423,84 +492,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMonsterState.cpp">
       <Filter>97. StateMachine\03. MonsterState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CEntity.cpp">
-      <Filter>03. GameObject\99. Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CBossIdleState.cpp">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CBossStateMachine.cpp">
-      <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CBossWalkState.cpp">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CBossAwakeState.cpp">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CBossJumpState.cpp">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CBossThrowState.cpp">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CBossShakeState.cpp">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CBossDeadState.cpp">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CBossRootState.cpp">
-      <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CTreeStateMachine.cpp">
-      <Filter>03. GameObject\02. Monster\01. Tree\00. TreeStateMachine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CSlimeStateMachine.cpp">
-      <Filter>03. GameObject\02. Monster\02. Slime\00. SlimeStateMachine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CSlimeIdleState.cpp">
-      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CSlimeBigState.cpp">
-      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CSlimeCircleState.cpp">
-      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CSlimeWalkState.cpp">
-      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CSlimeMob.cpp">
-      <Filter>03. GameObject\02. Monster\02. Slime</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CSheederStateMachine.cpp">
-      <Filter>03. GameObject\02. Monster\03. Sheeder\00. SheederState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CSheederIdleState.cpp">
-      <Filter>03. GameObject\02. Monster\03. Sheeder</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CSheederWalkState.cpp">
-      <Filter>03. GameObject\02. Monster\03. Sheeder</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CTreeAwakeState.cpp">
-      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CTreeIdleState.cpp">
-      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CTreeShakeState.cpp">
-      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CSheederAttackState.cpp">
-      <Filter>03. GameObject\02. Monster\03. Sheeder</Filter>
-    </ClCompile>
-    <ClCompile Include="CStat.cpp">
-      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CLoading.cpp">
-      <Filter>97. Loading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

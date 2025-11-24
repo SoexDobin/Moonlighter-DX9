@@ -30,13 +30,16 @@ public:
     COL_STATE                   Get_ColState() const                 { return m_eState; }
     void                        Set_ColState(COL_STATE eState)       { m_eState = eState; }
 
+    const _vec3&                Get_Offset() const                   { return m_vOffset; }
+    void                        Set_Offset(const _vec3& vOffset)    { m_vOffset = vOffset; }
+
 public:
     _bool                       Is_Overlapped(CCollider* pOverlap);
     void                        Add_OverlapMember(CCollider* pOverlap);
     void                        Release_OverlapMember(CCollider* pOverlap);
 
 public:
-    virtual _bool                Check_Collision(CCollider* pCol) PURE;
+    virtual _bool               Check_Collision(CCollider* pCol) PURE;
 #ifdef _DEBUG
     virtual void                Render_DebugCollider() PURE;
 #endif
@@ -46,6 +49,7 @@ protected:
     COL_STATE                      m_eState;
     _bool                          m_bIsCol;
     unordered_set<CCollider*>      m_usetOverlapCol;
+    _vec3                         m_vOffset;        
     
 public:
     CComponent* Clone() PURE;

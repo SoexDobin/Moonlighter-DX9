@@ -5,7 +5,7 @@
 IMPLEMENT_SINGLETON(CManagement)
 
 CManagement::CManagement()
-    : m_pCurScene(nullptr)
+    : m_pCurScene(nullptr), m_bIsInit(true)
 {
 }
 
@@ -82,7 +82,11 @@ HRESULT CManagement::Set_Scene(CScene* pScene)
     if (pScene == nullptr) return E_FAIL;
 
     Safe_Release(m_pCurScene);
-    CCollisionManager::GetInstance()->Clear_CollisionGroup();
+    if (m_bIsInit)
+        m_bIsInit = false;
+    else
+        CCollisionManager::GetInstance()->Clear_CollisionGroup();
+
     m_pCurScene = pScene;
 
     return S_OK;

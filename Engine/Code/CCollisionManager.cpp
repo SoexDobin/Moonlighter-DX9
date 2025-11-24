@@ -107,6 +107,18 @@ void CCollisionManager::Render_Collision()
 
 _bool CCollisionManager::RectCollision(CRectCollider* pSrc, CRectCollider* pDst)
 {
+    _vec3 vSrcMin = pSrc->Get_Transform()->Get_Pos() + pSrc->Get_Offset() + pSrc->Get_Dimension() * -0.5f;
+    _vec3 vSrcMax = pSrc->Get_Transform()->Get_Pos() + pSrc->Get_Offset() + pSrc->Get_Dimension() * 0.5f;
+
+    _vec3 vDstMin = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + pDst->Get_Dimension() * -0.5f;
+    _vec3 vDstMax = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + pDst->Get_Dimension() * 0.5f;
+
+    if (vSrcMin.x < vDstMax.x) return false;
+    if (vSrcMin.y < vDstMax.y) return false;
+    if (vSrcMin.z < vDstMax.z) return false;
+    if (vSrcMax.x > vDstMin.x) return false;
+    if (vSrcMax.y > vDstMin.y) return false;
+    if (vSrcMax.z > vDstMin.z) return false;
 
     return true;
 }

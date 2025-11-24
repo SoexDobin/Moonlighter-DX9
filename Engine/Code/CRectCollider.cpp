@@ -1,21 +1,22 @@
 ﻿#include "CRectCollider.h"
-//#include "CCollisionManager.h"
+#include "CCollisionManager.h"
 
 #ifdef _DEBUG
 #include "CTransform.h"
 #endif
 
 CRectCollider::CRectCollider()
+    : CCollider()
 {
 }
 
 CRectCollider::CRectCollider(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CCollider(pGraphicDev)
+    : CCollider(pGraphicDev), m_vDimension( { 1.f, 1.f, 1.f } )
 {
 }
 
 CRectCollider::CRectCollider(const CRectCollider& rhs)
-    : CCollider(rhs)
+    : CCollider(rhs), m_vDimension(rhs.m_vDimension)
 {
 }
 
@@ -46,9 +47,11 @@ _bool CRectCollider::Check_Collision(CCollider* pCol)
     {
     case SPHERE_COL:
         return true;
+    case RECT_COL:
+        return CCollisionManager::RectCollision(this, dynamic_cast<CRectCollider*>(pCol));
+    default:
+        return false;
     }
-
-    return false;
 }
 
 #ifdef _DEBUG

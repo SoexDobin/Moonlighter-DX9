@@ -5,7 +5,7 @@
 #include "CDInputManager.h"
 #include "CManagement.h"
 #include "CSphereCollider.h"
-#include "CCollisionManager.h"
+#include "CRectCollider.h"
 
 CTestRect::CTestRect(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_pStaticTexCom(nullptr)
@@ -29,7 +29,7 @@ HRESULT CTestRect::Ready_GameObject()
     if (FAILED(Engine::CRenderObject::Ready_GameObject()))
         return E_FAIL;
 
-    
+
     if (m_pDynamicTexCom = Add_Component<CTexture>(ID_DYNAMIC, L"Texture_Com", TEXTURE))
     {
         m_pDynamicTexCom->Set_Speed(10.f);
@@ -38,7 +38,12 @@ HRESULT CTestRect::Ready_GameObject()
         m_pDynamicTexCom->Set_Texture(POTION);
     }
 
-    //m_pColCom = Add_Component<CSphereCollider>(ID_DYNAMIC, L"Collider_Com", SPHERE_COLLIDER);
+    m_pColCom = Add_Component<CSphereCollider>(ID_DYNAMIC, L"Sphere_Com", SPHERE_COLLIDER);
+    m_pColCom->Set_Offset(_vec3(1.f, 2.f, 0.f));
+    m_pColCom->Set_Scale(2.f);
+    //m_pRectColCom = Add_Component<CRectCollider>(ID_DYNAMIC, L"Rect_Com", RECT_COLLIDER);
+    //m_pRectColCom->Set_Offset(_vec3(1.f, 0.f, 0.f));
+    //m_pRectColCom->Set_Dimension(_vec3(1.f, 2.f, 3.f));
 
     //pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
     //if (pCom->Get_ComponentType() != TEXTURE)

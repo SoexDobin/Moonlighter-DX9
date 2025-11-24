@@ -6,6 +6,7 @@
 #include "CDInputManager.h"
 #include "CTexture.h"
 #include "CTransform.h"
+#include "CRectCollider.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTexCom(nullptr), m_eState(IDLE), m_eDir(DIR_DOWN), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(0.5f), m_vRollDir{ 0.f, 0.f, 0.f }, m_fAttackTime(0.f), m_fAttackDuration(0.5f)
@@ -34,6 +35,8 @@ HRESULT CPlayer::Ready_GameObject()
 
     m_pTransformCom->Set_Scale(8.f, 8.f, 1.f);
     m_pTransformCom->Set_Pos(10.f, 5.f, 0.f);
+
+    m_pColCom = Add_Component<CRectCollider>(ID_DYNAMIC, L"Collider_Com", RECT_COLLIDER);
 
     m_eState        = IDLE;
     m_eDir          = DIR_DOWN;
@@ -331,6 +334,22 @@ void CPlayer::Render_GameObject()
     m_pBufferCom->Render_Buffer();
 
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+}
+
+void CPlayer::On_Collision(const Collision& tCollision)
+{
+    if (tCollision.eColState == EXIT_COL)
+    {
+        int a = 0;
+    }
+    else if (tCollision.eColState == STAY_COL)
+    {
+        int a = 0;
+    }
+    else if (tCollision.eColState == ENTER_COL)
+    {
+        int a = 0;
+    }
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)

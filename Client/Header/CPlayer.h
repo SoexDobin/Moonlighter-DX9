@@ -31,7 +31,7 @@ private:
 
 private:
     CTexture* m_pTexCom;
-    CSphereCollider* m_pColCom;
+    CRectCollider* m_pColCom;
     STATE       m_eState;
     DIRECTION   m_eDir;
 

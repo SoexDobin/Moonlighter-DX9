@@ -1,4 +1,5 @@
 ﻿#include "CSphereCollider.h"
+#include "CRectCollider.h"
 #include "CCollisionManager.h"
 
 #ifdef _DEBUG
@@ -35,6 +36,8 @@ _bool CSphereCollider::Check_Collision(CCollider* pCol)
     {
     case SPHERE_COL:
         return CCollisionManager::GetInstance()->SphereCollision(this, static_cast<CSphereCollider*>(pCol));
+    case RECT_COL:
+        return CCollisionManager::GetInstance()->SphereRectCollision(this, static_cast<CRectCollider*>(pCol));
     default:
         return false;
     }
@@ -58,27 +61,19 @@ void CSphereCollider::Render_DebugCollider()
     if (m_pTrans == nullptr || m_pGraphicDevice == nullptr)
         return;
 
-    // 상태 백업
+    struct DebugVtx { _float x, y, z; DWORD color; };
+
+    
     DWORD prevFillMode = 0;
     m_pGraphicDevice->GetRenderState(D3DRS_FILLMODE, &prevFillMode);
-
     BOOL prevLighting = FALSE;
     m_pGraphicDevice->GetRenderState(D3DRS_LIGHTING, (DWORD*)&prevLighting);
-
     D3DXMATRIX prevWorld;
     m_pGraphicDevice->GetTransform(D3DTS_WORLD, &prevWorld);
-
     // 월드 행렬은 단위행렬로 두고, 월드좌표로 직접 찍는다
     D3DXMATRIX matIdentity;
     D3DXMatrixIdentity(&matIdentity);
     m_pGraphicDevice->SetTransform(D3DTS_WORLD, &matIdentity);
-
-    // 디버그용 정점
-    struct DebugVtx
-    {
-        float x, y, z;
-        DWORD color;
-    };
 
     DWORD color(0);
     if (m_eState == ENTER_COL || m_eState == STAY_COL)
@@ -86,17 +81,17 @@ void CSphereCollider::Render_DebugCollider()
     else
         color = D3DCOLOR_ARGB(255, 0, 255, 0);
 
-    const int   segments = 32;   // 원 세그먼트 수
+    const _int   segments = 32;   // 원 세그먼트 수
 
-    _vec3 center = m_pTrans->Get_Pos();
-    float radius = m_fRadius * m_fScale * 0.5f; // 필요하면 충돌 공식에 맞게 조정
+    _vec3 center = m_pTrans->Get_Pos() + m_vOffset;
+    float radius = m_fRadius * m_fScale; // 필요하면 충돌 공식에 맞게 조정
 
     m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
     m_pGraphicDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
     m_pGraphicDevice->SetTexture(0, nullptr);
     m_pGraphicDevice->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
 
-    auto DrawCircle = [&](int plane)
+    auto DrawCircle = [&](_int plane)
         {
             // plane: 0 = XZ, 1 = XY, 2 = YZ
             DebugVtx v[segments + 1];

@@ -74,6 +74,10 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
         ->Ready_Prototype(SPHERE_COLLIDER, CSphereCollider::Create(pGraphicDev))))
         return E_FAIL;
 
+    if (FAILED(Engine::CPrototypeManager::GetInstance()
+        ->Ready_Prototype(RECT_COLLIDER, CRectCollider::Create(pGraphicDev))))
+        return E_FAIL;
+
 	return S_OK;
 }
 

@@ -6,7 +6,7 @@
 #include "CDInputManager.h"
 #include "CTexture.h"
 #include "CTransform.h"
-#include "CSphereCollider.h"
+#include "CRectCollider.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTexCom(nullptr), m_eState(IDLE), m_eDir(DIR_DOWN), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(0.5f), m_vRollDir{ 0.f, 0.f, 0.f }
@@ -36,7 +36,7 @@ HRESULT CPlayer::Ready_GameObject()
     m_pTransformCom->Set_Scale(8.f, 8.f, 1.f);
     m_pTransformCom->Set_Pos(5.f, 0.f, 0.f);
 
-    m_pColCom = Add_Component<CSphereCollider>(ID_DYNAMIC, L"Collider_Com", SPHERE_COLLIDER);
+    m_pColCom = Add_Component<CRectCollider>(ID_DYNAMIC, L"Collider_Com", RECT_COLLIDER);
 
     m_eState        = IDLE;
     m_eDir          = DIR_DOWN;

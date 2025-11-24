@@ -27,6 +27,7 @@ public:
 #endif
     static      _bool RectCollision(CRectCollider* pSrc, CRectCollider* pDst);
     static      _bool SphereCollision(CSphereCollider* pSrc, CSphereCollider* pDst);
+    static      _bool SphereRectCollision(CSphereCollider* pSrc, CRectCollider* pDst);
 
 private:
     vector<CCollider*>      m_vecCollider;

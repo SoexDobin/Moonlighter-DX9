@@ -40,6 +40,9 @@ private:
     _float      m_fRollTime;
     _vec3       m_vRollDir;
 
+    _float      m_fAttackTime;
+    _float      m_fAttackDuration;
+
 public:
     static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

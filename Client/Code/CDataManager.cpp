@@ -150,19 +150,73 @@ HRESULT CDataManager::Ready_Player_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
     // Player Spear Combo Attack
 
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Combo_Down",
-        n_wsResSpritePath + L"Player/Spear/ComboAttack/Down/PLAYER_SPEAR_COMBO_DOWN_%02d.png", 7)))
+        n_wsResSpritePath + L"Player/Spear/ComboAttack/Down/PLAYER_SPEAR_COMBO_DOWN_%02d.png", 23)))
         return E_FAIL;
 
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Combo_Up",
-        n_wsResSpritePath + L"Player/Spear/ComboAttack/Up/PLAYER_SPEAR_COMBO_UP_%02d.png", 7)))
+        n_wsResSpritePath + L"Player/Spear/ComboAttack/Up/PLAYER_SPEAR_COMBO_UP_%02d.png", 23)))
         return E_FAIL;
 
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Combo_Left",
-        n_wsResSpritePath + L"Player/Spear/ComboAttack/Left/PLAYER_SPEAR_COMBO_LEFT_%02d.png", 7)))
+        n_wsResSpritePath + L"Player/Spear/ComboAttack/Left/PLAYER_SPEAR_COMBO_LEFT_%02d.png", 23)))
         return E_FAIL;
 
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Combo_Right",
-        n_wsResSpritePath + L"Player/Spear/ComboAttack/Right/PLAYER_SPEAR_COMBO_RIGHT_%02d.png", 7)))
+        n_wsResSpritePath + L"Player/Spear/ComboAttack/Right/PLAYER_SPEAR_COMBO_RIGHT_%02d.png", 23)))
+        return E_FAIL;
+
+    // Player Spear Charge Attack
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Charge_Down",
+        n_wsResSpritePath + L"Player/Spear/ChargeAttack/Down/PLAYER_SPEAR_CHARGE_DOWN_%02d.png", 54)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Charge_Up",
+        n_wsResSpritePath + L"Player/Spear/ChargeAttack/Up/PLAYER_SPEAR_CHARGE_UP_%02d.png", 54)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Charge_Left",
+        n_wsResSpritePath + L"Player/Spear/ChargeAttack/Left/PLAYER_SPEAR_CHARGE_LEFT_%02d.png", 54)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Spear_Charge_Right",
+        n_wsResSpritePath + L"Player/Spear/ChargeAttack/Right/PLAYER_SPEAR_CHARGE_RIGHT_%02d.png", 54)))
+        return E_FAIL;
+
+    // Player Bow Normal Attack
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Bow_Normal_Down",
+        n_wsResSpritePath + L"Player/Bow/NormalAttack/Down/PLAYER_BOW_NORMAL_DOWN_%02d.png", 11)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Bow_Normal_Up",
+        n_wsResSpritePath + L"Player/Bow/NormalAttack/Up/PLAYER_BOW_NORMAL_UP_%02d.png", 11)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Bow_Normal_Left",
+        n_wsResSpritePath + L"Player/Bow/NormalAttack/Left/PLAYER_BOW_NORMAL_LEFT_%02d.png", 11)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Bow_Normal_Right",
+        n_wsResSpritePath + L"Player/Bow/NormalAttack/Right/PLAYER_BOW_NORMAL_RIGHT_%02d.png", 11)))
+        return E_FAIL;
+
+    // Player Bow Charge Attack
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Bow_Charge_Down",
+        n_wsResSpritePath + L"Player/Bow/ChargeAttack/Down/PLAYER_BOW_CHARGE_DOWN_%02d.png", 27)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Bow_Charge_Up",
+        n_wsResSpritePath + L"Player/Bow/ChargeAttack/Up/PLAYER_BOW_CHARGE_UP_%02d.png", 27)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Bow_Charge_Left",
+        n_wsResSpritePath + L"Player/Bow/ChargeAttack/Left/PLAYER_BOW_CHARGE_LEFT_%02d.png", 27)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Player_Bow_Charge_Right",
+        n_wsResSpritePath + L"Player/Bow/ChargeAttack/Right/PLAYER_BOW_CHARGE_RIGHT_%02d.png", 27)))
         return E_FAIL;
 
     return S_OK;

@@ -8,13 +8,13 @@
 #include "CTransform.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CRenderObject(pGraphicDev), m_pTexCom(nullptr), m_eState(IDLE), m_eDir(DIR_DOWN), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(0.5f), m_vRollDir{ 0.f, 0.f, 0.f }, m_fAttackTime(0.f), m_fAttackDuration(0.5f)
+    : CRenderObject(pGraphicDev), m_pTexCom(nullptr), m_eWeapon(NONE), m_eState(IDLE), m_eDir(DIR_DOWN), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fActionTime(0.f), m_fActionDuration(0.5f), m_vActionDir{ 0.f, 0.f, 0.f }
 {
     PANEL_NAME(L"Player");
 }
 
 CPlayer::CPlayer(const CPlayer& rhs)
-    : CRenderObject(rhs), m_pTexCom(nullptr), m_eState(rhs.m_eState), m_eDir(rhs.m_eDir), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(rhs.m_fRollDuration), m_vRollDir{ 0.f, 0.f, 0.f }, m_fAttackTime(0.f), m_fAttackDuration(rhs.m_fRollDuration)
+    : CRenderObject(rhs), m_pTexCom(nullptr), m_eWeapon(rhs.m_eWeapon), m_eState(rhs.m_eState), m_eDir(rhs.m_eDir), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fActionTime(0.f), m_fActionDuration(rhs.m_fActionDuration), m_vActionDir{ 0.f, 0.f, 0.f }
 {
     PANEL_NAME(L"Player");
 }
@@ -35,12 +35,12 @@ HRESULT CPlayer::Ready_GameObject()
     m_pTransformCom->Set_Scale(8.f, 8.f, 1.f);
     m_pTransformCom->Set_Pos(10.f, 5.f, 0.f);
 
+    m_eWeapon       = NONE;
     m_eState        = IDLE;
     m_eDir          = DIR_DOWN;
     m_ePrevState    = STATE_END;
     m_ePrevDir      = DIR_END;
-    m_fRollTime     = 0.f;
-    m_fAttackTime   = 0.f;
+    m_fActionTime   = 0.f;
 
     return S_OK;
 }
@@ -107,7 +107,10 @@ _uint CPlayer::Get_AnimationIndex()
     case IDLE:          iBase = 0; break;
     case WALK:          iBase = 4; break;
     case ROLL:          iBase = 8; break;
-    case COMBOATTACK:   iBase = 24; break;
+    case SPEAR_COMBO:   iBase = 12; break;
+    case SPEAR_CHARGE:  iBase = 16; break;
+    case BOW_NORMAL:    iBase = 20; break;
+    case BOW_CHARGE:    iBase = 24; break;
     default:            iBase = 0; break;
     }
 
@@ -127,14 +130,25 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
     if (m_eState == ROLL)
         return;
 
-    if (m_eState == COMBOATTACK)
+    if (m_eState == SPEAR_COMBO)
+        return;
+
+    if (m_eState == SPEAR_CHARGE)
+        return;
+
+    if (m_eState == BOW_NORMAL)
+        return;
+
+    if (m_eState == BOW_CHARGE)
         return;
 
     auto* pInput = CDInputManager::GetInstance();
 
     _vec3 vDir   = { 0.f, 0.f, 0.f };
+
     bool bMoving = false;
     bool bAttack = false;
+    bool bCharge = false;
 
     if (pInput->Get_DIKeyState(DIK_UP) & 0x80)
     {
@@ -177,6 +191,33 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         bAttack = true;
     }
 
+    if (pInput->Get_DIKeyState(DIK_G) & 0x80)
+    {
+        bCharge = true;
+    }
+
+    if (pInput->Get_DIKeyState(DIK_LSHIFT) & 0x80)
+    {
+        if (m_eWeapon == NONE)
+        {
+            m_eWeapon = SPEAR;
+
+            return;
+        }
+        else if (m_eWeapon == SPEAR)
+        {
+            m_eWeapon = BOW;
+
+            return;
+        }
+        else
+        {
+            m_eWeapon = NONE;
+
+            return;
+        }
+    }
+
     if (pInput->Get_DIKeyState(DIK_SPACE) & 0x80)
     {
         if (m_eState != ROLL)
@@ -185,26 +226,9 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 
             m_pTexCom->Set_Speed(15.f);
 
-            m_fRollTime = 0.f;
+            m_fActionTime = 0.f;
 
-            switch (m_eDir)
-            {
-            case DIR_UP:
-                m_vRollDir = { 0.f, 0.f, 1.f };
-                break;
-            case DIR_DOWN:
-                m_vRollDir = { 0.f, 0.f, -1.f };
-                break;
-            case DIR_LEFT:
-                m_vRollDir = { -1.f, 0.f, 0.f };
-                break;
-            case DIR_RIGHT:
-                m_vRollDir = { 1.f, 0.f, 0.f };
-                break;
-            default:
-                m_vRollDir = { 0.f, 0.f, 0.f };
-                break;
-            }
+            Save_Dir();
 
             //_uint iRollIdx      = Get_AnimationIndex();
             //_uint iFrameCount   = m_pTexCom->Get_FrameCount(iRollIdx);
@@ -226,9 +250,44 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 
     if (bAttack)
     {
-        m_eState = COMBOATTACK;
+        if (m_eWeapon == SPEAR)
+            m_eState = SPEAR_COMBO;
+        else if (m_eWeapon == BOW)
+            m_eState = BOW_NORMAL;
+        else
+            bAttack = false;
+
+        Save_Dir();
+
         m_ePrevState = STATE_END;
-        m_fAttackTime = 0.f;
+        m_fActionTime = 0.f;
+        m_pTexCom->Set_Loop(false);
+        m_pTexCom->Set_Speed(12.f);
+
+        _uint iIdx = Get_AnimationIndex();
+
+        if (m_pTexCom->Get_Speed() > 0.f)
+            m_fActionDuration = (float)m_pTexCom->Get_FrameCount(iIdx) / m_pTexCom->Get_Speed();
+        else
+            m_fActionDuration = 0.5f;
+
+        m_pTexCom->Set_Texture(iIdx, 0);
+
+        return;
+    }
+    else if (bCharge)
+    {
+        if (m_eWeapon == SPEAR)
+            m_eState = SPEAR_CHARGE;
+        else if (m_eWeapon == BOW)
+            m_eState = BOW_CHARGE;
+        else
+            bCharge = false;
+
+        Save_Dir();
+
+        m_ePrevState = STATE_END;
+        m_fActionTime = 0.f;
 
         m_pTexCom->Set_Loop(false);
         m_pTexCom->Set_Speed(12.f);
@@ -236,9 +295,9 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         _uint iIdx = Get_AnimationIndex();
 
         if (m_pTexCom->Get_Speed() > 0.f)
-            m_fAttackDuration = (float)m_pTexCom->Get_FrameCount(iIdx) / m_pTexCom->Get_Speed();
+            m_fActionDuration = (float)m_pTexCom->Get_FrameCount(iIdx) / m_pTexCom->Get_Speed();
         else
-            m_fAttackDuration = 0.5f;
+            m_fActionDuration = 0.5f;
 
         m_pTexCom->Set_Texture(iIdx, 0);
 
@@ -261,14 +320,73 @@ _int CPlayer::Update_GameObject(const _float fTimeDelta)
 {
     _int iExit = Engine::CRenderObject::Update_GameObject(fTimeDelta);
 
-    if (m_eState == COMBOATTACK)
+    if (m_eState == SPEAR_COMBO)
     {
-        m_fAttackTime += fTimeDelta;
+        m_fActionTime += fTimeDelta;
 
-        if (m_fAttackTime >= m_fAttackDuration)
+        if (m_fActionTime >= m_fActionDuration)
         {
             m_eState = IDLE;
-            m_fAttackTime = 0.f;
+            m_fActionTime = 0.f;
+
+            m_pTexCom->Set_Loop(true);
+            m_pTexCom->Set_Speed(8.5f);
+        }
+
+        return iExit;
+    }
+    else if (m_eState == SPEAR_CHARGE)
+    {
+        m_fActionTime += fTimeDelta;
+
+        _vec3 vMove = m_vActionDir;
+        if (vMove.x != 0.f || vMove.y != 0.f || vMove.z != 0.f)
+        {
+            D3DXVec3Normalize(&vMove, &vMove);
+            m_pTransformCom->Move_Pos(&vMove, fTimeDelta, 10.f);
+        }
+
+        if (m_fActionTime >= m_fActionDuration)
+        {
+            m_eState = IDLE;
+            m_fActionTime = 0.f;
+
+            m_pTexCom->Set_Loop(true);
+            m_pTexCom->Set_Speed(8.5f);
+        }
+
+        return iExit;
+    }
+    else if (m_eState == BOW_NORMAL)
+    {
+        m_fActionTime += fTimeDelta;
+
+        _vec3 vMove = m_vActionDir;
+        if (vMove.x != 0.f || vMove.y != 0.f || vMove.z != 0.f)
+        {
+            D3DXVec3Normalize(&vMove, &vMove);
+            m_pTransformCom->Move_Pos(&vMove, fTimeDelta, -5.f);
+        }
+
+        if (m_fActionTime >= m_fActionDuration)
+        {
+            m_eState = IDLE;
+            m_fActionTime = 0.f;
+
+            m_pTexCom->Set_Loop(true);
+            m_pTexCom->Set_Speed(8.5f);
+        }
+
+        return iExit;
+    }
+    else if (m_eState == BOW_CHARGE)
+    {
+        m_fActionTime += fTimeDelta;
+
+        if (m_fActionTime >= m_fActionDuration)
+        {
+            m_eState = IDLE;
+            m_fActionTime = 0.f;
 
             m_pTexCom->Set_Loop(true);
             m_pTexCom->Set_Speed(8.5f);
@@ -278,16 +396,16 @@ _int CPlayer::Update_GameObject(const _float fTimeDelta)
     }
     else if (m_eState == ROLL)
     {
-        m_fRollTime += fTimeDelta;
+        m_fActionTime += fTimeDelta;
 
-        _vec3 vMove = m_vRollDir;
+        _vec3 vMove = m_vActionDir;
         if (vMove.x != 0.f || vMove.y != 0.f || vMove.z != 0.f)
         {
             D3DXVec3Normalize(&vMove, &vMove);
             m_pTransformCom->Move_Pos(&vMove, fTimeDelta, 10.f);
         }
 
-        if (m_fRollTime >= m_fRollDuration)
+        if (m_fActionTime >= m_fActionDuration)
         {
             m_eState = IDLE;
             m_pTexCom->Set_Loop(true);
@@ -310,6 +428,28 @@ _int CPlayer::Update_GameObject(const _float fTimeDelta)
     }
 
     return iExit;
+}
+
+void CPlayer::Save_Dir()
+{
+    switch (m_eDir)
+    {
+    case DIR_UP:
+        m_vActionDir = { 0.f, 0.f, 1.f };
+        break;
+    case DIR_DOWN:
+        m_vActionDir = { 0.f, 0.f, -1.f };
+        break;
+    case DIR_LEFT:
+        m_vActionDir = { -1.f, 0.f, 0.f };
+        break;
+    case DIR_RIGHT:
+        m_vActionDir = { 1.f, 0.f, 0.f };
+        break;
+    default:
+        m_vActionDir = { 0.f, 0.f, 0.f };
+        break;
+    }
 }
 
 void CPlayer::LateUpdate_GameObject(const _float fTimeDelta)

@@ -133,6 +133,12 @@
     <Filter Include="02. Prototype\03. Collider\01. RectCollider">
       <UniqueIdentifier>{ec7333f4-f1f0-4e94-9aa2-9b56b1697e35}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Prototype\00. VIBuffer\02. TerrainTex\00. Village">
+      <UniqueIdentifier>{e6c8fe04-0c66-4eda-9dca-94e3e7e7bdef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Prototype\00. VIBuffer\02. TerrainTex\01. Dungeon">
+      <UniqueIdentifier>{2080e8aa-d930-4018-9d77-4f82e32c5246}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -200,9 +206,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\CRenderer.h">
       <Filter>00. Manager\04. Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CTerrainTex.h">
-      <Filter>02. Prototype\00. VIBuffer\02. TerrainTex</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCamera.h">
       <Filter>01. Logic\03. GameObject\00. Camera</Filter>
@@ -285,6 +288,12 @@
     <ClInclude Include="..\Header\CRectCollider.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CTerrainTex.h">
+      <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\00. Village</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTerrainDungeonTex.h">
+      <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\01. Dungeon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CTimer.cpp">
@@ -337,9 +346,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRenderer.cpp">
       <Filter>00. Manager\04. Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CTerrainTex.cpp">
-      <Filter>02. Prototype\00. VIBuffer\02. TerrainTex</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCamera.cpp">
       <Filter>01. Logic\03. GameObject\00. Camera</Filter>
@@ -412,6 +418,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRectCollider.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerrainTex.cpp">
+      <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\00. Village</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerrainDungeonTex.cpp">
+      <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\01. Dungeon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

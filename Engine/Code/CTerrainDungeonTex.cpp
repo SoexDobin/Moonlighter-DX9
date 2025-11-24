@@ -1,40 +1,38 @@
-﻿#include "CTerrainTex.h"
+﻿#include "CTerrainDungeonTex.h"
 
-CTerrainTex::CTerrainTex()
-    : m_dwCntX(0), m_dwCntZ(0), m_dwVtxItv(0), m_wsHeightMapPath(L""), m_pPos(nullptr)
+CTerrainDungeonTex::CTerrainDungeonTex()
+    : m_dwCntX(0), m_dwCntZ(0), m_dwVtxItv(0), m_wsHeightMapPath(L"")
 {
 }
 
-CTerrainTex::CTerrainTex(LPDIRECT3DDEVICE9 pGraphicDev, 
-    const _ulong dwCntX, 
-    const _ulong dwCntZ, 
-    const _ulong dwVtxItv, 
+CTerrainDungeonTex::CTerrainDungeonTex(LPDIRECT3DDEVICE9 pGraphicDev,
+    const _ulong dwCntX,
+    const _ulong dwCntZ,
+    const _ulong dwVtxItv,
     const wstring& wsHeightMapPath)
-    : CVIBuffer(pGraphicDev), 
-    m_dwCntX(dwCntX), m_dwCntZ(dwCntZ), m_dwVtxItv(dwVtxItv), m_wsHeightMapPath(wsHeightMapPath), m_pPos(nullptr)
+    : CVIBuffer(pGraphicDev),
+    m_dwCntX(dwCntX), m_dwCntZ(dwCntZ), m_dwVtxItv(dwVtxItv), m_wsHeightMapPath(wsHeightMapPath)
 {
 }
 
-CTerrainTex::CTerrainTex(const CTerrainTex& rhs)
-    : CVIBuffer(rhs), 
-    m_dwCntX(rhs.m_dwCntX), m_dwCntZ(rhs.m_dwCntZ), m_dwVtxItv(rhs.m_dwVtxItv), m_wsHeightMapPath(rhs.m_wsHeightMapPath), m_pPos(rhs.m_pPos)
+CTerrainDungeonTex::CTerrainDungeonTex(const CTerrainDungeonTex& rhs)
+    : CVIBuffer(rhs),
+    m_dwCntX(rhs.m_dwCntX), m_dwCntZ(rhs.m_dwCntZ), m_dwVtxItv(rhs.m_dwVtxItv), m_wsHeightMapPath(rhs.m_wsHeightMapPath)
 {
-    
+
 }
 
-CTerrainTex::~CTerrainTex()
+CTerrainDungeonTex::~CTerrainDungeonTex()
 {
 }
 
-HRESULT CTerrainTex::Ready_Buffer()
+HRESULT CTerrainDungeonTex::Ready_Buffer()
 {
     m_dwVtxSize = sizeof(VTXTEX);
     m_dwVtxCnt = m_dwCntX * m_dwCntZ;
     m_dwTriCnt = (m_dwCntX - 1) * (m_dwCntZ - 1) * 2;
     m_dwFVF = FVF_TEX;
 
-    m_pPos = new _vec3[m_dwVtxCnt];
-    
     m_dwIdxSize = sizeof(INDEX32);
     m_IdxFmt = D3DFMT_INDEX32;
 
@@ -48,10 +46,10 @@ HRESULT CTerrainTex::Ready_Buffer()
         BITMAPFILEHEADER tFileHeader;
         BITMAPINFOHEADER tInfoHeader;
         HANDLE hFile = CreateFile(m_wsHeightMapPath.c_str(),
-                                  GENERIC_READ,
-                                  NULL, NULL,
-                                  OPEN_EXISTING,
-                                  FILE_ATTRIBUTE_NORMAL, NULL);
+            GENERIC_READ,
+            NULL, NULL,
+            OPEN_EXISTING,
+            FILE_ATTRIBUTE_NORMAL, NULL);
 
         if (hFile == INVALID_HANDLE_VALUE) return E_FAIL;
 
@@ -59,7 +57,7 @@ HRESULT CTerrainTex::Ready_Buffer()
             return E_FAIL;
         if (!ReadFile(hFile, &tInfoHeader, sizeof(BITMAPINFOHEADER), &dwByte, NULL))
             return E_FAIL;
-        
+
         pPixel = new _ulong[tInfoHeader.biWidth * tInfoHeader.biHeight];
         if (!ReadFile(hFile, pPixel, sizeof(_ulong) * tInfoHeader.biWidth * tInfoHeader.biHeight, &dwByte, NULL))
             return E_FAIL;
@@ -77,15 +75,13 @@ HRESULT CTerrainTex::Ready_Buffer()
             dwIndex = i * m_dwCntX + j;
             if (pPixel != nullptr)
                 fHeight = (_float)(pPixel[dwIndex] & 0x000000ff) / 20.f;
-                
-            pVertices[dwIndex].vPosition = 
-            { (_float)(j * m_dwVtxItv), 
-              fHeight,
-              (_float)(i * m_dwVtxItv)};
-            pVertices[dwIndex].vTexUV = 
-            { (_float)j / _float(m_dwCntX - 1), (_float)i / _float(m_dwCntZ - 1) };
 
-            m_pPos[dwIndex] = pVertices[dwIndex].vPosition;
+            pVertices[dwIndex].vPosition =
+            { (_float)(j * m_dwVtxItv),
+              fHeight,
+              (_float)(i * m_dwVtxItv) };
+            pVertices[dwIndex].vTexUV =
+            { (_float)j / _float(m_dwCntX - 1), (_float)i / _float(m_dwCntZ - 1) };
         }
     }
 
@@ -123,22 +119,22 @@ HRESULT CTerrainTex::Ready_Buffer()
     return S_OK;
 }
 
-void CTerrainTex::Render_Buffer()
+void CTerrainDungeonTex::Render_Buffer()
 {
     Engine::CVIBuffer::Render_Buffer();
 }
 
-CTerrainTex* CTerrainTex::Create(LPDIRECT3DDEVICE9 pGraphicDev,
-                                 const _ulong dwCntX,
-                                 const _ulong dwCntZ,
-                                 const _ulong dwVtxItv,
-                                 const wstring& wsHeightMapPath)
+CTerrainDungeonTex* CTerrainDungeonTex::Create(LPDIRECT3DDEVICE9 pGraphicDev,
+    const _ulong dwCntX,
+    const _ulong dwCntZ,
+    const _ulong dwVtxItv,
+    const wstring& wsHeightMapPath)
 {
-    CTerrainTex* pInstance = new CTerrainTex(pGraphicDev, dwCntX, dwCntZ, dwVtxItv, wsHeightMapPath);
+    CTerrainDungeonTex* pInstance = new CTerrainDungeonTex(pGraphicDev, dwCntX, dwCntZ, dwVtxItv, wsHeightMapPath);
 
     if (FAILED(pInstance->Ready_Buffer()))
     {
-        MSG_BOX("CTerrainTex Create Failed");
+        MSG_BOX("CTerrainDungeonTex Create Failed");
         Safe_Release(pInstance);
         return nullptr;
     }
@@ -146,17 +142,12 @@ CTerrainTex* CTerrainTex::Create(LPDIRECT3DDEVICE9 pGraphicDev,
     return pInstance;
 }
 
-CComponent* CTerrainTex::Clone()
+CComponent* CTerrainDungeonTex::Clone()
 {
-    return new CTerrainTex(*this);
+    return new CTerrainDungeonTex(*this);
 }
 
-void CTerrainTex::Free()
+void CTerrainDungeonTex::Free()
 {
-    if (m_bClone == false)
-    {
-        Safe_Delete_Array(m_pPos);
-    }
-
     Engine::CVIBuffer::Free();
 }

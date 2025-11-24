@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "CDInputManager.h"
+#include "CResourceManager.h"
 #include "CPrototypeManager.h"
 #include "CDynamicCamera.h"
 #include "CTestRect.h"
@@ -10,7 +11,7 @@
 #include "CTree.h"
 
 CEditScene::CEditScene(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CScene(pGraphicDev), pVillage(nullptr), g_MapEditor(nullptr)
+    : CScene(pGraphicDev), pVillage(nullptr), g_MapEditor(nullptr), g_pPreviewTex(nullptr)
 {
 }
 
@@ -79,64 +80,101 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 
+    // mouse coordinates
+    if (ImGui::IsMouseDown(ImGuiMouseButton_Right))
+    {
+        ImVec2 mousePos = ImGui::GetMousePos();
+
+        find_VillageTerrain();
+
+        _vec3 vMousePos = CUtility::Picking_Terrain(m_pGraphicDevice, g_hWnd, static_cast<CTerrainVillage*>(pVillage));
+
+        ImGui::SetNextWindowPos(ImVec2(mousePos.x + 15, mousePos.y + 15));
+        ImGui::SetNextWindowBgAlpha(0.5f);
+        ImGui::Begin("Mouse Pos", nullptr,
+            ImGuiWindowFlags_NoTitleBar |
+            ImGuiWindowFlags_AlwaysAutoResize |
+            ImGuiWindowFlags_NoMove |
+            ImGuiWindowFlags_NoSavedSettings |
+            ImGuiWindowFlags_NoFocusOnAppearing |
+            ImGuiWindowFlags_NoNav);
+        ImGui::Text("X: %.0f", vMousePos.x);
+        ImGui::Text("Z: %.0f", vMousePos.z);
+        ImGui::End();
+    }
+
     // Add object
     ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiCond_Once);
     ImGui::SetNextWindowSize(ImVec2(0, 0), ImGuiCond_Always);
     ImGui::Begin("Editor", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-    if (ImGui::Button("Add TerrainVillege"))
-    {
-        Add_TerrainVillage(L"Environment_Layer");
-    }
-    if (ImGui::Button("Save Terrain"))
-    {
-        CUtility::SaveMap(static_cast<CTerrainVillage*>(pVillage));
-    }
-    if (ImGui::Button("Load Terrain"))
-    {
-        _ulong pCntX, pCntZ, pInterval;
-        wstring heightMap;
 
-        CUtility::LoadMap(&pCntX, &pCntZ, &pInterval, heightMap);
-
-        auto iter = m_umLayer.find(L"Environment_Layer");
-        if (iter != m_umLayer.end())
+    if (ImGui::CollapsingHeader("Village"))
+    {
+        if (ImGui::Button("Add TerrainVillage"))
         {
-            CLayer* pLayer = iter->second;
-
-            CGameObject* pMapVillage = CTerrainVillage::Create(m_pGraphicDevice);
-
-            if (FAILED(pLayer->Add_GameObject(L"TerrainVillage", pMapVillage)))
-            {
-                MSG_BOX("Add Terrain Village Fail");
-                return;
-            }
+            Add_TerrainVillage(L"Environment_Layer");
         }
-        else
+        if (ImGui::IsItemHovered())
         {
-            CLayer* pGameLogicLayer = CLayer::Create();
+            InitPreviewTextures(L"Map_Village");
+            ImGui::BeginTooltip();
+            ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
+            ImGui::EndTooltip();
+        }
 
-            CGameObject* pGameObject = nullptr;
-            pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
-            if (FAILED(pGameLogicLayer->Add_GameObject(L"TerrainVillage", pGameObject)))
-            {
-                MSG_BOX("Add Terrain Village Fail");
-                return;
-            }
+        if (ImGui::Button("Save Village Terrain"))
+        {
+            find_VillageTerrain();
+            CUtility::SaveVillageMap(static_cast<CTerrainVillage*>(pVillage), m_umLayer);
+        }
 
-            m_umLayer.emplace(pair<const wstring, CLayer*>{ L"Environment_Layer", pGameLogicLayer});
+        if (ImGui::Button("Load Village Terrain"))
+        {
+            CUtility::LoadVillageMap(m_pGraphicDevice, m_umLayer);
+        }
+
+        if (ImGui::Button("Add House"))
+        {
+            Add_House(L"Environment_Layer");
+        }
+        if (ImGui::IsItemHovered())
+        {
+            InitPreviewTextures(L"Map_Village_House");
+            ImGui::BeginTooltip();
+            ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
+            ImGui::EndTooltip();
+        }
+
+        if (ImGui::Button("Add Tree"))
+        {
+            Add_Tree(L"Environment_Layer");
+        }
+        if (ImGui::IsItemHovered())
+        {
+            InitPreviewTextures(L"Map_Village_Tree");
+            ImGui::BeginTooltip();
+            ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
+            ImGui::EndTooltip();
         }
     }
 
-    if (ImGui::Button("Add House"))
+    if (ImGui::CollapsingHeader("Dungeon"))
     {
-        Add_House(L"Environment_Layer");
+        if (ImGui::Button("Add Terrain Dungeon"))
+        {
+            Add_TerrainDungeon(L"Environment_Layer");
+        }
+        if (ImGui::IsItemHovered())
+        {
+            InitPreviewTextures(L"Map_Dungeon");
+            ImGui::BeginTooltip();
+            ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
+            ImGui::EndTooltip();
+        }
     }
 
-    if (ImGui::Button("Add Tree"))
-    {
-        Add_Tree(L"Environment_Layer");
-    }
     ImGui::End();
+
 
     // Layer & Object edit
     ImGui::SetNextWindowPos(ImVec2(200, 100), ImGuiCond_Once);
@@ -289,9 +327,9 @@ HRESULT CEditScene::Add_TerrainVillage(const wstring pLayerTag)
     {
         CLayer* pLayer = iter->second;
 
-        CGameObject* pHouse = CTerrainVillage::Create(m_pGraphicDevice);
+        CGameObject* pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
 
-        if (FAILED(pLayer->Add_GameObject(L"Village", pHouse)))
+        if (FAILED(pLayer->Add_GameObject(L"Village", pGameObject)))
         {
             MSG_BOX("Add Village Fail");
             return E_FAIL;
@@ -313,6 +351,39 @@ HRESULT CEditScene::Add_TerrainVillage(const wstring pLayerTag)
     }
     return S_OK;
 }
+
+HRESULT CEditScene::Add_TerrainDungeon(const wstring pLayerTag)
+{
+    auto iter = m_umLayer.find(pLayerTag);
+    if (iter != m_umLayer.end())
+    {
+        CLayer* pLayer = iter->second;
+
+        CGameObject* pGameObject = CTerrainDungeonNormal::Create(m_pGraphicDevice);
+
+        if (FAILED(pLayer->Add_GameObject(L"Terrain_Dungeon", pGameObject)))
+        {
+            MSG_BOX("Add Dungeon Fail");
+            return E_FAIL;
+        }
+    }
+    else
+    {
+        CLayer* pGameLogicLayer = CLayer::Create();
+
+        CGameObject* pGameObject = nullptr;
+        pGameObject = CTerrainDungeonNormal::Create(m_pGraphicDevice);
+        if (FAILED(pGameLogicLayer->Add_GameObject(L"Terrain_Dungeon", pGameObject)))
+        {
+            MSG_BOX("Add Dungeon Fail");
+            return E_FAIL;
+        }
+
+        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
+    }
+    return S_OK;
+}
+
 
 HRESULT CEditScene::Add_House(const wstring pLayerTag)
 {
@@ -439,6 +510,34 @@ inline string CEditScene::WStringToUTF8(const std::wstring& wstr)
 
     string strTo(size_needed, 0);
 
-    WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(),&strTo[0], size_needed, nullptr, nullptr);
+    WideCharToMultiByte(CP_UTF8, 0, &wstr[0], -1 ,&strTo[0], size_needed, nullptr, nullptr);
     return strTo;
+}
+
+void CEditScene::InitPreviewTextures(const wstring wPreview)
+{
+    auto pSprite = CResourceManager::GetInstance()->Get_Sprite(wPreview);
+    if (pSprite[0])
+        g_pPreviewTex = pSprite[0];
+}
+
+void CEditScene::find_VillageTerrain()
+{
+    auto iter = m_umLayer.find(L"Environment_Layer");
+    if (iter != m_umLayer.end())
+    {
+        CLayer* pLayer = iter->second;
+        const auto& objMap = pLayer->Get_Objects();
+        for (const auto& objList : objMap)
+        {
+            for (CGameObject* pObj : objList.second)
+            {
+                if (wcscmp(pObj->m_szDisplayName, L"Terrain_Village") == 0)
+                {
+                    pVillage = static_cast<CTerrainVillage*>(pObj);
+                    break;
+                }
+            }
+        }
+    }
 }

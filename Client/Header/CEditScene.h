@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "CScene.h"
-#include "CTerrainTex.h"
 #include "CTerrainVillage.h"
+#include "CTerrainDungeonNormal.h"
 
 
 class CEditScene : public CScene
@@ -13,6 +13,7 @@ private:
     ImGuiContext* g_MapEditor;
     CGameObject* pVillage;
     CGameObject* m_pSelectedObject = nullptr;
+    IDirect3DBaseTexture9* g_pPreviewTex;
 
 
     HRESULT Ready_Environment_Layer(const wstring pLayerTag);
@@ -20,9 +21,14 @@ private:
     HRESULT Ready_UI_Layer(const wstring pLayerTag);
     HRESULT	Ready_Camera_Layer(const wstring wsLayerTag);
 
+    void InitPreviewTextures(const wstring wPreview);
+    void find_VillageTerrain();
+
     HRESULT Add_TerrainVillage(const wstring pLayerTag);
     HRESULT Add_House(const wstring pLayerTag);
     HRESULT Add_Tree(const wstring pLayerTag);
+
+    HRESULT Add_TerrainDungeon(const wstring pLayerTag);
 
     inline string WStringToUTF8(const std::wstring& wstr);
 

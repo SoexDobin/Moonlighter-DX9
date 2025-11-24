@@ -91,7 +91,6 @@
     <Filter Include="97. StateMachine\03. MonsterState">
       <UniqueIdentifier>{189b08f2-81da-4052-81f2-5ccf552aa5ef}</UniqueIdentifier>
     </Filter>
-    
     <Filter Include="03. GameObject\99. Entity">
       <UniqueIdentifier>{2e8ca6d0-adeb-4e64-8dd6-89f29ff39ab5}</UniqueIdentifier>
     </Filter>
@@ -150,8 +149,13 @@
     <Filter Include="03. GameObject\02. Monster\03. Sheeder\01. SheederState">
       <UniqueIdentifier>{e84c3397-6465-4053-8b61-a6375e6aaff6}</UniqueIdentifier>
     </Filter>
+<<<<<<< Updated upstream
     <Filter Include="03. GameObject\11. Map\TerrainVillage">
       <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
+=======
+    <Filter Include="03. GameObject\11. Map\TerrainDungeonNormal">
+      <UniqueIdentifier>{c07b8026-7881-4354-b0b1-bd0ed3699265}</UniqueIdentifier>
+>>>>>>> Stashed changes
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -353,6 +357,9 @@
     <ClInclude Include="..\Header\CMonsterState.h">
       <Filter>97. StateMachine\03. MonsterState</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CTerrainDungeonNormal.h">
+      <Filter>03. GameObject\11. Map\TerrainDungeonNormal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -528,6 +535,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMonsterState.cpp">
       <Filter>97. StateMachine\03. MonsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerrainDungeonNormal.cpp">
+      <Filter>03. GameObject\11. Map\TerrainDungeonNormal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

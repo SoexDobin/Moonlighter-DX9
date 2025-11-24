@@ -67,7 +67,9 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 		->Ready_Prototype(TEXTURE, CTexture::Create(pGraphicDev, n_fDefault_AnimSpeed))))
 		return E_FAIL;
 
-    if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINTEX, Engine::CTerrainTex::Create(pGraphicDev, 128, 128, 1, L""))))
+    if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINTEX, Engine::CTerrainTex::Create(pGraphicDev, VILLAGE_VTXCNTX, VILLAGE_VTXCNTX, VTXITV, L""))))
+        return E_FAIL;
+    if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINDUNGEONTEX, Engine::CTerrainDungeonTex::Create(pGraphicDev, 64, 64, 1, L""))))
         return E_FAIL;
     //if (FAILED(Engine::CPrototypeManager::GetInstance()
     //    ->Ready_Prototype(SPHERE_COLLIDER, CSphereCollider::Create(pGraphicDev))))
@@ -241,6 +243,12 @@ HRESULT CDataManager::Ready_Map_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
     }
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Village_Tree",
         n_wsResSpritePath + L"Map/Village_tree.png", 1)))
+    {
+        MSG_BOX("Village Tree Image Load Fail");
+        return E_FAIL;
+    }
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Dungeon",
+        n_wsResSpritePath + L"Map/Terrain_dungeon_normal.png", 1)))
     {
         MSG_BOX("Village Tree Image Load Fail");
         return E_FAIL;

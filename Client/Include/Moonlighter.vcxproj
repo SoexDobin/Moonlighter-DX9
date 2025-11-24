@@ -196,6 +196,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CSlimeWalkState.h" />
     <ClInclude Include="..\Header\CState.h" />
     <ClInclude Include="..\Header\CStateMachine.h" />
+    <ClInclude Include="..\Header\CTerrainDungeonNormal.h" />
     <ClInclude Include="..\Header\CTerrainVillage.h" />
     <ClInclude Include="..\Header\CTestRect.h" />
     <ClInclude Include="..\Header\CTree.h" />
@@ -283,6 +284,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CSlimeWalkState.cpp" />
     <ClCompile Include="..\Code\CState.cpp" />
     <ClCompile Include="..\Code\CStateMachine.cpp" />
+    <ClCompile Include="..\Code\CTerrainDungeonNormal.cpp" />
     <ClCompile Include="..\Code\CTerrainVillage.cpp" />
     <ClCompile Include="..\Code\CTestRect.cpp" />
     <ClCompile Include="..\Code\CTree.cpp" />

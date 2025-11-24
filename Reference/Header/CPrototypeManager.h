@@ -3,6 +3,7 @@
 #include "CRectTex.h"
 #include "CCubeTex.h"
 #include "CTerrainTex.h"
+#include "CTerrainDungeonTex.h"
 #include "CTransform.h"
 
 #include "CTexture.h"

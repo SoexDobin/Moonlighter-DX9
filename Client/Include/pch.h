@@ -11,7 +11,7 @@
 #include <list>
 #include <map>
 #include <algorithm>
-
+#include <fstream>
 #include <string>
 using std::string;
 using std::wstring;

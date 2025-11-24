@@ -9,13 +9,13 @@
 #include "CRectCollider.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CRenderObject(pGraphicDev), m_pTexCom(nullptr), m_eState(IDLE), m_eDir(DIR_DOWN), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(0.5f), m_vRollDir{ 0.f, 0.f, 0.f }
+    : CRenderObject(pGraphicDev), m_pTexCom(nullptr), m_eState(IDLE), m_eDir(DIR_DOWN), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(0.5f), m_vRollDir{ 0.f, 0.f, 0.f }, m_fAttackTime(0.f), m_fAttackDuration(0.5f)
 {
     PANEL_NAME(L"Player");
 }
 
 CPlayer::CPlayer(const CPlayer& rhs)
-    : CRenderObject(rhs), m_pTexCom(nullptr), m_eState(rhs.m_eState), m_eDir(rhs.m_eDir), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(rhs.m_fRollDuration), m_vRollDir{ 0.f, 0.f, 0.f }
+    : CRenderObject(rhs), m_pTexCom(nullptr), m_eState(rhs.m_eState), m_eDir(rhs.m_eDir), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(rhs.m_fRollDuration), m_vRollDir{ 0.f, 0.f, 0.f }, m_fAttackTime(0.f), m_fAttackDuration(rhs.m_fRollDuration)
 {
     PANEL_NAME(L"Player");
 }
@@ -34,7 +34,7 @@ HRESULT CPlayer::Ready_GameObject()
         return E_FAIL;
 
     m_pTransformCom->Set_Scale(8.f, 8.f, 1.f);
-    m_pTransformCom->Set_Pos(5.f, 0.f, 0.f);
+    m_pTransformCom->Set_Pos(10.f, 5.f, 0.f);
 
     m_pColCom = Add_Component<CRectCollider>(ID_DYNAMIC, L"Collider_Com", RECT_COLLIDER);
 
@@ -43,6 +43,7 @@ HRESULT CPlayer::Ready_GameObject()
     m_ePrevState    = STATE_END;
     m_ePrevDir      = DIR_END;
     m_fRollTime     = 0.f;
+    m_fAttackTime   = 0.f;
 
     return S_OK;
 }
@@ -70,11 +71,29 @@ HRESULT CPlayer::Ready_Animation()
     m_pTexCom->Ready_Texture(L"Player_Roll_Left");
     m_pTexCom->Ready_Texture(L"Player_Roll_Right");
 
-    // ComboAttack
+    // Spear ComboAttack
     m_pTexCom->Ready_Texture(L"Player_Spear_Combo_Down");
     m_pTexCom->Ready_Texture(L"Player_Spear_Combo_Up");
     m_pTexCom->Ready_Texture(L"Player_Spear_Combo_Left");
     m_pTexCom->Ready_Texture(L"Player_Spear_Combo_Right");
+
+    // Spear ChargeAttack
+    m_pTexCom->Ready_Texture(L"Player_Spear_Charge_Down");
+    m_pTexCom->Ready_Texture(L"Player_Spear_Charge_Up");
+    m_pTexCom->Ready_Texture(L"Player_Spear_Charge_Left");
+    m_pTexCom->Ready_Texture(L"Player_Spear_Charge_Right");
+
+    // Bow NormalAttack
+    m_pTexCom->Ready_Texture(L"Player_Bow_Normal_Down");
+    m_pTexCom->Ready_Texture(L"Player_Bow_Normal_Up");
+    m_pTexCom->Ready_Texture(L"Player_Bow_Normal_Left");
+    m_pTexCom->Ready_Texture(L"Player_Bow_Normal_Right");
+
+    // Bow ChargeAttack
+    m_pTexCom->Ready_Texture(L"Player_Bow_Charge_Down");
+    m_pTexCom->Ready_Texture(L"Player_Bow_Charge_Up");
+    m_pTexCom->Ready_Texture(L"Player_Bow_Charge_Left");
+    m_pTexCom->Ready_Texture(L"Player_Bow_Charge_Right");
 
     m_pTexCom->Set_Texture(IDLE);
     m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Player_TexCom", m_pTexCom));
@@ -91,7 +110,7 @@ _uint CPlayer::Get_AnimationIndex()
     case IDLE:          iBase = 0; break;
     case WALK:          iBase = 4; break;
     case ROLL:          iBase = 8; break;
-    case COMBOATTACK:   iBase = 12; break;
+    case COMBOATTACK:   iBase = 24; break;
     default:            iBase = 0; break;
     }
 
@@ -109,6 +128,9 @@ _uint CPlayer::Get_AnimationIndex()
 void CPlayer::Key_Input(const _float& fTimeDelta)
 {
     if (m_eState == ROLL)
+        return;
+
+    if (m_eState == COMBOATTACK)
         return;
 
     auto* pInput = CDInputManager::GetInstance();
@@ -142,40 +164,20 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
         bMoving = true;
     }
 
-    if (pInput->Get_DIKeyState(DIK_W) & 0x80)
-    {
-        vDir.z += 1.f;
-        m_eDir = DIR_UP;
-        bAttack = true;
-    }
-    if (pInput->Get_DIKeyState(DIK_A) & 0x80)
-    {
-        vDir.z -= 1.f;
-        m_eDir = DIR_LEFT;
-        bAttack = true;
-    }
-    if (pInput->Get_DIKeyState(DIK_S) & 0x80)
-    {
-        vDir.x -= 1.f;
-        m_eDir = DIR_DOWN;
-        bAttack = true;
-    }
-    if (pInput->Get_DIKeyState(DIK_D) & 0x80)
-    {
-        vDir.x += 1.f;
-        m_eDir = DIR_RIGHT;
-        bAttack = true;
-    }
-
-    if (pInput->Get_DIKeyState(DIK_J) & 0x80)
+    if (pInput->Get_DIKeyState(DIK_K) & 0x80)
     {
         vDir.y += 1.f;
         bMoving = true;
     }
-    if (pInput->Get_DIKeyState(DIK_K) & 0x80)
+    if (pInput->Get_DIKeyState(DIK_L) & 0x80)
     {
         vDir.y -= 1.f;
         bMoving = true;
+    }
+
+    if (pInput->Get_DIKeyState(DIK_F) & 0x80)
+    {
+        bAttack = true;
     }
 
     if (pInput->Get_DIKeyState(DIK_SPACE) & 0x80)
@@ -228,15 +230,24 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
     if (bAttack)
     {
         m_eState = COMBOATTACK;
+        m_ePrevState = STATE_END;
+        m_fAttackTime = 0.f;
 
-        D3DXVec3Normalize(&vDir, &vDir);
-    }
-    else
-    {
-        m_eState = IDLE;
-    }
+        m_pTexCom->Set_Loop(false);
+        m_pTexCom->Set_Speed(12.f);
 
-    if (bMoving)
+        _uint iIdx = Get_AnimationIndex();
+
+        if (m_pTexCom->Get_Speed() > 0.f)
+            m_fAttackDuration = (float)m_pTexCom->Get_FrameCount(iIdx) / m_pTexCom->Get_Speed();
+        else
+            m_fAttackDuration = 0.5f;
+
+        m_pTexCom->Set_Texture(iIdx, 0);
+
+        return;
+    }
+    else if (bMoving)
     {
         m_eState = WALK;
 
@@ -253,7 +264,22 @@ _int CPlayer::Update_GameObject(const _float fTimeDelta)
 {
     _int iExit = Engine::CRenderObject::Update_GameObject(fTimeDelta);
 
-    if (m_eState == ROLL)
+    if (m_eState == COMBOATTACK)
+    {
+        m_fAttackTime += fTimeDelta;
+
+        if (m_fAttackTime >= m_fAttackDuration)
+        {
+            m_eState = IDLE;
+            m_fAttackTime = 0.f;
+
+            m_pTexCom->Set_Loop(true);
+            m_pTexCom->Set_Speed(8.5f);
+        }
+
+        return iExit;
+    }
+    else if (m_eState == ROLL)
     {
         m_fRollTime += fTimeDelta;
 
@@ -261,7 +287,7 @@ _int CPlayer::Update_GameObject(const _float fTimeDelta)
         if (vMove.x != 0.f || vMove.y != 0.f || vMove.z != 0.f)
         {
             D3DXVec3Normalize(&vMove, &vMove);
-            m_pTransformCom->Move_Pos(&vMove, fTimeDelta, 100.f);
+            m_pTransformCom->Move_Pos(&vMove, fTimeDelta, 10.f);
         }
 
         if (m_fRollTime >= m_fRollDuration)

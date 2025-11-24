@@ -9,16 +9,19 @@
 CRectCollider::CRectCollider()
     : CCollider()
 {
+    strcpy_s(m_szDisplayName, "Rect Collider");
 }
 
 CRectCollider::CRectCollider(LPDIRECT3DDEVICE9 pGraphicDev)
     : CCollider(pGraphicDev), m_vDimension( { 1.f, 1.f, 1.f } )
 {
+    strcpy_s(m_szDisplayName, "Rect Collider");
 }
 
 CRectCollider::CRectCollider(const CRectCollider& rhs)
     : CCollider(rhs), m_vDimension(rhs.m_vDimension)
 {
+    strcpy_s(m_szDisplayName, "Rect Collider");
 }
 
 CRectCollider::~CRectCollider()
@@ -80,8 +83,8 @@ void CRectCollider::Render_DebugCollider()
     else
         color = D3DCOLOR_ARGB(255, 0, 255, 0);
 
-    _vec3 vMin = m_pTrans->Get_Pos() + m_vOffset + (m_vDimension * -0.5f);
-    _vec3 vMax = m_pTrans->Get_Pos() + m_vOffset + (m_vDimension * 0.5f);
+    _vec3 vMin = m_pTrans->Get_Pos() + m_vOffset + (m_vDimension * -0.5f * m_fScale) ;
+    _vec3 vMax = m_pTrans->Get_Pos() + m_vOffset + (m_vDimension * 0.5f * m_fScale);
 
     m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
     m_pGraphicDevice->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
@@ -158,3 +161,34 @@ void CRectCollider::Free()
 {
     CCollider::Free();
 }
+
+#pragma region Editor
+#ifdef _DEBUG
+
+void CRectCollider::Display_Editor(const char* pObjTag)
+{
+    ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(15, 15, 45, 255));
+    const _float lineH = ImGui::GetFrameHeightWithSpacing();
+
+    ImGui::Text("Dimension");
+    if (ImGui::BeginChild("RectDimBox", ImVec2(0, lineH * 2.0f), true))
+    {
+        ImGui::PushItemWidth(40.0f);
+
+        ImGui::InputFloat("XLength", &m_vDimension.x, 0.f, 0.f, "%.2f"); ImGui::SameLine();
+        ImGui::InputFloat("YHeight", &m_vDimension.y, 0.f, 0.f, "%.2f"); ImGui::SameLine();
+        ImGui::InputFloat("ZDepth", &m_vDimension.z, 0.f, 0.f, "%.2f");
+
+        ImGui::PopItemWidth();
+    }
+    ImGui::EndChild();
+
+    ImGui::Spacing();
+
+    // 공통 Collider 디버그(Overlap 등)도 같은 헤더 안에서 이어서
+    CCollider::Display_Editor(pObjTag);
+    ImGui::PopStyleColor();
+}
+
+#endif
+#pragma endregion

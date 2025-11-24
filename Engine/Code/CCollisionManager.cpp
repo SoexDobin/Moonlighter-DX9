@@ -107,11 +107,11 @@ void CCollisionManager::Render_Collision()
 
 _bool CCollisionManager::RectCollision(CRectCollider* pSrc, CRectCollider* pDst)
 {
-    _vec3 vSrcMin = pSrc->Get_Transform()->Get_Pos() + pSrc->Get_Offset() + (pSrc->Get_Dimension() * -0.5f);
-    _vec3 vSrcMax = pSrc->Get_Transform()->Get_Pos() + pSrc->Get_Offset() + (pSrc->Get_Dimension() * 0.5f);
+    _vec3 vSrcMin = pSrc->Get_Transform()->Get_Pos() + pSrc->Get_Offset() + (pSrc->Get_Dimension() * -0.5f * pSrc->Get_Scale());
+    _vec3 vSrcMax = pSrc->Get_Transform()->Get_Pos() + pSrc->Get_Offset() + (pSrc->Get_Dimension() * 0.5f * pSrc->Get_Scale());
 
-    _vec3 vDstMin = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * -0.5f);
-    _vec3 vDstMax = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * 0.5f);
+    _vec3 vDstMin = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * -0.5f * pDst->Get_Scale());
+    _vec3 vDstMax = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * 0.5f * pDst->Get_Scale());
 
     if (vSrcMax.x < vDstMin.x) return false; // Src가 Dst 왼쪽
     if (vSrcMin.x > vDstMax.x) return false; // Src가 Dst 오른쪽
@@ -142,8 +142,8 @@ _bool CCollisionManager::SphereRectCollision(CSphereCollider* pSrc, CRectCollide
 {
     _vec3 vSpherePos = pSrc->Get_Transform()->Get_Pos() + pSrc->Get_Offset();
 
-    _vec3 vRectMin = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * -0.5f);
-    _vec3 vRectMax = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * 0.5f);
+    _vec3 vRectMin = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * -0.5f * pSrc->Get_Scale());
+    _vec3 vRectMax = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * 0.5f * pDst->Get_Scale());
 
     _vec3 vClosestPoint;
     

@@ -39,6 +39,14 @@ public:
 
 private:
     virtual void            Free() override;
+
+#pragma region Editor
+#ifdef _DEBUG
+
+public:
+    virtual void Display_Editor(const char* pObjTag) override;
+#endif
+#pragma endregion
 };
 
 END

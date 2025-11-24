@@ -7,18 +7,21 @@
 #endif
 
 CSphereCollider::CSphereCollider()
-    : m_fRadius(1.f), m_fScale(1.f)
+    : m_fRadius(1.f)
 {
+    strcpy_s(m_szDisplayName, "Sphere Collider");
 }
 
 CSphereCollider::CSphereCollider(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CCollider(pGraphicDev), m_fRadius(1.f), m_fScale(1.f)
+    : CCollider(pGraphicDev), m_fRadius(1.f)
 {
+    strcpy_s(m_szDisplayName, "Sphere Collider");
 }
 
 CSphereCollider::CSphereCollider(const CSphereCollider& rhs)
-    : CCollider(rhs), m_fRadius(rhs.m_fRadius), m_fScale(rhs.m_fScale)
+    : CCollider(rhs), m_fRadius(rhs.m_fRadius)
 {
+    strcpy_s(m_szDisplayName, "Sphere Collider");
 }
 
 CSphereCollider::~CSphereCollider()
@@ -167,3 +170,29 @@ void CSphereCollider::Free()
 {
     CCollider::Free();
 }
+
+#pragma region Editor
+#ifdef _DEBUG
+
+void CSphereCollider::Display_Editor(const char* pObjTag)
+{
+    ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(15, 15, 45, 255));
+    const _float lineH = ImGui::GetFrameHeightWithSpacing();
+
+    ImGui::Text("Radius");
+    if (ImGui::BeginChild("Radius", ImVec2(0, lineH * 2.0f), true))
+    {
+        ImGui::PushItemWidth(40);
+        ImGui::InputFloat("s Radius", &m_fRadius, 0.f, 0.f, "%.2f", ImGuiInputTextFlags_None);
+        ImGui::PopItemWidth();
+    }
+    ImGui::EndChild();
+
+    ImGui::Spacing();
+
+    CCollider::Display_Editor(pObjTag);
+    ImGui::PopStyleColor();
+}
+
+#endif
+#pragma endregion

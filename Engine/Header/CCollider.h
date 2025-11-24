@@ -33,6 +33,9 @@ public:
     const _vec3&                Get_Offset() const                   { return m_vOffset; }
     void                        Set_Offset(const _vec3& vOffset)    { m_vOffset = vOffset; }
 
+    _float                      Get_Scale() const { return m_fScale; }
+    void                        Set_Scale(const _float fScale) { m_fScale = fScale; }
+
 public:
     _bool                       Is_Overlapped(CCollider* pOverlap);
     void                        Add_OverlapMember(CCollider* pOverlap);
@@ -49,12 +52,21 @@ protected:
     COL_STATE                      m_eState;
     _bool                          m_bIsCol;
     unordered_set<CCollider*>      m_usetOverlapCol;
-    _vec3                         m_vOffset;        
+    _vec3                          m_vOffset;
+    _float                         m_fScale = 1.f; 
     
 public:
     CComponent* Clone() PURE;
 protected:
     virtual void        Free();
+#pragma region Editor
+#ifdef _DEBUG
+public:
+    virtual void Display_Editor(const char* pObjTag) override;
+protected:
+    _bool m_bShowOverlapsInEditor = false;
+#endif
+#pragma endregion
 };
 
 END

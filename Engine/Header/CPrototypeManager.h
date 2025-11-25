@@ -8,6 +8,7 @@
 
 #include "CTexture.h"
 #include "CSphereCollider.h"
+#include "CRectCollider.h"
 
 BEGIN(Engine)
 

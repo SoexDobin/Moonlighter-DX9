@@ -10,6 +10,9 @@
 #include "CManagement.h"
 #include "CEditScene.h"
 
+#include "CUIInven.h"
+#include "CUIStatic.h"
+
 #include "CPlayer.h"
 #include "CBoss.h"
 #include "CSlimeMob.h"
@@ -41,13 +44,15 @@ HRESULT CMainScene::Ready_Scene()
         return E_FAIL;
     if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
         return E_FAIL;
+    if (FAILED(Ready_UI_Layer(L"UI_Layer")))
+        return E_FAIL;
 
     return S_OK;
 }
 
 _int CMainScene::Update_Scene(const _float fTimeDelta)
 {
-    _int iExit = Engine::CScene::Update_Scene(fTimeDelta);    
+    _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
 
 #pragma region Examples for ImGui
 
@@ -68,6 +73,17 @@ _int CMainScene::Update_Scene(const _float fTimeDelta)
             return -1;
         }
     }
+    if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_I) & 0x80)
+    {
+
+        CUIInven* pInventory = static_cast<CUIInven*>
+            (CManagement::GetInstance()->Get_Object(L"UI_Layer", L"UI_Invnen"));
+
+        if (pInventory)
+        {
+            pInventory->InvenButton();
+        }
+    }
     return iExit;
 }
 
@@ -85,13 +101,13 @@ HRESULT CMainScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 {
     CLayer* pCamLayer = CLayer::Create(wsLayerTag);
 
-   CGameObject* pGameObject = nullptr;
-   _vec3 vEye{0.f, 5.f, -20.f}, vAt{0.f, 0.f, 10.f}, vUp{0.f, 1.f, 0.f};
-   pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
-   if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
-       return E_FAIL;
+    CGameObject* pGameObject = nullptr;
+    _vec3 vEye{ 0.f, 5.f, -20.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
+    pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
+    if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
+        return E_FAIL;
 
-   m_umLayer.emplace( pair<const wstring&, CLayer*>{ wsLayerTag, pCamLayer} );
+    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pCamLayer});
 
 
     return S_OK;
@@ -151,7 +167,7 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     pSlimeMob = CSlimeMob::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"SlimeMob", pSlimeMob)))
         return E_FAIL;
-    
+
 #pragma region Examples for ImGui
     //pGameObject = CExampleObject::Create(m_pGraphicDevice);
     //if (FAILED(pGameLogicLayer->Add_GameObject(L"Example", pGameObject)))
@@ -168,7 +184,28 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 
 HRESULT CMainScene::Ready_UI_Layer(const wstring& wsLayerTag)
 {
- 
+    CLayer* pLayer = CLayer::Create(wsLayerTag);
+
+    Engine::CGameObject* pGameObject = nullptr;
+
+    //인벤 UI
+    pGameObject = CUIInven::Create(m_pGraphicDevice);
+    if (pGameObject == nullptr)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(L"UI_Invnen", pGameObject)))
+        return E_FAIL;
+
+    //Static UI
+    pGameObject = CUIStatic::Create(m_pGraphicDevice);
+    if (pGameObject == nullptr)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(L"UI_Static", pGameObject)))
+        return E_FAIL;
+
+    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pLayer});
+
     return S_OK;
 }
 
@@ -194,7 +231,7 @@ HRESULT CMainScene::Ready_Light()
 }
 
 HRESULT CMainScene::Ready_Prototype()
-{   
+{
     return S_OK;
 }
 

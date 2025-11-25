@@ -154,6 +154,8 @@
     </Filter>
     <Filter Include="03. GameObject\11. Map\TerrainDungeonNormal">
       <UniqueIdentifier>{c07b8026-7881-4354-b0b1-bd0ed3699265}</UniqueIdentifier>
+    <Filter Include="02. Scene\09. ComposeScene">
+      <UniqueIdentifier>{96f800df-13e1-4614-83c5-a94b5ddd8be3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -357,6 +359,8 @@
     </ClInclude>
     <ClInclude Include="..\Header\CTerrainDungeonNormal.h">
       <Filter>03. GameObject\11. Map\TerrainDungeonNormal</Filter>
+    <ClInclude Include="..\Header\CComposeScene.h">
+      <Filter>02. Scene\09. ComposeScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -536,6 +540,8 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainDungeonNormal.cpp">
       <Filter>03. GameObject\11. Map\TerrainDungeonNormal</Filter>
+    <ClCompile Include="..\Code\CComposeScene.cpp">
+      <Filter>02. Scene\09. ComposeScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

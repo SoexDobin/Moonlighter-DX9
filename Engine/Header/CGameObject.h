@@ -41,8 +41,8 @@ protected:
 
 #pragma region Editor
 public:
-	virtual			void		Display_Editor();
-
+	virtual	void		Display_Editor();
+    const TCHAR*        Get_DisplayName() { return m_szDisplayName; }
 protected:
 	virtual void		Add_EditorField(const char* pTag, DATATYPE type, void* pData) { m_EditorFieldList.push_back({ pTag, type, pData }); }
 	virtual void		Add_EditorField(EDITORFIELD field) { m_EditorFieldList.push_back(field); }

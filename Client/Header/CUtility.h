@@ -88,6 +88,7 @@ namespace CUtility
             out.write((char*)&obj.scale, sizeof(_vec3));
         }
 
+        MSG_BOX("Save Success");
         out.close();
     }
 

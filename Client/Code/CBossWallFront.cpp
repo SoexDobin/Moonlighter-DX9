@@ -1,27 +1,27 @@
 ﻿#include "pch.h"
-#include "CDungeonWall.h"
+#include "CBossWallFront.h"
 #include "CRenderer.h"
 #include "CPrototypeManager.h"
 #include "CDInputManager.h"
 #include "CManagement.h"
 
-CDungeonWall::CDungeonWall(LPDIRECT3DDEVICE9 pGraphicDev)
+CBossWallFront::CBossWallFront(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Dungeon_Wall")
+    PANEL_NAME(L"Boss_Wall_Front")
 }
 
-CDungeonWall::CDungeonWall(const CDungeonWall& rhs)
+CBossWallFront::CBossWallFront(const CBossWallFront& rhs)
     : CRenderObject(rhs), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Dungeon_Wall")
+    PANEL_NAME(L"Boss_Wall_Front")
 }
 
-CDungeonWall::~CDungeonWall()
+CBossWallFront::~CBossWallFront()
 {
 }
 
-HRESULT CDungeonWall::Ready_GameObject()
+HRESULT CBossWallFront::Ready_GameObject()
 {
     if (FAILED(Engine::CRenderObject::Ready_GameObject()))
         return E_FAIL;
@@ -34,7 +34,7 @@ HRESULT CDungeonWall::Ready_GameObject()
 
     if (m_pTextureCom = static_cast<CTexture*>(pCom))
     {
-        m_pTextureCom->Ready_Texture(L"Map_Dungeon_Wall");
+        m_pTextureCom->Ready_Texture(L"Map_Boss_Wall_Down");
 
         m_pTextureCom->Set_Texture(0);
 
@@ -45,7 +45,7 @@ HRESULT CDungeonWall::Ready_GameObject()
     return S_OK;
 }
 
-_int CDungeonWall::Update_GameObject(const _float fTimeDelta)
+_int CBossWallFront::Update_GameObject(const _float fTimeDelta)
 {
     _int iExit = Engine::CRenderObject::Update_GameObject(fTimeDelta);
 
@@ -54,12 +54,12 @@ _int CDungeonWall::Update_GameObject(const _float fTimeDelta)
     return iExit;
 }
 
-void CDungeonWall::LateUpdate_GameObject(const _float fTimeDelta)
+void CBossWallFront::LateUpdate_GameObject(const _float fTimeDelta)
 {
     Engine::CRenderObject::LateUpdate_GameObject(fTimeDelta);
 }
 
-void CDungeonWall::Render_GameObject()
+void CBossWallFront::Render_GameObject()
 {
     m_pGraphicDevice->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
@@ -74,13 +74,13 @@ void CDungeonWall::Render_GameObject()
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
-CDungeonWall* CDungeonWall::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CBossWallFront* CBossWallFront::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CDungeonWall* pInstance = new CDungeonWall(pGraphicDev);
+    CBossWallFront* pInstance = new CBossWallFront(pGraphicDev);
 
     if (FAILED(pInstance->Ready_GameObject()))
     {
-        MSG_BOX("CDungeonWall Create Failed");
+        MSG_BOX("CBossWallFront Create Failed");
         Safe_Release(pInstance);
         return nullptr;
     }
@@ -88,7 +88,7 @@ CDungeonWall* CDungeonWall::Create(LPDIRECT3DDEVICE9 pGraphicDev)
     return pInstance;
 }
 
-void CDungeonWall::Free()
+void CBossWallFront::Free()
 {
     Engine::CGameObject::Free();
 }

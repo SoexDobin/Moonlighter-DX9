@@ -2,14 +2,27 @@
 #include "CScene.h"
 #include "CTerrainVillage.h"
 #include "CTerrainDungeonNormal.h"
+#include "CTerrainBoss.h"
 
 
 class CEditScene : public CScene
 {
 private:
+
+    enum CONFIRM {
+        VILL_SAVE,
+        VILL_LOAD,
+        DUN_SAVE,
+        DUN_LOAD,
+        BOSS_SAVE,
+        BOSS_LOAD,
+        CONFIRM_END
+    };
+
     explicit CEditScene(LPDIRECT3DDEVICE9 pGraphciDev);
     virtual ~CEditScene();
 
+    bool confirm[CONFIRM_END];
     ImGuiContext* g_MapEditor;
     CGameObject* pVillage;
     CGameObject* m_pSelectedObject = nullptr;
@@ -31,6 +44,9 @@ private:
 
     HRESULT Add_TerrainDungeon(const wstring pLayerTag);
     HRESULT Add_DungeonWall(const wstring pLayerTag);
+
+    HRESULT Add_TerrainBoss(const wstring pLayerTag);
+    HRESULT Add_BossWallFront_Down(const wstring pLayerTag);
 
     inline string WStringToUTF8(const std::wstring& wstr);
 

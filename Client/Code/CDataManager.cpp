@@ -71,7 +71,11 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
         return E_FAIL;
     if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINDUNGEONTEX, Engine::CTerrainDungeonTex::Create(pGraphicDev, 25, 21, 1, L""))))
         return E_FAIL;
-
+    if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINBOSSTEX, Engine::CTerrainBossTex::Create(pGraphicDev, dwTerrainBossX, dwTerrainBossY, dwTerrainBossItv, L""))))
+    {
+        MSG_BOX("Boss Terrain Proto Fail");
+        return E_FAIL;
+    }
     if (FAILED(Engine::CPrototypeManager::GetInstance()
         ->Ready_Prototype(SPHERE_COLLIDER, CSphereCollider::Create(pGraphicDev))))
         return E_FAIL;
@@ -316,6 +320,30 @@ HRESULT CDataManager::Ready_Map_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
         n_wsResSpritePath + L"Map/Wall_dungeon_normal.png", 1)))
     {
         MSG_BOX("Dungeon Wall Image Load Fail");
+        return E_FAIL;
+    }
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Boss",
+        n_wsResSpritePath + L"Map/Boss_Dungeon_Field.png", 1)))
+    {
+        MSG_BOX("Boss Terrain Image Load Fail");
+        return E_FAIL;
+    }
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Boss_Wall_Down",
+        n_wsResSpritePath + L"Map/Boss_Dungeon_Wall_Below.png", 1)))
+    {
+        MSG_BOX("Boss Wall Down Image Load Fail");
+        return E_FAIL;
+    }
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Boss_Wall_Up",
+        n_wsResSpritePath + L"Map/Boss_Dungeon_Wall_Upper.png", 1)))
+    {
+        MSG_BOX("Boss Wall Up Image Load Fail");
+        return E_FAIL;
+    }
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Boss_Wall_Side",
+        n_wsResSpritePath + L"Map/Boss_Dungeon_Wall_Side.png", 1)))
+    {
+        MSG_BOX("Boss Wall Side Image Load Fail");
         return E_FAIL;
     }
     return S_OK;

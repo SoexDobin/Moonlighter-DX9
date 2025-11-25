@@ -33,6 +33,10 @@ private:
 
 	const _float n_fDefault_AnimSpeed = 10.f;
 
+
+    const _ulong dwTerrainBossX = 61;
+    const _ulong dwTerrainBossY = 37;
+    const _ulong dwTerrainBossItv = 1;
 private:
 	void		Free() override;
 };

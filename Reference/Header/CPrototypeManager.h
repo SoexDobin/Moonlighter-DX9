@@ -4,6 +4,7 @@
 #include "CCubeTex.h"
 #include "CTerrainTex.h"
 #include "CTerrainDungeonTex.h"
+#include "CTerrainBossTex.h"
 #include "CTransform.h"
 
 #include "CTexture.h"

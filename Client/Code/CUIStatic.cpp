@@ -258,7 +258,7 @@ HRESULT CUIStatic::UI_Initialize()
             m_VecUI.push_back(vStaticIcon);
         }
     }
-   
+    return S_OK;
 }
 
 CUIStatic* CUIStatic::Create(LPDIRECT3DDEVICE9 pGraphicDev)

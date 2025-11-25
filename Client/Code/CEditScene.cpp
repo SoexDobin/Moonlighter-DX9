@@ -10,10 +10,12 @@
 #include "CHouse.h"
 #include "CTreeObject.h"
 #include "CDungeonWall.h"
+#include "CBossWallFront.h"
 
 CEditScene::CEditScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev), pVillage(nullptr), g_MapEditor(nullptr), g_pPreviewTex(nullptr)
 {
+    ZeroMemory(&confirm, sizeof(confirm));
 }
 
 CEditScene::~CEditScene()
@@ -44,8 +46,8 @@ HRESULT CEditScene::Ready_Scene()
 
     //ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
@@ -53,8 +55,8 @@ HRESULT CEditScene::Ready_Scene()
 
     // Setup scaling
     ImGuiStyle& style = ImGui::GetStyle();
-    style.ScaleAllSizes(main_scale);        // Bake a fixed style scale. (until we have a solution for dynamic style scaling, changing this requires resetting Style + calling this again)
-    style.FontScaleDpi = main_scale;        // Set initial font scale. (using io.ConfigDpiScaleFonts=true makes this unnecessary. We leave both here for documentation purpose)
+    style.ScaleAllSizes(main_scale);
+    style.FontScaleDpi = main_scale;
 
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(g_hWnd);
@@ -111,6 +113,59 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
     if (ImGui::CollapsingHeader("Village"))
     {
+        if (ImGui::Button("Save Village Terrain"))
+        {
+            confirm[VILL_SAVE] = true;
+            ImGui::OpenPopup("Confirm Village Save");
+        }
+        if (ImGui::BeginPopupModal("Confirm Village Save", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::Text("Are you sure you want to save?\nThis operation cannot be undone.");
+            ImGui::Separator();
+
+            if (ImGui::Button("yes", ImVec2(120, 0)))
+            {
+                find_VillageTerrain();
+                CUtility::SaveVillageMap(static_cast<CTerrainVillage*>(pVillage), m_umLayer);
+                ImGui::CloseCurrentPopup();
+                confirm[VILL_SAVE] = false;
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("no", ImVec2(120, 0)))
+            {
+                ImGui::CloseCurrentPopup();
+                confirm[VILL_SAVE] = false;
+            }
+
+            ImGui::EndPopup();
+        }
+
+        if (ImGui::Button("Load Village Terrain"))
+        {
+            confirm[VILL_LOAD] = true;
+            ImGui::OpenPopup("Confirm Village Load");
+        }
+        if (ImGui::BeginPopupModal("Confirm Village Load", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::Text("Are you sure you want to load?\nThis operation cannot be undone.");
+            ImGui::Separator();
+
+            if (ImGui::Button("yes", ImVec2(120, 0)))
+            {
+                CUtility::LoadVillageMap(m_pGraphicDevice, m_umLayer);
+                ImGui::CloseCurrentPopup();
+                confirm[VILL_LOAD] = false;
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("no", ImVec2(120, 0)))
+            {
+                ImGui::CloseCurrentPopup();
+                confirm[VILL_LOAD] = false;
+            }
+
+            ImGui::EndPopup();
+        }
+
         if (ImGui::Button("Add TerrainVillage"))
         {
             Add_TerrainVillage(L"Environment_Layer");
@@ -121,17 +176,6 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             ImGui::BeginTooltip();
             ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
             ImGui::EndTooltip();
-        }
-
-        if (ImGui::Button("Save Village Terrain"))
-        {
-            find_VillageTerrain();
-            CUtility::SaveVillageMap(static_cast<CTerrainVillage*>(pVillage), m_umLayer);
-        }
-
-        if (ImGui::Button("Load Village Terrain"))
-        {
-            CUtility::LoadVillageMap(m_pGraphicDevice, m_umLayer);
         }
 
         if (ImGui::Button("Add House"))
@@ -180,6 +224,33 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
         if (ImGui::IsItemHovered())
         {
             InitPreviewTextures(L"Map_Dungeon_Wall");
+            ImGui::BeginTooltip();
+            ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
+            ImGui::EndTooltip();
+        }
+    }
+
+    if (ImGui::CollapsingHeader("Boss"))
+    {
+        if (ImGui::Button("Add Terrain Boss"))
+        {
+            Add_TerrainBoss(L"Environment_Layer");
+        }
+        if (ImGui::IsItemHovered())
+        {
+            InitPreviewTextures(L"Map_Boss");
+            ImGui::BeginTooltip();
+            ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
+            ImGui::EndTooltip();
+        }
+
+        if (ImGui::Button("Add Boss Wall"))
+        {
+            Add_BossWallFront_Down(L"Environment_Layer");
+        }
+        if (ImGui::IsItemHovered())
+        {
+            InitPreviewTextures(L"Map_Boss_Wall_Down");
             ImGui::BeginTooltip();
             ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
             ImGui::EndTooltip();
@@ -549,6 +620,70 @@ HRESULT CEditScene::Add_DungeonWall(const wstring pLayerTag)
         if (FAILED(pGameLogicLayer->Add_GameObject(L"Dungeon_Wall", pGameObject)))
         {
             MSG_BOX("Add Dungeon Wall Fail");
+            return E_FAIL;
+        }
+
+        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
+    }
+    return S_OK;
+}
+
+HRESULT CEditScene::Add_TerrainBoss(const wstring pLayerTag)
+{
+    auto iter = m_umLayer.find(pLayerTag);
+    if (iter != m_umLayer.end())
+    {
+        CLayer* pLayer = iter->second;
+
+        CGameObject* pGameObject = CTerrainBoss::Create(m_pGraphicDevice);
+
+        if (FAILED(pLayer->Add_GameObject(L"Terrain_Boss", pGameObject)))
+        {
+            MSG_BOX("Add Boss Terrain Fail");
+            return E_FAIL;
+        }
+    }
+    else
+    {
+        CLayer* pGameLogicLayer = CLayer::Create();
+
+        CGameObject* pGameObject = nullptr;
+        pGameObject = CTerrainBoss::Create(m_pGraphicDevice);
+        if (FAILED(pGameLogicLayer->Add_GameObject(L"Terrain_Boss", pGameObject)))
+        {
+            MSG_BOX("Add Boss Terrain Fail");
+            return E_FAIL;
+        }
+
+        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
+    }
+    return S_OK;
+}
+
+HRESULT CEditScene::Add_BossWallFront_Down(const wstring pLayerTag)
+{
+    auto iter = m_umLayer.find(pLayerTag);
+    if (iter != m_umLayer.end())
+    {
+        CLayer* pLayer = iter->second;
+
+        CGameObject* pGameObject = CBossWallFront::Create(m_pGraphicDevice);
+
+        if (FAILED(pLayer->Add_GameObject(L"Boss_Wall_Front", pGameObject)))
+        {
+            MSG_BOX("Add Boss Wall Front Fail");
+            return E_FAIL;
+        }
+    }
+    else
+    {
+        CLayer* pGameLogicLayer = CLayer::Create();
+
+        CGameObject* pGameObject = nullptr;
+        pGameObject = CBossWallFront::Create(m_pGraphicDevice);
+        if (FAILED(pGameLogicLayer->Add_GameObject(L"Boss_Wall_Front", pGameObject)))
+        {
+            MSG_BOX("Add Boss Wall Front Fail");
             return E_FAIL;
         }
 

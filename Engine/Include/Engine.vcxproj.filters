@@ -139,6 +139,9 @@
     <Filter Include="02. Prototype\00. VIBuffer\02. TerrainTex\01. Dungeon">
       <UniqueIdentifier>{2080e8aa-d930-4018-9d77-4f82e32c5246}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Prototype\00. VIBuffer\02. TerrainTex\02. Boss">
+      <UniqueIdentifier>{b19aeb14-531b-49be-9885-4298162c6d3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -188,9 +191,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\CManagement.h">
       <Filter>01. Logic\00. Management</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CVIBuffer.h">
-      <Filter>02. Prototype\00. VIBuffer</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CRectColor.h">
       <Filter>02. Prototype\00. VIBuffer\00. RectColor</Filter>
@@ -294,6 +294,12 @@
     <ClInclude Include="..\Header\CTerrainDungeonTex.h">
       <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\01. Dungeon</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CVIBuffer.h">
+      <Filter>02. Prototype\00. VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTerrainBossTex.h">
+      <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\02. Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CTimer.cpp">
@@ -325,9 +331,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CManagement.cpp">
       <Filter>01. Logic\00. Management</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CVIBuffer.cpp">
-      <Filter>02. Prototype\00. VIBuffer</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CRectColor.cpp">
       <Filter>02. Prototype\00. VIBuffer\00. RectColor</Filter>
@@ -424,6 +427,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainDungeonTex.cpp">
       <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\01. Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CVIBuffer.cpp">
+      <Filter>02. Prototype\00. VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerrainBossTex.cpp">
+      <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\02. Boss</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -36,7 +36,6 @@ private:
     _ulong					m_dwCntZ;
     _ulong					m_dwVtxItv;
     wstring			m_wsHeightMapPath;
-    PROTOTYPE_COMPONENT m_eProto;
 
 public:
     static CTerrainDungeonTex* Create(LPDIRECT3DDEVICE9 pGraphicDev,

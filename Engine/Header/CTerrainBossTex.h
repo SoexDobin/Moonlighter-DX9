@@ -4,17 +4,17 @@
 
 BEGIN(Engine)
 
-class ENGINE_DLL CTerrainDungeonTex : public CVIBuffer
+class ENGINE_DLL CTerrainBossTex : public CVIBuffer
 {
 private:
-    explicit CTerrainDungeonTex();
-    explicit CTerrainDungeonTex(LPDIRECT3DDEVICE9 pGraphicDev,
+    explicit CTerrainBossTex();
+    explicit CTerrainBossTex(LPDIRECT3DDEVICE9 pGraphicDev,
         const _ulong dwCntX,
         const _ulong dwCntZ,
         const _ulong dwVtxItv,
         const wstring& wsHeightMapPath);
-    explicit CTerrainDungeonTex(const CTerrainDungeonTex& rhs);
-    virtual ~CTerrainDungeonTex() override;
+    explicit CTerrainBossTex(const CTerrainBossTex& rhs);
+    virtual ~CTerrainBossTex() override;
 
 public:
     const _ulong			Get_VertexCountX() const { return m_dwCntX; }
@@ -38,13 +38,13 @@ private:
     wstring			m_wsHeightMapPath;
 
 public:
-    static CTerrainDungeonTex* Create(LPDIRECT3DDEVICE9 pGraphicDev,
+    static CTerrainBossTex* Create(LPDIRECT3DDEVICE9 pGraphicDev,
         const _ulong dwCntX,
         const _ulong dwCntZ,
         const _ulong dwVtxItv,
         const wstring& wsHeightMapPath);
     CComponent* Clone() override;
-    PROTOTYPE_COMPONENT		Get_ComponentType() override { return TERRAINDUNGEONTEX; }
+    PROTOTYPE_COMPONENT		Get_ComponentType() override { return TERRAINBOSSTEX; }
 
 private:
     void			Free() override;

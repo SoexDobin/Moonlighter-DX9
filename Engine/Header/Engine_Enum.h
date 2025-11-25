@@ -49,6 +49,7 @@ namespace Engine
 		RECTTEX,
 		TERRAINTEX,
         TERRAINDUNGEONTEX,
+        TERRAINBOSSTEX,
 		CUBETEX,
 
 		TRANSFORM,

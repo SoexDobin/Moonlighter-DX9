@@ -54,11 +54,11 @@ void CCollider::Display_Editor(const char* pObjTag)
     ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(15, 15, 45, 255));
     const _float lineH = ImGui::GetFrameHeightWithSpacing();
 
-    if (ImGui::BeginChild("RectScaleBox", ImVec2(0, lineH * 3.f), true))
+    ImGui::Text("Scale");
+    if (ImGui::BeginChild("ScaleBox", ImVec2(0, lineH * 3.f), true))
     {
-        ImGui::Text("Scale");
         ImGui::PushItemWidth(100.0f);
-        ImGui::SliderFloat("##RectScale", &m_fScale, 1.0f, 20.0f, "%.2f");
+        ImGui::SliderFloat("##Scale", &m_fScale, 1.0f, 20.0f, "%.2f");
         ImGui::PopItemWidth();
     }
     ImGui::EndChild();
@@ -66,7 +66,7 @@ void CCollider::Display_Editor(const char* pObjTag)
     ImGui::Spacing();
 
     ImGui::Text("Offset");
-    if (ImGui::BeginChild("RectOffsetBox", ImVec2(0, lineH * 2.0f), true))
+    if (ImGui::BeginChild("OffsetBox", ImVec2(0, lineH * 2.0f), true))
     {
         ImGui::PushItemWidth(40.0f);
 

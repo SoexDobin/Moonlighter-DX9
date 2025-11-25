@@ -229,9 +229,6 @@
     <ClInclude Include="..\Header\CPlayer.h">
       <Filter>03. GameObject\01. Player</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CUIInven.h">
-      <Filter>03. GameObject\10. UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CUITestScene.h">
       <Filter>02. Scene\08. UITestScene</Filter>
     </ClInclude>
@@ -261,9 +258,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\CItemManager.h">
       <Filter>03. GameObject\09. Item</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CUIInvenSlot.h">
-      <Filter>03. GameObject\10. UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CHouse.h">
       <Filter>03. GameObject\11. Map\House</Filter>
@@ -352,6 +346,9 @@
     <ClInclude Include="..\Header\CMonsterState.h">
       <Filter>97. StateMachine\03. MonsterState</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CUIInven.h">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -437,9 +434,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CItemManager.cpp">
       <Filter>03. GameObject\09. Item</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CUIInvenSlot.cpp">
-      <Filter>03. GameObject\10. UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CHouse.cpp">
       <Filter>03. GameObject\11. Map\House</Filter>

@@ -3,10 +3,11 @@
 #include "Engine_Define.h"
 
 
-namespace Engine { class CTexture; }
-
-
-
+namespace Engine
+{
+    class CTexture;
+    class CGameObject;
+}
 
 class CItemMamager : public CBase
 {
@@ -20,10 +21,15 @@ public:
 
     ITEMDATA* Get_ItemData(const wstring& wsLayerTag);
 
-    void  Add_Item();
 
 private:
     void     Free() override;
-    map<wstring, ITEMDATA>     m_mapItem;
+
+private:
+    HRESULT  Ready_Item();
+    HRESULT Add_Item(const ITEMDATA& tData);
+
+    CTexture* m_pTextureCom;
+    unordered_map<wstring, ITEMDATA>     m_mapItem;
 };
 

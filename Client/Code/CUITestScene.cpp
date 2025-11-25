@@ -99,15 +99,7 @@ HRESULT CUITestScene::Ready_UIInven_Layer(const wstring& wsLayerTag)
     if (FAILED(pLayer->Add_GameObject(L"UI_Inven", pGameObject)))
         return E_FAIL;
 
-    //인벤 슬롯 UI
-    pGameObject = CUIInvenSlot::Create(m_pGraphicDevice);
     
-    if (pGameObject == nullptr)
-        return E_FAIL;
-    
-    if (FAILED(pLayer->Add_GameObject(L"UI_InvenSlot", pGameObject)))
-        return E_FAIL;
-
 
     //Static UI
     pGameObject = CUIStatic::Create(m_pGraphicDevice);
@@ -155,13 +147,9 @@ void CUITestScene::UI_KeyInput(const _float& fTimeDelta)
             CUIInven* pInventory = static_cast<CUIInven*>
                 (CManagement::GetInstance()->Get_Object(L"UI_Layer", L"UI_Inven"));
 
-            CUIInvenSlot* pInvenslot = static_cast<CUIInvenSlot*>
-                (CManagement::GetInstance()->Get_Object(L"UI_Layer", L"UI_InvenSlot"));
-
             if (pInventory)
             {
                 pInventory->InvenButton();
-                pInvenslot->SlotButton();
             }
             m_bCheck = true;
 

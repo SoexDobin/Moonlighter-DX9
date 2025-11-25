@@ -5,12 +5,12 @@
 #include "CPrototypeManager.h"
 
 CUIStatic::CUIStatic(LPDIRECT3DDEVICE9 pGraphicDev)
-    :CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
+    :CRenderObject(pGraphicDev)
 {
 }
 
 CUIStatic::CUIStatic(const CUIStatic& rhs)
-    : CRenderObject(rhs), m_pTextureCom(nullptr)
+    : CRenderObject(rhs)
 {
 }
 
@@ -40,7 +40,7 @@ _int CUIStatic::Update_GameObject(const _float fTimeDelta)
 
 void CUIStatic::LateUpdate_GameObject(const _float fTimeDelta)
 {
-    Engine::CRenderObject::Update_GameObject(fTimeDelta);
+    Engine::CRenderObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 void CUIStatic::Render_GameObject()
@@ -204,6 +204,8 @@ HRESULT CUIStatic::UI_Initialize()
             m_VecUI.push_back(vStaticIcon);
         }
     }
+
+    return S_OK;
    
 }
 

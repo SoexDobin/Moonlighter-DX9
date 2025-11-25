@@ -71,7 +71,7 @@ void CBossJumpState::Check_EventFrame()
 
 void CBossJumpState::Determine_NextState()
 {
-    m_pStateMachine->Change_State(CBoss::BOSS_STATE::WALK);
+    m_pStateMachine->Change_State(CBoss::BOSS_STATE::ATK_JUMP);
 }
 
 void CBossJumpState::Jump_ToPlayer(const _float fTimeDelta)

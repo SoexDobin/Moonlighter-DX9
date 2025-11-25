@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "CRenderObject.h"
+#include "CMonster.h"
 namespace Engine {
     class CTexture;
 }
@@ -9,7 +9,7 @@ class CPlayer;
 class CMonsterState;
 class CSlimeStateMachine;
 
-class CSlimeMob : public CRenderObject
+class CSlimeMob : public CMonster
 {
 public:
     enum SLIME_STATE { IDLE, ATK_CIRCLE, ATK_BIG, WALK, DEAD, S_END };
@@ -32,8 +32,8 @@ public:
     void    Set_CurStateKey(_uint dwStateKey, CMonsterState* pCurState);
     void    Set_CurAnimKey(_uint dwAinmKey) { m_dwAnimKey = dwAinmKey; }
 
-private:
-    void    Configure_Component();
+    virtual void    Ready_EntityComponent() override;
+    virtual void    Configure_Component() override;
 
 private:
     CTexture* m_pDynamicTexCom;

@@ -91,7 +91,6 @@
     <Filter Include="97. StateMachine\03. MonsterState">
       <UniqueIdentifier>{189b08f2-81da-4052-81f2-5ccf552aa5ef}</UniqueIdentifier>
     </Filter>
-    
     <Filter Include="03. GameObject\99. Entity">
       <UniqueIdentifier>{2e8ca6d0-adeb-4e64-8dd6-89f29ff39ab5}</UniqueIdentifier>
     </Filter>
@@ -152,6 +151,15 @@
     </Filter>
     <Filter Include="03. GameObject\11. Map\TerrainVillage">
       <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component">
+      <UniqueIdentifier>{c9efbac8-99a9-40ff-a55a-888b1c2c1253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\00. Stat">
+      <UniqueIdentifier>{fb59425b-453e-4fbc-99b2-9571a4a688fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\01. Combat">
+      <UniqueIdentifier>{18eb0a5a-ca58-49ae-88a2-69016980aeb4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -353,6 +361,27 @@
     <ClInclude Include="..\Header\CMonsterState.h">
       <Filter>97. StateMachine\03. MonsterState</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CEntity.h">
+      <Filter>03. GameObject\99. Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMonster.h">
+      <Filter>03. GameObject\02. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CStatComponent.h">
+      <Filter>04. Component\00. Stat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEntityComponent.h">
+      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCombatComponent.h">
+      <Filter>04. Component\01. Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCombatStats.h">
+      <Filter>04. Component\01. Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHitBox.h">
+      <Filter>04. Component\01. Combat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -528,6 +557,27 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMonsterState.cpp">
       <Filter>97. StateMachine\03. MonsterState</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEntity.cpp">
+      <Filter>03. GameObject\99. Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMonster.cpp">
+      <Filter>03. GameObject\02. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CStatComponent.cpp">
+      <Filter>04. Component\00. Stat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEntityComponent.cpp">
+      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCombatComponent.cpp">
+      <Filter>04. Component\01. Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCombatStats.cpp">
+      <Filter>04. Component\01. Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHitBox.cpp">
+      <Filter>04. Component\01. Combat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

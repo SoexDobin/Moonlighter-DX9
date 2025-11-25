@@ -12,14 +12,14 @@
 
 
 CSlimeMob::CSlimeMob(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_dwCurStateKey(SLIME_STATE::S_END), m_dwAnimKey(SLIME_STATE::S_END),
+    : CMonster(pGraphicDev), m_pDynamicTexCom(nullptr), m_dwCurStateKey(SLIME_STATE::S_END), m_dwAnimKey(SLIME_STATE::S_END),
     m_pStateMachine(nullptr), m_pCurState(nullptr)
 {
     PANEL_NAME(L"Slime");
 }
 
 CSlimeMob::CSlimeMob(const CSlimeMob& rhs)
-    : CRenderObject(rhs), m_pDynamicTexCom(nullptr)
+    : CMonster(rhs), m_pDynamicTexCom(nullptr)
 {
     PANEL_NAME(L"Slime");
 }
@@ -122,6 +122,16 @@ void CSlimeMob::Set_CurStateKey(_uint dwStateKey, CMonsterState* pCurState)
     m_dwCurStateKey = dwStateKey;
     m_pCurState = pCurState;
     m_pDynamicTexCom->Set_Texture(dwStateKey);
+}
+
+void CSlimeMob::Ready_EntityComponent()
+{
+    // Set Combat Stats                
+    m_pCombatStats = CCombatStats::Create(this);
+    m_pCombatStats->Set_HealthStat(CStatComponent::Create(this, 100.f, 0.f, 100.f));
+    m_pCombatStats->Set_AttackStat(CStatComponent::Create(this, 10.f, 10.f, 30.f));
+    m_pCombatStats->Set_DefenseStat(CStatComponent::Create(this, 10.f, 10.f, 30.f));
+    m_pCombatStats->Set_SpeedStat(CStatComponent::Create(this, 5.f, 1.f, 10.f));
 }
 
 void CSlimeMob::Configure_Component()

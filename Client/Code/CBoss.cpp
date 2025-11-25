@@ -3,15 +3,22 @@
 #include "CBoss.h"
 #include "CRenderer.h"
 #include "CPrototypeManager.h"
-#include "CManagement.h"
 
-#include "CPlayer.h"
 #include "CMonsterState.h"
 #include "CBossStateMachine.h"
+
+#include "CCombatStats.h"
 #pragma endregion
 
+#pragma region TEST INCLUDE
+#include "CCollisionManager.h"
+#include "CSphereCollider.h"
+#include "CManagement.h"
+#pragma endregion
+
+
 CBoss::CBoss(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_dwCurStateKey(BOSS_STATE::B_END), m_dwAnimKey(BOSS_STATE::B_END),
+    : CMonster(pGraphicDev), m_pDynamicTexCom(nullptr), m_dwCurStateKey(BOSS_STATE::B_END), m_dwAnimKey(BOSS_STATE::B_END),
     m_pStateMachine(nullptr), m_pCurState(nullptr)
 {
     PANEL_NAME(L"Boss");
@@ -40,8 +47,12 @@ HRESULT CBoss::Ready_GameObject()
         m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pDynamicTexCom));
     }
 #pragma endregion
+
+    m_pStateMachine = CBossStateMachine::Create(this);
+
+    Ready_EntityComponent();
     Ready_Animation();
-   m_pStateMachine = CBossStateMachine::Create(this);
+
 
     // after all components are set up
     Configure_Component();
@@ -61,6 +72,27 @@ _int CBoss::Update_GameObject(const _float fTimeDelta)
     _int iExit = Engine::CRenderObject::Update_GameObject(fTimeDelta);
 
     Engine::CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
+
+
+    {
+        //====================== 충돌 테스트 ======================
+        if (GetAsyncKeyState('I') & 0x01)
+        {
+            CGameObject* pObject = CManagement::GetInstance()->Get_Object(L"GameLogic_Layer", L"SlimeMob");
+            if (!pObject)
+                return 0;
+
+            CSphereCollider* tempCollider = CSphereCollider::Create(m_pGraphicDevice);
+            if (!tempCollider)
+                return 0;
+
+            tempCollider->Set_ColState(ENTER_COL);
+            tempCollider->Set_Collision({ pObject, ENTER_COL });
+
+            On_Collision(tempCollider->Get_Collision());
+        }
+        //====================================================
+    }
 
     return iExit;
 }
@@ -97,6 +129,25 @@ void CBoss::Render_GameObject()
 
 }
 
+void CBoss::On_Collision(const Collision& tCollision)
+{
+    //================= 충돌 테스트 =========================
+    // 충돌 상태가 슬라임이라 가정 : 슬라임 -> 보스에게 몸박 공격
+
+    CMonster* pMonster = nullptr;
+    if (pMonster = dynamic_cast<CMonster*>(tCollision.pColTarget))
+    {
+        //pMonster->Get_CombatStats()
+    }
+    else
+    {
+        // 먼가 잘못됨
+         return;   
+    }
+
+    // ====================================================
+}
+
 HRESULT CBoss::Ready_Animation()
 {
     m_pDynamicTexCom->Ready_Texture(L"Boss_Awake");                //BOSS_STATE::AWAKE
@@ -107,12 +158,14 @@ HRESULT CBoss::Ready_Animation()
     m_pDynamicTexCom->Ready_Texture(L"Boss_Shake");                //BOSS_STATE::ATK_SHAKE
     m_pDynamicTexCom->Ready_Texture(L"Boss_Death");                //BOSS_STATE::DEAD
 
-    // TODO : 무기 스프라이트 : 다른 데로 옮겨야 함
-    //m_pDynamicTexCom->Ready_Texture(L"Boss_Cutting_Idle");
-    //m_pDynamicTexCom->Ready_Texture(L"Boss_Cutting_Growing");
-    //m_pDynamicTexCom->Ready_Texture(L"Boss_Cutting_Shot");
-    //m_pDynamicTexCom->Ready_Texture(L"Root1");
-    //m_pDynamicTexCom->Ready_Texture(L"Root2");
+    {
+        // TODO : 무기 스프라이트 : 다른 데로 옮겨야 함
+        //m_pDynamicTexCom->Ready_Texture(L"Boss_Cutting_Idle");
+        //m_pDynamicTexCom->Ready_Texture(L"Boss_Cutting_Growing");
+        //m_pDynamicTexCom->Ready_Texture(L"Boss_Cutting_Shot");
+        //m_pDynamicTexCom->Ready_Texture(L"Root1");
+        //m_pDynamicTexCom->Ready_Texture(L"Root2");
+    }
 
     // Configure boss animation values
     m_pDynamicTexCom->Set_Speed(10.f);
@@ -131,9 +184,22 @@ void CBoss::Set_CurStateKey(_uint dwStateKey, CMonsterState* pCurState)
     m_pDynamicTexCom->Set_Texture(dwStateKey);
 }
 
+void CBoss::Ready_EntityComponent()
+{
+    // Set Combat Stats                
+    m_pCombatStats = CCombatStats::Create(this);
+    m_pCombatStats->Set_HealthStat(CStatComponent::Create(this, 100.f, 0.f, 100.f));
+    m_pCombatStats->Set_AttackStat(CStatComponent::Create(this, 10.f, 10.f, 30.f));
+    m_pCombatStats->Set_DefenseStat(CStatComponent::Create(this, 10.f, 10.f, 30.f));
+    m_pCombatStats->Set_SpeedStat(CStatComponent::Create(this, 5.f, 1.f, 10.f));
+}
+
 void CBoss::Configure_Component()
 {
     m_pTransformCom->Set_Pos(20.f, 5.f, 10.f);
+
+    // Entity Stat
+    m_pCombatStats->Get_HealthStat()->m_OnValueMin = [&]() {m_pStateMachine->Change_State(CBoss::DEAD); };
 }
 
 CBoss* CBoss::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -154,17 +220,20 @@ void CBoss::Free()
 {
     Engine::CGameObject::Free();
 
-
     m_pStateMachine->Release();
+    m_pCombatStats->Release();
 }
 
 void CBoss::Add_EditorFiled()
 {
     CGameObject::Add_EditorField("State", DATATYPE::DATA_TCHAR, &m_szState);
+    CGameObject::Add_EditorField("HP", DATATYPE::DATA_FLOAT, &debug_fHP);
+    CGameObject::Add_EditorField("Speed", DATATYPE::DATA_FLOAT, &debug_fSpeed);
 }
 
 void CBoss::Display_CurrentState()
 {
+#pragma region STATE
     switch ((BOSS_STATE)m_dwCurStateKey)
     {
     case BOSS_STATE::AWAKE:
@@ -219,8 +288,24 @@ void CBoss::Display_CurrentState()
         wcscpy_s(m_szState, L"NONE\n");
 
     }
-        break;
+    break;
     }
+#pragma endregion
+
+
+#pragma region COMBAT TEST
+    debug_fHP = m_pCombatStats->Get_HealthStat()->Get_CurValue();
+    debug_fSpeed = m_pCombatStats->Get_SpeedStat()->Get_CurValue();
+
+    //if (GetAsyncKeyState('P') & 0x01)
+    //{
+    //    m_pCombatStats->Get_HealthStat()->Decrease(30.f);
+    //}
+    //if (GetAsyncKeyState('O') & 0x01)
+    //{
+    //    m_pCombatStats->Get_SpeedStat()->Increase(30.f);
+    //}
+#pragma endregion
 
 
 }

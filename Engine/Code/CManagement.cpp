@@ -1,10 +1,11 @@
 ﻿#include "CManagement.h"
 #include "CRenderer.h"
+#include "CCollisionManager.h"
 
 IMPLEMENT_SINGLETON(CManagement)
 
 CManagement::CManagement()
-    : m_pCurScene(nullptr)
+    : m_pCurScene(nullptr), m_bIsInit(true)
 {
 }
 
@@ -81,8 +82,11 @@ HRESULT CManagement::Set_Scene(CScene* pScene)
     if (pScene == nullptr) return E_FAIL;
 
     Safe_Release(m_pCurScene);
-    // TODO : Scene 변경 과정간 변동 제어는?
-    // TODO :  씬 변경 시 릴리즈와 재사용
+    if (m_bIsInit)
+        m_bIsInit = false;
+    else
+        CCollisionManager::GetInstance()->Clear_CollisionGroup();
+
     m_pCurScene = pScene;
 
     return S_OK;

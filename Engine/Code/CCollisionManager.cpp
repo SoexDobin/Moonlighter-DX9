@@ -90,6 +90,11 @@ void CCollisionManager::Update_Collision()
     }
 }
 
+void CCollisionManager::Clear_CollisionGroup()
+{
+    m_vecCollider.clear();
+}
+
 #ifdef _DEBUG
 void CCollisionManager::Render_Collision()
 {
@@ -102,28 +107,69 @@ void CCollisionManager::Render_Collision()
 
 _bool CCollisionManager::RectCollision(CRectCollider* pSrc, CRectCollider* pDst)
 {
+    _vec3 vSrcMin = pSrc->Get_Transform()->Get_Pos() + pSrc->Get_Offset() + (pSrc->Get_Dimension() * -0.5f * pSrc->Get_Scale());
+    _vec3 vSrcMax = pSrc->Get_Transform()->Get_Pos() + pSrc->Get_Offset() + (pSrc->Get_Dimension() * 0.5f * pSrc->Get_Scale());
+
+    _vec3 vDstMin = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * -0.5f * pDst->Get_Scale());
+    _vec3 vDstMax = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * 0.5f * pDst->Get_Scale());
+
+    if (vSrcMax.x < vDstMin.x) return false; // Src가 Dst 왼쪽
+    if (vSrcMin.x > vDstMax.x) return false; // Src가 Dst 오른쪽
+
+    if (vSrcMax.y < vDstMin.y) return false; // Src가 Dst 아래
+    if (vSrcMin.y > vDstMax.y) return false; // Src가 Dst 위
+
+    if (vSrcMax.z < vDstMin.z) return false; // Src가 Dst 뒤
+    if (vSrcMin.z > vDstMax.z) return false; // Src가 Dst 앞
 
     return true;
 }
 
 _bool CCollisionManager::SphereCollision(CSphereCollider* pSrc, CSphereCollider* pDst)
 {
-    _vec3 vSrcPos = pSrc->Get_Transform()->Get_Pos();
-    _vec3 vDstPos = pDst->Get_Transform()->Get_Pos();
+    _vec3 vSrcPos = pSrc->Get_Transform()->Get_Pos() + pSrc->Get_Offset();
+    _vec3 vDstPos = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset();
     _vec3 vDistance = vDstPos - vSrcPos;
     _float fDistance = D3DXVec3LengthSq(&vDistance);
     
     _float m_fRadiusSum = (pSrc->Get_Radius() * pSrc->Get_Scale() )
-                        + (pDst->Get_Radius() * pSrc->Get_Scale() ) * 0.5f;
+                        + (pDst->Get_Radius() * pDst->Get_Scale() );
 
     return m_fRadiusSum >= fDistance;
 }
 
+_bool CCollisionManager::SphereRectCollision(CSphereCollider* pSrc, CRectCollider* pDst)
+{
+    _vec3 vSpherePos = pSrc->Get_Transform()->Get_Pos() + pSrc->Get_Offset();
+
+    _vec3 vRectMin = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * -0.5f * pSrc->Get_Scale());
+    _vec3 vRectMax = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * 0.5f * pDst->Get_Scale());
+
+    _vec3 vClosestPoint;
+    
+    if (fabsf(vSpherePos.x - vRectMin.x) > fabsf(vSpherePos.x - vRectMax.x))
+        vClosestPoint.x = vRectMax.x;
+    else
+        vClosestPoint.x = vRectMin.x;
+
+    if (fabsf(vSpherePos.y - vRectMin.y) > fabsf(vSpherePos.y - vRectMax.y))
+        vClosestPoint.y = vRectMax.y;
+    else
+        vClosestPoint.y = vRectMin.y;
+
+    if (fabsf(vSpherePos.z - vRectMin.z) > fabsf(vSpherePos.z - vRectMax.z))
+        vClosestPoint.z = vRectMax.z;
+    else
+        vClosestPoint.z = vRectMin.z;
+
+    vClosestPoint = vClosestPoint - vSpherePos;
+    _float fDistance = D3DXVec3LengthSq(&vClosestPoint);
+    _float fRadius = pSrc->Get_Radius() * pSrc->Get_Scale();
+    // 구의 반지름과 Rect구중심으로 부터 박스 최단거리의 비교
+    return fDistance <= (fRadius * fRadius);
+}
+
 void CCollisionManager::Free()
 {
-    for_each(m_vecCollider.begin(), m_vecCollider.end(),
-        [](CCollider* pCol) -> void {
-            Safe_Release(pCol);
-        });
     m_vecCollider.clear();
 }

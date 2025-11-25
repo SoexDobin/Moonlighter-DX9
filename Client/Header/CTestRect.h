@@ -5,6 +5,7 @@
 namespace Engine {
 	class CTexture;
     class CSphereCollider;
+    class CRectCollider;
 }
 
 class CTestRect : public CRenderObject
@@ -25,9 +26,10 @@ public:
     void        On_Collision(const Collision& tCollision) override;
 
 private:
-	CTexture*	m_pDynamicTexCom;
-	CTexture*	m_pStaticTexCom;
-    CSphereCollider* m_pColCom;
+	CTexture*	        m_pDynamicTexCom;
+	CTexture*	        m_pStaticTexCom;
+    CSphereCollider*    m_pColCom;
+    CRectCollider*      m_pRectColCom;
 
 public:
 	static CTestRect*	Create(LPDIRECT3DDEVICE9 pGraphicDev);

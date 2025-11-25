@@ -9,6 +9,7 @@
 #include "CUtility.h"
 #include "CHouse.h"
 #include "CTreeObject.h"
+#include "CDungeonWall.h"
 
 CEditScene::CEditScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev), pVillage(nullptr), g_MapEditor(nullptr), g_pPreviewTex(nullptr)
@@ -171,6 +172,18 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
             ImGui::EndTooltip();
         }
+
+        if (ImGui::Button("Add Dungeon Wall"))
+        {
+            Add_DungeonWall(L"Environment_Layer");
+        }
+        if (ImGui::IsItemHovered())
+        {
+            InitPreviewTextures(L"Map_Dungeon_Wall");
+            ImGui::BeginTooltip();
+            ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
+            ImGui::EndTooltip();
+        }
     }
 
     ImGui::End();
@@ -233,6 +246,17 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
                             if (ImGui::DragFloat3("Scale", reinterpret_cast<float*>(&vScale), 0.1f, 0.1f, 100.f))
                             {
                                 pTrans->Set_Scale(vScale.x, vScale.y, vScale.z);
+                            }
+                            _vec3 vCurrentAngle = pTrans->Get_Angle();
+                            ImGui::Text("Current Rotation: X=%.2f, Y=%.2f, Z=%.2f", vCurrentAngle.x, vCurrentAngle.y, vCurrentAngle.z);
+
+                            if (ImGui::DragFloat3("Rotation (Pitch/Yaw/Roll)", reinterpret_cast<float*>(&vRot), 0.1f))
+                            {
+                                pTrans->Add_Rotation(ROT_X, vRot.x);
+                                pTrans->Add_Rotation(ROT_Y, vRot.y);
+                                pTrans->Add_Rotation(ROT_Z, vRot.z);
+
+                                vRot = { 0.f, 0.f, 0.f };
                             }
                         }
                         else
@@ -498,6 +522,38 @@ HRESULT CEditScene::Add_Tree(const wstring pLayerTag)
         m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
     }
 
+    return S_OK;
+}
+
+HRESULT CEditScene::Add_DungeonWall(const wstring pLayerTag)
+{
+    auto iter = m_umLayer.find(pLayerTag);
+    if (iter != m_umLayer.end())
+    {
+        CLayer* pLayer = iter->second;
+
+        CGameObject* pGameObject = CDungeonWall::Create(m_pGraphicDevice);
+
+        if (FAILED(pLayer->Add_GameObject(L"Dungeon_Wall", pGameObject)))
+        {
+            MSG_BOX("Add Dungeon Wall Fail");
+            return E_FAIL;
+        }
+    }
+    else
+    {
+        CLayer* pGameLogicLayer = CLayer::Create();
+
+        CGameObject* pGameObject = nullptr;
+        pGameObject = CDungeonWall::Create(m_pGraphicDevice);
+        if (FAILED(pGameLogicLayer->Add_GameObject(L"Dungeon_Wall", pGameObject)))
+        {
+            MSG_BOX("Add Dungeon Wall Fail");
+            return E_FAIL;
+        }
+
+        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
+    }
     return S_OK;
 }
 

@@ -5,8 +5,6 @@
 #include "CDInputManager.h"
 #include "CManagement.h"
 
-#include "CPlayer.h"
-
 CTreeObject::CTreeObject(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
 {

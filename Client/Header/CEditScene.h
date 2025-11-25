@@ -14,6 +14,7 @@ private:
     CGameObject* pVillage;
     CGameObject* m_pSelectedObject = nullptr;
     IDirect3DBaseTexture9* g_pPreviewTex;
+    _vec3 vRot = { 0.f, 0.f, 0.f };
 
 
     HRESULT Ready_Environment_Layer(const wstring pLayerTag);
@@ -29,6 +30,7 @@ private:
     HRESULT Add_Tree(const wstring pLayerTag);
 
     HRESULT Add_TerrainDungeon(const wstring pLayerTag);
+    HRESULT Add_DungeonWall(const wstring pLayerTag);
 
     inline string WStringToUTF8(const std::wstring& wstr);
 

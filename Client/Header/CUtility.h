@@ -2,7 +2,7 @@
 #include "CBase.h"
 #include "CTerrainVillage.h"
 #include "CHouse.h"
-#include "CTree.h"
+#include "CTreeObject.h"
 #include "CTerrainTex.h"
 #include "CPrototypeManager.h"
 #include "CManagement.h"
@@ -147,7 +147,7 @@ namespace CUtility
             }
             else if (!strcmp(data.type.c_str(), "Tree"))
             {
-                pObj = CTree::Create(pDevice);
+                pObj = CTreeObject::Create(pDevice);
             }
             else if (!strcmp(data.type.c_str(), "Terrain_Village"))
             {

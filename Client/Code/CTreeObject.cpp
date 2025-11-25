@@ -1,5 +1,5 @@
 ﻿#include "pch.h"
-#include "CTree.h"
+#include "CTreeObject.h"
 #include "CRenderer.h"
 #include "CPrototypeManager.h"
 #include "CDInputManager.h"
@@ -7,23 +7,23 @@
 
 #include "CPlayer.h"
 
-CTree::CTree(LPDIRECT3DDEVICE9 pGraphicDev)
+CTreeObject::CTreeObject(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
 {
     PANEL_NAME(L"Tree")
 }
 
-CTree::CTree(const CTree& rhs)
+CTreeObject::CTreeObject(const CTreeObject& rhs)
     : CRenderObject(rhs), m_pTextureCom(nullptr)
 {
     PANEL_NAME(L"Tree")
 }
 
-CTree::~CTree()
+CTreeObject::~CTreeObject()
 {
 }
 
-HRESULT CTree::Ready_GameObject()
+HRESULT CTreeObject::Ready_GameObject()
 {
     if (FAILED(Engine::CRenderObject::Ready_GameObject()))
         return E_FAIL;
@@ -47,7 +47,7 @@ HRESULT CTree::Ready_GameObject()
     return S_OK;
 }
 
-_int CTree::Update_GameObject(const _float fTimeDelta)
+_int CTreeObject::Update_GameObject(const _float fTimeDelta)
 {
     _int iExit = Engine::CRenderObject::Update_GameObject(fTimeDelta);
 
@@ -56,12 +56,12 @@ _int CTree::Update_GameObject(const _float fTimeDelta)
     return iExit;
 }
 
-void CTree::LateUpdate_GameObject(const _float fTimeDelta)
+void CTreeObject::LateUpdate_GameObject(const _float fTimeDelta)
 {
     Engine::CRenderObject::LateUpdate_GameObject(fTimeDelta);
 }
 
-void CTree::Render_GameObject()
+void CTreeObject::Render_GameObject()
 {
     m_pGraphicDevice->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
@@ -76,13 +76,13 @@ void CTree::Render_GameObject()
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
-CTree* CTree::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CTreeObject* CTreeObject::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CTree* pInstance = new CTree(pGraphicDev);
+    CTreeObject* pInstance = new CTreeObject(pGraphicDev);
 
     if (FAILED(pInstance->Ready_GameObject()))
     {
-        MSG_BOX("CTree Create Failed");
+        MSG_BOX("CTreeObject Create Failed");
         Safe_Release(pInstance);
         return nullptr;
     }
@@ -90,7 +90,7 @@ CTree* CTree::Create(LPDIRECT3DDEVICE9 pGraphicDev)
     return pInstance;
 }
 
-void CTree::Free()
+void CTreeObject::Free()
 {
     Engine::CGameObject::Free();
 }

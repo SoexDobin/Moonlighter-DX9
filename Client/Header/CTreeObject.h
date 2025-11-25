@@ -6,12 +6,12 @@ namespace Engine
     class CTexture;
 }
 
-class CTree : public CRenderObject
+class CTreeObject : public CRenderObject
 {
 private:
-    explicit CTree(LPDIRECT3DDEVICE9 pGraphicDev);
-    explicit CTree(const CTree& rhs);
-    virtual ~CTree() override;
+    explicit CTreeObject(LPDIRECT3DDEVICE9 pGraphicDev);
+    explicit CTreeObject(const CTreeObject& rhs);
+    virtual ~CTreeObject() override;
 
     CTexture* m_pTextureCom;
 
@@ -22,6 +22,6 @@ public:
     void LateUpdate_GameObject(const _float fTimeDelta) override;
     void Render_GameObject() override;
 
-    static CTree* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+    static CTreeObject* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 };
 

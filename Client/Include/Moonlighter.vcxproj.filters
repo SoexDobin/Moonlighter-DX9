@@ -137,9 +137,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="03. GameObject\11. Map\Tree">
-      <UniqueIdentifier>{420576ff-11c6-4e3e-8055-8f0d484e5c98}</UniqueIdentifier>
-    </Filter>
     <Filter Include="96. Utility">
       <UniqueIdentifier>{dd585d7f-ea1b-496c-a1b0-8749e04611a6}</UniqueIdentifier>
     </Filter>
@@ -149,13 +146,20 @@
     <Filter Include="03. GameObject\02. Monster\03. Sheeder\01. SheederState">
       <UniqueIdentifier>{e84c3397-6465-4053-8b61-a6375e6aaff6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObject\11. Map\TerrainVillage">
-      <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. GameObject\11. Map\TerrainDungeonNormal">
       <UniqueIdentifier>{c07b8026-7881-4354-b0b1-bd0ed3699265}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. Scene\09. ComposeScene">
       <UniqueIdentifier>{96f800df-13e1-4614-83c5-a94b5ddd8be3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\TerrainVillage">
+      <UniqueIdentifier>{c84f55aa-e202-49b1-85d4-01b61ba3b320}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\DungeonWall">
+      <UniqueIdentifier>{f8e83c3d-be73-4e84-851d-c0f51dcd6db9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\TreeObject">
+      <UniqueIdentifier>{420576ff-11c6-4e3e-8055-8f0d484e5c98}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -243,9 +247,6 @@
     <ClInclude Include="..\Header\CUIStatic.h">
       <Filter>03. GameObject\10. UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CTerrainVillage.h">
-      <Filter>03. GameObject\11. Map\TerrainVillage</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CUtility.h">
       <Filter>96. Utility</Filter>
     </ClInclude>
@@ -273,8 +274,8 @@
     <ClInclude Include="..\Header\CHouse.h">
       <Filter>03. GameObject\11. Map\House</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CTree.h">
-      <Filter>03. GameObject\11. Map\Tree</Filter>
+    <ClInclude Include="..\Header\CTreeObject.h">
+      <Filter>03. GameObject\11. Map\TreeObject</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CBossStateMachine.h">
       <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
@@ -359,8 +360,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\CTerrainDungeonNormal.h">
       <Filter>03. GameObject\11. Map\TerrainDungeonNormal</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CComposeScene.h">
       <Filter>02. Scene\09. ComposeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTerrainVillage.h">
+      <Filter>03. GameObject\11. Map\TerrainVillage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDungeonWall.h">
+      <Filter>03. GameObject\11. Map\DungeonWall</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -430,9 +438,6 @@
     <ClCompile Include="..\Code\CUIStatic.cpp">
       <Filter>03. GameObject\10. UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CTerrainVillage.cpp">
-      <Filter>03. GameObject\11. Map\TerrainVillage</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CEngineMediator.cpp">
       <Filter>98. ImGui\Mediator</Filter>
     </ClCompile>
@@ -454,8 +459,8 @@
     <ClCompile Include="..\Code\CHouse.cpp">
       <Filter>03. GameObject\11. Map\House</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CTree.cpp">
-      <Filter>03. GameObject\11. Map\Tree</Filter>
+    <ClCompile Include="..\Code\CTreeObject.cpp">
+      <Filter>03. GameObject\11. Map\TreeObject</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CBossAwakeState.cpp">
       <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
@@ -540,8 +545,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainDungeonNormal.cpp">
       <Filter>03. GameObject\11. Map\TerrainDungeonNormal</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\CComposeScene.cpp">
       <Filter>02. Scene\09. ComposeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerrainVillage.cpp">
+      <Filter>03. GameObject\11. Map\TerrainVillage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDungeonWall.cpp">
+      <Filter>03. GameObject\11. Map\DungeonWall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

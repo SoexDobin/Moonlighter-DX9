@@ -169,6 +169,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CBossWalkState.h" />
     <ClInclude Include="..\Header\CComposeScene.h" />
     <ClInclude Include="..\Header\CDataManager.h" />
+    <ClInclude Include="..\Header\CDungeonWall.h" />
     <ClInclude Include="..\Header\CDynamicCamera.h" />
     <ClInclude Include="..\Header\CEditScene.h" />
     <ClInclude Include="..\Header\CEngineMediator.h" />
@@ -200,7 +201,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CTerrainDungeonNormal.h" />
     <ClInclude Include="..\Header\CTerrainVillage.h" />
     <ClInclude Include="..\Header\CTestRect.h" />
-    <ClInclude Include="..\Header\CTree.h" />
+    <ClInclude Include="..\Header\CTreeObject.h" />
     <ClInclude Include="..\Header\CTreeAwakeState.h" />
     <ClInclude Include="..\Header\CTreeIdleState.h" />
     <ClInclude Include="..\Header\CTreeShakeState.h" />
@@ -258,6 +259,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CBossWalkState.cpp" />
     <ClCompile Include="..\Code\CComposeScene.cpp" />
     <ClCompile Include="..\Code\CDataManager.cpp" />
+    <ClCompile Include="..\Code\CDungeonWall.cpp" />
     <ClCompile Include="..\Code\CDynamicCamera.cpp" />
     <ClCompile Include="..\Code\CEditScene.cpp" />
     <ClCompile Include="..\Code\CEngineMediator.cpp" />
@@ -289,7 +291,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CTerrainDungeonNormal.cpp" />
     <ClCompile Include="..\Code\CTerrainVillage.cpp" />
     <ClCompile Include="..\Code\CTestRect.cpp" />
-    <ClCompile Include="..\Code\CTree.cpp" />
+    <ClCompile Include="..\Code\CTreeObject.cpp" />
     <ClCompile Include="..\Code\CTreeAwakeState.cpp" />
     <ClCompile Include="..\Code\CTreeIdleState.cpp" />
     <ClCompile Include="..\Code\CTreeShakeState.cpp" />

@@ -8,7 +8,7 @@
 #include "CEditScene.h"
 #include "CUtility.h"
 #include "CHouse.h"
-#include "CTree.h"
+#include "CTreeObject.h"
 
 CEditScene::CEditScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev), pVillage(nullptr), g_MapEditor(nullptr), g_pPreviewTex(nullptr)
@@ -450,7 +450,7 @@ HRESULT CEditScene::Add_Tree(const wstring pLayerTag)
     {
         CLayer* pLayer = iter->second;
 
-        CGameObject* pHouse = CTree::Create(m_pGraphicDevice);
+        CGameObject* pHouse = CTreeObject::Create(m_pGraphicDevice);
 
         if (pHouse != nullptr)
         {
@@ -480,7 +480,7 @@ HRESULT CEditScene::Add_Tree(const wstring pLayerTag)
         CLayer* pGameLogicLayer = CLayer::Create();
 
         CGameObject* pGameObject = nullptr;
-        pGameObject = CTree::Create(m_pGraphicDevice);
+        pGameObject = CTreeObject::Create(m_pGraphicDevice);
         if (pGameObject != nullptr)
         {
             _int randA, randB;

@@ -73,6 +73,11 @@ _int CTestRect::Update_GameObject(const _float fTimeDelta)
         m_pDynamicTexCom->Set_Texture(ROLL);
     }
 
+    if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_X) & 0x80)
+    {
+        Destroy(this);
+    }
+
     return iExit;
 }
 

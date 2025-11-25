@@ -3,13 +3,13 @@
 #include "CEditor.h"
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
-	: m_pGraphicDevice(pGraphicDev), m_bDisplayInEditor(false)
+    : m_pGraphicDevice(pGraphicDev), m_bDisplayInEditor(false), m_bIsDestroy(FALSE)
 {
 	m_pGraphicDevice->AddRef();
 }
 
 CGameObject::CGameObject(const CGameObject& rhs)
-	: m_pGraphicDevice(rhs.m_pGraphicDevice), m_bDisplayInEditor(false)
+	: m_pGraphicDevice(rhs.m_pGraphicDevice), m_bDisplayInEditor(false), m_bIsDestroy(FALSE)
 {
 	m_pGraphicDevice->AddRef();
 }
@@ -71,7 +71,7 @@ _int CGameObject::Update_GameObject(const _float fTimeDelta)
 			pair.second->Update_Component(fTimeDelta);
 		});
 
-	return 0;
+	return m_bIsDestroy;
 }
 
 void CGameObject::LateUpdate_GameObject(const _float fTimeDelta)
@@ -82,15 +82,11 @@ void CGameObject::LateUpdate_GameObject(const _float fTimeDelta)
 		});
 }
 
-void CGameObject::Render_GameObject()
-{
-}
-
 void CGameObject::Free()
 {
-	for (int i = 0; i < ID_END; ++i)
+	for (_int i = 0; i < ID_END; ++i)
 	{
-		for_each(m_umComponent[i].begin(), m_umComponent[i].end(), CDeleteMap());
+        for_each(m_umComponent[i].begin(), m_umComponent[i].end(), CDeleteMap());
 		m_umComponent[i].clear();
 	}
 

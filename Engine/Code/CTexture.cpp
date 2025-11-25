@@ -111,7 +111,7 @@ CTexture* CTexture::Create(LPDIRECT3DDEVICE9 pGraphicDev, _float fSpeed)
 
     if (pInstance = new CTexture(pGraphicDev, fSpeed))
     {
-        return pInstance;       
+        return pInstance;
     }
 
     MSG_BOX("Texture Create Failed");

@@ -46,14 +46,23 @@ HRESULT CLayer::Ready_Layer(const wstring& wsLayerName)
 
 _int CLayer::Update_Layer(const _float fTimeDelta)
 {
-	_int iResult(0);
+    _int iResult(0);
 	auto iter = find_if(m_umGameObject.begin(), m_umGameObject.end()
 		, [=, &iResult](pair<const std::wstring, list<CGameObject*>>& pair) -> _bool {
 
-            for_each(pair.second.begin(), pair.second.end(),
-                [=, &iResult](CGameObject* pObj) -> void {
-                    iResult =pObj->Update_GameObject(fTimeDelta);
-                });
+            for (auto iterObj = pair.second.begin(); iterObj != pair.second.end(); )
+            {
+                iResult = (*iterObj)->Update_GameObject(fTimeDelta);
+
+                if (iResult)
+                {
+                    CGameObject* pObj = *iterObj;
+                    iterObj = pair.second.erase(iterObj);
+                    Safe_Release(pObj);
+                    continue;
+                }
+                ++iterObj;
+            }
 
 			if (iResult & 0x80000000) return true;
 

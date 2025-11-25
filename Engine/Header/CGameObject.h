@@ -16,7 +16,10 @@ protected:
 public:
     template <typename T>
     T*                 Add_Component(COMPONENTID eID, const wstring& wsComponentKey, PROTOTYPE_COMPONENT eComponentTag);
+public:
+    static void        Destroy(CGameObject* pObj) { pObj->Set_Destroy(); }
 
+public:
 	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentKey);
     CComponent*             Get_Component(COMPONENTID eID, PROTOTYPE_COMPONENT ePrototype);
     virtual GAMEOBJECT_TYPE Get_Type() { return GAME_OBJECT; }
@@ -28,13 +31,17 @@ public:
 	virtual		HRESULT		Ready_GameObject();
 	virtual		_int		Update_GameObject(const _float fTimeDelta);
 	virtual		void		LateUpdate_GameObject(const _float fTimeDelta);
-	virtual		void		Render_GameObject();
+    virtual		void		Render_GameObject() { };
+    virtual     void        On_Collision(const Collision& tCollision) { };
 
-    virtual     void        On_Collision(const Collision& tCollision) {};
+private:
+    void                    Set_Destroy() { m_bIsDestroy = TRUE; }
 
 protected:
 	LPDIRECT3DDEVICE9							m_pGraphicDevice;
 	unordered_map<wstring, CComponent*>			m_umComponent[ID_END];
+private:
+    _bool										m_bIsDestroy;
 
 protected:
 	virtual void Free() override;

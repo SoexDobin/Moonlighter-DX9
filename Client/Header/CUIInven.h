@@ -1,22 +1,9 @@
 ﻿#pragma once
 #include "CRenderObject.h"
+#include "CUIInvenSlot.h"
+#include "Client_Define.h"
 
-namespace Engine
-{
-    class CTexture;
-}
-
-struct ITEM_DATA
-{
-    int         iID;
-    wstring		IName;
-};
-
-struct ITEM_SLOT
-{
-    bool        bEmpty;
-    ITEM_DATA   Item;
-};
+namespace Engine { class CTexture; }
 
 class CUIInven : public CRenderObject
 {
@@ -44,9 +31,13 @@ public:
     static CUIInven* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
-    virtual void Free()override;
+    virtual void Free() override;
+
+private:
     void         Create_Slots(LPDIRECT3DDEVICE9 pGraphicDev);
-    vector<ITEM_SLOT>   m_vecSlots;
+    vector<CUIInvenSlot*>   m_vecSlots;
+
+
 
 };
 

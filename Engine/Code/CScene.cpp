@@ -13,6 +13,17 @@ CScene::~CScene()
 
 }
 
+CLayer* CScene::Find_Layers(const wstring& wsLagerTag)
+{
+    auto iter = m_umLayer.find(wsLagerTag);
+    if (iter == m_umLayer.end())
+    {
+        return nullptr;
+    }
+
+    return iter->second;
+}
+
 CComponent* CScene::Get_Component(COMPONENTID eID, const wstring& wsLayerTag, const wstring& wsObjTag, const wstring& wsComponentTag)
 {
     auto iter = find_if(m_umLayer.begin(), m_umLayer.end()

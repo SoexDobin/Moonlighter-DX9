@@ -89,7 +89,6 @@ HRESULT CUITestScene::Ready_UIInven_Layer(const wstring& wsLayerTag)
 
     Engine::CGameObject* pGameObject = nullptr;
 
-   
 
     //인벤 UI
     pGameObject = CUIInven::Create(m_pGraphicDevice);
@@ -97,8 +96,18 @@ HRESULT CUITestScene::Ready_UIInven_Layer(const wstring& wsLayerTag)
     if (pGameObject == nullptr)
         return E_FAIL;
 
-    if (FAILED(pLayer->Add_GameObject(L"UI_Invnen", pGameObject)))
+    if (FAILED(pLayer->Add_GameObject(L"UI_Inven", pGameObject)))
         return E_FAIL;
+
+    //인벤 슬롯 UI
+    pGameObject = CUIInvenSlot::Create(m_pGraphicDevice);
+    
+    if (pGameObject == nullptr)
+        return E_FAIL;
+    
+    if (FAILED(pLayer->Add_GameObject(L"UI_InvenSlot", pGameObject)))
+        return E_FAIL;
+
 
     //Static UI
     pGameObject = CUIStatic::Create(m_pGraphicDevice);
@@ -114,6 +123,11 @@ HRESULT CUITestScene::Ready_UIInven_Layer(const wstring& wsLayerTag)
     m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pLayer});
 
     return S_OK;
+}
+
+void CUITestScene::Add_Slot()
+{
+
 }
 
 CUITestScene* CUITestScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -132,20 +146,23 @@ CUITestScene* CUITestScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CUITestScene::UI_KeyInput(const _float& fTimeDelta)
 { 
-
+  
     if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_I) & 0x80)
     {
         
         if (m_bCheck == false)
         {
             CUIInven* pInventory = static_cast<CUIInven*>
-                (CManagement::GetInstance()->Get_Object(L"UI_Layer", L"UI_Invnen"));
+                (CManagement::GetInstance()->Get_Object(L"UI_Layer", L"UI_Inven"));
+
+            CUIInvenSlot* pInvenslot = static_cast<CUIInvenSlot*>
+                (CManagement::GetInstance()->Get_Object(L"UI_Layer", L"UI_InvenSlot"));
 
             if (pInventory)
             {
                 pInventory->InvenButton();
+                pInvenslot->SlotButton();
             }
-
             m_bCheck = true;
 
         }

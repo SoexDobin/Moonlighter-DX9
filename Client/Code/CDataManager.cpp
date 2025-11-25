@@ -69,9 +69,14 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 
     if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINTEX, Engine::CTerrainTex::Create(pGraphicDev, 128, 128, 1, L""))))
         return E_FAIL;
-    //if (FAILED(Engine::CPrototypeManager::GetInstance()
-    //    ->Ready_Prototype(SPHERE_COLLIDER, CSphereCollider::Create(pGraphicDev))))
-    //    return E_FAIL;
+
+    if (FAILED(Engine::CPrototypeManager::GetInstance()
+        ->Ready_Prototype(SPHERE_COLLIDER, CSphereCollider::Create(pGraphicDev))))
+        return E_FAIL;
+
+    if (FAILED(Engine::CPrototypeManager::GetInstance()
+        ->Ready_Prototype(RECT_COLLIDER, CRectCollider::Create(pGraphicDev))))
+        return E_FAIL;
 
 	return S_OK;
 }

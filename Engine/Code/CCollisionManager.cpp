@@ -18,6 +18,7 @@ CCollisionManager::~CCollisionManager()
 void CCollisionManager::Add_Collider(CCollider* pColComonent)
 {
     m_vecCollider.push_back(pColComonent);
+    pColComonent->AddRef();
 }
 
 void CCollisionManager::Update_Collision()
@@ -92,6 +93,11 @@ void CCollisionManager::Update_Collision()
 
 void CCollisionManager::Clear_CollisionGroup()
 {
+    for_each(m_vecCollider.begin(), m_vecCollider.end(),
+        [](CCollider* pCol) -> void {
+            Safe_Release(pCol);
+        });
+
     m_vecCollider.clear();
 }
 
@@ -171,5 +177,5 @@ _bool CCollisionManager::SphereRectCollision(CSphereCollider* pSrc, CRectCollide
 
 void CCollisionManager::Free()
 {
-    m_vecCollider.clear();
+    Clear_CollisionGroup();
 }

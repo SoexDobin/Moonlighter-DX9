@@ -32,6 +32,7 @@ public:
 	void			Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
+    _bool               m_bIsInit;
 	CScene*				m_pCurScene;
 
 	

@@ -18,8 +18,6 @@ public:
 
     _float          Get_Radius() const { return m_fRadius; }
     void            Set_Radius(const _float fRadius) { m_fRadius = fRadius; }
-    _float          Get_Scale() const { return m_fScale; }
-    void            Set_Scale(const _float fScale) { m_fRadius = fScale; }
 
 public:
     HRESULT         Ready_SphereCollider();
@@ -34,7 +32,6 @@ public:
 
 private:
     _float          m_fRadius;
-    _float          m_fScale;
 
 public:
     static CSphereCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -42,6 +39,14 @@ public:
 
 protected:
     virtual void Free() override;
+
+#pragma region Editor
+#ifdef _DEBUG
+
+public:
+    virtual void Display_Editor(const char* pObjTag) override;
+#endif
+#pragma endregion
 };
 
 END

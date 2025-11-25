@@ -1,4 +1,5 @@
 ﻿#include "CSphereCollider.h"
+#include "CRectCollider.h"
 #include "CCollisionManager.h"
 
 #ifdef _DEBUG
@@ -6,18 +7,21 @@
 #endif
 
 CSphereCollider::CSphereCollider()
-    : m_fRadius(1.f), m_fScale(1.f)
+    : m_fRadius(1.f)
 {
+    strcpy_s(m_szDisplayName, "Sphere Collider");
 }
 
 CSphereCollider::CSphereCollider(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CCollider(pGraphicDev), m_fRadius(1.f), m_fScale(1.f)
+    : CCollider(pGraphicDev), m_fRadius(1.f)
 {
+    strcpy_s(m_szDisplayName, "Sphere Collider");
 }
 
 CSphereCollider::CSphereCollider(const CSphereCollider& rhs)
-    : CCollider(rhs), m_fRadius(rhs.m_fRadius), m_fScale(rhs.m_fScale)
+    : CCollider(rhs), m_fRadius(rhs.m_fRadius)
 {
+    strcpy_s(m_szDisplayName, "Sphere Collider");
 }
 
 CSphereCollider::~CSphereCollider()
@@ -35,6 +39,10 @@ _bool CSphereCollider::Check_Collision(CCollider* pCol)
     {
     case SPHERE_COL:
         return CCollisionManager::GetInstance()->SphereCollision(this, static_cast<CSphereCollider*>(pCol));
+    case RECT_COL:
+        return CCollisionManager::GetInstance()->SphereRectCollision(this, static_cast<CRectCollider*>(pCol));
+    default:
+        return false;
     }
 }
 
@@ -56,32 +64,29 @@ void CSphereCollider::Render_DebugCollider()
     if (m_pTrans == nullptr || m_pGraphicDevice == nullptr)
         return;
 
-    // 상태 백업
+    struct DebugVtx { _float x, y, z; DWORD color; };
+
+    
     DWORD prevFillMode = 0;
     m_pGraphicDevice->GetRenderState(D3DRS_FILLMODE, &prevFillMode);
-
     BOOL prevLighting = FALSE;
     m_pGraphicDevice->GetRenderState(D3DRS_LIGHTING, (DWORD*)&prevLighting);
-
     D3DXMATRIX prevWorld;
     m_pGraphicDevice->GetTransform(D3DTS_WORLD, &prevWorld);
-
     // 월드 행렬은 단위행렬로 두고, 월드좌표로 직접 찍는다
     D3DXMATRIX matIdentity;
     D3DXMatrixIdentity(&matIdentity);
     m_pGraphicDevice->SetTransform(D3DTS_WORLD, &matIdentity);
 
-    // 디버그용 정점
-    struct DebugVtx
-    {
-        float x, y, z;
-        DWORD color;
-    };
+    DWORD color(0);
+    if (m_eState == ENTER_COL || m_eState == STAY_COL)
+        color = D3DCOLOR_ARGB(255, 255, 0, 0);
+    else
+        color = D3DCOLOR_ARGB(255, 0, 255, 0);
 
-    const DWORD color = D3DCOLOR_ARGB(255, 0, 255, 0);
-    const int   segments = 32;   // 원 세그먼트 수
+    const _int   segments = 32;   // 원 세그먼트 수
 
-    _vec3 center = m_pTrans->Get_Pos();
+    _vec3 center = m_pTrans->Get_Pos() + m_vOffset;
     float radius = m_fRadius * m_fScale; // 필요하면 충돌 공식에 맞게 조정
 
     m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
@@ -89,7 +94,7 @@ void CSphereCollider::Render_DebugCollider()
     m_pGraphicDevice->SetTexture(0, nullptr);
     m_pGraphicDevice->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
 
-    auto DrawCircle = [&](int plane)
+    auto DrawCircle = [&](_int plane)
         {
             // plane: 0 = XZ, 1 = XY, 2 = YZ
             DebugVtx v[segments + 1];
@@ -128,7 +133,6 @@ void CSphereCollider::Render_DebugCollider()
             m_pGraphicDevice->DrawPrimitiveUP(D3DPT_LINESTRIP, segments, v, sizeof(DebugVtx));
         };
 
-    // 필요에 따라 원하는 평면만 호출해도 된다.
     DrawCircle(0); // XZ
     DrawCircle(1); // XY
     DrawCircle(2); // YZ
@@ -166,3 +170,29 @@ void CSphereCollider::Free()
 {
     CCollider::Free();
 }
+
+#pragma region Editor
+#ifdef _DEBUG
+
+void CSphereCollider::Display_Editor(const char* pObjTag)
+{
+    ImGui::PushStyleColor(ImGuiCol_ChildBg, IM_COL32(15, 15, 45, 255));
+    const _float lineH = ImGui::GetFrameHeightWithSpacing();
+
+    ImGui::Text("Radius");
+    if (ImGui::BeginChild("Radius", ImVec2(0, lineH * 2.0f), true))
+    {
+        ImGui::PushItemWidth(40);
+        ImGui::InputFloat("s Radius", &m_fRadius, 0.f, 0.f, "%.2f", ImGuiInputTextFlags_None);
+        ImGui::PopItemWidth();
+    }
+    ImGui::EndChild();
+
+    ImGui::Spacing();
+
+    CCollider::Display_Editor(pObjTag);
+    ImGui::PopStyleColor();
+}
+
+#endif
+#pragma endregion

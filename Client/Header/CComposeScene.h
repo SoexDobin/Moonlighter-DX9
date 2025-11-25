@@ -1,0 +1,31 @@
+﻿#pragma once
+
+#include "CScene.h"
+
+class CComposeScene : public CScene
+{
+private:
+    explicit CComposeScene(LPDIRECT3DDEVICE9 pGraphicDev);
+    virtual ~CComposeScene() override;
+
+public:
+    HRESULT			Ready_Scene() override;
+    _int			Update_Scene(const _float fTimeDelta) override;
+    void			LateUpdate_Scene(const _float fTimeDelta) override;
+    void			Render_Scene() override;
+
+private:
+    HRESULT			Ready_Camera_Layer(const wstring& wsLayerTag);
+    HRESULT			Ready_Environment_Layer(const wstring& wsLayerTag);
+    HRESULT			Ready_GameLogic_Layer(const wstring& wsLayerTag);
+    HRESULT			Ready_UI_Layer(const wstring& wsLayerTag);
+
+    HRESULT			Ready_Light();
+    HRESULT			Ready_Prototype();
+
+public:
+    static CComposeScene* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+private:
+    void			Free() override;
+};
+

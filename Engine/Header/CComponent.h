@@ -43,7 +43,7 @@ protected:
 public:
 	virtual void				Display_Editor(const char* pObjTag) {};
 	_bool						m_bDisplayInEditor;
-	char					    m_szDisplayName[32];
+	char					    m_szDisplayName[256];
 #pragma endregion
 
 };

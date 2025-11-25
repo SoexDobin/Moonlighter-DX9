@@ -122,6 +122,13 @@
       <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../../Reference/Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y /I "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin"
+xcopy /Y /I "$(SolutionDir)Engine\Bin\Engine.lib" "$(SolutionDir)Reference\Library"
+xcopy /Y /I "$(SolutionDir)Engine\Header\*.h*" "$(SolutionDir)Reference\Header"
+xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\*.h*" "$(SolutionDir)Reference\Header\"
+xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\Bin\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -160,6 +167,7 @@
     <ClInclude Include="..\Header\CBossStateMachine.h" />
     <ClInclude Include="..\Header\CBossThrowState.h" />
     <ClInclude Include="..\Header\CBossWalkState.h" />
+    <ClInclude Include="..\Header\CComposeScene.h" />
     <ClInclude Include="..\Header\CDataManager.h" />
     <ClInclude Include="..\Header\CDynamicCamera.h" />
     <ClInclude Include="..\Header\CEditScene.h" />
@@ -243,6 +251,7 @@
     <ClCompile Include="..\Code\CBossStateMachine.cpp" />
     <ClCompile Include="..\Code\CBossThrowState.cpp" />
     <ClCompile Include="..\Code\CBossWalkState.cpp" />
+    <ClCompile Include="..\Code\CComposeScene.cpp" />
     <ClCompile Include="..\Code\CDataManager.cpp" />
     <ClCompile Include="..\Code\CDynamicCamera.cpp" />
     <ClCompile Include="..\Code\CEditScene.cpp" />

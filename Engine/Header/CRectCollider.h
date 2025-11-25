@@ -2,7 +2,9 @@
 
 #include "CCollider.h"
 
-class CRectCollider : public CCollider
+BEGIN(Engine)
+
+class ENGINE_DLL CRectCollider : public CCollider
 {
 private:
     explicit CRectCollider();
@@ -15,6 +17,10 @@ public:
     COL_TYPE                Get_ColType() override          { return RECT_COL; }
 
 public:
+    const _vec3&        Get_Dimension() const                       { return m_vDimension; }
+    void                Set_Dimension(const _vec3& vDimension)      { m_vDimension = vDimension; }
+
+public:
     HRESULT                 Ready_RectCollider();
     virtual _int            Update_Component(const _float fTimeDelta) override;
     virtual void            LateUpdate_Component() override;
@@ -24,11 +30,23 @@ public:
     virtual void            Render_DebugCollider() override;
 #endif
 
+private:
+    _vec3                 m_vDimension; 
+
 public:
     static CRectCollider*   Create(LPDIRECT3DDEVICE9 pGraphicDev);
     virtual CComponent*     Clone() override;
 
 private:
     virtual void            Free() override;
+
+#pragma region Editor
+#ifdef _DEBUG
+
+public:
+    virtual void Display_Editor(const char* pObjTag) override;
+#endif
+#pragma endregion
 };
 
+END

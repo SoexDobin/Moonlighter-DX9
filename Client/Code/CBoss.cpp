@@ -133,7 +133,7 @@ void CBoss::Set_CurStateKey(_uint dwStateKey, CMonsterState* pCurState)
 
 void CBoss::Configure_Component()
 {
-    m_pTransformCom->Set_Pos(5.f, 0.f, -3.f);
+    m_pTransformCom->Set_Pos(20.f, 5.f, 10.f);
 }
 
 CBoss* CBoss::Create(LPDIRECT3DDEVICE9 pGraphicDev)

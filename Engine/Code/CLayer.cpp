@@ -1,5 +1,4 @@
 ﻿#include "CLayer.h"
-#include "CCollisionManager.h"
 
 CLayer::CLayer()
 	: m_bDisplayInEditor(true)
@@ -90,7 +89,6 @@ void CLayer::Render_Layer()
                 });
 
 		});
-    // CCollisionManager::GetInstance()->Update_Collision();
 }
 
 CLayer* CLayer::Create(const wstring& layerTag)

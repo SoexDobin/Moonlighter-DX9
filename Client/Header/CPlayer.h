@@ -22,6 +22,8 @@ public:
     void        LateUpdate_GameObject(const _float fTimeDelta) override;
     void        Render_GameObject() override;
 
+    void        On_Collision(const Collision& tCollision) override;
+
 private:
     HRESULT     Ready_Animation();
     _uint       Get_AnimationIndex();
@@ -29,7 +31,7 @@ private:
 
 private:
     CTexture* m_pTexCom;
-
+    CRectCollider* m_pColCom;
     STATE       m_eState;
     DIRECTION   m_eDir;
 
@@ -39,6 +41,9 @@ private:
     _float      m_fRollDuration;
     _float      m_fRollTime;
     _vec3       m_vRollDir;
+
+    _float      m_fAttackTime;
+    _float      m_fAttackDuration;
 
 public:
     static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);

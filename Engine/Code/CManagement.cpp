@@ -92,6 +92,7 @@ HRESULT CManagement::Set_Scene(CScene* pScene)
     return S_OK;
 }
 
+
 _int CManagement::Update_Scene(const _float fTimeDelta)
 {
     if (m_pCurScene == nullptr) return -1;

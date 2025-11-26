@@ -16,6 +16,8 @@ protected:
 public:
     template <typename T>
     T*                 Add_Component(COMPONENTID eID, const wstring& wsComponentKey, PROTOTYPE_COMPONENT eComponentTag);
+    template <typename T>
+    T*                 Add_Component(COMPONENTID eID, const wstring& wsComponentKey, const wstring& wsComponentTag);
 
 	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentKey);
     CComponent*             Get_Component(COMPONENTID eID, PROTOTYPE_COMPONENT ePrototype);
@@ -63,6 +65,22 @@ T* CGameObject::Add_Component(COMPONENTID eID, const wstring& wsComponentKey, PR
 {
     CComponent* pComponent = CPrototypeManager::GetInstance()->Clone_Prototype(eComponentTag);
     if (pComponent->Get_ComponentType() != eComponentTag)
+    {
+        MSG_BOX("Prototype Clone Failed");
+        return nullptr;
+    }
+
+    pComponent->Set_Owner(this);
+    m_umComponent[eID].insert(pair<wstring, CComponent*>(wsComponentKey, pComponent));
+
+    return static_cast<T*>(pComponent);
+}
+
+template <typename T>
+T* CGameObject::Add_Component(COMPONENTID eID, const wstring& wsComponentKey, const wstring& wsComponentTag)
+{
+    CComponent* pComponent = CPrototypeManager::GetInstance()->Clone_Prototype(wsComponentTag);
+    if (pComponent == nullptr)
     {
         MSG_BOX("Prototype Clone Failed");
         return nullptr;

@@ -5,7 +5,15 @@
 #include "CPrototypeManager.h"
 #include "CResourceManager.h"
 
+#include "CTmpCustomComponent.h"
+
 IMPLEMENT_SINGLETON(CDataManager)
+
+const wstring CDataManager::n_wsPrototypeTag[CUSTOM_END]
+{
+    L"Temp_CustomProto", //  <- 여기만 추가되는 순간 부터 지워줘
+};
+
 
 CDataManager::CDataManager()
 {
@@ -76,6 +84,13 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 
     if (FAILED(Engine::CPrototypeManager::GetInstance()
         ->Ready_Prototype(RECT_COLLIDER, CRectCollider::Create(pGraphicDev))))
+        return E_FAIL;
+
+
+    // Client Custom Prototype 정의
+    // 추가되는 순간 부터 지워줘   
+    if (FAILED(Engine::CPrototypeManager::GetInstance()
+        ->Ready_Prototype(n_wsPrototypeTag[TEMP_CUSTOMPROTO], CTmpCustomComponent::Create(pGraphicDev))))
         return E_FAIL;
 
 	return S_OK;
@@ -274,8 +289,12 @@ HRESULT CDataManager::Ready_UI_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
         return E_FAIL;
 
     //slot
-    if (FAILED(Res.Add_Sprite(pGraphicDev, L"TestSlot",
-        L"../Bin/Resource/Sprite/UI/TestSlot.png", 1)))
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"HoverSlot",
+        L"../Bin/Resource/Sprite/UI/Inven/HoverSlot.png", 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"ClickSlot",
+        L"../Bin/Resource/Sprite/UI/Inven/ClickSlot.png", 1)))
         return E_FAIL;
 
     return S_OK;

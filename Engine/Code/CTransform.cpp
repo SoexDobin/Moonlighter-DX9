@@ -45,6 +45,8 @@ HRESULT CTransform::Ready_Transform()
 
 _int CTransform::Update_Component(const _float fTimeDelta)
 {
+    if (!m_bEnable) return 0;
+
     D3DXMatrixIdentity(&m_matWorld);
 
     for (int i = 0; i < INFO_POS; ++i)
@@ -81,6 +83,7 @@ _int CTransform::Update_Component(const _float fTimeDelta)
 
 void CTransform::LateUpdate_Component()
 {
+    if (!m_bEnable) return;
 }
 
 CTransform* CTransform::Create(LPDIRECT3DDEVICE9 pGraphicDev)

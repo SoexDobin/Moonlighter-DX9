@@ -124,9 +124,6 @@
     <Filter Include="97. Loading">
       <UniqueIdentifier>{75a6cdc1-e405-47e9-bd43-4c9814b46055}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObject\11.Item">
-      <UniqueIdentifier>{25bb53bf-90e9-489f-a3f7-da3da26ba5fe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. GameObject\11. Map">
       <UniqueIdentifier>{648cfc60-3c9e-4a56-a0a4-fa478ba6e55a}</UniqueIdentifier>
     </Filter>
@@ -149,11 +146,17 @@
     <Filter Include="03. GameObject\02. Monster\03. Sheeder\01. SheederState">
       <UniqueIdentifier>{e84c3397-6465-4053-8b61-a6375e6aaff6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObject\09. Item">
+      <UniqueIdentifier>{25bb53bf-90e9-489f-a3f7-da3da26ba5fe}</UniqueIdentifier>
+    </Filter>
     <Filter Include="03. GameObject\11. Map\TerrainVillage">
       <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Scene\09. ComposeScene">
       <UniqueIdentifier>{96f800df-13e1-4614-83c5-a94b5ddd8be3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Temp">
+      <UniqueIdentifier>{59c7d0d8-e242-4537-9f3a-b44564776569}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -183,9 +186,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\CDynamicCamera.h">
       <Filter>03. GameObject\00. DynamicCamera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CTestRect.h">
-      <Filter>03. GameObject</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CExampleObject.h">
       <Filter>98. ImGui\EX_Object</Filter>
@@ -232,9 +232,6 @@
     <ClInclude Include="..\Header\CPlayer.h">
       <Filter>03. GameObject\01. Player</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CUIInven.h">
-      <Filter>03. GameObject\10. UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CUITestScene.h">
       <Filter>02. Scene\08. UITestScene</Filter>
     </ClInclude>
@@ -263,10 +260,7 @@
       <Filter>97. Loading</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CItemManager.h">
-      <Filter>03. GameObject\11.Item</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CUIInvenSlot.h">
-      <Filter>03. GameObject\10. UI</Filter>
+      <Filter>03. GameObject\09. Item</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CHouse.h">
       <Filter>03. GameObject\11. Map\House</Filter>
@@ -355,8 +349,17 @@
     <ClInclude Include="..\Header\CMonsterState.h">
       <Filter>97. StateMachine\03. MonsterState</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CUIInven.h">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CComposeScene.h">
       <Filter>02. Scene\09. ComposeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTestRect.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTmpCustomComponent.h">
+      <Filter>Temp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -377,9 +380,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDynamicCamera.cpp">
       <Filter>03. GameObject\00. DynamicCamera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CTestRect.cpp">
-      <Filter>03. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CExampleObject.cpp">
       <Filter>98. ImGui\EX_Object</Filter>
@@ -442,10 +442,7 @@
       <Filter>97. Loading</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CItemManager.cpp">
-      <Filter>03. GameObject\11.Item</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CUIInvenSlot.cpp">
-      <Filter>03. GameObject\10. UI</Filter>
+      <Filter>03. GameObject\09. Item</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CHouse.cpp">
       <Filter>03. GameObject\11. Map\House</Filter>
@@ -536,6 +533,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CComposeScene.cpp">
       <Filter>02. Scene\09. ComposeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestRect.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTmpCustomComponent.cpp">
+      <Filter>Temp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

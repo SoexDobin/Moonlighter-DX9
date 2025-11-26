@@ -16,7 +16,7 @@ CItemMamager::~CItemMamager()
 
 HRESULT CItemMamager::Ready_ItemManager()
 {
-    Add_Item();
+    Ready_Item();
 
     return S_OK;
 }
@@ -30,38 +30,40 @@ ITEMDATA* CItemMamager::Get_ItemData(const wstring& wsLayerTag)
     return &iter->second;
 }
 
-// 아이템 추가 함수
-void CItemMamager::Add_Item()
+
+HRESULT CItemMamager::Ready_Item()
 {
     CComponent* pCom(nullptr);
 
     // 포션
     {
-        //pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
-        //if (!pCom || pCom->Get_ComponentType() != TEXTURE)
-        //    return E_FAIL;
-        //
-        //ITEMDATA pItemData{};
-        //pItemData.m_pTexture = static_cast<CTexture*>(pCom);
-        //pItemData.m_pTexture->Ready_Texture(L"");
-        //pItemData.m_pTexture->Set_Texture(0, 0);
-        //
-        //m_umComponent[ID_DANAMIC].insert(pair<wstring, CComponent*>(L"Item_Potion", pItemData.m_pTexture));
-        //
-        //if (pItemData.m_pTexture)
-        //{
-        //    pItemData.m_Type = ITEM_POTION;
-        //    pItemData.m_iAttack= 0;
-        //    pItemData.m_iHp = 0;
-        //    pItemData.m_sItName = L"Item_Potion";
-        //    pItemData.m_ItemTag = L"Item_Potion";
-        //
-        //
-        //    m_mapItem.emplace(L"Item_Potion", pItemData);
-        //}
+       
+        ITEMDATA tPotion{};
+        //tPotion.iID = 1;
+        tPotion.eType = ITEM_POTION;
+        tPotion.iAttack = 0;
+        tPotion.iHp = 10;
+        tPotion.sItName = L"Small_HP_Potion";
+        tPotion.sIcontexKey = L"Item_Potion";   // UI에서 이 키로 텍스쳐 찾아 쓸 것
+        tPotion.iMaxCount = 99;
+        tPotion.iPrice = 50;
 
+        Add_Item(tPotion);
     }
 
+    return S_OK;
+
+}
+
+HRESULT CItemMamager::Add_Item(const ITEMDATA& tData)
+{
+    // 중복 방지
+    if (m_mapItem.find(tData.sItName) != m_mapItem.end())
+        return E_FAIL;
+
+    m_mapItem.insert({ tData.sItName, tData });
+
+    return S_OK;
 }
 
 void CItemMamager::Free()

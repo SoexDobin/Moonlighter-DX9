@@ -81,6 +81,8 @@ void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 // 직교 투영 적용
 void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 {
+    pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+
 
     _matrix matOldView, matOldProj;
     pGraphicDev->GetTransform(D3DTS_VIEW, &matOldView);
@@ -115,7 +117,6 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
             pGameObject->Render_GameObject();
         });
 
-    
 
     // 복원
     pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
@@ -126,6 +127,8 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
     pGraphicDev->SetTransform(D3DTS_VIEW, &matOldView);
     pGraphicDev->SetTransform(D3DTS_PROJECTION, &matOldProj);
 
+
+    pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 
 }
 

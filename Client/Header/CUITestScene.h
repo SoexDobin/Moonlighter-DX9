@@ -18,6 +18,9 @@ private:
     HRESULT Ready_UIInven_Layer(const wstring& wsLayerTag);
 
 public:
+    void    Add_Slot();
+
+public:
     static CUITestScene* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:

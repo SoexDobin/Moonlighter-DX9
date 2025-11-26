@@ -16,7 +16,6 @@ public:
 	void			Set_SceneIndex(const _int idx)		{ m_iSceneIdx = idx; };
 
     const unordered_map<wstring, CLayer*>&  Get_Layers() { return m_umLayer; }
-    CLayer* Find_Layers(const wstring& wsLagerTag);
 
 public:
 	CComponent*		Get_Component(COMPONENTID eID,

@@ -23,6 +23,7 @@ public:
 private:
     CTexture*     m_pTextureCom;
     _bool         m_bVisible; // 창 켜짐 여부
+    _bool         m_bClick = false;
     void          UI_KeyInput(const _float& fTimeDelta);
 
 public:
@@ -56,6 +57,7 @@ private:
 // hover
 private:
     void        Slot_Hover(const _float& fTimeDelta);
+    void        Slot_Click(const _float& fTimeDelta);
 
 };
 

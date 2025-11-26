@@ -36,7 +36,8 @@ HRESULT CUIInven::Ready_GameObject()
     m_pTextureCom = static_cast<CTexture*>(pCom);
    
     m_pTextureCom->Ready_Texture(L"Inventory_Base");
-    m_pTextureCom->Ready_Texture(L"TestSlot");
+    m_pTextureCom->Ready_Texture(L"HoverSlot");
+    m_pTextureCom->Ready_Texture(L"ClickSlot");
     m_pTextureCom->Set_Texture(0);
 
     m_umComponent[ID_STATIC].insert(pair<wstring, CComponent*>(L"Inventory", m_pTextureCom));
@@ -62,6 +63,7 @@ _int CUIInven::Update_GameObject(const _float fTimeDelta)
 
     // 마우스 Hover
     Slot_Hover(fTimeDelta);
+    //Slot_Click(fTimeDelta);
 
     Engine::CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 
@@ -112,7 +114,12 @@ void CUIInven::Render_GameObject()
         m_pTransformCom->Set_Scale(vScale.x, vScale.y, vScale.z);
 
         m_pTransformCom->Update_Component(0.f);
-        m_pTextureCom->Set_Texture(1); // 임시: 패널 텍스처 재사용
+        m_pTextureCom->Set_Texture(1);
+
+        if (tSlot.estate == SLOT_PRESSED)
+        {
+            m_pTextureCom->Set_Texture(2);
+        }
 
         m_pGraphicDevice->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
         m_pBufferCom->Render_Buffer();
@@ -206,6 +213,8 @@ void CUIInven::Slot_Hover(const _float& fTimeDelta)
     GetCursorPos(&ptMouse);
     ScreenToClient(g_hWnd, &ptMouse);
 
+    _byte bLeftClick = CDInputManager::GetInstance()->Get_DIMouseState(DIM_LB);
+
     for (auto& ptslot : m_vecSlots)
     {
         RECT rc = Set_SlotRect(ptslot);
@@ -215,6 +224,17 @@ void CUIInven::Slot_Hover(const _float& fTimeDelta)
         {
             ptslot.estate = SLOT_HOVER;
             ptslot.fHoverLerp = 0.2f;
+
+            if (bLeftClick & 0x8000)
+            {
+                ptslot.estate = SLOT_PRESSED;
+                m_bClick = true;
+                Slot_Click(fTimeDelta);
+            }
+            else
+            {
+                m_bClick = false;
+            }
         }
         else
         {
@@ -223,6 +243,11 @@ void CUIInven::Slot_Hover(const _float& fTimeDelta)
 
         }
     }
+
+}
+
+void CUIInven::Slot_Click(const _float& fTimeDelta)
+{
 
 }
 

@@ -2,6 +2,7 @@
 #include "CUITestScene.h"
 #include "CDInputManager.h"
 #include "CManagement.h"
+#include "CFontManager.h"
 
 #include "CUIInven.h"
 #include "CDynamicCamera.h"
@@ -49,6 +50,14 @@ void CUITestScene::LateUpdate_Scene(const _float fTimeDelta)
 
 void CUITestScene::Render_Scene()
 {
+    // 코인 테스트
+    _vec2 vPos{ 100.f, 50.f };
+
+    //CFontManager::GetInstance()->Render_Font(L"Font_Moon", L"안녕하세요", &vPos, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+    CFontManager::GetInstance()->Render_Font(L"Font_Default", L"안녕하세요", &vPos, D3DXCOLOR(0.5f, 1.f, 0.7f, 1.f));
+
+
+
     Engine::CScene::Render_Scene();
 }
 

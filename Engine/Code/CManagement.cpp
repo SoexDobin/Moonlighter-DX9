@@ -92,24 +92,6 @@ HRESULT CManagement::Set_Scene(CScene* pScene)
     return S_OK;
 }
 
-HRESULT CManagement::Add_GameObject(const wstring& wsLayerTag, const wstring& wsObjTag, CGameObject* pGameObject)
-{
-
-    if (m_pCurScene == nullptr || pGameObject == nullptr)
-        return E_FAIL;
-
-    
-    CLayer* pLayer = m_pCurScene->Find_Layers(wsLayerTag);
-
-    if (pLayer == nullptr)
-        return E_FAIL;
-
-    if (FAILED(pLayer->Add_GameObject(wsObjTag, pGameObject)))
-        return E_FAIL;
-
-    return S_OK;
-
-}
 
 _int CManagement::Update_Scene(const _float fTimeDelta)
 {

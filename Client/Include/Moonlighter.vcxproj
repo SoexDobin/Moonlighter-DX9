@@ -168,6 +168,8 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CBossThrowState.h" />
     <ClInclude Include="..\Header\CBossWalkState.h" />
     <ClInclude Include="..\Header\CBossWallFront.h" />
+    <ClInclude Include="..\Header\CBossWallFrontUpper.h" />
+    <ClInclude Include="..\Header\CBossWallSide.h" />
     <ClInclude Include="..\Header\CComposeScene.h" />
     <ClInclude Include="..\Header\CDataManager.h" />
     <ClInclude Include="..\Header\CDungeonWall.h" />
@@ -187,6 +189,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CMonsterTestScene.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CPlayerTestScene.h" />
+    <ClInclude Include="..\Header\CPumpkin.h" />
     <ClInclude Include="..\Header\CSheederAttackState.h" />
     <ClInclude Include="..\Header\CSheederIdleState.h" />
     <ClInclude Include="..\Header\CSheederStateMachine.h" />
@@ -220,6 +223,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CUITestScene.h" />
     <ClInclude Include="..\Header\CUtility.h" />
     <ClInclude Include="..\Header\CTreeMob.h" />
+    <ClInclude Include="CBossWallSideUpper.h" />
     <ClInclude Include="Client_Define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Moonlighter.h" />
@@ -260,6 +264,8 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CBossThrowState.cpp" />
     <ClCompile Include="..\Code\CBossWalkState.cpp" />
     <ClCompile Include="..\Code\CBossWallFront.cpp" />
+    <ClCompile Include="..\Code\CBossWallFrontUpper.cpp" />
+    <ClCompile Include="..\Code\CBossWallSide.cpp" />
     <ClCompile Include="..\Code\CComposeScene.cpp" />
     <ClCompile Include="..\Code\CDataManager.cpp" />
     <ClCompile Include="..\Code\CDungeonWall.cpp" />
@@ -279,6 +285,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CMonsterTestScene.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CPlayerTestScene.cpp" />
+    <ClCompile Include="..\Code\CPumpkin.cpp" />
     <ClCompile Include="..\Code\CSheederAttackState.cpp" />
     <ClCompile Include="..\Code\CSheederIdleState.cpp" />
     <ClCompile Include="..\Code\CSheederStateMachine.cpp" />
@@ -311,6 +318,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     </ClCompile>
     <ClCompile Include="..\Code\CUITestScene.cpp" />
     <ClCompile Include="..\Code\CTreeMob.cpp" />
+    <ClCompile Include="CBossWallSideUpper.cpp" />
     <ClCompile Include="Moonlighter.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

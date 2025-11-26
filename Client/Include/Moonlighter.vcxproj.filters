@@ -146,26 +146,44 @@
     <Filter Include="03. GameObject\02. Monster\03. Sheeder\01. SheederState">
       <UniqueIdentifier>{e84c3397-6465-4053-8b61-a6375e6aaff6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObject\11. Map\TerrainDungeonNormal">
-      <UniqueIdentifier>{c07b8026-7881-4354-b0b1-bd0ed3699265}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Scene\09. ComposeScene">
       <UniqueIdentifier>{96f800df-13e1-4614-83c5-a94b5ddd8be3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. GameObject\11. Map\TerrainVillage">
-      <UniqueIdentifier>{c84f55aa-e202-49b1-85d4-01b61ba3b320}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. GameObject\11. Map\DungeonWall">
-      <UniqueIdentifier>{f8e83c3d-be73-4e84-851d-c0f51dcd6db9}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. GameObject\11. Map\TreeObject">
       <UniqueIdentifier>{420576ff-11c6-4e3e-8055-8f0d484e5c98}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObject\11. Map\TerrainBoss">
+    <Filter Include="03. GameObject\11. Map\Wall">
+      <UniqueIdentifier>{8465c4e8-638c-45ed-abfc-08fed47bb08c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Wall\BossWallSide">
+      <UniqueIdentifier>{5064b615-f2ce-46cb-8475-eb7ccec7bca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Wall\DungeonWall">
+      <UniqueIdentifier>{f8e83c3d-be73-4e84-851d-c0f51dcd6db9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Wall\BossWallFront">
+      <UniqueIdentifier>{b6664627-8569-4434-a124-b5c6e9b0f9f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Terrain">
+      <UniqueIdentifier>{2a6d8291-e322-43a3-ab40-c4cccd716c54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Terrain\TerrainBoss">
       <UniqueIdentifier>{19f6ef25-0683-4c4d-95ff-faa995ed718b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObject\11. Map\BossWallFront">
-      <UniqueIdentifier>{b6664627-8569-4434-a124-b5c6e9b0f9f5}</UniqueIdentifier>
+    <Filter Include="03. GameObject\11. Map\Terrain\TerrainDungeonNormal">
+      <UniqueIdentifier>{c07b8026-7881-4354-b0b1-bd0ed3699265}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Terrain\TerrainVillage">
+      <UniqueIdentifier>{c84f55aa-e202-49b1-85d4-01b61ba3b320}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Wall\BossWallFrontUp">
+      <UniqueIdentifier>{b865c7b2-554a-40b2-b70e-a676d867039d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Wall\BossWallSideUp">
+      <UniqueIdentifier>{1f1b4c3b-3a8b-453d-add4-3b5ca6da207a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Pumpkin">
+      <UniqueIdentifier>{6a16edc5-40b1-45bd-8f43-8497fe011ccb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -365,22 +383,34 @@
       <Filter>97. StateMachine\03. MonsterState</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTerrainDungeonNormal.h">
-      <Filter>03. GameObject\11. Map\TerrainDungeonNormal</Filter>
+      <Filter>03. GameObject\11. Map\Terrain\TerrainDungeonNormal</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CComposeScene.h">
       <Filter>02. Scene\09. ComposeScene</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTerrainVillage.h">
-      <Filter>03. GameObject\11. Map\TerrainVillage</Filter>
+      <Filter>03. GameObject\11. Map\Terrain\TerrainVillage</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CDungeonWall.h">
-      <Filter>03. GameObject\11. Map\DungeonWall</Filter>
+      <Filter>03. GameObject\11. Map\Wall\DungeonWall</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTerrainBoss.h">
-      <Filter>03. GameObject\11. Map\TerrainBoss</Filter>
+      <Filter>03. GameObject\11. Map\Terrain\TerrainBoss</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CBossWallFront.h">
-      <Filter>03. GameObject\11. Map\BossWallFront</Filter>
+      <Filter>03. GameObject\11. Map\Wall\BossWallFront</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossWallSide.h">
+      <Filter>03. GameObject\11. Map\Wall\BossWallSide</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossWallFrontUpper.h">
+      <Filter>03. GameObject\11. Map\Wall\BossWallFrontUp</Filter>
+    </ClInclude>
+    <ClInclude Include="CBossWallSideUpper.h">
+      <Filter>03. GameObject\11. Map\Wall\BossWallSideUp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPumpkin.h">
+      <Filter>03. GameObject\11. Map\Pumpkin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -556,22 +586,34 @@
       <Filter>97. StateMachine\03. MonsterState</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainDungeonNormal.cpp">
-      <Filter>03. GameObject\11. Map\TerrainDungeonNormal</Filter>
+      <Filter>03. GameObject\11. Map\Terrain\TerrainDungeonNormal</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CComposeScene.cpp">
       <Filter>02. Scene\09. ComposeScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainVillage.cpp">
-      <Filter>03. GameObject\11. Map\TerrainVillage</Filter>
+      <Filter>03. GameObject\11. Map\Terrain\TerrainVillage</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CDungeonWall.cpp">
-      <Filter>03. GameObject\11. Map\DungeonWall</Filter>
+      <Filter>03. GameObject\11. Map\Wall\DungeonWall</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainBoss.cpp">
-      <Filter>03. GameObject\11. Map\TerrainBoss</Filter>
+      <Filter>03. GameObject\11. Map\Terrain\TerrainBoss</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CBossWallFront.cpp">
-      <Filter>03. GameObject\11. Map\BossWallFront</Filter>
+      <Filter>03. GameObject\11. Map\Wall\BossWallFront</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossWallSide.cpp">
+      <Filter>03. GameObject\11. Map\Wall\BossWallSide</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossWallFrontUpper.cpp">
+      <Filter>03. GameObject\11. Map\Wall\BossWallFrontUp</Filter>
+    </ClCompile>
+    <ClCompile Include="CBossWallSideUpper.cpp">
+      <Filter>03. GameObject\11. Map\Wall\BossWallSideUp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPumpkin.cpp">
+      <Filter>03. GameObject\11. Map\Pumpkin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -19,15 +19,18 @@ private:
         CONFIRM_END
     };
 
+
+
     explicit CEditScene(LPDIRECT3DDEVICE9 pGraphciDev);
     virtual ~CEditScene();
 
     bool confirm[CONFIRM_END];
+    bool bDragging;
     ImGuiContext* g_MapEditor;
     CGameObject* pVillage;
-    CGameObject* m_pSelectedObject = nullptr;
+    CGameObject* m_pSelectedObject;
     IDirect3DBaseTexture9* g_pPreviewTex;
-    _vec3 vRot = { 0.f, 0.f, 0.f };
+    _vec3 vRot;
 
 
     HRESULT Ready_Environment_Layer(const wstring pLayerTag);
@@ -47,8 +50,50 @@ private:
 
     HRESULT Add_TerrainBoss(const wstring pLayerTag);
     HRESULT Add_BossWallFront_Down(const wstring pLayerTag);
+    HRESULT Add_BossWallSide_Down(const wstring pLayerTag);
+    HRESULT Add_BossWallFront_Up(const wstring pLayerTag);
+    HRESULT Add_BossWallSide_Up(const wstring pLayerTag);
+    HRESULT Add_Pumpkin(const wstring pLayerTag);
 
     inline string WStringToUTF8(const std::wstring& wstr);
+    template<typename TObject>
+    HRESULT Add_ObjectToLayer(CEditScene* pScene, const wstring& pLayerTag, const wstring& objectName)
+    {
+        auto& layerMap = pScene->m_umLayer;
+
+        auto iter = layerMap.find(pLayerTag);
+        CGameObject* pGameObject = TObject::Create(pScene->m_pGraphicDevice);
+
+        if (!pGameObject)
+        {
+            MSG_BOX("Create Object Fail");
+            return E_FAIL;
+        }
+
+        if (iter != layerMap.end())
+        {
+            CLayer* pLayer = iter->second;
+            if (FAILED(pLayer->Add_GameObject(objectName, pGameObject)))
+            {
+                MSG_BOX("Add GameObject Fail");
+                return E_FAIL;
+            }
+        }
+        else
+        {
+            CLayer* pGameLogicLayer = CLayer::Create();
+            if (FAILED(pGameLogicLayer->Add_GameObject(objectName, pGameObject)))
+            {
+                MSG_BOX("Add GameObject Fail");
+                return E_FAIL;
+            }
+
+            layerMap.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer });
+        }
+
+        return S_OK;
+    }
+
 
     HRESULT Ready_Prototype();
     virtual void Free();

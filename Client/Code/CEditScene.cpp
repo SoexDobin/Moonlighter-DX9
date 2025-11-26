@@ -11,11 +11,17 @@
 #include "CTreeObject.h"
 #include "CDungeonWall.h"
 #include "CBossWallFront.h"
+#include "CBossWallSide.h"
+#include "CBossWallFrontUpper.h"
+#include "CBossWallSideUpper.h"
+#include "CPumpkin.h"
 
 CEditScene::CEditScene(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CScene(pGraphicDev), pVillage(nullptr), g_MapEditor(nullptr), g_pPreviewTex(nullptr)
+    : CScene(pGraphicDev), pVillage(nullptr), g_MapEditor(nullptr), g_pPreviewTex(nullptr),
+    m_pSelectedObject(nullptr)
 {
     ZeroMemory(&confirm, sizeof(confirm));
+    ZeroMemory(&vRot, sizeof(_vec3));
 }
 
 CEditScene::~CEditScene()
@@ -101,8 +107,8 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             ImGuiWindowFlags_NoSavedSettings |
             ImGuiWindowFlags_NoFocusOnAppearing |
             ImGuiWindowFlags_NoNav);
-        ImGui::Text("X: %.0f", vMousePos.x);
-        ImGui::Text("Z: %.0f", vMousePos.z);
+        ImGui::Text("X: %.3f", vMousePos.x);
+        ImGui::Text("Z: %.3f", vMousePos.z);
         ImGui::End();
     }
 
@@ -244,13 +250,61 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             ImGui::EndTooltip();
         }
 
-        if (ImGui::Button("Add Boss Wall"))
+        if (ImGui::Button("Add Boss Wall Front"))
         {
             Add_BossWallFront_Down(L"Environment_Layer");
         }
         if (ImGui::IsItemHovered())
         {
             InitPreviewTextures(L"Map_Boss_Wall_Down");
+            ImGui::BeginTooltip();
+            ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
+            ImGui::EndTooltip();
+        }
+
+        if (ImGui::Button("Add Boss Wall Side"))
+        {
+            Add_BossWallSide_Down(L"Environment_Layer");
+        }
+        if (ImGui::IsItemHovered())
+        {
+            InitPreviewTextures(L"Map_Boss_Wall_Side");
+            ImGui::BeginTooltip();
+            ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
+            ImGui::EndTooltip();
+        }
+
+        if (ImGui::Button("Add Boss Wall Front Upper"))
+        {
+            Add_BossWallFront_Up(L"Environment_Layer");
+        }
+        if (ImGui::IsItemHovered())
+        {
+            InitPreviewTextures(L"Map_Boss_Wall_Up");
+            ImGui::BeginTooltip();
+            ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
+            ImGui::EndTooltip();
+        }
+
+        if (ImGui::Button("Add Boss Wall Side Upper"))
+        {
+            Add_BossWallSide_Up(L"Environment_Layer");
+        }
+        if (ImGui::IsItemHovered())
+        {
+            InitPreviewTextures(L"Map_Boss_Wall_Up");
+            ImGui::BeginTooltip();
+            ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
+            ImGui::EndTooltip();
+        }
+
+        if (ImGui::Button("Add Pumpkin"))
+        {
+            Add_Pumpkin(L"Environment_Layer");
+        }
+        if (ImGui::IsItemHovered())
+        {
+            InitPreviewTextures(L"Map_Boss_Pumpkin");
             ImGui::BeginTooltip();
             ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
             ImGui::EndTooltip();
@@ -417,64 +471,20 @@ void CEditScene::Free()
 
 HRESULT CEditScene::Add_TerrainVillage(const wstring pLayerTag)
 {
-    auto iter = m_umLayer.find(pLayerTag);
-    if (iter != m_umLayer.end())
+    if (FAILED(Add_ObjectToLayer<CTerrainVillage>(this, pLayerTag, L"Terrain_Village")))
     {
-        CLayer* pLayer = iter->second;
-
-        CGameObject* pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
-
-        if (FAILED(pLayer->Add_GameObject(L"Village", pGameObject)))
-        {
-            MSG_BOX("Add Village Fail");
-            return E_FAIL;
-        }
-    }
-    else
-    {
-        CLayer* pGameLogicLayer = CLayer::Create();
-
-        CGameObject* pGameObject = nullptr;
-        pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
-        if (FAILED(pGameLogicLayer->Add_GameObject(L"Village", pGameObject)))
-        {
-            MSG_BOX("Add Village Fail");
-            return E_FAIL;
-        }
-
-        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
+        MSG_BOX("Terrain Village Add Fail");
+        return E_FAIL;
     }
     return S_OK;
 }
 
 HRESULT CEditScene::Add_TerrainDungeon(const wstring pLayerTag)
 {
-    auto iter = m_umLayer.find(pLayerTag);
-    if (iter != m_umLayer.end())
+    if (FAILED(Add_ObjectToLayer<CTerrainDungeonNormal>(this, pLayerTag, L"Terrain_Dungeon")))
     {
-        CLayer* pLayer = iter->second;
-
-        CGameObject* pGameObject = CTerrainDungeonNormal::Create(m_pGraphicDevice);
-
-        if (FAILED(pLayer->Add_GameObject(L"Terrain_Dungeon", pGameObject)))
-        {
-            MSG_BOX("Add Dungeon Fail");
-            return E_FAIL;
-        }
-    }
-    else
-    {
-        CLayer* pGameLogicLayer = CLayer::Create();
-
-        CGameObject* pGameObject = nullptr;
-        pGameObject = CTerrainDungeonNormal::Create(m_pGraphicDevice);
-        if (FAILED(pGameLogicLayer->Add_GameObject(L"Terrain_Dungeon", pGameObject)))
-        {
-            MSG_BOX("Add Dungeon Fail");
-            return E_FAIL;
-        }
-
-        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
+        MSG_BOX("Terrain Dungeon Add Fail");
+        return E_FAIL;
     }
     return S_OK;
 }
@@ -482,216 +492,93 @@ HRESULT CEditScene::Add_TerrainDungeon(const wstring pLayerTag)
 
 HRESULT CEditScene::Add_House(const wstring pLayerTag)
 {
-    auto iter = m_umLayer.find(pLayerTag);
-    if (iter != m_umLayer.end())
+    if (FAILED(Add_ObjectToLayer<CHouse>(this, pLayerTag, L"Village_House")))
     {
-        CLayer* pLayer = iter->second;
-
-        CGameObject* pHouse = CHouse::Create(m_pGraphicDevice);
-
-        if (pHouse != nullptr)
-        {
-            _int randA, randB;
-
-            srand(_uint(time(nullptr)));
-
-            randA = rand() % 100 + 1;
-            randB = rand() % 100 + 1;
-
-            static_cast<CRenderObject*>(pHouse)->Get_Trans()->Set_Pos(_float(randA), 4.f, _float(randB));
-        }
-        else
-        {
-            MSG_BOX("House Create Fail");
-            return E_FAIL;
-        }
-
-        if (FAILED(pLayer->Add_GameObject(L"House", pHouse)))
-        {
-            MSG_BOX("Add House Fail");
-            return E_FAIL;
-        }
+        MSG_BOX("House Add Fail");
+        return E_FAIL;
     }
-    else
-    {
-        CLayer* pGameLogicLayer = CLayer::Create();
-
-        CGameObject* pGameObject = nullptr;
-        pGameObject = CHouse::Create(m_pGraphicDevice);
-        if (pGameObject != nullptr)
-        {
-            _int randA, randB;
-
-            srand(_uint(time(nullptr)));
-
-            randA = rand() % 100 + 1;
-            randB = rand() % 100 + 1;
-
-            static_cast<CRenderObject*>(pGameObject)->Get_Trans()->Set_Pos(_float(randA), 4.f, _float(randB));
-        }
-        if (FAILED(pGameLogicLayer->Add_GameObject(L"House", pGameObject)))
-            return E_FAIL;
-
-        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag , pGameLogicLayer});
-    }
-
     return S_OK;
 }
 
 HRESULT CEditScene::Add_Tree(const wstring pLayerTag)
 {
-    auto iter = m_umLayer.find(pLayerTag);
-    if (iter != m_umLayer.end())
+    if (FAILED(Add_ObjectToLayer<CTreeObject>(this, pLayerTag, L"Village_Tree")))
     {
-        CLayer* pLayer = iter->second;
-
-        CGameObject* pHouse = CTreeObject::Create(m_pGraphicDevice);
-
-        if (pHouse != nullptr)
-        {
-            _int randA, randB;
-
-            srand(_uint(time(nullptr)));
-
-            randA = rand() % 100 + 1;
-            randB = rand() % 100 + 1;
-
-            static_cast<CRenderObject*>(pHouse)->Get_Trans()->Set_Pos(_float(randA), 4.f, _float(randB));
-        }
-        else
-        {
-            MSG_BOX("House Create Fail");
-            return E_FAIL;
-        }
-
-        if (FAILED(pLayer->Add_GameObject(L"House", pHouse)))
-        {
-            MSG_BOX("Add House Fail");
-            return E_FAIL;
-        }
+        MSG_BOX("Tree Add Fail");
+        return E_FAIL;
     }
-    else
-    {
-        CLayer* pGameLogicLayer = CLayer::Create();
-
-        CGameObject* pGameObject = nullptr;
-        pGameObject = CTreeObject::Create(m_pGraphicDevice);
-        if (pGameObject != nullptr)
-        {
-            _int randA, randB;
-
-            srand(_uint(time(nullptr)));
-
-            randA = rand() % 100 + 1;
-            randB = rand() % 100 + 1;
-
-            static_cast<CRenderObject*>(pGameObject)->Get_Trans()->Set_Pos(_float(randA), 4.f, _float(randB));
-        }
-        if (FAILED(pGameLogicLayer->Add_GameObject(L"House", pGameObject)))
-            return E_FAIL;
-
-        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
-    }
-
     return S_OK;
 }
 
 HRESULT CEditScene::Add_DungeonWall(const wstring pLayerTag)
 {
-    auto iter = m_umLayer.find(pLayerTag);
-    if (iter != m_umLayer.end())
+    if (FAILED(Add_ObjectToLayer<CDungeonWall>(this, pLayerTag, L"Dungeon_Wall")))
     {
-        CLayer* pLayer = iter->second;
-
-        CGameObject* pGameObject = CDungeonWall::Create(m_pGraphicDevice);
-
-        if (FAILED(pLayer->Add_GameObject(L"Dungeon_Wall", pGameObject)))
-        {
-            MSG_BOX("Add Dungeon Wall Fail");
-            return E_FAIL;
-        }
-    }
-    else
-    {
-        CLayer* pGameLogicLayer = CLayer::Create();
-
-        CGameObject* pGameObject = nullptr;
-        pGameObject = CDungeonWall::Create(m_pGraphicDevice);
-        if (FAILED(pGameLogicLayer->Add_GameObject(L"Dungeon_Wall", pGameObject)))
-        {
-            MSG_BOX("Add Dungeon Wall Fail");
-            return E_FAIL;
-        }
-
-        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
+        MSG_BOX("DungeonWall Add Fail");
+        return E_FAIL;
     }
     return S_OK;
 }
 
 HRESULT CEditScene::Add_TerrainBoss(const wstring pLayerTag)
 {
-    auto iter = m_umLayer.find(pLayerTag);
-    if (iter != m_umLayer.end())
+    if (FAILED(Add_ObjectToLayer<CTerrainBoss>(this, pLayerTag, L"Terrain_Boss")))
     {
-        CLayer* pLayer = iter->second;
-
-        CGameObject* pGameObject = CTerrainBoss::Create(m_pGraphicDevice);
-
-        if (FAILED(pLayer->Add_GameObject(L"Terrain_Boss", pGameObject)))
-        {
-            MSG_BOX("Add Boss Terrain Fail");
-            return E_FAIL;
-        }
-    }
-    else
-    {
-        CLayer* pGameLogicLayer = CLayer::Create();
-
-        CGameObject* pGameObject = nullptr;
-        pGameObject = CTerrainBoss::Create(m_pGraphicDevice);
-        if (FAILED(pGameLogicLayer->Add_GameObject(L"Terrain_Boss", pGameObject)))
-        {
-            MSG_BOX("Add Boss Terrain Fail");
-            return E_FAIL;
-        }
-
-        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
+        MSG_BOX("Terrain Boss Add Fail");
+        return E_FAIL;
     }
     return S_OK;
 }
 
 HRESULT CEditScene::Add_BossWallFront_Down(const wstring pLayerTag)
 {
-    auto iter = m_umLayer.find(pLayerTag);
-    if (iter != m_umLayer.end())
+    if (FAILED(Add_ObjectToLayer<CBossWallFront>(this, pLayerTag, L"Boss_Wall_Front")))
     {
-        CLayer* pLayer = iter->second;
-
-        CGameObject* pGameObject = CBossWallFront::Create(m_pGraphicDevice);
-
-        if (FAILED(pLayer->Add_GameObject(L"Boss_Wall_Front", pGameObject)))
-        {
-            MSG_BOX("Add Boss Wall Front Fail");
-            return E_FAIL;
-        }
-    }
-    else
-    {
-        CLayer* pGameLogicLayer = CLayer::Create();
-
-        CGameObject* pGameObject = nullptr;
-        pGameObject = CBossWallFront::Create(m_pGraphicDevice);
-        if (FAILED(pGameLogicLayer->Add_GameObject(L"Boss_Wall_Front", pGameObject)))
-        {
-            MSG_BOX("Add Boss Wall Front Fail");
-            return E_FAIL;
-        }
-
-        m_umLayer.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer});
+        MSG_BOX("Boss Wall Front Down Add Fail");
+        return E_FAIL;
     }
     return S_OK;
 }
 
+HRESULT CEditScene::Add_BossWallSide_Down(const wstring pLayerTag)
+{
+    if (FAILED(Add_ObjectToLayer<CBossWallSide>(this, pLayerTag, L"Boss_Wall_Side")))
+    {
+        MSG_BOX("Boss Wall Side Down Add Fail");
+        return E_FAIL;
+    }
+    return S_OK;
+}
+
+HRESULT CEditScene::Add_BossWallFront_Up(const wstring pLayerTag)
+{
+    if (FAILED(Add_ObjectToLayer<CBossWallFrontUpper>(this, pLayerTag, L"Boss_Wall_Front_Up")))
+    {
+        MSG_BOX("Boss Wall Front Up Add Fail");
+        return E_FAIL;
+    }
+    return S_OK;
+}
+
+HRESULT CEditScene::Add_BossWallSide_Up(const wstring pLayerTag)
+{
+    if (FAILED(Add_ObjectToLayer<CBossWallSideUpper>(this, pLayerTag, L"Boss_Wall_Side_Up")))
+    {
+        MSG_BOX("Boss Wall Side Up Add Fail");
+        return E_FAIL;
+    }
+    return S_OK;
+}
+
+HRESULT CEditScene::Add_Pumpkin(const wstring pLayerTag)
+{
+    if (FAILED(Add_ObjectToLayer<CPumpkin>(this, pLayerTag, L"Boss_Pumpkin")))
+    {
+        MSG_BOX("Boss Pumpkin Add Fail");
+        return E_FAIL;
+    }
+    return S_OK;
+}
 
 inline string CEditScene::WStringToUTF8(const std::wstring& wstr)
 {
@@ -732,3 +619,4 @@ void CEditScene::find_VillageTerrain()
         }
     }
 }
+

@@ -183,7 +183,6 @@ namespace CUtility
     {
         if (pObj == nullptr)
         {
-            MSG_BOX("Picking Terrain Object Null");
             return _vec3(0.f, 0.f, 0.f);
         }
 

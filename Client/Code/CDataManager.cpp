@@ -346,6 +346,12 @@ HRESULT CDataManager::Ready_Map_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
         MSG_BOX("Boss Wall Side Image Load Fail");
         return E_FAIL;
     }
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Boss_Pumpkin",
+        n_wsResSpritePath + L"Map/Boss_Dungeon_Wall_Edge_Pumpkin.png", 1)))
+    {
+        MSG_BOX("Boss Wall Side Image Load Fail");
+        return E_FAIL;
+    }
     return S_OK;
 }
 

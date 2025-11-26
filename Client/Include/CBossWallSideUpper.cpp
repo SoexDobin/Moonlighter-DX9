@@ -1,27 +1,27 @@
 ﻿#include "pch.h"
-#include "CBossWallFront.h"
+#include "CBossWallSideUpper.h"
 #include "CRenderer.h"
 #include "CPrototypeManager.h"
 #include "CDInputManager.h"
 #include "CManagement.h"
 
-CBossWallFront::CBossWallFront(LPDIRECT3DDEVICE9 pGraphicDev)
+CBossWallSideUpper::CBossWallSideUpper(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Boss_Wall_Front")
+    PANEL_NAME(L"Boss_Wall_Side_Up")
 }
 
-CBossWallFront::CBossWallFront(const CBossWallFront& rhs)
+CBossWallSideUpper::CBossWallSideUpper(const CBossWallSideUpper& rhs)
     : CRenderObject(rhs), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Boss_Wall_Front")
+    PANEL_NAME(L"Boss_Wall_Side_Up")
 }
 
-CBossWallFront::~CBossWallFront()
+CBossWallSideUpper::~CBossWallSideUpper()
 {
 }
 
-HRESULT CBossWallFront::Ready_GameObject()
+HRESULT CBossWallSideUpper::Ready_GameObject()
 {
     if (FAILED(Engine::CRenderObject::Ready_GameObject()))
         return E_FAIL;
@@ -34,16 +34,18 @@ HRESULT CBossWallFront::Ready_GameObject()
 
     if (m_pTextureCom = static_cast<CTexture*>(pCom))
     {
-        m_pTextureCom->Ready_Texture(L"Map_Boss_Wall_Down");
+        m_pTextureCom->Ready_Texture(L"Map_Boss_Wall_Side");
 
         m_pTextureCom->Set_Texture(0);
 
         m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pTextureCom));
     }
+
+    m_pTransformCom->Add_Rotation(ROT_Y, 90.f);
     return S_OK;
 }
 
-_int CBossWallFront::Update_GameObject(const _float fTimeDelta)
+_int CBossWallSideUpper::Update_GameObject(const _float fTimeDelta)
 {
     _int iExit = Engine::CRenderObject::Update_GameObject(fTimeDelta);
 
@@ -52,12 +54,12 @@ _int CBossWallFront::Update_GameObject(const _float fTimeDelta)
     return iExit;
 }
 
-void CBossWallFront::LateUpdate_GameObject(const _float fTimeDelta)
+void CBossWallSideUpper::LateUpdate_GameObject(const _float fTimeDelta)
 {
     Engine::CRenderObject::LateUpdate_GameObject(fTimeDelta);
 }
 
-void CBossWallFront::Render_GameObject()
+void CBossWallSideUpper::Render_GameObject()
 {
     m_pGraphicDevice->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
@@ -72,13 +74,13 @@ void CBossWallFront::Render_GameObject()
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
-CBossWallFront* CBossWallFront::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CBossWallSideUpper* CBossWallSideUpper::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-    CBossWallFront* pInstance = new CBossWallFront(pGraphicDev);
+    CBossWallSideUpper* pInstance = new CBossWallSideUpper(pGraphicDev);
 
     if (FAILED(pInstance->Ready_GameObject()))
     {
-        MSG_BOX("CBossWallFront Create Failed");
+        MSG_BOX("CBossWallSideUpper Create Failed");
         Safe_Release(pInstance);
         return nullptr;
     }
@@ -86,7 +88,7 @@ CBossWallFront* CBossWallFront::Create(LPDIRECT3DDEVICE9 pGraphicDev)
     return pInstance;
 }
 
-void CBossWallFront::Free()
+void CBossWallSideUpper::Free()
 {
     Engine::CGameObject::Free();
 }

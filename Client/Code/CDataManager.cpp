@@ -274,8 +274,12 @@ HRESULT CDataManager::Ready_UI_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
         return E_FAIL;
 
     //slot
-    if (FAILED(Res.Add_Sprite(pGraphicDev, L"TestSlot",
-        L"../Bin/Resource/Sprite/UI/TestSlot.png", 1)))
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"HoverSlot",
+        L"../Bin/Resource/Sprite/UI/Inven/HoverSlot.png", 1)))
+        return E_FAIL;
+
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"ClickSlot",
+        L"../Bin/Resource/Sprite/UI/Inven/ClickSlot.png", 1)))
         return E_FAIL;
 
     return S_OK;

@@ -10,13 +10,13 @@
 CTree::CTree(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Tree")
+    //PANEL_NAME(L"Tree")
 }
 
 CTree::CTree(const CTree& rhs)
     : CRenderObject(rhs), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Tree")
+    //PANEL_NAME(L"Tree")
 }
 
 CTree::~CTree()

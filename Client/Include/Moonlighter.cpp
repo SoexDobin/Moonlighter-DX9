@@ -67,10 +67,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         return E_FAIL;
     }
-    else
-    {
-        CFrameManager::GetInstance()->Set_MainFrame(L"Frame60");
-    }
 
     CEditor::GetInstance()->Set_pTimeScale(&fTimeScale);
 
@@ -92,12 +88,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             Engine::CTimeManager::GetInstance()->Set_TimeDelta(L"DELTA");
             _float fDeltaTime_Immediate = Engine::CTimeManager::GetInstance()->Get_TimeDelta(L"DELTA");
 
-            if (Engine::CFrameManager::GetInstance()->IsTransit_NextFrame(fDeltaTime_Immediate))
+            if (Engine::CFrameManager::GetInstance()->IsPermit_Call(L"Frame60", fDeltaTime_Immediate))
             {
                 Engine::CTimeManager::GetInstance()->Set_TimeDelta(L"DELTA_FPS60");
                 _float fDeltaTime = Engine::CTimeManager::GetInstance()->Get_TimeDelta(L"DELTA_FPS60");
 
-                Engine::CFrameManager::GetInstance()->Modify_LastTimeDelta(&fDeltaTime);
+                if (CFrameManager::GetInstance()->Is_Pause(fDeltaTime))
+                    fDeltaTime = 0.f;
 
                 pMainApp->Update_MainApp(fDeltaTime * fTimeScale);
                 pMainApp->LateUpdate_MainApp(fDeltaTime * fTimeScale);

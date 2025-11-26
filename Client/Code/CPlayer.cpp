@@ -11,18 +11,18 @@
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTexCom(nullptr), m_eState(IDLE), m_eDir(DIR_DOWN), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(0.5f), m_vRollDir{ 0.f, 0.f, 0.f }, m_fAttackTime(0.f), m_fAttackDuration(0.5f)
 {
-    PANEL_NAME(L"Player");
+    //PANEL_NAME(L"Player");
 }
 
 CPlayer::CPlayer(const CPlayer& rhs)
     : CRenderObject(rhs), m_pTexCom(nullptr), m_eState(rhs.m_eState), m_eDir(rhs.m_eDir), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(rhs.m_fRollDuration), m_vRollDir{ 0.f, 0.f, 0.f }, m_fAttackTime(0.f), m_fAttackDuration(rhs.m_fRollDuration)
 {
-    PANEL_NAME(L"Player");
+    //PANEL_NAME(L"Player");
 }
 
 CPlayer::~CPlayer()
 {
-    PANEL_NAME(L"Player");
+    //PANEL_NAME(L"Player");
 }
 
 HRESULT CPlayer::Ready_GameObject()

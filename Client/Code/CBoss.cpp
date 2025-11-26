@@ -14,12 +14,12 @@ CBoss::CBoss(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_dwCurStateKey(BOSS_STATE::B_END), m_dwAnimKey(BOSS_STATE::B_END),
     m_pStateMachine(nullptr), m_pCurState(nullptr)
 {
-    PANEL_NAME(L"Boss");
+    //PANEL_NAME(L"Boss");
 }
 
 CBoss::~CBoss()
 {
-    PANEL_NAME(L"Boss");
+    //PANEL_NAME(L"Boss");
 }
 
 HRESULT CBoss::Ready_GameObject()

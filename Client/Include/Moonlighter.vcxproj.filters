@@ -304,9 +304,6 @@
     <ClInclude Include="..\Header\CTreeIdleState.h">
       <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CTreeMob.h">
-      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CTreeShakeState.h">
       <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
     </ClInclude>
@@ -320,9 +317,6 @@
       <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CSlimeIdleState.h">
-      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CSlimeMob.h">
       <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CSlimeWalkState.h">
@@ -360,6 +354,12 @@
     </ClInclude>
     <ClInclude Include="..\Header\CTmpCustomComponent.h">
       <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeMob.h">
+      <Filter>03. GameObject\02. Monster\01. Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlimeMob.h">
+      <Filter>03. GameObject\02. Monster\02. Slime</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -486,9 +486,6 @@
     <ClCompile Include="..\Code\CTreeIdleState.cpp">
       <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CTreeMob.cpp">
-      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CTreeShakeState.cpp">
       <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
     </ClCompile>
@@ -502,9 +499,6 @@
       <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSlimeIdleState.cpp">
-      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CSlimeMob.cpp">
       <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSlimeWalkState.cpp">
@@ -539,6 +533,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTmpCustomComponent.cpp">
       <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeMob.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlimeMob.cpp">
+      <Filter>03. GameObject\02. Monster\02. Slime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

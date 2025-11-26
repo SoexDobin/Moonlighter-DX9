@@ -6,13 +6,13 @@
 CTerrainVillage::CTerrainVillage(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Terrain_Village")
+    //PANEL_NAME(L"Terrain_Village")
 }
 
 CTerrainVillage::CTerrainVillage(const CTerrainVillage& rhs)
     :CRenderObject(rhs), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Terrain_Village")
+    //PANEL_NAME(L"Terrain_Village")
 }
 
 CTerrainVillage::~CTerrainVillage()

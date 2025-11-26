@@ -70,20 +70,36 @@ void CScene::Free()
 
 void CScene::Display_Editor()
 {
-    if (ImGui::BeginTabBar("Debugging"))
+    bool bOpen = ImGui::Begin("Main Editor");
+    if (bOpen)
     {
-        if (ImGui::BeginTabItem("Current Scene"))
+        ImGui::BeginChild("LeftColumn", ImVec2(200, 0), true); 
         {
-            _uint dwIndex = 0;
-            for (auto& layer : m_umLayer)
+            ImGui::BeginChild("Scene Type", ImVec2(0, 50), true);
+            { ImGui::EndChild(); }
+
+            ImGui::BeginChild("Scene Info", ImVec2(0, 0), true);
             {
-                if (ImGui::CollapsingHeader(layer.second->m_LayerTag, &layer.second->m_bDisplayInEditor))
+                ImGui::PushItemWidth(50);
+                for (auto& layer : m_umLayer)
                 {
-                    layer.second->Display_Editor();
+                    ImGuiTreeNodeFlags flags =
+                        ImGuiTreeNodeFlags_SpanAvailWidth |
+                        ImGuiTreeNodeFlags_DefaultOpen |
+                        ImGuiTreeNodeFlags_FramePadding;
+
+                    if (ImGui::TreeNodeEx(layer.second->m_LayerTag, flags))
+                    {
+                        layer.second->Display_Editor();
+                        ImGui::TreePop();
+                    }
                 }
+                ImGui::PopItemWidth();
             }
-            ImGui::EndTabItem();
+            ImGui::EndChild();
         }
-        ImGui::EndTabBar();
+        ImGui::EndChild();
     }
+    ImGui::End();
+
 }

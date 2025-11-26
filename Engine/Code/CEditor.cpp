@@ -7,7 +7,7 @@
 IMPLEMENT_SINGLETON(CEditor)
 
 _bool CEditor::s_bEditorActive = true;
-_float CEditor::s_fEditorAlpha = 0.8f;
+_float CEditor::s_fEditorAlpha = 1.f;
 
 CEditor::CEditor()
     : m_bGamePaused(false), m_fFPS(0.f)
@@ -36,7 +36,7 @@ HRESULT CEditor::Ready_Editor(HWND hWnd, LPDIRECT3DDEVICE9 pGraphicDev)
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-
+    io.ConfigDebugHighlightIdConflicts = false;
     ImGui::StyleColorsDark();
 
     ImGuiStyle& style = ImGui::GetStyle();
@@ -321,44 +321,63 @@ void CEditor::Add_EditorField(const char* pName, EDITORFIELD pField)
 
 void CEditor::Display_MainPanel()
 {
-    ImGui::Begin("Main Editor");
-
-    ImGui::PushItemWidth(50);
-
-    ImGui::Text("FPS : %d", CFrameManager::GetInstance()->Get_CurFPS()); ImGui::SameLine();
-    ImGui::Text("DrawCall : %d", CRenderer::GetInstance()->Get_DrawCalls());
-
-    if (ImGui::Button(m_szPaused))
+    bool bOpen = ImGui::Begin("Main Editor");
+    if (bOpen)
     {
-        if (!m_bGamePaused)
+        ImGui::Columns(2, "MainEditorColumns", true); 
+
+        ImGui::BeginChild("LeftColumn", ImVec2(0, 0), true);
         {
-            CFrameManager::GetInstance()->Pause_Game();
-            m_bGamePaused = true;
-            strcpy_s(m_szPaused, "Restart");
+            ImGui::PushItemWidth(80);
+            ImGui::Text("FPS : %d", CFrameManager::GetInstance()->Get_CurFPS());
+            ImGui::Text("DrawCall : %d", CRenderer::GetInstance()->Get_DrawCalls());
+
+            if (ImGui::Button(m_szPaused))
+            {
+                if (!m_bGamePaused)
+                {
+                    CFrameManager::GetInstance()->Pause_Game();
+                    m_bGamePaused = true;
+                    strcpy_s(m_szPaused, "Restart");
+                }
+                else
+                {
+                    CFrameManager::GetInstance()->Restart_Game();
+                    m_bGamePaused = false;
+                    strcpy_s(m_szPaused, "Pause");
+                }
+            }
+
+            if (m_bGamePaused)
+            {
+                ImGui::SameLine();
+                if (ImGui::Button("Next Frame"))
+                {
+                    CFrameManager::GetInstance()->Transit_NextFrame();
+                }
+            }
+
+            ImGui::DragFloat("Time Scale", m_pTimeScale, 0.01f, 0.1f, 3.0f, "%.2f");
+
+            ImGui::PopItemWidth();
         }
-        else
+        ImGui::EndChild();
+
+        ImGui::NextColumn();
+
+        ImGui::BeginChild("Object Info", ImVec2(0, 0), true);
         {
-            CFrameManager::GetInstance()->Restart_Game();
-            m_bGamePaused = false;
-            strcpy_s(m_szPaused, "Pause");
+            // Object Info 내용 넣기
         }
+        ImGui::EndChild();
+
+        ImGui::Columns(1); 
+
+        ImGui::End();
     }
-    
-    if (m_bGamePaused)
-    {
-        ImGui::SameLine();
-        if (ImGui::Button("Next Frame"))
-        {
-            CFrameManager::GetInstance()->Transit_NextFrame();
-        }
-    }
 
-    ImGui::DragFloat("Time Scale", m_pTimeScale, 0.01f, 0.1f, 2.0f, "%.2f");
-
-    ImGui::PopItemWidth();
-
-    ImGui::End();
 }
+
 
 void CEditor::Free()
 {

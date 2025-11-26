@@ -13,7 +13,6 @@ HRESULT CMediator::Ready_Mediator(LPDIRECT3DDEVICE9 pGraphicDev)
     return S_OK;
 }
 
-// 메인앱에서 CEditor 다음에 호출하자 
 void CMediator::Render_Mediator()
 {
     Display_AllScenePanel();
@@ -21,12 +20,17 @@ void CMediator::Render_Mediator()
 
 void CMediator::Display_AllScenePanel()
 {
-    if (ImGui::BeginTabBar("Debugging"))
+    bool bOpen = ImGui::Begin("Main Editor");
+    if (bOpen)
     {
-        ImGui::PushItemWidth(80);
-        if (ImGui::BeginTabItem("All Scenes"))
+        ImGui::BeginChild("LeftColumn", ImVec2(200, 0), true); 
         {
-            if (ImGui::BeginCombo(": Scene Type", m_vecScene[m_dwCurSceneIdx].c_str()))
+            ImGui::BeginChild("Scene Type", ImVec2(0, 50), true);
+
+
+            ImGui::Text("Scene : "); ImGui::SameLine();
+            ImGui::PushItemWidth(80);
+            if (ImGui::BeginCombo("##", m_vecScene[m_dwCurSceneIdx].c_str()))
             {
                 for (_uint dwIdx = 0; dwIdx < m_dwEndScene; dwIdx++)
                 {
@@ -42,12 +46,14 @@ void CMediator::Display_AllScenePanel()
                         ImGui::SetItemDefaultFocus();
                 }
                 ImGui::EndCombo();
+                ImGui::PopItemWidth();
             }
-            ImGui::EndTabItem();
-        }
+            ImGui::EndChild();
 
-        ImGui::PopItemWidth();
-        ImGui::EndTabBar();
+            ImGui::EndChild();
+        }
+        ImGui::End();
+
     }
 }
 

@@ -394,6 +394,9 @@
     <ClInclude Include="Client_Enum.h">
       <Filter>99. Include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CHitSphereBox.h">
+      <Filter>04. Component\01. Combat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -593,6 +596,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CComposeScene.cpp">
       <Filter>02. Scene\09. ComposeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHitSphereBox.cpp">
+      <Filter>04. Component\01. Combat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,10 @@
 #include "CRenderObject.h"
 #include "CCombatComponent.h"
 
+namespace Engine
+{
+    class CCollider;
+}
 
 /// <summary>
 /// Abstract class : Monster base
@@ -11,7 +15,7 @@ class CMonster : public CRenderObject
 public :
     explicit CMonster(LPDIRECT3DDEVICE9 pGraphicDev) :
         CRenderObject(pGraphicDev),
-        m_pCombatStats(nullptr), m_pCombatComponent(nullptr) {};
+        m_pCombatStats(nullptr), m_pCombatComponent(nullptr), m_pColCom(nullptr){};
     explicit CMonster(const CMonster& rhs) : CRenderObject(rhs) {}
     virtual ~CMonster() {};
 
@@ -31,5 +35,8 @@ protected:
 protected:
     CCombatStats* m_pCombatStats;
     CCombatComponent* m_pCombatComponent;
+
+    CCollider* m_pColCom;
+    ;
 };
 

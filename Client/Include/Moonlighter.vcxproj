@@ -178,6 +178,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CExampleManager.h" />
     <ClInclude Include="..\Header\CExampleObject.h" />
     <ClInclude Include="..\Header\CHitRectBox.h" />
+    <ClInclude Include="..\Header\CHitSphereBox.h" />
     <ClInclude Include="..\Header\CItemManager.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
@@ -275,6 +276,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CExampleManager.cpp" />
     <ClCompile Include="..\Code\CExampleObject.cpp" />
     <ClCompile Include="..\Code\CHitRectBox.cpp" />
+    <ClCompile Include="..\Code\CHitSphereBox.cpp" />
     <ClCompile Include="..\Code\CItemManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>

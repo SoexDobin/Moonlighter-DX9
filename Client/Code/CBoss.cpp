@@ -12,9 +12,7 @@
 
 #pragma region TEST INCLUDE
 #include "CCollisionManager.h"
-#include "CHitRectBox.h"
 #include "CManagement.h"
-#include "CCollider.h"
 #pragma endregion
 
 
@@ -77,33 +75,6 @@ _int CBoss::Update_GameObject(const _float fTimeDelta)
 
     Engine::CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
 
-
-    {
-        //====================== 충돌 테스트 ======================
-        //if (GetAsyncKeyState('I') & 0x01)
-        //{
-        //    pSlime = CManagement::GetInstance()->Get_Object(L"GameLogic_Layer", L"SlimeMob");
-        //    if (!pSlime)
-        //        return -1;
-
-        //    pHitBox = dynamic_cast<CHitRectBox*>(CManagement::GetInstance()->
-        //        Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"SlimeMob", L"SIVAROMA"));
-        //    if (!pHitBox)
-        //        return -1;
-        //}
-
-        //if (GetAsyncKeyState('P') & 0x01)
-        //{
-        //    Collision collision;
-        //    collision.pColTarget = pSlime;
-        //    collision.pCounterCollider = pHitBox;
-        //    collision.eColState = COL_STATE::ENTER_COL;
-        //    
-        //    On_Collision(collision);
-        //}
-        //====================================================
-    }
-
     return iExit;
 }
 
@@ -142,18 +113,22 @@ void CBoss::Render_GameObject()
 void CBoss::On_Collision(const Collision& tCollision)
 {
     //================= 충돌 테스트 =========================
-    // 충돌 상태가 슬라임이라 가정 : 슬라임 -> 보스에게 몸박 공격
+    // 충돌 상대가 슬라임이라 가정 : 슬라임 -> 보스에게 몸박 공격
 
-    //if (COL_TYPE::RECT_COL == tCollision.pCounterCollider->Get_ColType()
-    //    && nullptr != dynamic_cast<CHitRectBox*>(tCollision.pCounterCollider))
-    //{
-    //    m_pCombatComponent->Take_Damage(static_cast<CHitRectBox*>(tCollision.pCounterCollider)->Get_Damage());
-    //}
-    //else if (COL_TYPE::SPHERE_COL == tCollision.pCounterCollider->Get_ColType()
-    //    && nullptr != dynamic_cast<CHitSphereBox*>(tCollision.pCounterCollider))
-    //{
-    //    m_pCombatComponent->Take_Damage(static_cast<CHitHitSphereBox*>(tCollision.pCounterCollider)->Get_Damage());
-    //}
+    if (COL_TYPE::RECT_COL == tCollision.pColSource->Get_ColType()
+        && nullptr != dynamic_cast<CHitRectBox*>(tCollision.pColSource))
+    {
+        m_pCombatComponent->Take_Damage(
+            static_cast<CHitRectBox*>(tCollision.pColSource),                                   // 충돌 정보 전달
+            static_cast<CHitRectBox*>(tCollision.pColSource)->Get_Damage());      // 데미지 정보 전달
+    }
+    else if (COL_TYPE::SPHERE_COL == tCollision.pColSource->Get_ColType()
+        && nullptr != dynamic_cast<CHitSphereBox*>(tCollision.pColSource))
+    {
+        m_pCombatComponent->Take_Damage(
+            static_cast<CHitSphereBox*>(tCollision.pColSource),                                   // 충돌 정보 전달
+            static_cast<CHitSphereBox*>(tCollision.pColSource)->Get_Damage());      // 데미지 정보 전달
+    }
 
     // ====================================================
 }
@@ -196,21 +171,27 @@ void CBoss::Set_CurStateKey(_uint dwStateKey, CMonsterState* pCurState)
 
 void CBoss::Ready_EntityComponent()
 {
-    // Set Combat Stats                
-    m_pCombatStats = CCombatStats::Create(this);
-    m_pCombatStats->Set_HealthStat(CStatComponent::Create(this, 100.f, 0.f, 100.f));
-    m_pCombatStats->Set_AttackStat(CStatComponent::Create(this, 10.f, 10.f, 30.f));
-    m_pCombatStats->Set_DefenseStat(CStatComponent::Create(this, 10.f, 10.f, 30.f));
-    m_pCombatStats->Set_SpeedStat(CStatComponent::Create(this, 5.f, 1.f, 10.f));
+    // Ready Collider
+    m_pColCom = Add_Component<CRectCollider>(ID_DYNAMIC, L"Collider_Com", RECT_COLLIDER);
 
+    // Ready Combat Stats                
+    m_pCombatStats = CCombatStats::Create(this);
     m_pCombatComponent = CCombatComponent::Create(this, m_pCombatStats);
 }
 
 void CBoss::Configure_Component()
 {
+    // Set Basic Components 
     m_pTransformCom->Set_Pos(20.f, 5.f, 10.f);
+    static_cast<CRectCollider*>(m_pColCom)->Set_Dimension({ 10.f, 10.f, 5.f });
 
-    // Entity Stat
+    // Set Combat Stats
+    m_pCombatStats->Set_HealthStat(CStatComponent::Create(this, 100.f, 0.f, 100.f));
+    m_pCombatStats->Set_AttackStat(CStatComponent::Create(this, 10.f, 10.f, 30.f));
+    m_pCombatStats->Set_DefenseStat(CStatComponent::Create(this, 10.f, 10.f, 30.f));
+    m_pCombatStats->Set_SpeedStat(CStatComponent::Create(this, 5.f, 1.f, 10.f));
+
+    // Set Combat Events
     m_pCombatStats->Get_HealthStat()->m_OnValueMin = [&]() {m_pStateMachine->Change_State(CBoss::DEAD); };
 }
 

@@ -330,18 +330,20 @@ void CEditor::Display_MainPanel()
 
     if (ImGui::Button(m_szPaused))
     {
-        if (!m_bGamePaused)
-        {
-            CFrameManager::GetInstance()->Pause_Game();
-            m_bGamePaused = true;
-            strcpy_s(m_szPaused, "Restart");
-        }
-        else
-        {
-            CFrameManager::GetInstance()->Restart_Game();
-            m_bGamePaused = false;
-            strcpy_s(m_szPaused, "Pause");
-        }
+        // FIXME !! 일시정지 후 재시작 안 되는 문제때문에 잠시 주석 처리
+        // 
+        //if (!m_bGamePaused)
+        //{
+        //    CFrameManager::GetInstance()->Pause_Game();
+        //    m_bGamePaused = true;
+        //    strcpy_s(m_szPaused, "Restart");
+        //}
+        //else
+        //{
+        //    CFrameManager::GetInstance()->Restart_Game();
+        //    m_bGamePaused = false;
+        //    strcpy_s(m_szPaused, "Pause");
+        //}
     }
     
     if (m_bGamePaused)

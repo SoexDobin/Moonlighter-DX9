@@ -52,7 +52,8 @@ HRESULT CSlimeMob::Ready_GameObject()
     DAMAGE_INFO damage;
     damage.bCanParry = false;
     damage.bShouldKnockback = false;
-    damage.fAmount = 20.f;
+    damage.fAmount = 60.f;
+    damage.eApplyTiming = Engine::COL_STATE::ENTER_COL;
     damage.vDirKnockback = { 0.f, 1.f, 0.f };
     damage.pAttacker = this;
 

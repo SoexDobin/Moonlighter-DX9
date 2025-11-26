@@ -26,10 +26,14 @@ private:
 
     bool confirm[CONFIRM_END];
     bool bDragging;
+    bool isReadyPick;
+
     ImGuiContext* g_MapEditor;
     CGameObject* pVillage;
     CGameObject* m_pSelectedObject;
+    CGameObject* pDragObject;
     IDirect3DBaseTexture9* g_pPreviewTex;
+
     _vec3 vRot;
 
 
@@ -40,6 +44,7 @@ private:
 
     void InitPreviewTextures(const wstring wPreview);
     void find_VillageTerrain();
+    CGameObject* PickObject(const _vec3& vPickPos);
 
     HRESULT Add_TerrainVillage(const wstring pLayerTag);
     HRESULT Add_House(const wstring pLayerTag);

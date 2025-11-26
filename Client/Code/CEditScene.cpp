@@ -18,7 +18,7 @@
 
 CEditScene::CEditScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev), pVillage(nullptr), g_MapEditor(nullptr), g_pPreviewTex(nullptr),
-    m_pSelectedObject(nullptr)
+    m_pSelectedObject(nullptr), bDragging(false), pDragObject(nullptr), isReadyPick(false)
 {
     ZeroMemory(&confirm, sizeof(confirm));
     ZeroMemory(&vRot, sizeof(_vec3));
@@ -116,6 +116,8 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
     ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiCond_Once);
     ImGui::SetNextWindowSize(ImVec2(0, 0), ImGuiCond_Always);
     ImGui::Begin("Editor", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
+
+    ImGui::Checkbox("Object Picking Mode", &isReadyPick);
 
     if (ImGui::CollapsingHeader("Village"))
     {
@@ -398,6 +400,53 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
     }
 
     ImGui::End();
+
+    if (isReadyPick)
+    {
+        find_VillageTerrain();
+        if (!pVillage)
+        {
+            return;
+        }
+
+        if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+        {
+            if (!ImGui::IsAnyItemHovered() && !ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow))
+            {
+                _vec3 vPickPos = CUtility::Picking_Terrain(
+                    m_pGraphicDevice,
+                    g_hWnd,
+                    static_cast<CTerrainVillage*>(pVillage));
+
+                CGameObject* pPicked = PickObject(vPickPos);
+                if (pPicked)
+                {
+                    pDragObject = pPicked;
+                    bDragging = true;
+                }
+            }
+        }
+        if (bDragging && ImGui::IsMouseReleased(ImGuiMouseButton_Left))
+        {
+            _vec3 vDropPos = CUtility::Picking_Terrain(
+                m_pGraphicDevice,
+                g_hWnd,
+                static_cast<CTerrainVillage*>(pVillage));
+
+            if (pDragObject)
+            {
+                CTransform* pTrans = static_cast<CRenderObject*>(pDragObject)->Get_Trans();
+                if (pTrans)
+                {
+                    _vec3 vOldPos = pTrans->Get_Pos();
+                    pTrans->Set_Pos(vDropPos.x, vOldPos.y, vDropPos.z);
+                }
+            }
+
+            pDragObject = nullptr;
+            bDragging = false;
+        }
+    }
 }
 
 void CEditScene::Render_Scene()
@@ -620,3 +669,51 @@ void CEditScene::find_VillageTerrain()
     }
 }
 
+CGameObject* CEditScene::PickObject(const _vec3& vPickPos)
+{
+    auto iter = m_umLayer.find(L"Environment_Layer");
+    if (iter == m_umLayer.end())
+    {
+        MSG_BOX("Environment Layer Not Found");
+        return nullptr;
+    }
+
+    CLayer* pLayer = iter->second;
+    const auto& objMap = pLayer->Get_Objects();
+
+    CGameObject* pPicked = nullptr;
+    float fBestDist = FLT_MAX;
+
+    const float fPickRadius = 4.0f;
+
+    for (const auto& objListPair : objMap)
+    {
+        for (CGameObject* pObj : objListPair.second)
+        {
+            if (pObj == nullptr || wcscmp(pObj->m_szDisplayName, L"Terrain_Village") == 0)
+            {
+                continue;
+            }
+
+            CTransform* pTrans = static_cast<CRenderObject*>(pObj)->Get_Trans();            
+            if (pTrans == nullptr)
+            {
+                continue;
+            }
+
+            _vec3 vPos = pTrans->Get_Pos();
+
+            float dx = vPos.x - vPickPos.x;
+            float dz = vPos.z - vPickPos.z;
+            float distSq = dx * dx + dz * dz;
+
+            if (distSq < fPickRadius && distSq < fBestDist)
+            {
+                fBestDist = distSq;
+                pPicked = pObj;
+            }
+        }
+    }
+
+    return pPicked;
+}

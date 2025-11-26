@@ -70,8 +70,10 @@ _int CTestRect::Update_GameObject(const _float fTimeDelta)
     }
     if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_0))
     {
-        m_pDynamicTexCom->Set_Texture(ROLL);
+        m_pColCom->On_Disable();
     }
+
+
 
     return iExit;
 }
@@ -100,7 +102,8 @@ void CTestRect::Render_GameObject()
 
 void CTestRect::On_Collision(const Collision& tCollision)
 {
-    int a = 0;
+    CCollider* pCol = tCollision.pColSource;
+    pCol->Set_Offset(_vec3(2.f, 0.f, 0.f));
 }
 
 CTestRect* CTestRect::Create(LPDIRECT3DDEVICE9 pGraphicDev)

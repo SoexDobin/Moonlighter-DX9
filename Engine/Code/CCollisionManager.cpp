@@ -28,11 +28,13 @@ void CCollisionManager::Update_Collision()
     {
         CCollider* pSrc = m_vecCollider[i];
         if (pSrc == nullptr || pSrc->Get_Owner() == nullptr) continue;
+        if (pSrc->Is_Enable() == false) continue;
 
         for (size_t j = i + 1; j < iColSize; ++j)
         {
             CCollider* pDst = m_vecCollider[j];
             if (pDst == nullptr || pDst->Get_Owner() == nullptr) continue;
+            if (pDst->Is_Enable() == false) continue;
 
             CGameObject* pSrcOwner = pSrc->Get_Owner();
             CGameObject* pDstOwner = pDst->Get_Owner();
@@ -41,28 +43,31 @@ void CCollisionManager::Update_Collision()
 
             if (bNowCol)
             {
+                pSrc->Set_IsCol(true);
+                pDst->Set_IsCol(true);
+
                 if (pSrc->Is_Overlapped(pDst))
                 {
                     pSrc->Set_ColState(STAY_COL);
-                    pSrc->Set_Collision({ pDstOwner, STAY_COL });
+                    pSrc->Set_Collision({ pDstOwner, pDst, STAY_COL });
                 }
                 else
                 {
                     pSrc->Add_OverlapMember(pDst);
                     pSrc->Set_ColState(ENTER_COL);
-                    pSrc->Set_Collision({ pDstOwner, ENTER_COL });
+                    pSrc->Set_Collision({ pDstOwner, pDst, ENTER_COL });
                 }
 
                 if (pDst->Is_Overlapped(pSrc))
                 {
                     pDst->Set_ColState(STAY_COL);
-                    pDst->Set_Collision({ pSrcOwner, STAY_COL });
+                    pDst->Set_Collision({ pSrcOwner, pSrc, STAY_COL });
                 }
                 else
                 {
                     pDst->Add_OverlapMember(pSrc);
                     pDst->Set_ColState(ENTER_COL);
-                    pDst->Set_Collision({ pSrcOwner, ENTER_COL });
+                    pDst->Set_Collision({ pSrcOwner, pSrc, ENTER_COL });
                 }
 
                 pSrcOwner->On_Collision(pDst->Get_Collision());
@@ -70,17 +75,20 @@ void CCollisionManager::Update_Collision()
             }
             else
             {
+                pSrc->Set_IsCol(false);
+                pDst->Set_IsCol(false);
+
                 if (pSrc->Is_Overlapped(pDst))
                 {
                     pSrc->Set_ColState(EXIT_COL);
-                    pSrc->Set_Collision({ pDstOwner, EXIT_COL });
+                    pSrc->Set_Collision({ pDstOwner, pDst , EXIT_COL });
                     pSrcOwner->On_Collision(pSrc->Get_Collision());
                     pSrc->Release_OverlapMember(pDst);
                 }
                 if (pDst->Is_Overlapped(pSrc))
                 {
                     pDst->Set_ColState(EXIT_COL);
-                    pDst->Set_Collision({ pSrcOwner, EXIT_COL });
+                    pDst->Set_Collision({ pSrcOwner, pSrc, EXIT_COL });
                     pDstOwner->On_Collision(pDst->Get_Collision());
                     pDst->Release_OverlapMember(pSrc);
                 }

@@ -22,26 +22,56 @@ public:
     _int        Update_GameObject(const _float fTimeDelta) override;
     void        LateUpdate_GameObject(const _float fTimeDelta) override;
     void        Render_GameObject() override;
+    void        On_Collision(const Collision& tCollision) override;
 
 private:
     HRESULT     Ready_Animation();
     _uint       Get_AnimationIndex();
     void        Save_Dir();
     void	    Key_Input(const _float& fTimeDelta);
+    bool        IsBusy() const;
 
 private:
-    CTexture* m_pTexCom;
+    void        BowNormal_BackStep();
+    void        BowNormal_Fire();
+    void        BowCharge_Fire();
 
-    WEAPON      m_eWeapon;
-    STATE       m_eState;
-    DIRECTION   m_eDir;
+    void        SpearComboAttackStart(_uint iStep);
+    void        SpearComboAttackEnd();
+    void        SpearCombo_FirstHit();
+    void        SpearCombo_SecondHit();
+    void        SpearCombo_ThirdHit();
 
-    STATE       m_ePrevState;
-    DIRECTION   m_ePrevDir;
+    void        SpearCharge_FirstHit();
+    void        SpearCharge_SecondHit();
 
-    _float      m_fActionDuration;
-    _float      m_fActionTime;
-    _vec3       m_vActionDir;
+private:
+    CTexture*       m_pTexCom;
+    CRectCollider*  m_pColCom;
+    WEAPON          m_eWeapon;
+    STATE           m_eState;
+    DIRECTION       m_eDir;
+
+    STATE           m_ePrevState;
+    DIRECTION       m_ePrevDir;
+
+    _vec3           m_vActionDir;
+
+    _float          m_fRollDuration;
+    _float          m_fRollTime;
+
+    _uint           m_iPrevFrame;
+    _uint           m_iCurFrame;
+
+    bool            m_bBowBackStep;
+    _float          m_fBowBackStepTimer;
+
+    bool            m_bBowChargeFired;
+
+    _uint           m_iComboStep;
+    bool            m_bComboCheck;
+
+    bool            m_bFPrev;
 
 public:
     static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);

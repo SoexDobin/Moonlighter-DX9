@@ -64,6 +64,8 @@ void CTexture::Set_Texture(const _uint iTex, const _uint iFrame)
 
 _int CTexture::Update_Component(const _float fTimeDelta)
 {
+    if (!m_bEnable) return 0;
+
     if (m_bStop || m_vecTexture.empty())
         return 0;
 
@@ -97,11 +99,13 @@ _int CTexture::Update_Component(const _float fTimeDelta)
 
 void CTexture::LateUpdate_Component()
 {
-    
+    if (!m_bEnable) return;
 }
 
 void CTexture::SetUp_Texture()
 {
+    if (!m_bEnable) return;
+
     m_pGraphicDevice->SetTexture(0, m_vecTexture[m_iCurTex][m_iCurFrame]);
 }
 

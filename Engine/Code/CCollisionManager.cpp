@@ -70,8 +70,8 @@ void CCollisionManager::Update_Collision()
                     pDst->Set_Collision({ pSrcOwner, pSrc, ENTER_COL });
                 }
 
-                pSrcOwner->On_Collision(pDst->Get_Collision());
-                pDstOwner->On_Collision(pSrc->Get_Collision());
+                pSrcOwner->On_Collision(pSrc->Get_Collision());
+                pDstOwner->On_Collision(pDst->Get_Collision());
             }
             else
             {

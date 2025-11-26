@@ -44,6 +44,8 @@ namespace Engine
 
 	enum PROTOTYPE_COMPONENT
 	{
+        DEFAULT,
+
 		RECTCOLOR,
 		SINGLERECTTEX,
 		RECTTEX,

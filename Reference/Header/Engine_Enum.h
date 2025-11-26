@@ -30,6 +30,20 @@ namespace Engine
 		DATA_INT, DATA_UINT, DATA_LONG, DATA_ULONG, DATA_FLOAT, DATA_DOUBLE,
 		DATA_VEC2, DATA_VEC3, DATA_VEC4, DATA_MAT, DATA_END
 	};
+
+    enum LayerID
+    {
+        LAYER0 = 0b00000001, // 1
+        LAYER1 = 0b00000010, // 2
+        LAYER2 = 0b00000100, // 4
+        LAYER3 = 0b00001000, // 8
+        LAYER4 = 0b00010000, // 16
+        LAYER5 = 0b00100000, // 32
+        LAYER6 = 0b01000000, // 64
+        LAYER7 = 0b10000000, // 128
+        LAYER_NONE = 0,
+        LAYER_END = 8,
+    };
 }
 
 namespace Engine

@@ -18,6 +18,7 @@ public:
     T*                 Add_Component(COMPONENTID eID, const wstring& wsComponentKey, PROTOTYPE_COMPONENT eComponentTag);
 public:
     static void        Destroy(CGameObject* pObj) { pObj->Set_Destroy(); }
+    static void        DontDestroySceneLoad(CGameObject* pObj) { pObj->m_bIsDestroy = FALSE; }
 
 public:
 	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentKey);

@@ -133,6 +133,9 @@
     <Filter Include="02. Prototype\03. Collider\01. RectCollider">
       <UniqueIdentifier>{ec7333f4-f1f0-4e94-9aa2-9b56b1697e35}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Logic\02. Layer\00. LayerHelper">
+      <UniqueIdentifier>{ed7a48b6-4ff1-4b0f-9da7-8359350f6fa6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -284,6 +287,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CRectCollider.h">
       <Filter>02. Prototype\03. Collider\01. RectCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLayerHelper.h">
+      <Filter>01. Logic\02. Layer\00. LayerHelper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -129,8 +129,8 @@ void CCollider::Display_Editor(const char* pObjTag)
                     const char* otherName =
                         pOtherOwner ? (const char*)pOtherOwner->Get_DisplayName() : "Unknown";
 
-                    ImGui::Text("[%d] %s (Col:%p, Owner:%p)",
-                        idx++, otherName, pOther, pOtherOwner);
+                    ImGui::Text("[%d] %s (Col Object :%s)",
+                        idx++, otherName, pOtherOwner->Get_DisplayName());
                 }
                 ImGui::TreePop();
             }

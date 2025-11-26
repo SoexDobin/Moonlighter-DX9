@@ -25,6 +25,7 @@ public:
 
     CComponent* Clone_Prototype(PROTOTYPE_COMPONENT eComponentTag, CGameObject* pOwner);
     CComponent* Clone_Prototype(PROTOTYPE_COMPONENT eComponentTag);
+    CComponent* Clone_Prototype(const wstring& wsCustomComponentTag);
 
 private:
 	CComponent*		Find_Prototype(PROTOTYPE_COMPONENT eComponentTag);

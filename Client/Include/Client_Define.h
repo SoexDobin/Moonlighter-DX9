@@ -1,5 +1,10 @@
 ﻿#pragma once
 
+enum PROTOTYPE_CUSTOM
+{
+    TEMP_CUSTOMPROTO = 0, //  <- 여기만 추가되는 순간 부터 지워줘   
+    CUSTOM_END
+};
 
 enum SCENETYPE { SC_MAIN, SC_PLAYER, SC_MAP, SC_MONSTER, SC_UI, SC_END };
 // 아이템 

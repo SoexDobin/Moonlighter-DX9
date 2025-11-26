@@ -155,6 +155,9 @@
     <Filter Include="02. Scene\09. ComposeScene">
       <UniqueIdentifier>{96f800df-13e1-4614-83c5-a94b5ddd8be3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Temp">
+      <UniqueIdentifier>{59c7d0d8-e242-4537-9f3a-b44564776569}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -183,9 +186,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\CDynamicCamera.h">
       <Filter>03. GameObject\00. DynamicCamera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CTestRect.h">
-      <Filter>03. GameObject</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CExampleObject.h">
       <Filter>98. ImGui\EX_Object</Filter>
@@ -355,6 +355,12 @@
     <ClInclude Include="..\Header\CComposeScene.h">
       <Filter>02. Scene\09. ComposeScene</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CTestRect.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTmpCustomComponent.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -374,9 +380,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDynamicCamera.cpp">
       <Filter>03. GameObject\00. DynamicCamera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CTestRect.cpp">
-      <Filter>03. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CExampleObject.cpp">
       <Filter>98. ImGui\EX_Object</Filter>
@@ -530,6 +533,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CComposeScene.cpp">
       <Filter>02. Scene\09. ComposeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestRect.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTmpCustomComponent.cpp">
+      <Filter>Temp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

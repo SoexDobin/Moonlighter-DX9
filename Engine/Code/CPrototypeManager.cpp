@@ -53,6 +53,16 @@ CComponent* CPrototypeManager::Clone_Prototype(PROTOTYPE_COMPONENT eComponentTag
     return pComponent->Clone();
 }
 
+CComponent* CPrototypeManager::Clone_Prototype(const wstring& wsCustomComponentTag)
+{
+    CComponent* pComponent = Find_CustomPrototype(wsCustomComponentTag);
+
+    if (nullptr == pComponent)
+        return nullptr;
+
+    return pComponent->Clone();
+}
+
 CComponent* CPrototypeManager::Clone_Prototype(PROTOTYPE_COMPONENT eComponentTag, CGameObject* pOwner)
 {
     if (pOwner == nullptr) return nullptr;

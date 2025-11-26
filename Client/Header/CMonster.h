@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "CRenderObject.h"
-#include "CCombatStats.h"
+#include "CCombatComponent.h"
 
 
 /// <summary>
@@ -9,7 +9,9 @@
 class CMonster : public CRenderObject
 {
 public :
-    explicit CMonster(LPDIRECT3DDEVICE9 pGraphicDev) : CRenderObject(pGraphicDev), m_pCombatStats(nullptr) {};
+    explicit CMonster(LPDIRECT3DDEVICE9 pGraphicDev) :
+        CRenderObject(pGraphicDev),
+        m_pCombatStats(nullptr), m_pCombatComponent(nullptr) {};
     explicit CMonster(const CMonster& rhs) : CRenderObject(rhs) {}
     virtual ~CMonster() {};
 
@@ -28,5 +30,6 @@ protected:
 
 protected:
     CCombatStats* m_pCombatStats;
+    CCombatComponent* m_pCombatComponent;
 };
 

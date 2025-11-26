@@ -152,7 +152,6 @@
     <Filter Include="03. GameObject\11. Map\TerrainVillage">
       <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
     </Filter>
-
     <Filter Include="04. Component">
       <UniqueIdentifier>{c9efbac8-99a9-40ff-a55a-888b1c2c1253}</UniqueIdentifier>
     </Filter>
@@ -383,11 +382,17 @@
     <ClInclude Include="..\Header\CCombatStats.h">
       <Filter>04. Component\01. Combat</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CHitBox.h">
+    <ClInclude Include="..\Header\CHitRectBox.h">
       <Filter>04. Component\01. Combat</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CComposeScene.h">
       <Filter>02. Scene\09. ComposeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Client_Struct.h">
+      <Filter>99. Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Client_Enum.h">
+      <Filter>99. Include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -583,7 +588,7 @@
     <ClCompile Include="..\Code\CCombatStats.cpp">
       <Filter>04. Component\01. Combat</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CHitBox.cpp">
+    <ClCompile Include="..\Code\CHitRectBox.cpp">
       <Filter>04. Component\01. Combat</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CComposeScene.cpp">

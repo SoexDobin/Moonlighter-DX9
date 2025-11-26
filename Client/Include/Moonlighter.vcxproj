@@ -167,12 +167,9 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CBossStateMachine.h" />
     <ClInclude Include="..\Header\CBossThrowState.h" />
     <ClInclude Include="..\Header\CBossWalkState.h" />
-
     <ClInclude Include="..\Header\CCombatComponent.h" />
     <ClInclude Include="..\Header\CCombatStats.h" />
-
     <ClInclude Include="..\Header\CComposeScene.h" />
-
     <ClInclude Include="..\Header\CDataManager.h" />
     <ClInclude Include="..\Header\CDynamicCamera.h" />
     <ClInclude Include="..\Header\CEditScene.h" />
@@ -180,7 +177,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CEntity.h" />
     <ClInclude Include="..\Header\CExampleManager.h" />
     <ClInclude Include="..\Header\CExampleObject.h" />
-    <ClInclude Include="..\Header\CHitBox.h" />
+    <ClInclude Include="..\Header\CHitRectBox.h" />
     <ClInclude Include="..\Header\CItemManager.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
@@ -227,6 +224,8 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CTreeMob.h" />
     <ClInclude Include="..\Header\CEntityComponent.h" />
     <ClInclude Include="Client_Define.h" />
+    <ClInclude Include="Client_Enum.h" />
+    <ClInclude Include="Client_Struct.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Moonlighter.h" />
     <ClInclude Include="pch.h" />
@@ -265,12 +264,9 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CBossStateMachine.cpp" />
     <ClCompile Include="..\Code\CBossThrowState.cpp" />
     <ClCompile Include="..\Code\CBossWalkState.cpp" />
-
     <ClCompile Include="..\Code\CCombatComponent.cpp" />
     <ClCompile Include="..\Code\CCombatStats.cpp" />
-
     <ClCompile Include="..\Code\CComposeScene.cpp" />
-
     <ClCompile Include="..\Code\CDataManager.cpp" />
     <ClCompile Include="..\Code\CDynamicCamera.cpp" />
     <ClCompile Include="..\Code\CEditScene.cpp" />
@@ -278,7 +274,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CEntity.cpp" />
     <ClCompile Include="..\Code\CExampleManager.cpp" />
     <ClCompile Include="..\Code\CExampleObject.cpp" />
-    <ClCompile Include="..\Code\CHitBox.cpp" />
+    <ClCompile Include="..\Code\CHitRectBox.cpp" />
     <ClCompile Include="..\Code\CItemManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>

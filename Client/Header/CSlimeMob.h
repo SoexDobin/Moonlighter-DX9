@@ -9,6 +9,8 @@ class CPlayer;
 class CMonsterState;
 class CSlimeStateMachine;
 
+class CHitRectBox;
+
 class CSlimeMob : public CMonster
 {
 public:
@@ -34,6 +36,8 @@ public:
 
     virtual void    Ready_EntityComponent() override;
     virtual void    Configure_Component() override;
+
+    CHitRectBox* m_pRectBox;
 
 private:
     CTexture* m_pDynamicTexCom;

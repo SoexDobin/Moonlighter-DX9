@@ -73,7 +73,7 @@ namespace Engine
     {
         ENTER_COL,
         STAY_COL,
-        EXIT_COL, 
+        EXIT_COL,
         COL_STATE_END
     };
 }

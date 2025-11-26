@@ -22,11 +22,11 @@ CCombatComponent::~CCombatComponent()
 void CCombatComponent::Take_Damage(const DAMAGE_INFO& damage)
 {
     // 패링
-    if (damage.bCanParry && m_bTryParrying)
-    {
-        m_OnSuccessParrying();
-        return;
-    }
+    //if (damage.bCanParry && m_bTryParrying)
+    //{
+    //    m_OnSuccessParrying();
+    //    return;
+    //}
 
     // 최종 데미지 : 총 공격량 - 방어량
     _float fResDamage = damage.fAmount - m_pCombatStats->Get_DefenseStat()->Get_CurValue();
@@ -34,10 +34,10 @@ void CCombatComponent::Take_Damage(const DAMAGE_INFO& damage)
 
     // 넉백
     // 데미지 적용 이후 죽지 않았다면 진행
-    if (damage.bShouldKnockback)
-    {
-        m_OnShouldKnockback(damage.vDirKnockback);
-    }
+    //if (damage.bShouldKnockback)
+    //{
+    //    m_OnShouldKnockback(damage.vDirKnockback);
+    //}
 }
 
 CCombatComponent* CCombatComponent::Create(CGameObject*pOwner, CCombatStats* pStats)

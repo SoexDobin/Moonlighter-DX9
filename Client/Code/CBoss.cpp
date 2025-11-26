@@ -12,8 +12,9 @@
 
 #pragma region TEST INCLUDE
 #include "CCollisionManager.h"
-#include "CSphereCollider.h"
+#include "CHitRectBox.h"
 #include "CManagement.h"
+#include "CCollider.h"
 #pragma endregion
 
 
@@ -65,6 +66,9 @@ HRESULT CBoss::Ready_GameObject()
     return S_OK;
 }
 
+CGameObject* pSlime = nullptr;
+CHitRectBox* pHitBox = nullptr;
+
 _int CBoss::Update_GameObject(const _float fTimeDelta)
 {
     m_pCurState->Update_State(fTimeDelta);
@@ -76,21 +80,27 @@ _int CBoss::Update_GameObject(const _float fTimeDelta)
 
     {
         //====================== 충돌 테스트 ======================
-        if (GetAsyncKeyState('I') & 0x01)
-        {
-            CGameObject* pObject = CManagement::GetInstance()->Get_Object(L"GameLogic_Layer", L"SlimeMob");
-            if (!pObject)
-                return 0;
+        //if (GetAsyncKeyState('I') & 0x01)
+        //{
+        //    pSlime = CManagement::GetInstance()->Get_Object(L"GameLogic_Layer", L"SlimeMob");
+        //    if (!pSlime)
+        //        return -1;
 
-            CSphereCollider* tempCollider = CSphereCollider::Create(m_pGraphicDevice);
-            if (!tempCollider)
-                return 0;
+        //    pHitBox = dynamic_cast<CHitRectBox*>(CManagement::GetInstance()->
+        //        Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"SlimeMob", L"SIVAROMA"));
+        //    if (!pHitBox)
+        //        return -1;
+        //}
 
-            tempCollider->Set_ColState(ENTER_COL);
-            tempCollider->Set_Collision({ pObject, ENTER_COL });
-
-            On_Collision(tempCollider->Get_Collision());
-        }
+        //if (GetAsyncKeyState('P') & 0x01)
+        //{
+        //    Collision collision;
+        //    collision.pColTarget = pSlime;
+        //    collision.pCounterCollider = pHitBox;
+        //    collision.eColState = COL_STATE::ENTER_COL;
+        //    
+        //    On_Collision(collision);
+        //}
         //====================================================
     }
 
@@ -134,16 +144,16 @@ void CBoss::On_Collision(const Collision& tCollision)
     //================= 충돌 테스트 =========================
     // 충돌 상태가 슬라임이라 가정 : 슬라임 -> 보스에게 몸박 공격
 
-    CMonster* pMonster = nullptr;
-    if (pMonster = dynamic_cast<CMonster*>(tCollision.pColTarget))
-    {
-        //pMonster->Get_CombatStats()
-    }
-    else
-    {
-        // 먼가 잘못됨
-         return;   
-    }
+    //if (COL_TYPE::RECT_COL == tCollision.pCounterCollider->Get_ColType()
+    //    && nullptr != dynamic_cast<CHitRectBox*>(tCollision.pCounterCollider))
+    //{
+    //    m_pCombatComponent->Take_Damage(static_cast<CHitRectBox*>(tCollision.pCounterCollider)->Get_Damage());
+    //}
+    //else if (COL_TYPE::SPHERE_COL == tCollision.pCounterCollider->Get_ColType()
+    //    && nullptr != dynamic_cast<CHitSphereBox*>(tCollision.pCounterCollider))
+    //{
+    //    m_pCombatComponent->Take_Damage(static_cast<CHitHitSphereBox*>(tCollision.pCounterCollider)->Get_Damage());
+    //}
 
     // ====================================================
 }
@@ -192,6 +202,8 @@ void CBoss::Ready_EntityComponent()
     m_pCombatStats->Set_AttackStat(CStatComponent::Create(this, 10.f, 10.f, 30.f));
     m_pCombatStats->Set_DefenseStat(CStatComponent::Create(this, 10.f, 10.f, 30.f));
     m_pCombatStats->Set_SpeedStat(CStatComponent::Create(this, 5.f, 1.f, 10.f));
+
+    m_pCombatComponent = CCombatComponent::Create(this, m_pCombatStats);
 }
 
 void CBoss::Configure_Component()
@@ -221,7 +233,7 @@ void CBoss::Free()
     Engine::CGameObject::Free();
 
     m_pStateMachine->Release();
-    m_pCombatStats->Release();
+    m_pCombatComponent->Release();
 }
 
 void CBoss::Add_EditorFiled()

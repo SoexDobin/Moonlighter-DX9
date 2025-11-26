@@ -1,23 +1,9 @@
 ﻿#pragma once
-#include "CEntityComponent.h"
-#include "CGameObject.h"
 #include "CCombatStats.h"
+#include "CHitRectBox.h"
 
 using Callback = std::function<void()>;
 using Callback_Vec3 = std::function<void(_vec3)>;
-
-typedef struct tagDamageInfo
-{
-    CGameObject* pAttacker;
-
-    _float fAmount;                  // 공격량
-    _bool bCanParry;                // 패링 가능 여부
-    _bool bShouldKnockback;   // 넉백 적용
-
-    //FIXME : 넉백 방향 CollisionManager에서 받아올 수 있는지 확인 
-    _vec3 vDirKnockback;         // 넉백 방향 
-}DAMAGE_INFO;
-
 
 class CCombatComponent : public CEntityComponent
 {

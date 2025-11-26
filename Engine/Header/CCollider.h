@@ -4,10 +4,13 @@
 
 BEGIN(Engine)
 
+class CCollider;
+
 typedef struct tagCollision
 {
     CGameObject* pColTarget;
     COL_STATE    eColState;
+    CCollider* pCounterCollider;
 } Collision;
 
 class ENGINE_DLL CCollider : public CComponent

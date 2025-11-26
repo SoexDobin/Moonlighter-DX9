@@ -1,5 +1,5 @@
 ﻿#pragma once
 
-
-enum SCENETYPE { SC_MAIN, SC_PLAYER, SC_MAP, SC_MONSTER, SC_UI, SC_END };
+#include "Client_Struct.h"
+#include "Client_Enum.h"
 

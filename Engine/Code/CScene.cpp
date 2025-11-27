@@ -51,7 +51,7 @@ HRESULT CScene::Ready_Scene()
 
 _int CScene::Update_Scene(const _float fTimeDelta)
 {
-    for (_uint16 i = LAYER0; i <= LAYER15; i = i << 1)
+    for (_uint16 i = LAYER0; i != LAYER_NONE; i = i << 1)
     {
         m_umLayer[i]->Update_Layer(fTimeDelta);
     }
@@ -61,7 +61,7 @@ _int CScene::Update_Scene(const _float fTimeDelta)
 
 void CScene::LateUpdate_Scene(const _float fTimeDelta)
 {
-    for (_uint16 i = LAYER0; i <= LAYER15; i = i << 1)
+    for (_uint16 i = LAYER0; i != LAYER_NONE; i = i << 1)
     {
         m_umLayer[i]->LateUpdate_Layer(fTimeDelta);
     }
@@ -69,7 +69,7 @@ void CScene::LateUpdate_Scene(const _float fTimeDelta)
 
 void CScene::Render_Scene()
 {
-    for (_uint16 i = LAYER0; i <= LAYER15; i = i << 1)
+    for (_uint16 i = LAYER0; i != LAYER_NONE; i = i << 1)
     {
         m_umLayer[i]->Render_Layer();
     }

@@ -42,20 +42,24 @@ public :
 private:
 	map<const char*, CPanel*> m_pPanelMap;
 
-public :
-    static _float s_fEditorAlpha;
-
 private :
     static _bool s_bEditorActive;
-    
 
 private :
 	_bool		m_bGamePaused;
-	_float		m_fFPS;
 
-	_float*	m_pTimeScale;
+    _float*	m_pTimeScale;
+
+    _bool m_bDebugCam = false;
+
+public :
+    static std::function<void()> On_DebugCam;
+    static std::function<void()> Act_DebugCam;
+    static std::function<void()> Off_DebugCam;
+
 
 	char			m_szPaused[16];
+    char        m_szDebug[16];
 private:
 	virtual void Free();
 

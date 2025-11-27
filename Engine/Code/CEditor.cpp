@@ -3,22 +3,29 @@
 #include "CFrameManager.h"
 #include "CRenderer.h"
 #include "CDInputManager.h"
+#include "CMediator.h"
 
 IMPLEMENT_SINGLETON(CEditor)
 
+
+std::function<void()> CEditor::On_DebugCam = nullptr;
+std::function<void()> CEditor::Act_DebugCam = nullptr;
+std::function<void()> CEditor::Off_DebugCam = nullptr;
 _bool CEditor::s_bEditorActive = true;
-_float CEditor::s_fEditorAlpha = 0.8f;
 
 CEditor::CEditor()
-    : m_bGamePaused(false), m_fFPS(0.f)
+    : m_bGamePaused(false), m_bDebugCam(false)
 {
     strcpy_s(m_szPaused, "Pause");
+    strcpy_s(m_szDebug, "Debug");
 }
 
 CEditor::CEditor(HWND hWnd, LPDIRECT3DDEVICE9 pGraphicDev)
-    : m_bGamePaused(false)
+    : m_bGamePaused(false), m_bDebugCam(false)
 {
     strcpy_s(m_szPaused, "Pause");
+    strcpy_s(m_szDebug, "Debug");
+
 }
 
 CEditor::~CEditor()
@@ -36,12 +43,12 @@ HRESULT CEditor::Ready_Editor(HWND hWnd, LPDIRECT3DDEVICE9 pGraphicDev)
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-
+    io.ConfigDebugHighlightIdConflicts = false;
     ImGui::StyleColorsDark();
 
     ImGuiStyle& style = ImGui::GetStyle();
     style.ScaleAllSizes(main_scale);
-    style.Alpha = s_fEditorAlpha;
+    style.Alpha = 0.95;
 
     ImGui_ImplWin32_Init(hWnd);
     ImGui_ImplDX9_Init(pGraphicDev);
@@ -85,6 +92,11 @@ void CEditor::Render_Editor()
         return;
 
     Display_MainPanel();
+
+    if (m_bDebugCam && nullptr != Act_DebugCam)
+    {
+        Act_DebugCam();
+    }
 
     for (const auto& kv : m_pPanelMap)
     {
@@ -321,46 +333,94 @@ void CEditor::Add_EditorField(const char* pName, EDITORFIELD pField)
 
 void CEditor::Display_MainPanel()
 {
-    ImGui::Begin("Main Editor");
+    bool bOpen = ImGui::Begin("Main Editor");
 
-    ImGui::PushItemWidth(50);
-
-    ImGui::Text("FPS : %d", CFrameManager::GetInstance()->Get_CurFPS()); ImGui::SameLine();
-    ImGui::Text("DrawCall : %d", CRenderer::GetInstance()->Get_DrawCalls());
-
-    if (ImGui::Button(m_szPaused))
+    if (bOpen)
     {
-        // FIXME !! 일시정지 후 재시작 안 되는 문제때문에 잠시 주석 처리
-        // 
-        //if (!m_bGamePaused)
-        //{
-        //    CFrameManager::GetInstance()->Pause_Game();
-        //    m_bGamePaused = true;
-        //    strcpy_s(m_szPaused, "Restart");
-        //}
-        //else
-        //{
-        //    CFrameManager::GetInstance()->Restart_Game();
-        //    m_bGamePaused = false;
-        //    strcpy_s(m_szPaused, "Pause");
-        //}
-    }
-    
-    if (m_bGamePaused)
-    {
-        ImGui::SameLine();
-        if (ImGui::Button("Next Frame"))
+        ImGui::Columns(2, "MainEditorColumns", true);
+        ImGui::SetColumnWidth(0, 250);
         {
-            CFrameManager::GetInstance()->Transit_NextFrame();
+            ImGui::BeginChild("LeftColumn", ImVec2(0, 0), true);
+            {
+                ImGui::PushItemWidth(80);
+                ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+                ImGui::Text("DrawCall : %d", CRenderer::GetInstance()->Get_DrawCalls());
+
+                // 일시정지/재시작 
+                if (ImGui::Button(m_szPaused))
+                {
+                    if (!m_bGamePaused)
+                    {
+                        CFrameManager::GetInstance()->Pause_Game();
+                        m_bGamePaused = true;
+                        strcpy_s(m_szPaused, "Restart");
+                    }
+                    else
+                    {
+                        CFrameManager::GetInstance()->Restart_Game();
+                        m_bGamePaused = false;
+                        strcpy_s(m_szPaused, "Pause");
+                    }
+                }
+
+                // 한 프레임씩 전환
+                if (m_bGamePaused)
+                {
+                    ImGui::SameLine();
+                    if (ImGui::Button("Next"))
+                    {
+                        CFrameManager::GetInstance()->Transit_NextFrame();
+                    }
+                }
+
+                // 자유 카메라 전환 
+                if (m_bGamePaused)
+                {
+                    ImGui::SameLine();
+                    if (ImGui::Button(m_szDebug))
+                    {
+                        if (!m_bDebugCam)
+                        {
+                            m_bDebugCam = true;
+                            if (nullptr != Off_DebugCam)
+                                On_DebugCam();
+                            strcpy_s(m_szDebug, "InGame");
+                        }
+                        else
+                        {
+                            m_bDebugCam = false;
+                            if (nullptr != Off_DebugCam)
+                                Off_DebugCam();
+                            strcpy_s(m_szDebug, "Free");
+                        }
+                    }
+                }
+
+                ImGui::DragFloat("Time Scale", m_pTimeScale, 0.01f, 0.1f, 2.0f, "%.2f");
+
+                ImGui::PopItemWidth();
+            }
+            ImGui::EndChild();
         }
+
+        ImGui::NextColumn();
+
+        {
+            ImGui::BeginChild("Object Info", ImVec2(0, 0), true);
+            {
+                // draw object info here
+                // 그리기 순서를 위해 빈 공간이지만 호출해둠
+            }
+            ImGui::EndChild();
+        }
+
+        ImGui::Columns(1);
     }
-
-    ImGui::DragFloat("Time Scale", m_pTimeScale, 0.01f, 0.1f, 2.0f, "%.2f");
-
-    ImGui::PopItemWidth();
 
     ImGui::End();
 }
+
+
 
 void CEditor::Free()
 {

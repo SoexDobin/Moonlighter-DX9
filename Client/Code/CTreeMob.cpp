@@ -15,13 +15,11 @@ CTreeMob::CTreeMob(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_dwCurStateKey(TREE_STATE::T_END), m_dwAnimKey(TREE_STATE::T_END),
     m_pStateMachine(nullptr), m_pCurState(nullptr)
 {
-    PANEL_NAME(L"Tree");
 }
 
 CTreeMob::CTreeMob(const CTreeMob& rhs)
     : CRenderObject(rhs), m_pDynamicTexCom(nullptr)
 {
-    PANEL_NAME(L"Tree");
 }
 
 CTreeMob::~CTreeMob()

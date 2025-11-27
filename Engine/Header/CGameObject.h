@@ -16,6 +16,8 @@ protected:
 public:
     template <typename T>
     T*                 Add_Component(COMPONENTID eID, const wstring& wsComponentKey, PROTOTYPE_COMPONENT eComponentTag);
+    template <typename T>
+    T*                 Add_Component(COMPONENTID eID, const wstring& wsComponentKey, const wstring& wsComponentTag);
 
 	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentKey);
     CComponent*             Get_Component(COMPONENTID eID, PROTOTYPE_COMPONENT ePrototype);
@@ -52,9 +54,19 @@ public :
 	TCHAR m_szDisplayName[32];
 	char       m_szBuffer[32];
 
+    void    Set_EditorDisplayName(wstring wsName);
+
 protected :
 	list<EDITORFIELD> m_EditorFieldList;
 #pragma endregion
+
+  // 렌더 우선 순위
+public:
+    int     Get_RenderPriority() const { return m_iRenderPriority; }
+    void    Set_RenderPriority(int iPriority) { m_iRenderPriority = iPriority; }
+
+protected:
+    int m_iRenderPriority = 0;
 
 };
 
@@ -63,6 +75,22 @@ T* CGameObject::Add_Component(COMPONENTID eID, const wstring& wsComponentKey, PR
 {
     CComponent* pComponent = CPrototypeManager::GetInstance()->Clone_Prototype(eComponentTag);
     if (pComponent->Get_ComponentType() != eComponentTag)
+    {
+        MSG_BOX("Prototype Clone Failed");
+        return nullptr;
+    }
+
+    pComponent->Set_Owner(this);
+    m_umComponent[eID].insert(pair<wstring, CComponent*>(wsComponentKey, pComponent));
+
+    return static_cast<T*>(pComponent);
+}
+
+template <typename T>
+T* CGameObject::Add_Component(COMPONENTID eID, const wstring& wsComponentKey, const wstring& wsComponentTag)
+{
+    CComponent* pComponent = CPrototypeManager::GetInstance()->Clone_Prototype(wsComponentTag);
+    if (pComponent == nullptr)
     {
         MSG_BOX("Prototype Clone Failed");
         return nullptr;

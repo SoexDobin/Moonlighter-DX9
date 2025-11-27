@@ -27,7 +27,7 @@ public:
 private:
     HRESULT			UI_Initialize();
     vector<UIElement>		m_VecUI;
-    CTexture* m_pTextureCom;
+
 
 public:
     static CUIStatic* Create(LPDIRECT3DDEVICE9 pGraphicDev);

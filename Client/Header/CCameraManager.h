@@ -5,11 +5,6 @@
 
 class CCameraManager : public CBase
 {
-#pragma region 디버깅용
-    _vec3 vCurPos;
-    _float fDist;
-#pragma endregion
-
     DECLARE_SINGLETON(CCameraManager);
 
 #pragma region CAMERA ENUM
@@ -19,6 +14,7 @@ public:
         INGAME,                             // 인게임용 플레이어 고정
         DBG_PERSPECTIVE,         // 디버깅용 Dynamic Cam
         DBG_ORTHOGRAPHIC,     // 디버깅용 Orthographic Cam
+        DBG_PAUSE,
         C_END
     };
 
@@ -50,13 +46,17 @@ public:
     void        LateUpdate_Camera(const _float fTimeDelta);
 
 public :
-    // 이거 콜백을 에디터에 등록해서 카메라 자유 움직임 되는지 확인하기
+    void  Set_CameraMode(CAMERA_MODE eMode);
+
+public :
+    // Pause 시 자유 모드 카메라 
     void        Callback_OnDebugCam();
     void        Callback_DoDebugCam();
     void        Callback_OffDebugCam();
 
 private:
     void        Update_InGameCamera(const _float& fTimeDelta);
+    void        Update_DebugCamera(const _float& fTimeDelta);
 
 public:
 #pragma region INGAME
@@ -72,6 +72,7 @@ private:
     void         Act_Display(const _float& fTimeDelta);
     void         Act_Closer(const _float& fTimeDelta);
 
+    // Change_ 함수 호출 시 가장 먼저 호출되어 이전 상태 정리하는 함수
     void         Finish_CurrentMode();
     void         Finish_Follow();
     void         Finish_Display();
@@ -106,6 +107,7 @@ private:
 
     _float m_fSpeed;
     const _float m_fEpsilon = 1.f;
+    _bool   m_bCamRotLock;
 
 #pragma region Members
     _vec3               m_vOriginPos; // ACTION이나 EFFECT 시작 전 원래 위치

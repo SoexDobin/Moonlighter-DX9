@@ -9,6 +9,43 @@ IMPLEMENT_SINGLETON(CCameraManager)
 
 CCameraManager::CCameraManager()
 {
+    // --- 기본 카메라 포인터 ---
+    m_pCurCam =  m_pInGameCam = m_pDebugCam = nullptr;
+
+    // --- 카메라 설정값 ---
+    m_fFov = m_fAspect = m_fNear = m_fFar = 0.f;
+    m_eType = Engine::CCamera::PROJECTION_TYPE::PROJ_PERSPECTIVE;
+    m_fSpeed = 0.f;
+    m_bCamRotLock = false; // 디버깅 카메라 회전 잠금 - \ 키로 해제 
+
+    // --- 상태 지정 ---
+    m_eMode = CAMERA_MODE::C_END;
+    m_eAction = CAMERA_ACTION::ACTION_END;
+    m_eEffect = CAMERA_EFFECT::EFFECT_NONE;
+
+    // --- 공통 멤버 ---
+    m_vOriginPos = m_vStartPos = _vec3(0.f, 0.f, 0.f);
+    m_fActionElapsed = m_fMoveDuration = 0.f;
+    m_bToDesiredPos = m_bInDesiredPos = m_bToOriginPos = false;
+    m_vDesiredPos = m_vDirToDesiredPos = _vec3(0.f, 0.f, 0.f);
+    m_fRotXToTarget = 0.f;
+
+    // --- ACT_FOLLOW ---
+    m_pFollowTarget = nullptr;
+    m_fDistYToTarget = m_fDistZToTarget = 0.f;
+
+    // --- ACT_DISPLAY ---
+    m_fDelayTime = m_fDisplayElapsedTime = 0.f;
+
+    // --- ACT_CLOSE ---
+    m_fCloseDistY = m_fCloseDistZ = 0.f;
+    m_fRotXCloser = m_fElapsedRotXCloser = 0.f;
+
+    // --- EFT_SHAKE ---
+    m_iShakeRange = 0;
+    m_fShakeDuration = m_fShakeElapsed = 0.f;
+    m_bDelayShake = false;
+    m_vShakeStartPos = _vec3(0.f, 0.f, 0.f);
 }
 
 CCameraManager::~CCameraManager()
@@ -49,8 +86,8 @@ HRESULT CCameraManager::Ready_Camera(LPDIRECT3DDEVICE9 pGraphicDev)
     m_eEffect = CAMERA_EFFECT::EFFECT_NONE;
 
     m_fSpeed = 7.f;
-    m_fRotXToTarget = 20.f;
-    m_fDistZToTarget = 7.f, m_fDistYToTarget = 5.f; // 타겟과의 유지 거리
+    m_fRotXToTarget = 30.f;
+    m_fDistZToTarget = 15.f, m_fDistYToTarget = 5.f; // 타겟과의 유지 거리
 
     // ====== FOLLOW 테스트 ======
     Change_ToFollow(nullptr);
@@ -62,6 +99,7 @@ HRESULT CCameraManager::Ready_Camera(LPDIRECT3DDEVICE9 pGraphicDev)
     // ====== ACTION_CLOSER 테스트 ======
     //Change_ToCloser(1.f);
 
+    // Engine::CEditor에서 실행할 콜백 등록 
     CEditor::GetInstance()->On_DebugCam = [&]() {Callback_OnDebugCam(); };
     CEditor::GetInstance()->Act_DebugCam = [&]() {Callback_DoDebugCam(); };
     CEditor::GetInstance()->Off_DebugCam = [&]() {Callback_OffDebugCam(); };
@@ -76,33 +114,39 @@ _int CCameraManager::Update_Camera(const _float fTimeDelta)
     {
         Update_InGameCamera(fTimeDelta);
     }
+    else if (CAMERA_MODE::DBG_PERSPECTIVE == m_eMode)
+    {
+        Update_DebugCamera(fTimeDelta);
+    }
     // Transform 컴포넌트 갱신
-    m_pCurCam->Update_GameObject(fTimeDelta);
+    // FIXME !! Scene 전환 로직 마련 전까지 Null 확인
+    if (m_pCurCam)  
+        m_pCurCam->Update_GameObject(fTimeDelta);
 
     {
         // ======================= 카메라 전환 테스트 =======================
-        if (GetAsyncKeyState('P') & 0x0001)
-        {
-            Change_ToDisplay({ 10.f, 8.f, 10.f }, 2.f, 1.f);
-        }
-        if (GetAsyncKeyState('O') & 0x0001)
-        {
-            Change_ToCloser(1.f);
-        }
-        if (GetAsyncKeyState('I') & 0x0001)
-        {
-            Exit_Closer();
-        }
-        if (GetAsyncKeyState('U') & 0x0001)
-        {
-            Change_ToFollow(nullptr);
-        }
+        //if (GetAsyncKeyState('P') & 0x0001)
+        //{
+        //    Change_ToDisplay({ 10.f, 8.f, 10.f }, 2.f, 1.f);
+        //}
+        //if (GetAsyncKeyState('O') & 0x0001)
+        //{
+        //    Change_ToCloser(1.f);
+        //}
+        //if (GetAsyncKeyState('I') & 0x0001)
+        //{
+        //    Exit_Closer();
+        //}
+        //if (GetAsyncKeyState('U') & 0x0001)
+        //{
+        //    Change_ToFollow(nullptr);
+        //}
 
-        // ====================== 카메라 효과 테스트 ===========================
-        if (GetAsyncKeyState('L') & 0x0001)
-        {
-            Start_Shake(1.f, 0.1f);
-        }
+        //// ====================== 카메라 효과 테스트 ===========================
+        //if (GetAsyncKeyState('L') & 0x0001)
+        //{
+        //    Start_Shake(1.f, 0.1f);
+        //}
 
     }
 
@@ -111,17 +155,42 @@ _int CCameraManager::Update_Camera(const _float fTimeDelta)
 
 void CCameraManager::LateUpdate_Camera(const _float fTimeDelta)
 {
-    m_pCurCam->LateUpdate_GameObject(fTimeDelta);
+    // FIXME !! Scene 전환 로직 마련 전까지 Null 확인
+    if (m_pCurCam)
+        m_pCurCam->LateUpdate_GameObject(fTimeDelta);
+}
 
+void CCameraManager::Set_CameraMode(CAMERA_MODE eMode)
+{
+    if (CAMERA_MODE::INGAME == eMode )
+    {
+        if (nullptr == m_pFollowTarget)
+        {
+            // 타겟 없으면 Dynamic Camera 로
+            m_eMode = CAMERA_MODE::DBG_PERSPECTIVE;
+            m_pCurCam = m_pDebugCam;
+            return;
+        }
+        m_pCurCam = m_pInGameCam;
+    }
+    else
+    {
+        m_pCurCam = m_pDebugCam;
+    }
+
+    m_eMode = eMode;
 }
 
 void CCameraManager::Callback_OnDebugCam()
 {
-    m_eMode = CAMERA_MODE::DBG_PERSPECTIVE;
+    m_eMode = CAMERA_MODE::DBG_PAUSE;
     m_pCurCam = m_pDebugCam;
     m_pCurCam->Set_Pos(m_pInGameCam->Get_Pos());
 }
 
+/// <summary>
+/// Pause 시 Free Mode 카메라
+/// </summary>
 void CCameraManager::Callback_DoDebugCam()
 {
     const _float fTimeDelta = 0.016;
@@ -167,6 +236,11 @@ void CCameraManager::Update_InGameCamera(const _float& fTimeDelta)
         break;
     }
 
+}
+
+void CCameraManager::Update_DebugCamera(const _float& fTimeDelta)
+{
+    Handle_Input(fTimeDelta);
 }
 
 /// <summary>
@@ -488,15 +562,26 @@ void CCameraManager::Handle_Input(const _float& fTimeDelta)
     }
 #pragma endregion
 
+    if (GetAsyncKeyState(VK_OEM_5) & 0x01)
+    {
+        m_bCamRotLock = !m_bCamRotLock;
+    }
+
+
 #pragma region MOUSE
     _long lMouseMove;
-    if (lMouseMove = CDInputManager::GetInstance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_X))
+
+
+    if (m_bCamRotLock)
     {
-        m_pDebugCam->Rotate(ROTATION::ROT_Y, D3DXToRadian(lMouseMove / 10.f));
-    }
-    if (lMouseMove = CDInputManager::GetInstance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_Y))
-    {
-        m_pDebugCam->Rotate(ROTATION::ROT_X, D3DXToRadian(lMouseMove / 10.f));
+        if (lMouseMove = CDInputManager::GetInstance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_X))
+        {
+            m_pDebugCam->Rotate(ROTATION::ROT_Y, D3DXToRadian(lMouseMove / 10.f));
+        }
+        if (lMouseMove = CDInputManager::GetInstance()->Get_DIMouseMove(MOUSEMOVESTATE::DIMS_Y))
+        {
+            m_pDebugCam->Rotate(ROTATION::ROT_X, D3DXToRadian(lMouseMove / 10.f));
+        }
     }
 #pragma endregion
 

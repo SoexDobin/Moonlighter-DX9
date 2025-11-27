@@ -17,6 +17,8 @@
 #include "CEngineMediator.h"
 #include "CMonsterTestScene.h"
 #include "CComposeScene.h"
+#include "CEditScene.h"
+#include "CCameraManager.h"
 
 CMainApp::CMainApp()
 	: m_pDeviceClass(nullptr), m_pGraphicDevice(nullptr)
@@ -118,7 +120,10 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDevice)
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDevice)
 {
-	if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(CMonsterTestScene::Create(pGraphicDevice))))
+    if (FAILED(CCameraManager::GetInstance()->Ready_Camera(m_pGraphicDevice)))
+        return E_FAIL;
+
+	if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(CComposeScene::Create(pGraphicDevice))))
     	return E_FAIL;
 
 	return S_OK;
@@ -144,6 +149,7 @@ void CMainApp::Free()
 
 	CDataManager::DestroyInstance();
     CEngineMediator::DestroyInstance();
+    CCameraManager::DestroyInstance();
 
     Engine::CFontManager::DestroyInstance();
 	Engine::CEditor::DestroyInstance();

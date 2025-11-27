@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Engine_Define.h"
 #include "CBase.h"
@@ -18,6 +18,22 @@ public:
 	{
 		return m_byKeyState[byKeyID];
 	}
+
+    _byte	Get_DIKeyPressed(_ubyte byKeyID) const
+    {
+        if ((m_byKeyState[byKeyID] & 0x80) && !(m_byPrevKeyState[byKeyID] & 0x80))
+            return 0x80;
+
+        return 0x00;
+    }
+
+    _byte	Get_DIKeyUp(_ubyte byKeyID) const
+    {
+        if (!(m_byKeyState[byKeyID] & 0x80) && (m_byPrevKeyState[byKeyID] & 0x80))
+            return 0x80;
+
+        return 0x00;
+    }
 
 	_byte	Get_DIMouseState(MOUSEKEYSTATE eMouse) const 
 	{
@@ -42,6 +58,7 @@ private:
 
 private:
 	_byte					m_byKeyState[256];
+	_byte					m_byPrevKeyState[256];
 	DIMOUSESTATE			m_tMouseState;
 
 public:

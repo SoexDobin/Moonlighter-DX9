@@ -526,8 +526,8 @@ void CCameraManager::Shaking(const _float& fTimeDelta)
 {
     m_fShakeElapsed += fTimeDelta;
 
-    _float offsetX = (rand() / (float)RAND_MAX * 2.f - 1.f) * m_iShakeRange;
-    _float offsetY = (rand() / (float)RAND_MAX * 2.f - 1.f) * m_iShakeRange;
+    _float offsetX = (rand() / (float)RAND_MAX * 2.f - 1.f) * m_iShakeRange * 0.5f;
+    _float offsetY = (rand() / (float)RAND_MAX * 2.f - 1.f) * m_iShakeRange * 0.5f;
 
 
     _vec3 vNewPos = m_vShakeStartPos;

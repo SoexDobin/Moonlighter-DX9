@@ -396,41 +396,11 @@
     <ClInclude Include="..\Header\CMonsterState.h">
       <Filter>97. StateMachine\03. MonsterState</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CEntity.h">
-      <Filter>03. GameObject\99. Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CMonster.h">
-      <Filter>03. GameObject\02. Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CStatComponent.h">
-      <Filter>04. Component\00. Stat</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CEntityComponent.h">
-      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CCombatComponent.h">
-      <Filter>04. Component\01. Combat</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CCombatStats.h">
-      <Filter>04. Component\01. Combat</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CHitRectBox.h">
-      <Filter>04. Component\01. Combat</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CTerrainDungeonNormal.h">
       <Filter>03. GameObject\11. Map\Terrain\TerrainDungeonNormal</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CComposeScene.h">
       <Filter>02. Scene\09. ComposeScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Client_Struct.h">
-      <Filter>99. Include</Filter>
-    </ClInclude>
-    <ClInclude Include="Client_Enum.h">
-      <Filter>99. Include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CHitSphereBox.h">
-      <Filter>04. Component\01. Combat</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTerrainVillage.h">
       <Filter>03. GameObject\11. Map\Terrain\TerrainVillage</Filter>
@@ -488,6 +458,21 @@
     </ClInclude>
     <ClInclude Include="..\Header\CCameraManager.h">
       <Filter>01. Manager\01. CameraManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCombatComponent.h">
+      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCombatStats.h">
+      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CStatComponent.h">
+      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHitRectBox.h">
+      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHitSphereBox.h">
+      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -647,35 +632,11 @@
     <ClCompile Include="..\Code\CMonsterState.cpp">
       <Filter>97. StateMachine\03. MonsterState</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CEntity.cpp">
-      <Filter>03. GameObject\99. Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CMonster.cpp">
-      <Filter>03. GameObject\02. Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CStatComponent.cpp">
-      <Filter>04. Component\00. Stat</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CEntityComponent.cpp">
-      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CCombatComponent.cpp">
-      <Filter>04. Component\01. Combat</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CCombatStats.cpp">
-      <Filter>04. Component\01. Combat</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CHitRectBox.cpp">
-      <Filter>04. Component\01. Combat</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CTerrainDungeonNormal.cpp">
       <Filter>03. GameObject\11. Map\Terrain\TerrainDungeonNormal</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CComposeScene.cpp">
       <Filter>02. Scene\09. ComposeScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CHitSphereBox.cpp">
-      <Filter>04. Component\01. Combat</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainVillage.cpp">
       <Filter>03. GameObject\11. Map\Terrain\TerrainVillage</Filter>
@@ -733,6 +694,21 @@
     </ClCompile>
     <ClCompile Include="..\Code\CCameraManager.cpp">
       <Filter>01. Manager\01. CameraManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCombatComponent.cpp">
+      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCombatStats.cpp">
+      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHitRectBox.cpp">
+      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHitSphereBox.cpp">
+      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CStatComponent.cpp">
+      <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

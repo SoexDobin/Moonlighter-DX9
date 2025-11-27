@@ -171,6 +171,8 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CBossWallFrontUpper.h" />
     <ClInclude Include="..\Header\CBossWallSide.h" />
     <ClInclude Include="..\Header\CCameraManager.h" />
+    <ClInclude Include="..\Header\CCombatComponent.h" />
+    <ClInclude Include="..\Header\CCombatStats.h" />
     <ClInclude Include="..\Header\CComposeScene.h" />
     <ClInclude Include="..\Header\CDataManager.h" />
     <ClInclude Include="..\Header\CDungeonWall.h" />
@@ -179,6 +181,8 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CEngineMediator.h" />
     <ClInclude Include="..\Header\CExampleManager.h" />
     <ClInclude Include="..\Header\CExampleObject.h" />
+    <ClInclude Include="..\Header\CHitRectBox.h" />
+    <ClInclude Include="..\Header\CHitSphereBox.h" />
     <ClInclude Include="..\Header\CHpBar.h" />
     <ClInclude Include="..\Header\CInvenStatic.h" />
     <ClInclude Include="..\Header\CItemManager.h">
@@ -204,6 +208,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CSlimeMob.h" />
     <ClInclude Include="..\Header\CSlimeStateMachine.h" />
     <ClInclude Include="..\Header\CSlimeWalkState.h" />
+    <ClInclude Include="..\Header\CStatComponent.h" />
     <ClInclude Include="..\Header\CState.h" />
     <ClInclude Include="..\Header\CStateMachine.h" />
     <ClInclude Include="..\Header\CTerrainBoss.h" />
@@ -270,6 +275,8 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CBossWallFrontUpper.cpp" />
     <ClCompile Include="..\Code\CBossWallSide.cpp" />
     <ClCompile Include="..\Code\CCameraManager.cpp" />
+    <ClCompile Include="..\Code\CCombatComponent.cpp" />
+    <ClCompile Include="..\Code\CCombatStats.cpp" />
     <ClCompile Include="..\Code\CComposeScene.cpp" />
     <ClCompile Include="..\Code\CDataManager.cpp" />
     <ClCompile Include="..\Code\CDungeonWall.cpp" />
@@ -278,6 +285,8 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CEngineMediator.cpp" />
     <ClCompile Include="..\Code\CExampleManager.cpp" />
     <ClCompile Include="..\Code\CExampleObject.cpp" />
+    <ClCompile Include="..\Code\CHitRectBox.cpp" />
+    <ClCompile Include="..\Code\CHitSphereBox.cpp" />
     <ClCompile Include="..\Code\CHpBar.cpp" />
     <ClCompile Include="..\Code\CInvenStatic.cpp" />
     <ClCompile Include="..\Code\CItemManager.cpp">
@@ -303,6 +312,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CSlimeMob.cpp" />
     <ClCompile Include="..\Code\CSlimeStateMachine.cpp" />
     <ClCompile Include="..\Code\CSlimeWalkState.cpp" />
+    <ClCompile Include="..\Code\CStatComponent.cpp" />
     <ClCompile Include="..\Code\CState.cpp" />
     <ClCompile Include="..\Code\CStateMachine.cpp" />
     <ClCompile Include="..\Code\CTerrainBoss.cpp" />

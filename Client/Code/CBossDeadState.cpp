@@ -55,7 +55,8 @@ void CBossDeadState::Render_State()
 
 void CBossDeadState::Determine_NextState()
 {
-    m_pStateMachine->Change_State(CBoss::BOSS_STATE::WALK);
+
+    // m_pStateMachine->Change_State(CBoss::BOSS_STATE::WALK);
 }
 
 CBossDeadState* CBossDeadState::Create(CBoss* pOwner, CBossStateMachine* pStateMachine)

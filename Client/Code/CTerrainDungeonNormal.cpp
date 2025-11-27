@@ -6,13 +6,13 @@
 CTerrainDungeonNormal::CTerrainDungeonNormal(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Terrain_Dungeon")
+    PANEL_NAME(L"Terrain")
 }
 
 CTerrainDungeonNormal::CTerrainDungeonNormal(const CTerrainDungeonNormal& rhs)
     :CRenderObject(rhs), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Terrain_Dungeon")
+    PANEL_NAME(L"Terrain")
 }
 
 CTerrainDungeonNormal::~CTerrainDungeonNormal()

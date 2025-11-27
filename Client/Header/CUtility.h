@@ -150,7 +150,7 @@ namespace CUtility
             {
                 pObj = CTreeObject::Create(pDevice);
             }
-            else if (!strcmp(data.type.c_str(), "Terrain_Village"))
+            else if (!strcmp(data.type.c_str(), "Terrain"))
             {
                 pObj = CTerrainVillage::Create(pDevice);
             }

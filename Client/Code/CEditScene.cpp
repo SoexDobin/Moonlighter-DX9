@@ -446,6 +446,17 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             pDragObject = nullptr;
             bDragging = false;
         }
+        if (bDragging && pDragObject)
+        {
+            _vec3 vDragPos = CUtility::Picking_Terrain(
+                m_pGraphicDevice, g_hWnd, static_cast<CTerrainVillage*>(pVillage));
+            CTransform* pTrans = static_cast<CRenderObject*>(pDragObject)->Get_Trans();
+            if (pTrans)
+            {
+                _vec3 vOldPos = pTrans->Get_Pos();
+                pTrans->Set_Pos(vDragPos.x, vOldPos.y, vDragPos.z);
+            }
+        }
     }
 }
 
@@ -659,7 +670,7 @@ void CEditScene::find_VillageTerrain()
         {
             for (CGameObject* pObj : objList.second)
             {
-                if (wcscmp(pObj->m_szDisplayName, L"Terrain_Village") == 0)
+                if (wcscmp(pObj->m_szDisplayName, L"Terrain") == 0)
                 {
                     pVillage = static_cast<CTerrainVillage*>(pObj);
                     break;
@@ -690,7 +701,7 @@ CGameObject* CEditScene::PickObject(const _vec3& vPickPos)
     {
         for (CGameObject* pObj : objListPair.second)
         {
-            if (pObj == nullptr || wcscmp(pObj->m_szDisplayName, L"Terrain_Village") == 0)
+            if (pObj == nullptr || wcscmp(pObj->m_szDisplayName, L"Terrain") == 0)
             {
                 continue;
             }

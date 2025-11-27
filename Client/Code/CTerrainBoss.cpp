@@ -6,13 +6,13 @@
 CTerrainBoss::CTerrainBoss(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Terrain_Boss")
+    PANEL_NAME(L"Terrain")
 }
 
 CTerrainBoss::CTerrainBoss(const CTerrainBoss& rhs)
     :CRenderObject(rhs), m_pBufferCom(nullptr), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Terrain_Boss")
+    PANEL_NAME(L"Terrain")
 }
 
 CTerrainBoss::~CTerrainBoss()

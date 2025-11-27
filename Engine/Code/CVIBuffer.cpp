@@ -53,6 +53,8 @@ HRESULT CVIBuffer::Ready_Buffer()
 
 void CVIBuffer::Render_Buffer()
 {
+    if (!m_bEnable) return;
+
     m_pGraphicDevice->SetStreamSource(0, m_pVB, 0, m_dwVtxSize);
     m_pGraphicDevice->SetFVF(m_dwFVF);
 

@@ -137,10 +137,10 @@ HRESULT CComposeScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
         return E_FAIL;
     static_cast<CRenderObject*>(pGameObject)->Get_Trans()->Set_Pos(2.f, 0.f, 2.f);
 
-    //pGameObject = CTestRect::Create(m_pGraphicDevice);
-    //if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp2", pGameObject)))
-    //    return E_FAIL;
-    //
+    pGameObject = CTestRect::Create(m_pGraphicDevice);
+    if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp2", pGameObject)))
+        return E_FAIL;
+    
     //pGameObject = CTestRect::Create(m_pGraphicDevice);
     //if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp3", pGameObject)))
     //    return E_FAIL;

@@ -17,10 +17,15 @@ protected:
 	virtual ~CComponent() override;
 
 public:
+    virtual void                On_Enable() { m_bEnable = true; }
+    virtual void                On_Disable() { m_bEnable = false; }
+    _bool                       Is_Enable() const { return m_bEnable; }
+
+public:
     void                        Set_Owner(CGameObject* pOwner);
     CGameObject*                Get_Owner() const       { return m_pOwner; }
     CTransform*                 Get_Transform() const   { return m_pTrans; }
-	virtual	PROTOTYPE_COMPONENT	Get_ComponentType() PURE;
+    virtual	PROTOTYPE_COMPONENT	Get_ComponentType()     { return DEFAULT; };
 
 public:
 	virtual _int				Update_Component(const _float fTimeDelta) { return 0; };
@@ -32,6 +37,7 @@ public:
 protected:
 	LPDIRECT3DDEVICE9			m_pGraphicDevice;
 	_bool						m_bClone;
+    _bool                       m_bEnable;
 
     CGameObject*                m_pOwner;
     CTransform*                 m_pTrans;

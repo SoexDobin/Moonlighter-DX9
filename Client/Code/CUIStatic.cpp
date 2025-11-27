@@ -5,12 +5,12 @@
 #include "CPrototypeManager.h"
 
 CUIStatic::CUIStatic(LPDIRECT3DDEVICE9 pGraphicDev)
-    :CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
+    :CRenderObject(pGraphicDev)
 {
 }
 
 CUIStatic::CUIStatic(const CUIStatic& rhs)
-    : CRenderObject(rhs), m_pTextureCom(nullptr)
+    : CRenderObject(rhs)
 {
 }
 
@@ -22,6 +22,8 @@ HRESULT CUIStatic::Ready_GameObject()
 {
     if (FAILED(CRenderObject::Ready_GameObject()))
         return E_FAIL;
+
+    Set_RenderPriority(UI_STATIC);
 
     if (FAILED(UI_Initialize()))
         return E_FAIL;
@@ -40,7 +42,7 @@ _int CUIStatic::Update_GameObject(const _float fTimeDelta)
 
 void CUIStatic::LateUpdate_GameObject(const _float fTimeDelta)
 {
-    Engine::CRenderObject::Update_GameObject(fTimeDelta);
+    Engine::CRenderObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 void CUIStatic::Render_GameObject()
@@ -58,7 +60,7 @@ void CUIStatic::Render_GameObject()
         m_pBufferCom->Render_Buffer();
     }
 }
-
+// 정보
 HRESULT CUIStatic::UI_Initialize()
 {
     m_VecUI.clear();
@@ -66,61 +68,7 @@ HRESULT CUIStatic::UI_Initialize()
 
    
     CComponent* pCom(nullptr);
-    /*
-    pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
-    if (!pCom || pCom->Get_ComponentType() != TEXTURE)
-        return E_FAIL;
-
-    m_pTextureCom = static_cast<CTexture*>(pCom);
-
-    m_pTextureCom->Ready_Texture(L"icon_hp");
-    m_pTextureCom->Ready_Texture(L"icon_Pouch");
-    m_pTextureCom->Ready_Texture(L"hp_barBack");
-
-    m_pTextureCom->Set_Texture(0);
-    m_umComponent[ID_STATIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pTextureCom));
-
-
-
-
-    UIElement vStaticIcon{};
-    vStaticIcon.m_pTexture = m_pTextureCom;
-
-    if (vStaticIcon.m_pTexture)
-    {
-        vStaticIcon.vPos = _vec3(60.f, 50.f, 0.f);
-        vStaticIcon.vScale = _vec3(40.f, 40.f, 0.f);
-
-        m_VecUI.push_back(vStaticIcon);
-    }
-
-    
-    vStaticIcon= {};
-    m_pTextureCom->Set_Texture(1);
-
-    vStaticIcon.m_pTexture = m_pTextureCom;
-
-    if (vStaticIcon.m_pTexture)
-    {
-        vStaticIcon.vPos = _vec3(209.f, 28.f, 0.f);
-        vStaticIcon.vScale = _vec3(63.f, 54.f, 0.f);
-
-        m_VecUI.push_back(vStaticIcon);
-    }
-
-    vStaticIcon = {};
-    m_pTextureCom->Set_Texture(2);
-
-    vStaticIcon.m_pTexture = m_pTextureCom;
-
-    if (vStaticIcon.m_pTexture)
-    {
-        vStaticIcon.vPos = _vec3(140.f, 28.f, 0.f);
-        vStaticIcon.vScale = _vec3(25.f, 25.f, 0.f);
-
-        m_VecUI.push_back(vStaticIcon);
-    }
-    */
+   
     
     // 왼쪽 위
     // 코인 보따리
@@ -138,7 +86,7 @@ HRESULT CUIStatic::UI_Initialize()
         if (vStaticIcon.m_pTexture)
         {
             vStaticIcon.vPos = _vec3(60.f, 50.f, 0.f);
-            vStaticIcon.vScale = _vec3(40.f, 40.f, 0.f);
+            vStaticIcon.vScale = _vec3(40.f * 2.f, 40.f * 2.f, 0.f);
 
             m_VecUI.push_back(vStaticIcon);
         }
@@ -162,7 +110,7 @@ HRESULT CUIStatic::UI_Initialize()
         if (vStaticIcon.m_pTexture)
         {
             vStaticIcon.vPos = _vec3(209.f, 28.f, 0.f);
-            vStaticIcon.vScale = _vec3(63.f, 54.f, 0.f);
+            vStaticIcon.vScale = _vec3(63.f * 2.f, 54.f * 2.f, 0.f);
 
             m_VecUI.push_back(vStaticIcon);
         }
@@ -184,7 +132,7 @@ HRESULT CUIStatic::UI_Initialize()
         if (vStaticIcon.m_pTexture)
         {
             vStaticIcon.vPos = _vec3(140.f, 28.f, 0.f);
-            vStaticIcon.vScale = _vec3(25.f, 25.f, 0.f);
+            vStaticIcon.vScale = _vec3(25.f * 2.f, 25.f * 2.f, 0.f);
 
             m_VecUI.push_back(vStaticIcon);
         }
@@ -208,7 +156,7 @@ HRESULT CUIStatic::UI_Initialize()
         if (vStaticIcon.m_pTexture)
         {
             vStaticIcon.vPos = _vec3(35.f, 105.f, 0.f);
-            vStaticIcon.vScale = _vec3(8.f, 8.f, 0.f);
+            vStaticIcon.vScale = _vec3(8.f * 2.f, 8.f * 2.f, 0.f);
 
             m_VecUI.push_back(vStaticIcon);
         }
@@ -232,7 +180,7 @@ HRESULT CUIStatic::UI_Initialize()
         if (vStaticIcon.m_pTexture)
         {
             vStaticIcon.vPos = _vec3(WINCX - 60.f, 220.f, 0.f);
-            vStaticIcon.vScale = _vec3(45.f, 45.f, 0.f);
+            vStaticIcon.vScale = _vec3(45.f * 2.f, 45.f * 2.f, 0.f);
 
             m_VecUI.push_back(vStaticIcon);
         }
@@ -253,11 +201,12 @@ HRESULT CUIStatic::UI_Initialize()
         if (vStaticIcon.m_pTexture)
         {
             vStaticIcon.vPos = _vec3(WINCX - 100.f, 90.f, 0.f);
-            vStaticIcon.vScale = _vec3(85.f, 85.f, 0.f);
+            vStaticIcon.vScale = _vec3(85.f * 2.f, 85.f * 2.f, 0.f);
 
             m_VecUI.push_back(vStaticIcon);
         }
     }
+
     return S_OK;
 }
 

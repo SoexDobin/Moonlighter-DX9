@@ -81,6 +81,8 @@ void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 // 직교 투영 적용
 void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 {
+    pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+
 
     _matrix matOldView, matOldProj;
     pGraphicDev->GetTransform(D3DTS_VIEW, &matOldView);
@@ -107,25 +109,41 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
     );
     pGraphicDev->SetTransform(D3DTS_PROJECTION, &matProj);
     //z버퍼 끄기
-    pGraphicDev->SetRenderState(D3DRS_ZENABLE, FALSE);
+    //pGraphicDev->SetRenderState(D3DRS_ZENABLE, FALSE);
+
+    /*우선 순위 정해주기(이거 빼도 갑자기 됨.. 이유 모름)
+    auto& ListUI = m_RenderGroup[RENDER_UI];
+
+    ListUI.sort([](CGameObject* a, CGameObject* b)
+        {
+            return a->Get_RenderPriority() < b->Get_RenderPriority();
+        });
 
 
+    for_each(ListUI.begin(), ListUI.end(),
+        [](CGameObject* pObj)
+        {
+            if (pObj)
+                pObj->Render_GameObject();
+        });
+    */
     for_each(m_RenderGroup[RENDER_UI].begin(), m_RenderGroup[RENDER_UI].end()
         , [](CGameObject* pGameObject) -> void {
             pGameObject->Render_GameObject();
         });
 
-    
 
     // 복원
     pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
     pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
     pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-    pGraphicDev->SetRenderState(D3DRS_ZENABLE, TRUE);
+    //pGraphicDev->SetRenderState(D3DRS_ZENABLE, TRUE);
     pGraphicDev->SetTransform(D3DTS_VIEW, &matOldView);
     pGraphicDev->SetTransform(D3DTS_PROJECTION, &matOldProj);
 
+
+    pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 
 }
 

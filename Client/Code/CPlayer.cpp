@@ -10,18 +10,15 @@
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTexCom(nullptr), m_eWeapon(NONE), m_eState(IDLE), m_eDir(DIR_DOWN), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(0.5f), m_vActionDir{ 0.f, 0.f, 0.f }, m_iPrevFrame(0), m_iCurFrame(0), m_bBowBackStep(false), m_fBowBackStepTimer(0.f), m_iComboStep(0), m_bComboCheck(false), m_bFPrev(false)
 {
-    PANEL_NAME(L"Player");
 }
 
 CPlayer::CPlayer(const CPlayer& rhs)
     : CRenderObject(rhs), m_pTexCom(nullptr), m_eWeapon(rhs.m_eWeapon), m_eState(rhs.m_eState), m_eDir(rhs.m_eDir), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(rhs.m_fRollDuration), m_vActionDir{ 0.f, 0.f, 0.f }, m_iPrevFrame(0), m_iCurFrame(0), m_bBowBackStep(false), m_fBowBackStepTimer(0.f), m_iComboStep(0), m_bComboCheck(false), m_bFPrev(false)
 {
-    PANEL_NAME(L"Player");
 }
 
 CPlayer::~CPlayer()
 {
-    PANEL_NAME(L"Player");
 }
 
 HRESULT CPlayer::Ready_GameObject()

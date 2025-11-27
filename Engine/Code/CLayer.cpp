@@ -34,6 +34,8 @@ HRESULT CLayer::Add_GameObject(const wstring& wsObjTag, CGameObject* pGameObject
 
     m_umGameObject[wsObjTag].push_back(pGameObject);	
 
+    pGameObject->Set_EditorDisplayName(wsObjTag);
+
     return S_OK;
 }
 
@@ -104,6 +106,7 @@ CLayer* CLayer::Create(const wstring& layerTag)
     
     int len = WideCharToMultiByte(CP_UTF8, 0, layerTag.c_str(), -1, nullptr, 0, nullptr, nullptr);
     WideCharToMultiByte(CP_UTF8, 0, layerTag.c_str(), -1, pLayer->m_LayerTag, len, nullptr, nullptr);
+    pLayer->m_wsLayerTag = layerTag;
 
     return pLayer;
 }
@@ -118,18 +121,45 @@ void CLayer::Free()
 	m_umGameObject.clear();
 }
 
+wstring CLayer::ws_selectedLayer = L"";
+
 void CLayer::Display_Editor()
 {
-	if (!m_bDisplayInEditor)
-		return;
+
+
+
+    bool bIsSelectedLayer = (ws_selectedLayer == m_wsLayerTag);
 
     for (auto& gameObjectList : m_umGameObject)
+    {
         for (auto& gameObject : gameObjectList.second)
         {
-            ImGui::Checkbox(("##" + to_string((uintptr_t)gameObject)).c_str(), &gameObject->m_bDisplayInEditor); ImGui::SameLine();
-            ImGui::Text("%ls", gameObject->m_szDisplayName);
+            // 선택된 레이어가 아니면 모든 오브젝트 끄기
+            if (!bIsSelectedLayer)
+                gameObject->m_bDisplayInEditor = false;
 
-            gameObject->Display_Editor();
+            ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+            if (gameObject->m_bDisplayInEditor)
+                flags |= ImGuiTreeNodeFlags_Selected;
+
+            ImGui::TreeNodeEx((void*)(intptr_t)gameObject, flags, "%ls", gameObject->m_szDisplayName);
+
+            if (ImGui::IsItemClicked())
+            {
+                // 현재 레이어 내부 오브젝트만 선택
+                for (auto& listPair : m_umGameObject)
+                    for (auto& obj : listPair.second)
+                        obj->m_bDisplayInEditor = false;
+
+                ws_selectedLayer = m_wsLayerTag;  
+                gameObject->m_bDisplayInEditor = true;
+            }
+
+            if (gameObject->m_bDisplayInEditor)
+            {
+                ImGui::Separator();
+                gameObject->Display_Editor();
+            }
         }
+    }
 }
-

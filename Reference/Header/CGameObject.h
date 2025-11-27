@@ -54,6 +54,8 @@ public :
 	TCHAR m_szDisplayName[32];
 	char       m_szBuffer[32];
 
+    void    Set_EditorDisplayName(wstring wsName);
+
 protected :
 	list<EDITORFIELD> m_EditorFieldList;
 #pragma endregion

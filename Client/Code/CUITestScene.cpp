@@ -6,7 +6,7 @@
 
 #include "CUIInven.h"
 #include "CInvenStatic.h"
-#include "CDynamicCamera.h"
+#include "CCameraManager.h"
 #include "CUIStatic.h"
 #include "CHpBar.h"
 
@@ -22,11 +22,10 @@ CUITestScene::~CUITestScene()
 
 HRESULT CUITestScene::Ready_Scene()
 { 
-
-    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
+    if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
         return E_FAIL;
 
-    if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
+    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
         return E_FAIL;
 
     if (FAILED(Ready_UIInven_Layer(L"UI_Layer")))
@@ -66,16 +65,8 @@ void CUITestScene::Render_Scene()
 
 HRESULT CUITestScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pCamLayer = CLayer::Create(wsLayerTag);
-    
-    CGameObject* pGameObject = nullptr;
-    _vec3 vEye{ 0.f, 10.f, -10.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
-    pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
-    if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
-        return E_FAIL;
-    
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pCamLayer});
-    
+    CCameraManager::GetInstance()->Set_CameraMode(CCameraManager::DBG_PAUSE);
+
     return S_OK;
 }
 

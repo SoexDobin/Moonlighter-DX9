@@ -170,6 +170,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CBossWallFront.h" />
     <ClInclude Include="..\Header\CBossWallFrontUpper.h" />
     <ClInclude Include="..\Header\CBossWallSide.h" />
+    <ClInclude Include="..\Header\CCameraManager.h" />
     <ClInclude Include="..\Header\CComposeScene.h" />
     <ClInclude Include="..\Header\CDataManager.h" />
     <ClInclude Include="..\Header\CDungeonWall.h" />
@@ -268,6 +269,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CBossWallFront.cpp" />
     <ClCompile Include="..\Code\CBossWallFrontUpper.cpp" />
     <ClCompile Include="..\Code\CBossWallSide.cpp" />
+    <ClCompile Include="..\Code\CCameraManager.cpp" />
     <ClCompile Include="..\Code\CComposeScene.cpp" />
     <ClCompile Include="..\Code\CDataManager.cpp" />
     <ClCompile Include="..\Code\CDungeonWall.cpp" />

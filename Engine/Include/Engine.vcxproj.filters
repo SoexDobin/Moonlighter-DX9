@@ -288,6 +288,9 @@
     <ClInclude Include="..\Header\CRectCollider.h">
       <Filter>02. Prototype\03. Collider\01. RectCollider</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\EasingFunctions.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\CTerrainTex.h">
       <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\00. Village</Filter>
     </ClInclude>

@@ -13,7 +13,6 @@ HRESULT CMediator::Ready_Mediator(LPDIRECT3DDEVICE9 pGraphicDev)
     return S_OK;
 }
 
-// 메인앱에서 CEditor 다음에 호출하자 
 void CMediator::Render_Mediator()
 {
     Display_AllScenePanel();
@@ -21,34 +20,39 @@ void CMediator::Render_Mediator()
 
 void CMediator::Display_AllScenePanel()
 {
-    if (ImGui::BeginTabBar("Debugging"))
+    bool bOpen = ImGui::Begin("Main Editor");
+    if (bOpen)
     {
-        ImGui::PushItemWidth(80);
-        if (ImGui::BeginTabItem("All Scenes"))
+        ImGui::BeginChild("LeftColumn", ImVec2(200, 0), true); 
         {
-            if (ImGui::BeginCombo(": Scene Type", m_vecScene[m_dwCurSceneIdx].c_str()))
+            ImGui::BeginChild("Scene Type", ImVec2(0, 50), true);
             {
-                for (_uint dwIdx = 0; dwIdx < m_dwEndScene; dwIdx++)
+                ImGui::Text("Scene : "); ImGui::SameLine();
+                ImGui::PushItemWidth(80);
+                if (ImGui::BeginCombo("##", m_vecScene[m_dwCurSceneIdx].c_str()))
                 {
-                    _bool bSelected = m_dwCurSceneIdx == dwIdx;
-
-                    if (ImGui::Selectable(m_vecScene[dwIdx].c_str(), bSelected))
+                    for (_uint dwIdx = 0; dwIdx < m_dwEndScene; dwIdx++)
                     {
-                        m_dwCurSceneIdx = dwIdx;
-                        Change_Scene(m_dwCurSceneIdx);
+                        _bool bSelected = m_dwCurSceneIdx == dwIdx;
+
+                        if (ImGui::Selectable(m_vecScene[dwIdx].c_str(), bSelected))
+                        {
+                            m_dwCurSceneIdx = dwIdx;
+                            Change_Scene(m_dwCurSceneIdx);
+                        }
+
+                        if (bSelected)
+                            ImGui::SetItemDefaultFocus();
                     }
-
-                    if (bSelected)
-                        ImGui::SetItemDefaultFocus();
+                    ImGui::EndCombo();
+                    ImGui::PopItemWidth();
                 }
-                ImGui::EndCombo();
             }
-            ImGui::EndTabItem();
+            ImGui::EndChild();
         }
-
-        ImGui::PopItemWidth();
-        ImGui::EndTabBar();
+        ImGui::EndChild();
     }
+    ImGui::End();
 }
 
 void CMediator::Change_Scene(_uint dwSceneIdx)

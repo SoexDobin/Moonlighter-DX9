@@ -40,6 +40,8 @@ public:
 public :
 	_bool			m_bDisplayInEditor;
 	char            	m_LayerTag[32];
+    wstring        m_wsLayerTag;
+    static wstring ws_selectedLayer;
 #pragma endregion
 
 };

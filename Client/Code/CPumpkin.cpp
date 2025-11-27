@@ -9,13 +9,11 @@
 CPumpkin::CPumpkin(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Pumpkin")
 }
 
 CPumpkin::CPumpkin(const CPumpkin& rhs)
     : CRenderObject(rhs), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Pumpkin")
 }
 
 CPumpkin::~CPumpkin()

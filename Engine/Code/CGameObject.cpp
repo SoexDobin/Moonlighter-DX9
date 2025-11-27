@@ -102,36 +102,60 @@ void	CGameObject::Display_Editor()
 	if (!m_bDisplayInEditor)
 		return;
 
-	ImGui::Begin(m_szBuffer);
+    bool bOpen = ImGui::Begin("Main Editor");
+    if (bOpen)
+    {
+        ImGui::Columns(2, "MainEditorColumns", true);
 
-#pragma region Component
-	ImGui::Text("------- Component -------");
+        ImGui::BeginChild("LeftColumn", ImVec2(0, 0), true);
+        {
 
-	_int dwIndex = 0;
-	for (int i = ID_DYNAMIC; i < ID_END; ++i)
-	{
-		for (auto& component : m_umComponent[i])
-		{
-            if (ImGui::CollapsingHeader(component.second->m_szDisplayName, component.second->m_bDisplayInEditor))
+        }
+        ImGui::EndChild();
+
+        ImGui::NextColumn();
+
+        ImGui::BeginChild("Object Info", ImVec2(0, 0), true);
+        {
+            ImGui::Text("[ Component ]");
+
+            _int dwIndex = 0;
+            for (int i = ID_DYNAMIC; i < ID_END; ++i)
             {
-                component.second->Display_Editor(m_szBuffer);
+                for (auto& component : m_umComponent[i])
+                {
+                    if (ImGui::CollapsingHeader(component.second->m_szDisplayName, component.second->m_bDisplayInEditor))
+                    {
+                        component.second->Display_Editor(m_szBuffer);
+                    }
+                }
             }
-		}
-	}
 #pragma endregion
 
 #pragma region Data
-	ImGui::Text("------- Data -------");
+            ImGui::Text("[ Data ]");
 
-	for (auto& field : m_EditorFieldList)
-	{
-		ImGui::PushItemWidth(120);
+            for (auto& field : m_EditorFieldList)
+            {
+                ImGui::PushItemWidth(120);
 
-		CEditor::GetInstance()->Display_Editor(field);
+                CEditor::GetInstance()->Display_Editor(field);
 
-		ImGui::PopItemWidth();
-	}
-#pragma endregion
+                ImGui::PopItemWidth();
+            }
 
-    ImGui::End();
+
+        }
+        ImGui::EndChild();
+
+        ImGui::Columns(1);
+
+        ImGui::End();
+    }
+}
+
+void CGameObject::Set_EditorDisplayName(wstring wsName)
+{
+    wcscpy_s(m_szDisplayName, wsName.c_str());
+    WideCharToMultiByte(CP_UTF8, 0, m_szDisplayName, -1, m_szBuffer, 256, nullptr, nullptr);
 }

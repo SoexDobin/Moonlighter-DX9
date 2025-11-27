@@ -8,13 +8,11 @@
 CDungeonWall::CDungeonWall(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Dungeon_Wall")
 }
 
 CDungeonWall::CDungeonWall(const CDungeonWall& rhs)
     : CRenderObject(rhs), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Dungeon_Wall")
 }
 
 CDungeonWall::~CDungeonWall()

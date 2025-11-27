@@ -9,7 +9,7 @@
 #include "CLightManager.h"
 #include "CManagement.h"
 #include "CEditScene.h"
-
+#include "CCameraManager.h"
 #include "CUIInven.h"
 #include "CUIStatic.h"
 
@@ -38,12 +38,15 @@ HRESULT CComposeScene::Ready_Scene()
     if (FAILED(Ready_Prototype()))
         return E_FAIL;
 
-    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
-        return E_FAIL;
     if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
         return E_FAIL;
+
     if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
         return E_FAIL;
+
+    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
+        return E_FAIL;
+
     if (FAILED(Ready_UI_Layer(L"UI_Layer")))
         return E_FAIL;
 
@@ -84,12 +87,17 @@ _int CComposeScene::Update_Scene(const _float fTimeDelta)
             pInventory->InvenButton();
         }
     }
+
+    CCameraManager::GetInstance()->Update_Camera(fTimeDelta);
+
     return iExit;
 }
 
 void CComposeScene::LateUpdate_Scene(const _float fTimeDelta)
 {
     Engine::CScene::LateUpdate_Scene(fTimeDelta);
+
+    CCameraManager::GetInstance()->LateUpdate_Camera(fTimeDelta);
 }
 
 void CComposeScene::Render_Scene()
@@ -99,16 +107,7 @@ void CComposeScene::Render_Scene()
 
 HRESULT CComposeScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pCamLayer = CLayer::Create(wsLayerTag);
-
-    CGameObject* pGameObject = nullptr;
-    _vec3 vEye{ 0.f, 5.f, -20.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
-    pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
-    if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
-        return E_FAIL;
-
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pCamLayer});
-
+    CCameraManager::GetInstance()->Set_CameraMode(CCameraManager::INGAME);
 
     return S_OK;
 }
@@ -154,6 +153,9 @@ HRESULT CComposeScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     pPlayer = CPlayer::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Player", pPlayer)))
         return E_FAIL;
+
+    // TODO : 임시로 플레이어 위치 삽입
+    CCameraManager::GetInstance()->Set_Target(static_cast<CTransform*>(pPlayer->Get_Component(ID_DYNAMIC, TRANSFORM)));
 
     CGameObject* pBoss = nullptr;
     pBoss = CBoss::Create(m_pGraphicDevice);
@@ -260,4 +262,5 @@ void CComposeScene::Free()
 #pragma endregion
 
     Engine::CScene::Free();
+
 }

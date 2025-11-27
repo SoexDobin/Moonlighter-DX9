@@ -8,13 +8,11 @@
 CBossWallFrontUpper::CBossWallFrontUpper(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Boss_Wall_Front_Up")
 }
 
 CBossWallFrontUpper::CBossWallFrontUpper(const CBossWallFrontUpper& rhs)
     : CRenderObject(rhs), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"Boss_Wall_Front_Up")
 }
 
 CBossWallFrontUpper::~CBossWallFrontUpper()

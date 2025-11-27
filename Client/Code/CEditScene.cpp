@@ -2,7 +2,7 @@
 #include "CDInputManager.h"
 #include "CResourceManager.h"
 #include "CPrototypeManager.h"
-#include "CDynamicCamera.h"
+#include "CCameraManager.h"
 #include "CTestRect.h"
 #include "CManagement.h"
 #include "CEditScene.h"
@@ -78,14 +78,14 @@ HRESULT CEditScene::Ready_Scene()
 _int CEditScene::Update_Scene(const _float fTimeDelta)
 {
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
-
+    CCameraManager::GetInstance()->Update_Camera(fTimeDelta);
     return iExit;
 }
 
 void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 {
     Engine::CScene::LateUpdate_Scene(fTimeDelta);
-
+    CCameraManager::GetInstance()->LateUpdate_Camera(fTimeDelta);
     // Start the Dear ImGui frame
     ImGui_ImplDX9_NewFrame();
     ImGui_ImplWin32_NewFrame();
@@ -562,15 +562,9 @@ void CEditScene::Render_Scene()
 
 HRESULT CEditScene::Ready_Camera_Layer(const wstring wsLayerTag)
 {
-    CLayer* pCamLayer = CLayer::Create();
+    CCameraManager::GetInstance()->Set_Target(nullptr);
+    CCameraManager::GetInstance()->Set_CameraMode(CCameraManager::DBG_PERSPECTIVE);
 
-    CGameObject* pGameObject = nullptr;
-    _vec3 vEye{ 0.f, 10.f, -10.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
-    pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
-    if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
-        return E_FAIL;
-
-    m_umLayer.emplace(pair<const wstring, CLayer*>{ wsLayerTag, pCamLayer});
     return S_OK;
 }
 

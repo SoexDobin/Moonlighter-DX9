@@ -15,6 +15,8 @@
 #include "CBossWallFrontUpper.h"
 #include "CBossWallSideUpper.h"
 #include "CPumpkin.h"
+#include "CVineOne.h"
+#include "CVineTwo.h"
 
 CEditScene::CEditScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev), pVillage(nullptr), g_MapEditor(nullptr), g_pPreviewTex(nullptr),
@@ -94,9 +96,8 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
     {
         ImVec2 mousePos = ImGui::GetMousePos();
 
-        find_VillageTerrain();
-
-        _vec3 vMousePos = CUtility::Picking_Terrain(m_pGraphicDevice, g_hWnd, static_cast<CTerrainVillage*>(pVillage));
+        _vec3 vMousePos = PickingArea();
+        
 
         ImGui::SetNextWindowPos(ImVec2(mousePos.x + 15, mousePos.y + 15));
         ImGui::SetNextWindowBgAlpha(0.5f);
@@ -133,7 +134,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
             if (ImGui::Button("yes", ImVec2(120, 0)))
             {
-                find_VillageTerrain();
+                find_Terrain<CTerrainVillage>();
                 CUtility::SaveVillageMap(static_cast<CTerrainVillage*>(pVillage), m_umLayer);
                 ImGui::CloseCurrentPopup();
                 confirm[VILL_SAVE] = false;
@@ -147,6 +148,8 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
             ImGui::EndPopup();
         }
+
+        ImGui::SameLine();
 
         if (ImGui::Button("Load Village Terrain"))
         {
@@ -185,6 +188,8 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
             ImGui::EndTooltip();
         }
+
+        ImGui::SameLine();
 
         if (ImGui::Button("Add House"))
         {
@@ -225,6 +230,8 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             ImGui::EndTooltip();
         }
 
+        ImGui::SameLine();
+
         if (ImGui::Button("Add Dungeon Wall"))
         {
             Add_DungeonWall(L"Environment_Layer");
@@ -240,6 +247,61 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
     if (ImGui::CollapsingHeader("Boss"))
     {
+        if (ImGui::Button("Save Boss Terrain"))
+        {
+            confirm[BOSS_SAVE] = true;
+            ImGui::OpenPopup("Confirm Boss Save");
+        }
+        if (ImGui::BeginPopupModal("Confirm Boss Save", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::Text("Are you sure you want to save?\nThis operation cannot be undone.");
+            ImGui::Separator();
+
+            if (ImGui::Button("yes", ImVec2(120, 0)))
+            {
+                find_Terrain<CTerrainBoss>();
+                CUtility::SaveBossMap(static_cast<CTerrainBoss*>(pVillage), m_umLayer);
+                ImGui::CloseCurrentPopup();
+                confirm[BOSS_SAVE] = false;
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("no", ImVec2(120, 0)))
+            {
+                ImGui::CloseCurrentPopup();
+                confirm[BOSS_SAVE] = false;
+            }
+
+            ImGui::EndPopup();
+        }
+
+        ImGui::SameLine();
+
+        if (ImGui::Button("Load Boss Terrain"))
+        {
+            confirm[BOSS_LOAD] = true;
+            ImGui::OpenPopup("Confirm Boss Load");
+        }
+        if (ImGui::BeginPopupModal("Confirm Boss Load", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::Text("Are you sure you want to load?\nThis operation cannot be undone.");
+            ImGui::Separator();
+
+            if (ImGui::Button("yes", ImVec2(120, 0)))
+            {
+                CUtility::LoadBossMap(m_pGraphicDevice, m_umLayer);
+                ImGui::CloseCurrentPopup();
+                confirm[BOSS_LOAD] = false;
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("no", ImVec2(120, 0)))
+            {
+                ImGui::CloseCurrentPopup();
+                confirm[BOSS_LOAD] = false;
+            }
+
+            ImGui::EndPopup();
+        }
+
         if (ImGui::Button("Add Terrain Boss"))
         {
             Add_TerrainBoss(L"Environment_Layer");
@@ -251,6 +313,8 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
             ImGui::EndTooltip();
         }
+
+        ImGui::SameLine();
 
         if (ImGui::Button("Add Boss Wall Front"))
         {
@@ -276,6 +340,8 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             ImGui::EndTooltip();
         }
 
+        ImGui::SameLine();
+
         if (ImGui::Button("Add Boss Wall Front Upper"))
         {
             Add_BossWallFront_Up(L"Environment_Layer");
@@ -300,6 +366,8 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             ImGui::EndTooltip();
         }
 
+        ImGui::SameLine();
+
         if (ImGui::Button("Add Pumpkin"))
         {
             Add_Pumpkin(L"Environment_Layer");
@@ -307,6 +375,32 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
         if (ImGui::IsItemHovered())
         {
             InitPreviewTextures(L"Map_Boss_Pumpkin");
+            ImGui::BeginTooltip();
+            ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
+            ImGui::EndTooltip();
+        }
+
+        if (ImGui::Button("Add VineOne"))
+        {
+            Add_VineOne(L"Environment_Layer");
+        }
+        if (ImGui::IsItemHovered())
+        {
+            InitPreviewTextures(L"Map_Boss_Vine1");
+            ImGui::BeginTooltip();
+            ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
+            ImGui::EndTooltip();
+        }
+
+        ImGui::SameLine();
+
+        if (ImGui::Button("Add VineTwo"))
+        {
+            Add_VineTwo(L"Environment_Layer");
+        }
+        if (ImGui::IsItemHovered())
+        {
+            InitPreviewTextures(L"Map_Boss_Vine2");
             ImGui::BeginTooltip();
             ImGui::Image((ImTextureID)g_pPreviewTex, ImVec2(64, 64));
             ImGui::EndTooltip();
@@ -403,7 +497,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
     if (isReadyPick)
     {
-        find_VillageTerrain();
+        find_Terrain<CTerrainVillage>();
         if (!pVillage)
         {
             return;
@@ -413,10 +507,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
         {
             if (!ImGui::IsAnyItemHovered() && !ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow))
             {
-                _vec3 vPickPos = CUtility::Picking_Terrain(
-                    m_pGraphicDevice,
-                    g_hWnd,
-                    static_cast<CTerrainVillage*>(pVillage));
+                _vec3 vPickPos = PickingArea();
 
                 CGameObject* pPicked = PickObject(vPickPos);
                 if (pPicked)
@@ -428,10 +519,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
         }
         if (bDragging && ImGui::IsMouseReleased(ImGuiMouseButton_Left))
         {
-            _vec3 vDropPos = CUtility::Picking_Terrain(
-                m_pGraphicDevice,
-                g_hWnd,
-                static_cast<CTerrainVillage*>(pVillage));
+            _vec3 vDropPos = PickingArea();
 
             if (pDragObject)
             {
@@ -448,8 +536,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
         }
         if (bDragging && pDragObject)
         {
-            _vec3 vDragPos = CUtility::Picking_Terrain(
-                m_pGraphicDevice, g_hWnd, static_cast<CTerrainVillage*>(pVillage));
+            _vec3 vDragPos = PickingArea();
             CTransform* pTrans = static_cast<CRenderObject*>(pDragObject)->Get_Trans();
             if (pTrans)
             {
@@ -640,6 +727,26 @@ HRESULT CEditScene::Add_Pumpkin(const wstring pLayerTag)
     return S_OK;
 }
 
+HRESULT CEditScene::Add_VineOne(const wstring pLayerTag)
+{
+    if (FAILED(Add_ObjectToLayer<CVineOne>(this, pLayerTag, L"Boss_VineOne")))
+    {
+        MSG_BOX("Boss VineOne Add Fail");
+        return E_FAIL;
+    }
+    return S_OK;
+}
+
+HRESULT CEditScene::Add_VineTwo(const wstring pLayerTag)
+{
+    if (FAILED(Add_ObjectToLayer<CVineTwo>(this, pLayerTag, L"Boss_VineTwo")))
+    {
+        MSG_BOX("Boss VineTwo Add Fail");
+        return E_FAIL;
+    }
+    return S_OK;
+}
+
 inline string CEditScene::WStringToUTF8(const std::wstring& wstr)
 {
     if (wstr.empty()) return {};
@@ -657,27 +764,6 @@ void CEditScene::InitPreviewTextures(const wstring wPreview)
     auto pSprite = CResourceManager::GetInstance()->Get_Sprite(wPreview);
     if (pSprite[0])
         g_pPreviewTex = pSprite[0];
-}
-
-void CEditScene::find_VillageTerrain()
-{
-    auto iter = m_umLayer.find(L"Environment_Layer");
-    if (iter != m_umLayer.end())
-    {
-        CLayer* pLayer = iter->second;
-        const auto& objMap = pLayer->Get_Objects();
-        for (const auto& objList : objMap)
-        {
-            for (CGameObject* pObj : objList.second)
-            {
-                if (wcscmp(pObj->m_szDisplayName, L"Terrain") == 0)
-                {
-                    pVillage = static_cast<CTerrainVillage*>(pObj);
-                    break;
-                }
-            }
-        }
-    }
 }
 
 CGameObject* CEditScene::PickObject(const _vec3& vPickPos)
@@ -727,4 +813,29 @@ CGameObject* CEditScene::PickObject(const _vec3& vPickPos)
     }
 
     return pPicked;
+}
+
+_vec3 CEditScene::PickingArea()
+{
+    _vec3 vPos;
+    if (CManagement::GetInstance()->Get_Object(L"Environment_Layer", L"Terrain_Village") != nullptr)
+    {
+        find_Terrain<CTerrainVillage>();
+        vPos = CUtility::Picking_Terrain(m_pGraphicDevice, g_hWnd, static_cast<CTerrainVillage*>(pVillage), VILLAGE_VTXCNTX, VILLAGE_VTXCNTZ);
+    }
+    else if (CManagement::GetInstance()->Get_Object(L"Environment_Layer", L"Terrain_Dungeon") != nullptr)
+    {
+        find_Terrain<CTerrainDungeonNormal>();
+        vPos = CUtility::Picking_Terrain(m_pGraphicDevice, g_hWnd, static_cast<CTerrainDungeonNormal*>(pVillage), DUNGEON_VTX, DUNGEON_VTZ);
+    }
+    else if (CManagement::GetInstance()->Get_Object(L"Environment_Layer", L"Terrain_Boss") != nullptr)
+    {
+        find_Terrain<CTerrainBoss>();
+        vPos = CUtility::Picking_Terrain(m_pGraphicDevice, g_hWnd, static_cast<CTerrainBoss*>(pVillage), BOSS_VTX, BOSS_VTZ);
+    }
+    else
+    {
+        vPos = { 0.f, 0.f, 0.f };
+    }
+    return vPos;
 }

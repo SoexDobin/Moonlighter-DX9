@@ -69,9 +69,9 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 
     if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINTEX, Engine::CTerrainTex::Create(pGraphicDev, VILLAGE_VTXCNTX, VILLAGE_VTXCNTX, VTXITV, L""))))
         return E_FAIL;
-    if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINDUNGEONTEX, Engine::CTerrainDungeonTex::Create(pGraphicDev, 25, 21, 1, L""))))
+    if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINDUNGEONTEX, Engine::CTerrainDungeonTex::Create(pGraphicDev, DUNGEON_VTX, DUNGEON_VTZ, DUNGEON_ITV, L""))))
         return E_FAIL;
-    if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINBOSSTEX, Engine::CTerrainBossTex::Create(pGraphicDev, dwTerrainBossX, dwTerrainBossY, dwTerrainBossItv, L""))))
+    if (FAILED(CPrototypeManager::GetInstance()->Ready_Prototype(TERRAINBOSSTEX, Engine::CTerrainBossTex::Create(pGraphicDev, BOSS_VTX, BOSS_VTZ, BOSS_ITV, L""))))
     {
         MSG_BOX("Boss Terrain Proto Fail");
         return E_FAIL;
@@ -350,6 +350,18 @@ HRESULT CDataManager::Ready_Map_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
         n_wsResSpritePath + L"Map/Boss_Dungeon_Wall_Edge_Pumpkin.png", 1)))
     {
         MSG_BOX("Boss Wall Side Image Load Fail");
+        return E_FAIL;
+    }
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Boss_Vine1",
+        n_wsResSpritePath + L"Map/Boss_Dungeon_Wall_Object_Vine1.png", 1)))
+    {
+        MSG_BOX("Boss Vine1 Image Load Fail");
+        return E_FAIL;
+    }
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Map_Boss_Vine2",
+        n_wsResSpritePath + L"Map/Boss_Dungeon_Wall_Object_Vine2.png", 1)))
+    {
+        MSG_BOX("Boss Vine2 Image Load Fail");
         return E_FAIL;
     }
     return S_OK;

@@ -223,6 +223,8 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CUITestScene.h" />
     <ClInclude Include="..\Header\CUtility.h" />
     <ClInclude Include="..\Header\CTreeMob.h" />
+    <ClInclude Include="..\Header\CVineOne.h" />
+    <ClInclude Include="..\Header\CVineTwo.h" />
     <ClInclude Include="CBossWallSideUpper.h" />
     <ClInclude Include="Client_Define.h" />
     <ClInclude Include="framework.h" />
@@ -318,6 +320,8 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     </ClCompile>
     <ClCompile Include="..\Code\CUITestScene.cpp" />
     <ClCompile Include="..\Code\CTreeMob.cpp" />
+    <ClCompile Include="..\Code\CVineOne.cpp" />
+    <ClCompile Include="..\Code\CVineTwo.cpp" />
     <ClCompile Include="CBossWallSideUpper.cpp" />
     <ClCompile Include="Moonlighter.cpp" />
     <ClCompile Include="pch.cpp">

@@ -185,6 +185,12 @@
     <Filter Include="03. GameObject\11. Map\Pumpkin">
       <UniqueIdentifier>{6a16edc5-40b1-45bd-8f43-8497fe011ccb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObject\11. Map\VineOne">
+      <UniqueIdentifier>{57551d44-855e-44c1-a2ce-2d5bc6946b36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\VineTwo">
+      <UniqueIdentifier>{86709935-98cc-4d06-bacf-2a3ed65a67b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -412,6 +418,12 @@
     <ClInclude Include="..\Header\CPumpkin.h">
       <Filter>03. GameObject\11. Map\Pumpkin</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CVineOne.h">
+      <Filter>03. GameObject\11. Map\VineOne</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CVineTwo.h">
+      <Filter>03. GameObject\11. Map\VineTwo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -614,6 +626,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPumpkin.cpp">
       <Filter>03. GameObject\11. Map\Pumpkin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CVineOne.cpp">
+      <Filter>03. GameObject\11. Map\VineOne</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CVineTwo.cpp">
+      <Filter>03. GameObject\11. Map\VineTwo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

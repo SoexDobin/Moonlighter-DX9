@@ -3,6 +3,7 @@
 #include "CTerrainVillage.h"
 #include "CTerrainDungeonNormal.h"
 #include "CTerrainBoss.h"
+#include "Client_Define.h"
 
 
 class CEditScene : public CScene
@@ -43,8 +44,8 @@ private:
     HRESULT	Ready_Camera_Layer(const wstring wsLayerTag);
 
     void InitPreviewTextures(const wstring wPreview);
-    void find_VillageTerrain();
     CGameObject* PickObject(const _vec3& vPickPos);
+    _vec3 PickingArea();
 
     HRESULT Add_TerrainVillage(const wstring pLayerTag);
     HRESULT Add_House(const wstring pLayerTag);
@@ -59,6 +60,8 @@ private:
     HRESULT Add_BossWallFront_Up(const wstring pLayerTag);
     HRESULT Add_BossWallSide_Up(const wstring pLayerTag);
     HRESULT Add_Pumpkin(const wstring pLayerTag);
+    HRESULT Add_VineOne(const wstring pLayerTag);
+    HRESULT Add_VineTwo(const wstring pLayerTag);
 
     inline string WStringToUTF8(const std::wstring& wstr);
     template<typename TObject>
@@ -97,6 +100,28 @@ private:
         }
 
         return S_OK;
+    }
+
+    template<typename T>
+    void find_Terrain()
+    {
+        auto iter = m_umLayer.find(L"Environment_Layer");
+        if (iter != m_umLayer.end())
+        {
+            CLayer* pLayer = iter->second;
+            const auto& objMap = pLayer->Get_Objects();
+            for (const auto& objList : objMap)
+            {
+                for (CGameObject* pObj : objList.second)
+                {
+                    if (wcscmp(pObj->m_szDisplayName, L"Terrain") == 0)
+                    {
+                        pVillage = static_cast<T*>(pObj);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
 

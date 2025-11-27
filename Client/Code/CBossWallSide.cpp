@@ -41,7 +41,7 @@ HRESULT CBossWallSide::Ready_GameObject()
         m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pTextureCom));
     }
 
-    m_pTransformCom->Add_Rotation(ROT_Y, 90.f);
+    m_pTransformCom->Add_Rotation(ROT_Y, 1.57f);
     return S_OK;
 }
 

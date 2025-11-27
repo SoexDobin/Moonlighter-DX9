@@ -2,6 +2,7 @@
 
 #include "CBase.h"
 #include "Engine_Define.h"
+#include "Client_Define.h"
 
 class CDataManager : public CBase
 {
@@ -32,11 +33,6 @@ private:
 	const wstring& n_wsResSpritePath = L"../Bin/Resource/Sprite/";
 
 	const _float n_fDefault_AnimSpeed = 10.f;
-
-
-    const _ulong dwTerrainBossX = 61;
-    const _ulong dwTerrainBossY = 37;
-    const _ulong dwTerrainBossItv = 1;
 private:
 	void		Free() override;
 };

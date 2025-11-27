@@ -21,6 +21,7 @@ public:
     const _ulong			Get_VertexCountZ() const { return m_dwCntZ; }
     const _ulong			Get_VertexInterval() const { return m_dwVtxItv; }
     const wstring           Get_HeightMap() const { return m_wsHeightMapPath; }
+    const _vec3* Get_VtxPos() { return m_pPos; }
 
     void					Set_VertexCountX(const _ulong dwCntX) { m_dwCntX = dwCntX; }
     void					Set_VertexCountZ(const _ulong dwCntZ) { m_dwCntZ = dwCntZ; }
@@ -36,6 +37,7 @@ private:
     _ulong					m_dwCntZ;
     _ulong					m_dwVtxItv;
     wstring			m_wsHeightMapPath;
+    _vec3* m_pPos;
 
 public:
     static CTerrainBossTex* Create(LPDIRECT3DDEVICE9 pGraphicDev,

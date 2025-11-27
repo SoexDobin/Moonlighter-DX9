@@ -15,13 +15,11 @@ CSlimeMob::CSlimeMob(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_dwCurStateKey(SLIME_STATE::S_END), m_dwAnimKey(SLIME_STATE::S_END),
     m_pStateMachine(nullptr), m_pCurState(nullptr)
 {
-    //PANEL_NAME(L"Slime");
 }
 
 CSlimeMob::CSlimeMob(const CSlimeMob& rhs)
     : CRenderObject(rhs), m_pDynamicTexCom(nullptr)
 {
-    //PANEL_NAME(L"Slime");
 }
 
 CSlimeMob::~CSlimeMob()

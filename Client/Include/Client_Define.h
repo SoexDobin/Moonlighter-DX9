@@ -2,7 +2,8 @@
 
 enum PROTOTYPE_CUSTOM
 {
-    TEMP_CUSTOMPROTO = 0, //  <- 여기만 추가되는 순간 부터 지워줘   
+    TEMP_CUSTOMPROTO = 0, //  <- 여기만 추가되는 순간 부터 지워줘
+    PLAYER_MOVEMENT,
     CUSTOM_END
 };
 

@@ -12,6 +12,7 @@ IMPLEMENT_SINGLETON(CDataManager)
 const wstring CDataManager::n_wsPrototypeTag[CUSTOM_END]
 {
     L"Temp_CustomProto", //  <- 여기만 추가되는 순간 부터 지워줘
+    L"Player_Movement"
 };
 
 
@@ -92,6 +93,10 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
     if (FAILED(Engine::CPrototypeManager::GetInstance()
         ->Ready_Prototype(n_wsPrototypeTag[TEMP_CUSTOMPROTO], CTmpCustomComponent::Create(pGraphicDev))))
         return E_FAIL;
+
+    // if (FAILED(Engine::CPrototypeManager::GetInstance()
+    //     ->Ready_Prototype(n_wsPrototypeTag[PLAYER_MOVEMENT], CPlayerComponent::Create(pGraphicDev))))
+    //     return E_FAIL;
 
 	return S_OK;
 }

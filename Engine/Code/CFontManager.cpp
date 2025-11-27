@@ -16,11 +16,16 @@ HRESULT CFontManager::Ready_Font(LPDIRECT3DDEVICE9 pGraphicDev, const wstring& w
 	CFont* pMyFont = Find_Font(wsFontTag);
 
     if (nullptr != pMyFont)
-    return E_FAIL;
+    {
+        return E_FAIL;
+    }
 
     pMyFont = CFont::Create(pGraphicDev, wsFontType, iWidth, iHeight, iWeight);
 
-    if (nullptr == pMyFont) return E_FAIL;
+    if (nullptr == pMyFont)
+    {
+        return E_FAIL;
+    }
 
     m_mapFont.insert({ wsFontTag, pMyFont });
 

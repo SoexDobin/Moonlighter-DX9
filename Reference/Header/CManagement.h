@@ -25,8 +25,6 @@ public:
 
 public:
 	HRESULT			Set_Scene(CScene* pScene);
-    // 존재하는 레이어에 오브젝트 등록
-    HRESULT         Add_GameObject(const wstring& wsLayerTag, const wstring& wsObjTag, CGameObject* pGameObject);
 
 public:
 	_int			Update_Scene(const _float fTimeDelta);

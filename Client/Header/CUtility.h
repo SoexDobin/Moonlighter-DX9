@@ -7,6 +7,7 @@
 #include "CPrototypeManager.h"
 #include "CManagement.h"
 #include "CCollisionManager.h"
+#include "CLayerHelper.h"
 
 #include "CTerrainBoss.h"
 #include "CBossWallFront.h"
@@ -27,7 +28,7 @@ struct ObjectData
 
 namespace CUtility 
 {
-    static void SaveVillageMap(CTerrainVillage* pTerrain, const unordered_map<wstring, CLayer*>& layers)
+    static void SaveVillageMap(CTerrainVillage* pTerrain, const unordered_map<_uint16, CLayer*>& layers)
     {
         ofstream out("../Bin/Resource/MapData/mapVillage.dat", ios::binary);
         if (!out.is_open() || !pTerrain)
@@ -111,7 +112,7 @@ namespace CUtility
 
     static void LoadVillageMap(
         LPDIRECT3DDEVICE9 pDevice,
-        unordered_map<wstring, CLayer*>& layerMap)
+        const unordered_map<_uint16, CLayer*>& layerMap)
     {
         ifstream fin("../Bin/Resource/MapData/mapVillage.dat", ios::binary);
         if (!fin.is_open())
@@ -132,7 +133,7 @@ namespace CUtility
         heightMap.resize(len);
         fin.read((char*)heightMap.data(), sizeof(wchar_t) * len);
 
-        auto iter = layerMap.find(L"Environment_Layer");
+        auto iter = layerMap.find(CLayerHelper::GetInstance()->GetLayerIDByName(L"Environment_Layer"));
         CLayer* pEnvLayer = nullptr;
         if (iter != layerMap.end())
         {
@@ -192,12 +193,12 @@ namespace CUtility
 
             pEnvLayer->Add_GameObject(wstringData, pObj);
         }
-        layerMap.emplace(pair<const wstring, CLayer*>{ L"Environment_Layer", pEnvLayer});
+        //layerMap.emplace(pair<const wstring, CLayer*>{ L"Environment_Layer", pEnvLayer});
         fin.close();
     }
 
     // Boss Save
-    static void SaveBossMap(CTerrainBoss* pTerrain, const unordered_map<wstring, CLayer*>& layers)
+    static void SaveBossMap(CTerrainBoss* pTerrain, const unordered_map<_uint16, CLayer*>& layers)
     {
         ofstream out("../Bin/Resource/MapData/mapBoss.dat", ios::binary);
         if (!out.is_open() || !pTerrain)
@@ -287,7 +288,7 @@ namespace CUtility
 
     static void LoadBossMap(
         LPDIRECT3DDEVICE9 pDevice,
-        unordered_map<wstring, CLayer*>& layerMap)
+        const unordered_map<_uint16, CLayer*>& layerMap)
     {
         ifstream fin("../Bin/Resource/MapData/mapBoss.dat", ios::binary);
         if (!fin.is_open())
@@ -308,7 +309,7 @@ namespace CUtility
         heightMap.resize(len);
         fin.read((char*)heightMap.data(), sizeof(wchar_t) * len);
 
-        auto iter = layerMap.find(L"Environment_Layer");
+        auto iter = layerMap.find(CLayerHelper::GetInstance()->GetLayerIDByName(L"Environment_Layer"));
         CLayer* pEnvLayer = nullptr;
         if (iter != layerMap.end())
         {
@@ -388,7 +389,7 @@ namespace CUtility
 
             pEnvLayer->Add_GameObject(wstringData, pObj);
         }
-        layerMap.emplace(pair<const wstring, CLayer*>{ L"Environment_Layer", pEnvLayer});
+        //layerMap.emplace(pair<const wstring, CLayer*>{ L"Environment_Layer", pEnvLayer});
         fin.close();
     }
 

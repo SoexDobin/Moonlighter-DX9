@@ -4,7 +4,7 @@
 #include "CTerrainDungeonNormal.h"
 #include "CTerrainBoss.h"
 #include "Client_Define.h"
-
+#include "CLayerHelper.h"
 
 class CEditScene : public CScene
 {
@@ -65,9 +65,9 @@ private:
     template<typename TObject>
     HRESULT Add_ObjectToLayer(CEditScene* pScene, const wstring& pLayerTag, const wstring& objectName)
     {
-        auto& layerMap = pScene->m_umLayer;
+        auto& layerMap = pScene->Get_Layers();
 
-        auto iter = layerMap.find(pLayerTag);
+        auto iter = layerMap.find(Engine::CLayerHelper::GetInstance()->GetLayerIDByName(pLayerTag));
         CGameObject* pGameObject = TObject::Create(pScene->m_pGraphicDevice);
 
         if (!pGameObject)
@@ -86,15 +86,12 @@ private:
             }
         }
         else
-        {
-            CLayer* pGameLogicLayer = CLayer::Create();
-            if (FAILED(pGameLogicLayer->Add_GameObject(objectName, pGameObject)))
+        {   
+            if (FAILED(pScene->Get_Layer(L"GameLogic_Layer")->Add_GameObject(objectName, pGameObject)))
             {
                 MSG_BOX("Add GameObject Fail");
                 return E_FAIL;
             }
-
-            layerMap.emplace(pair<const wstring, CLayer*>{ pLayerTag, pGameLogicLayer });
         }
 
         return S_OK;
@@ -103,8 +100,8 @@ private:
     template<typename T>
     void find_Terrain()
     {
-        auto iter = m_umLayer.find(L"Environment_Layer");
-        if (iter != m_umLayer.end())
+        auto iter = Get_Layers().find(Engine::CLayerHelper::GetInstance()->GetLayerIDByName(L"Environment_Layer"));
+        if (iter != Get_Layers().end())
         {
             CLayer* pLayer = iter->second;
             const auto& objMap = pLayer->Get_Objects();

@@ -33,6 +33,8 @@ CMainScene::~CMainScene()
 
 HRESULT CMainScene::Ready_Scene()
 {
+    CScene::Ready_Scene();
+
     if (FAILED(Ready_Light()))
         return E_FAIL;
 

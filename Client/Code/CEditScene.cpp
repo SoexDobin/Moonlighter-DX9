@@ -17,6 +17,7 @@
 #include "CPumpkin.h"
 #include "CVineOne.h"
 #include "CVineTwo.h"
+#include "CLayerHelper.h"
 
 CEditScene::CEditScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev), pVillage(nullptr), g_MapEditor(nullptr), g_pPreviewTex(nullptr),
@@ -135,7 +136,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             if (ImGui::Button("yes", ImVec2(120, 0)))
             {
                 find_Terrain<CTerrainVillage>();
-                CUtility::SaveVillageMap(static_cast<CTerrainVillage*>(pVillage), m_umLayer);
+                CUtility::SaveVillageMap(static_cast<CTerrainVillage*>(pVillage), Get_Layers());
                 ImGui::CloseCurrentPopup();
                 confirm[VILL_SAVE] = false;
             }
@@ -163,7 +164,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
             if (ImGui::Button("yes", ImVec2(120, 0)))
             {
-                CUtility::LoadVillageMap(m_pGraphicDevice, m_umLayer);
+                CUtility::LoadVillageMap(m_pGraphicDevice, Get_Layers());
                 ImGui::CloseCurrentPopup();
                 confirm[VILL_LOAD] = false;
             }
@@ -260,7 +261,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             if (ImGui::Button("yes", ImVec2(120, 0)))
             {
                 find_Terrain<CTerrainBoss>();
-                CUtility::SaveBossMap(static_cast<CTerrainBoss*>(pVillage), m_umLayer);
+                CUtility::SaveBossMap(static_cast<CTerrainBoss*>(pVillage), Get_Layers());
                 ImGui::CloseCurrentPopup();
                 confirm[BOSS_SAVE] = false;
             }
@@ -288,7 +289,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
             if (ImGui::Button("yes", ImVec2(120, 0)))
             {
-                CUtility::LoadBossMap(m_pGraphicDevice, m_umLayer);
+                CUtility::LoadBossMap(m_pGraphicDevice, Get_Layers());
                 ImGui::CloseCurrentPopup();
                 confirm[BOSS_LOAD] = false;
             }
@@ -414,9 +415,9 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
     ImGui::SetNextWindowPos(ImVec2(200, 100), ImGuiCond_Once);
     ImGui::SetNextWindowSize(ImVec2(0, 0), ImGuiCond_Always);
     ImGui::Begin("Scene Object Hierarchy", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-    for (const auto& layerPair : m_umLayer)
+    for (const auto& layerPair : Get_Layers())
     {
-        const wstring& layerName = layerPair.first;
+        const wstring& layerName = CLayerHelper::GetInstance()->GetLayerNameByID(LAYERID(layerPair.first));
         CLayer* pLayer = layerPair.second;
 
         string layerLabel = WStringToUTF8(layerName);
@@ -762,8 +763,8 @@ void CEditScene::InitPreviewTextures(const wstring wPreview)
 
 CGameObject* CEditScene::PickObject(const _vec3& vPickPos)
 {
-    auto iter = m_umLayer.find(L"Environment_Layer");
-    if (iter == m_umLayer.end())
+    auto iter = Get_Layers().find(CLayerHelper::GetInstance()->GetLayerIDByName(L"Environment_Layer") );
+    if (iter == Get_Layers().end())
     {
         MSG_BOX("Environment Layer Not Found");
         return nullptr;

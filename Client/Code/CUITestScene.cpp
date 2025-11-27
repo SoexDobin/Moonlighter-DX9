@@ -23,6 +23,8 @@ CUITestScene::~CUITestScene()
 
 HRESULT CUITestScene::Ready_Scene()
 {
+    CScene::Ready_Scene();
+
     if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
         return E_FAIL;
 
@@ -52,7 +54,7 @@ void CUITestScene::LateUpdate_Scene(const _float fTimeDelta)
 
 void CUITestScene::Render_Scene()
 {
-
+    
     // 코인 테스트
     _vec2 vPos{ 100.f, 100.f };
 

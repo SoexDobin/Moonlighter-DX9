@@ -113,7 +113,7 @@ HRESULT CComposeScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 
 HRESULT CComposeScene::Ready_Environment_Layer(const wstring& wsLayerTag)
 {
-    CUtility::LoadBossMap(m_pGraphicDevice, m_umLayer);
+    CUtility::LoadBossMap(m_pGraphicDevice, Get_Layers());
     return S_OK;
 }
 

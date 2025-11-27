@@ -46,7 +46,7 @@ HRESULT CComposeScene::Ready_Scene()
         return E_FAIL;
     if (FAILED(Ready_GameLogic_Layer(CDataManager::GetInstance()->Get_LayerTag(5))))
         return E_FAIL;
-    if (FAILED(Ready_UI_Layer(CDataManager::GetInstance()->Get_LayerTag(1))))
+    if (FAILED(Ready_UI_Layer(CDataManager::GetInstance()->Get_LayerTag(7))))
         return E_FAIL;
 
     return S_OK;
@@ -144,15 +144,6 @@ HRESULT CComposeScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     pSlimeMob = CSlimeMob::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"SlimeMob", pSlimeMob)))
         return E_FAIL;
-
-#pragma region Examples for ImGui
-    CGameObject* pGameObject = CExampleObject::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Example", pGameObject)))
-        return E_FAIL;
-
-    CExampleManager::GetInstance()->Ready_Manager();
-
-#pragma endregion
 
     return S_OK;
 }

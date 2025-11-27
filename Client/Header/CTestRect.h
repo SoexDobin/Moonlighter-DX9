@@ -8,6 +8,8 @@ namespace Engine {
     class CRectCollider;
 }
 
+class CTmpCustomComponent; // 클라이언트 컴포넌트는 Engine 소속이 아님
+
 class CTestRect : public CRenderObject
 {
 private:
@@ -26,10 +28,9 @@ public:
     void        On_Collision(const Collision& tCollision) override;
 
 private:
-	CTexture*	        m_pDynamicTexCom;
-	CTexture*	        m_pStaticTexCom;
-    CSphereCollider*    m_pColCom;
-    CRectCollider*      m_pRectColCom;
+	CTexture*	            m_pDynamicTexCom;
+    CSphereCollider*        m_pColCom;
+    CTmpCustomComponent*    m_pCustomCom;
 
 public:
 	static CTestRect*	Create(LPDIRECT3DDEVICE9 pGraphicDev);

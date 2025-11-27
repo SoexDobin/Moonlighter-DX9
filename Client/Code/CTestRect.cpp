@@ -1,20 +1,23 @@
 ﻿#include "pch.h"
 #include "CTestRect.h"
 #include "CRenderer.h"
+#include "CTmpCustomComponent.h"
 #include "CPrototypeManager.h"
 #include "CDInputManager.h"
 #include "CManagement.h"
 #include "CSphereCollider.h"
 #include "CRectCollider.h"
+#include "CDataManager.h"
+
 
 CTestRect::CTestRect(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_pStaticTexCom(nullptr)
+    : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr)
 {
     PANEL_NAME(L"Rect Object");
 }
 
 CTestRect::CTestRect(const CTestRect& rhs)
-    : CRenderObject(rhs), m_pDynamicTexCom(nullptr), m_pStaticTexCom(nullptr)
+    : CRenderObject(rhs), m_pDynamicTexCom(nullptr)
 {
     PANEL_NAME(L"Rect Object");
 }
@@ -41,19 +44,8 @@ HRESULT CTestRect::Ready_GameObject()
     m_pColCom = Add_Component<CSphereCollider>(ID_DYNAMIC, L"Sphere_Com", SPHERE_COLLIDER);
     m_pColCom->Set_Offset(_vec3(1.f, 2.f, 0.f));
     m_pColCom->Set_Scale(2.f);
-    //m_pRectColCom = Add_Component<CRectCollider>(ID_DYNAMIC, L"Rect_Com", RECT_COLLIDER);
-    //m_pRectColCom->Set_Offset(_vec3(1.f, 0.f, 0.f));
-    //m_pRectColCom->Set_Dimension(_vec3(1.f, 2.f, 3.f));
 
-    //pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
-    //if (pCom->Get_ComponentType() != TEXTURE)
-    //    return E_FAIL;
-    //if (m_pStaticTexCom = static_cast<CTexture*>(pCom))
-    //{
-    //    m_pStaticTexCom->Ready_Texture(L"Item_Potion");
-    //    m_pStaticTexCom->Set_Texture(POTION, 2);
-    //    m_umComponent[ID_STATIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pStaticTexCom));
-    //}
+    m_pCustomCom = Add_Component<CTmpCustomComponent>(ID_DYNAMIC, L"Custom_Com", CDataManager::Get_ClientPrototypeTag(TEMP_CUSTOMPROTO));
 
     return S_OK;
 }

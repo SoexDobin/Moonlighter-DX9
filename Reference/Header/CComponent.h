@@ -25,7 +25,7 @@ public:
     void                        Set_Owner(CGameObject* pOwner);
     CGameObject*                Get_Owner() const       { return m_pOwner; }
     CTransform*                 Get_Transform() const   { return m_pTrans; }
-	virtual	PROTOTYPE_COMPONENT	Get_ComponentType() PURE;
+    virtual	PROTOTYPE_COMPONENT	Get_ComponentType()     { return DEFAULT; };
 
 public:
 	virtual _int				Update_Component(const _float fTimeDelta) { return 0; };

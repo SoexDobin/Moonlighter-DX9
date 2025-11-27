@@ -5,7 +5,15 @@
 #include "CPrototypeManager.h"
 #include "CResourceManager.h"
 
+#include "CTmpCustomComponent.h"
+
 IMPLEMENT_SINGLETON(CDataManager)
+
+const wstring CDataManager::n_wsPrototypeTag[CUSTOM_END]
+{
+    L"Temp_CustomProto", //  <- 여기만 추가되는 순간 부터 지워줘
+};
+
 
 CDataManager::CDataManager()
 {
@@ -77,6 +85,13 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 
     if (FAILED(Engine::CPrototypeManager::GetInstance()
         ->Ready_Prototype(RECT_COLLIDER, CRectCollider::Create(pGraphicDev))))
+        return E_FAIL;
+
+
+    // Client Custom Prototype 정의
+    // 추가되는 순간 부터 지워줘   
+    if (FAILED(Engine::CPrototypeManager::GetInstance()
+        ->Ready_Prototype(n_wsPrototypeTag[TEMP_CUSTOMPROTO], CTmpCustomComponent::Create(pGraphicDev))))
         return E_FAIL;
 
 	return S_OK;

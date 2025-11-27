@@ -5,18 +5,14 @@
 #include "CDInputManager.h"
 #include "CManagement.h"
 
-#include "CPlayer.h"
-
 CHouse::CHouse(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"House")
 }
 
 CHouse::CHouse(const CHouse& rhs)
     : CRenderObject(rhs), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"House")
 }
 
 CHouse::~CHouse()
@@ -40,7 +36,7 @@ HRESULT CHouse::Ready_GameObject()
 
         m_pTextureCom->Set_Texture(0);
 
-        m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pTextureCom));
+        m_umComponent[ID_STATIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pTextureCom));
     }
 
     m_pTransformCom->Set_Scale(4.f, 4.f, 1.f);

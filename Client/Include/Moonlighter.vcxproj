@@ -167,13 +167,20 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CBossStateMachine.h" />
     <ClInclude Include="..\Header\CBossThrowState.h" />
     <ClInclude Include="..\Header\CBossWalkState.h" />
+    <ClInclude Include="..\Header\CBossWallFront.h" />
+    <ClInclude Include="..\Header\CBossWallFrontUpper.h" />
+    <ClInclude Include="..\Header\CBossWallSide.h" />
+    <ClInclude Include="..\Header\CCameraManager.h" />
     <ClInclude Include="..\Header\CComposeScene.h" />
     <ClInclude Include="..\Header\CDataManager.h" />
+    <ClInclude Include="..\Header\CDungeonWall.h" />
     <ClInclude Include="..\Header\CDynamicCamera.h" />
     <ClInclude Include="..\Header\CEditScene.h" />
     <ClInclude Include="..\Header\CEngineMediator.h" />
     <ClInclude Include="..\Header\CExampleManager.h" />
     <ClInclude Include="..\Header\CExampleObject.h" />
+    <ClInclude Include="..\Header\CHpBar.h" />
+    <ClInclude Include="..\Header\CInvenStatic.h" />
     <ClInclude Include="..\Header\CItemManager.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -184,7 +191,9 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CMonsterState.h" />
     <ClInclude Include="..\Header\CMonsterTestScene.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
+    <ClInclude Include="..\Header\CPlayerStateMachine.h" />
     <ClInclude Include="..\Header\CPlayerTestScene.h" />
+    <ClInclude Include="..\Header\CPumpkin.h" />
     <ClInclude Include="..\Header\CSheederAttackState.h" />
     <ClInclude Include="..\Header\CSheederIdleState.h" />
     <ClInclude Include="..\Header\CSheederStateMachine.h" />
@@ -197,10 +206,12 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CSlimeWalkState.h" />
     <ClInclude Include="..\Header\CState.h" />
     <ClInclude Include="..\Header\CStateMachine.h" />
+    <ClInclude Include="..\Header\CTerrainBoss.h" />
+    <ClInclude Include="..\Header\CTerrainDungeonNormal.h" />
     <ClInclude Include="..\Header\CTerrainVillage.h" />
     <ClInclude Include="..\Header\CTestRect.h" />
+    <ClInclude Include="..\Header\CTreeObject.h" />
     <ClInclude Include="..\Header\CTmpCustomComponent.h" />
-    <ClInclude Include="..\Header\CTree.h" />
     <ClInclude Include="..\Header\CTreeAwakeState.h" />
     <ClInclude Include="..\Header\CTreeIdleState.h" />
     <ClInclude Include="..\Header\CTreeShakeState.h" />
@@ -213,6 +224,9 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CUITestScene.h" />
     <ClInclude Include="..\Header\CUtility.h" />
     <ClInclude Include="..\Header\CTreeMob.h" />
+    <ClInclude Include="..\Header\CVineOne.h" />
+    <ClInclude Include="..\Header\CVineTwo.h" />
+    <ClInclude Include="CBossWallSideUpper.h" />
     <ClInclude Include="Client_Define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Moonlighter.h" />
@@ -252,13 +266,20 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CBossStateMachine.cpp" />
     <ClCompile Include="..\Code\CBossThrowState.cpp" />
     <ClCompile Include="..\Code\CBossWalkState.cpp" />
+    <ClCompile Include="..\Code\CBossWallFront.cpp" />
+    <ClCompile Include="..\Code\CBossWallFrontUpper.cpp" />
+    <ClCompile Include="..\Code\CBossWallSide.cpp" />
+    <ClCompile Include="..\Code\CCameraManager.cpp" />
     <ClCompile Include="..\Code\CComposeScene.cpp" />
     <ClCompile Include="..\Code\CDataManager.cpp" />
+    <ClCompile Include="..\Code\CDungeonWall.cpp" />
     <ClCompile Include="..\Code\CDynamicCamera.cpp" />
     <ClCompile Include="..\Code\CEditScene.cpp" />
     <ClCompile Include="..\Code\CEngineMediator.cpp" />
     <ClCompile Include="..\Code\CExampleManager.cpp" />
     <ClCompile Include="..\Code\CExampleObject.cpp" />
+    <ClCompile Include="..\Code\CHpBar.cpp" />
+    <ClCompile Include="..\Code\CInvenStatic.cpp" />
     <ClCompile Include="..\Code\CItemManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -269,7 +290,9 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CMonsterState.cpp" />
     <ClCompile Include="..\Code\CMonsterTestScene.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />
+    <ClCompile Include="..\Code\CPlayerStateMachine.cpp" />
     <ClCompile Include="..\Code\CPlayerTestScene.cpp" />
+    <ClCompile Include="..\Code\CPumpkin.cpp" />
     <ClCompile Include="..\Code\CSheederAttackState.cpp" />
     <ClCompile Include="..\Code\CSheederIdleState.cpp" />
     <ClCompile Include="..\Code\CSheederStateMachine.cpp" />
@@ -282,10 +305,12 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CSlimeWalkState.cpp" />
     <ClCompile Include="..\Code\CState.cpp" />
     <ClCompile Include="..\Code\CStateMachine.cpp" />
+    <ClCompile Include="..\Code\CTerrainBoss.cpp" />
+    <ClCompile Include="..\Code\CTerrainDungeonNormal.cpp" />
     <ClCompile Include="..\Code\CTerrainVillage.cpp" />
     <ClCompile Include="..\Code\CTestRect.cpp" />
+    <ClCompile Include="..\Code\CTreeObject.cpp" />
     <ClCompile Include="..\Code\CTmpCustomComponent.cpp" />
-    <ClCompile Include="..\Code\CTree.cpp" />
     <ClCompile Include="..\Code\CTreeAwakeState.cpp" />
     <ClCompile Include="..\Code\CTreeIdleState.cpp" />
     <ClCompile Include="..\Code\CTreeShakeState.cpp" />
@@ -297,6 +322,9 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     </ClCompile>
     <ClCompile Include="..\Code\CUITestScene.cpp" />
     <ClCompile Include="..\Code\CTreeMob.cpp" />
+    <ClCompile Include="..\Code\CVineOne.cpp" />
+    <ClCompile Include="..\Code\CVineTwo.cpp" />
+    <ClCompile Include="CBossWallSideUpper.cpp" />
     <ClCompile Include="Moonlighter.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

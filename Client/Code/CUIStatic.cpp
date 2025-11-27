@@ -23,6 +23,8 @@ HRESULT CUIStatic::Ready_GameObject()
     if (FAILED(CRenderObject::Ready_GameObject()))
         return E_FAIL;
 
+    Set_RenderPriority(UI_STATIC);
+
     if (FAILED(UI_Initialize()))
         return E_FAIL;
 
@@ -58,7 +60,7 @@ void CUIStatic::Render_GameObject()
         m_pBufferCom->Render_Buffer();
     }
 }
-
+// 정보
 HRESULT CUIStatic::UI_Initialize()
 {
     m_VecUI.clear();
@@ -206,7 +208,6 @@ HRESULT CUIStatic::UI_Initialize()
     }
 
     return S_OK;
-   
 }
 
 CUIStatic* CUIStatic::Create(LPDIRECT3DDEVICE9 pGraphicDev)

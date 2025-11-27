@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="헤더 파일">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
@@ -134,9 +130,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="03. GameObject\11. Map\Tree">
-      <UniqueIdentifier>{420576ff-11c6-4e3e-8055-8f0d484e5c98}</UniqueIdentifier>
-    </Filter>
     <Filter Include="96. Utility">
       <UniqueIdentifier>{dd585d7f-ea1b-496c-a1b0-8749e04611a6}</UniqueIdentifier>
     </Filter>
@@ -146,17 +139,71 @@
     <Filter Include="03. GameObject\02. Monster\03. Sheeder\01. SheederState">
       <UniqueIdentifier>{e84c3397-6465-4053-8b61-a6375e6aaff6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Scene\09. ComposeScene">
+      <UniqueIdentifier>{96f800df-13e1-4614-83c5-a94b5ddd8be3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\TreeObject">
+      <UniqueIdentifier>{420576ff-11c6-4e3e-8055-8f0d484e5c98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Wall">
+      <UniqueIdentifier>{8465c4e8-638c-45ed-abfc-08fed47bb08c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Wall\BossWallSide">
+      <UniqueIdentifier>{5064b615-f2ce-46cb-8475-eb7ccec7bca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Wall\DungeonWall">
+      <UniqueIdentifier>{f8e83c3d-be73-4e84-851d-c0f51dcd6db9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Wall\BossWallFront">
+      <UniqueIdentifier>{b6664627-8569-4434-a124-b5c6e9b0f9f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Terrain">
+      <UniqueIdentifier>{2a6d8291-e322-43a3-ab40-c4cccd716c54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Terrain\TerrainBoss">
+      <UniqueIdentifier>{19f6ef25-0683-4c4d-95ff-faa995ed718b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Terrain\TerrainDungeonNormal">
+      <UniqueIdentifier>{c07b8026-7881-4354-b0b1-bd0ed3699265}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Terrain\TerrainVillage">
+      <UniqueIdentifier>{c84f55aa-e202-49b1-85d4-01b61ba3b320}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Wall\BossWallFrontUp">
+      <UniqueIdentifier>{b865c7b2-554a-40b2-b70e-a676d867039d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Wall\BossWallSideUp">
+      <UniqueIdentifier>{1f1b4c3b-3a8b-453d-add4-3b5ca6da207a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\Pumpkin">
+      <UniqueIdentifier>{6a16edc5-40b1-45bd-8f43-8497fe011ccb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\VineOne">
+      <UniqueIdentifier>{57551d44-855e-44c1-a2ce-2d5bc6946b36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\11. Map\VineTwo">
+      <UniqueIdentifier>{86709935-98cc-4d06-bacf-2a3ed65a67b3}</UniqueIdentifier>
+    </Filter>
     <Filter Include="03. GameObject\09. Item">
       <UniqueIdentifier>{25bb53bf-90e9-489f-a3f7-da3da26ba5fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. GameObject\11. Map\TerrainVillage">
-      <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Scene\09. ComposeScene">
       <UniqueIdentifier>{96f800df-13e1-4614-83c5-a94b5ddd8be3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObject\10. UI\01. Inven">
+      <UniqueIdentifier>{ce96c9b4-6b5f-4726-babf-58ad0a25eba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{e7414076-902a-4cf9-ba2a-1b8cafc8fa65}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Temp">
       <UniqueIdentifier>{59c7d0d8-e242-4537-9f3a-b44564776569}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\01. CameraManager">
+      <UniqueIdentifier>{52d07a38-2acf-4c66-9bea-11f797410fc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\01. Player\00. PlayerStateMachine">
+      <UniqueIdentifier>{d91b05cf-cb03-4be8-ae2e-83a08287a2b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -238,9 +285,6 @@
     <ClInclude Include="..\Header\CUIStatic.h">
       <Filter>03. GameObject\10. UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CTerrainVillage.h">
-      <Filter>03. GameObject\11. Map\TerrainVillage</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CUtility.h">
       <Filter>96. Utility</Filter>
     </ClInclude>
@@ -265,8 +309,8 @@
     <ClInclude Include="..\Header\CHouse.h">
       <Filter>03. GameObject\11. Map\House</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CTree.h">
-      <Filter>03. GameObject\11. Map\Tree</Filter>
+    <ClInclude Include="..\Header\CTreeObject.h">
+      <Filter>03. GameObject\11. Map\TreeObject</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CBossStateMachine.h">
       <Filter>03. GameObject\02. Monster\00. Boss\00. BossStateMachine</Filter>
@@ -304,9 +348,6 @@
     <ClInclude Include="..\Header\CTreeIdleState.h">
       <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CTreeMob.h">
-      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CTreeShakeState.h">
       <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
     </ClInclude>
@@ -320,9 +361,6 @@
       <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CSlimeIdleState.h">
-      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CSlimeMob.h">
       <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CSlimeWalkState.h">
@@ -349,17 +387,68 @@
     <ClInclude Include="..\Header\CMonsterState.h">
       <Filter>97. StateMachine\03. MonsterState</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CUIInven.h">
-      <Filter>03. GameObject\10. UI</Filter>
+    <ClInclude Include="..\Header\CTerrainDungeonNormal.h">
+      <Filter>03. GameObject\11. Map\Terrain\TerrainDungeonNormal</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CComposeScene.h">
       <Filter>02. Scene\09. ComposeScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTerrainVillage.h">
+      <Filter>03. GameObject\11. Map\Terrain\TerrainVillage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDungeonWall.h">
+      <Filter>03. GameObject\11. Map\Wall\DungeonWall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTerrainBoss.h">
+      <Filter>03. GameObject\11. Map\Terrain\TerrainBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossWallFront.h">
+      <Filter>03. GameObject\11. Map\Wall\BossWallFront</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossWallSide.h">
+      <Filter>03. GameObject\11. Map\Wall\BossWallSide</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossWallFrontUpper.h">
+      <Filter>03. GameObject\11. Map\Wall\BossWallFrontUp</Filter>
+    </ClInclude>
+    <ClInclude Include="CBossWallSideUpper.h">
+      <Filter>03. GameObject\11. Map\Wall\BossWallSideUp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPumpkin.h">
+      <Filter>03. GameObject\11. Map\Pumpkin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CVineOne.h">
+      <Filter>03. GameObject\11. Map\VineOne</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CVineTwo.h">
+      <Filter>03. GameObject\11. Map\VineTwo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHpBar.h">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUIInven.h">
+      <Filter>03. GameObject\10. UI\01. Inven</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CInvenStatic.h">
+      <Filter>03. GameObject\10. UI\01. Inven</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTestRect.h">
       <Filter>Temp</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CTmpCustomComponent.h">
       <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeMob.h">
+      <Filter>03. GameObject\02. Monster\01. Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSlimeMob.h">
+      <Filter>03. GameObject\02. Monster\02. Slime</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPlayerStateMachine.h">
+      <Filter>03. GameObject\01. Player\00. PlayerStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCameraManager.h">
+      <Filter>01. Manager\01. CameraManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -417,17 +506,11 @@
     <ClCompile Include="..\Code\CPlayer.cpp">
       <Filter>03. GameObject\01. Player</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CUIInven.cpp">
-      <Filter>03. GameObject\10. UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CUITestScene.cpp">
       <Filter>02. Scene\08. UITestScene</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CUIStatic.cpp">
       <Filter>03. GameObject\10. UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CTerrainVillage.cpp">
-      <Filter>03. GameObject\11. Map\TerrainVillage</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CEngineMediator.cpp">
       <Filter>98. ImGui\Mediator</Filter>
@@ -447,8 +530,8 @@
     <ClCompile Include="..\Code\CHouse.cpp">
       <Filter>03. GameObject\11. Map\House</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CTree.cpp">
-      <Filter>03. GameObject\11. Map\Tree</Filter>
+    <ClCompile Include="..\Code\CTreeObject.cpp">
+      <Filter>03. GameObject\11. Map\TreeObject</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CBossAwakeState.cpp">
       <Filter>03. GameObject\02. Monster\00. Boss\01. BossState</Filter>
@@ -486,9 +569,6 @@
     <ClCompile Include="..\Code\CTreeIdleState.cpp">
       <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CTreeMob.cpp">
-      <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CTreeShakeState.cpp">
       <Filter>03. GameObject\02. Monster\01. Tree\01. TreeState</Filter>
     </ClCompile>
@@ -502,9 +582,6 @@
       <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSlimeIdleState.cpp">
-      <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CSlimeMob.cpp">
       <Filter>03. GameObject\02. Monster\02. Slime\01. SlimeState</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CSlimeWalkState.cpp">
@@ -531,14 +608,68 @@
     <ClCompile Include="..\Code\CMonsterState.cpp">
       <Filter>97. StateMachine\03. MonsterState</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CTerrainDungeonNormal.cpp">
+      <Filter>03. GameObject\11. Map\Terrain\TerrainDungeonNormal</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\CComposeScene.cpp">
       <Filter>02. Scene\09. ComposeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerrainVillage.cpp">
+      <Filter>03. GameObject\11. Map\Terrain\TerrainVillage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDungeonWall.cpp">
+      <Filter>03. GameObject\11. Map\Wall\DungeonWall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerrainBoss.cpp">
+      <Filter>03. GameObject\11. Map\Terrain\TerrainBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossWallFront.cpp">
+      <Filter>03. GameObject\11. Map\Wall\BossWallFront</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossWallSide.cpp">
+      <Filter>03. GameObject\11. Map\Wall\BossWallSide</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossWallFrontUpper.cpp">
+      <Filter>03. GameObject\11. Map\Wall\BossWallFrontUp</Filter>
+    </ClCompile>
+    <ClCompile Include="CBossWallSideUpper.cpp">
+      <Filter>03. GameObject\11. Map\Wall\BossWallSideUp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPumpkin.cpp">
+      <Filter>03. GameObject\11. Map\Pumpkin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CVineOne.cpp">
+      <Filter>03. GameObject\11. Map\VineOne</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CVineTwo.cpp">
+      <Filter>03. GameObject\11. Map\VineTwo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHpBar.cpp">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUIInven.cpp">
+      <Filter>03. GameObject\10. UI\01. Inven</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CInvenStatic.cpp">
+      <Filter>03. GameObject\10. UI\01. Inven</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTestRect.cpp">
       <Filter>Temp</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTmpCustomComponent.cpp">
       <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeMob.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSlimeMob.cpp">
+      <Filter>03. GameObject\02. Monster\02. Slime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPlayerStateMachine.cpp">
+      <Filter>03. GameObject\01. Player\00. PlayerStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCameraManager.cpp">
+      <Filter>01. Manager\01. CameraManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,6 @@
 #include "CPlayerTestScene.h"
 #include "CUtility.h"
 
-
 CMainScene::CMainScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
 {
@@ -64,16 +63,16 @@ _int CMainScene::Update_Scene(const _float fTimeDelta)
 
     if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_M))
     {
-        //Engine::CScene* pEdit = CEditScene::Create(m_pGraphicDevice);
-        //
-        //if (nullptr == pEdit)
-        //    return -1;
-        //
-        //if (FAILED(CManagement::GetInstance()->Set_Scene(pEdit)))
-        //{
-        //    MSG_BOX("Stage Setting Failed");
-        //    return -1;
-        //}
+        Engine::CScene* pEdit = CEditScene::Create(m_pGraphicDevice);
+
+        if (nullptr == pEdit)
+            return -1;
+
+        if (FAILED(CManagement::GetInstance()->Set_Scene(pEdit)))
+        {
+            MSG_BOX("Stage Setting Failed");
+            return -1;
+        }
     }
     if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_I) & 0x80)
     {
@@ -101,20 +100,12 @@ void CMainScene::Render_Scene()
 
 HRESULT CMainScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pCamLayer = CLayerHelper::GetInstance()->Get_Layer(wsLayerTag);
-
-    CGameObject* pGameObject = nullptr;
-    _vec3 vEye{ 0.f, 5.f, -20.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
-    pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
-    if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
-        return E_FAIL;
-
     return S_OK;
 }
 
 HRESULT CMainScene::Ready_Environment_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pGameLogicLayer = CLayerHelper::GetInstance()->Get_Layer(wsLayerTag);
+    CLayer* pGameLogicLayer = Get_Layer(wsLayerTag);
 
     CGameObject* pGameObject = nullptr;
     pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
@@ -126,7 +117,7 @@ HRESULT CMainScene::Ready_Environment_Layer(const wstring& wsLayerTag)
 
 HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pGameLogicLayer = CLayerHelper::GetInstance()->Get_Layer(wsLayerTag);
+    CLayer* pGameLogicLayer = Get_Layer(wsLayerTag);
 
     CGameObject* pGameObject = nullptr;
     pGameObject = CTestRect::Create(m_pGraphicDevice);
@@ -180,7 +171,7 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 
 HRESULT CMainScene::Ready_UI_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pLayer = CLayerHelper::GetInstance()->Get_Layer(wsLayerTag);
+    CLayer* pLayer = Get_Layer(wsLayerTag);
 
     Engine::CGameObject* pGameObject = nullptr;
 

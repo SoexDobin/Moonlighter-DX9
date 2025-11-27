@@ -26,6 +26,7 @@ private:
     _bool         m_bClick = false;
     void          UI_KeyInput(const _float& fTimeDelta);
 
+
 public:
     static CUIInven* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

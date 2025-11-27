@@ -1,9 +1,6 @@
 ﻿#include "pch.h"
 #include "CComposeScene.h"
 #include "CDInputManager.h"
-#include "CPrototypeManager.h"
-#include "CDynamicCamera.h"
-#include "CTestRect.h"
 #include "CExampleObject.h"
 #include "CExampleManager.h"
 #include "CLightManager.h"
@@ -12,6 +9,7 @@
 #include "CLayerHelper.h"
 #include "CDataManager.h"
 
+#include "CCameraManager.h"
 #include "CUIInven.h"
 #include "CUIStatic.h"
 
@@ -66,16 +64,16 @@ _int CComposeScene::Update_Scene(const _float fTimeDelta)
 
     if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_M))
     {
-        //Engine::CScene* pEdit = CEditScene::Create(m_pGraphicDevice);
-        //
-        //if (nullptr == pEdit)
-        //    return -1;
-        //
-        //if (FAILED(CManagement::GetInstance()->Set_Scene(pEdit)))
-        //{
-        //    MSG_BOX("Stage Setting Failed");
-        //    return -1;
-        //}
+        Engine::CScene* pEdit = CEditScene::Create(m_pGraphicDevice);
+
+        if (nullptr == pEdit)
+            return -1;
+
+        if (FAILED(CManagement::GetInstance()->Set_Scene(pEdit)))
+        {
+            MSG_BOX("Stage Setting Failed");
+            return -1;
+        }
     }
     if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_I) & 0x80)
     {
@@ -88,12 +86,17 @@ _int CComposeScene::Update_Scene(const _float fTimeDelta)
             pInventory->InvenButton();
         }
     }
+
+    CCameraManager::GetInstance()->Update_Camera(fTimeDelta);
+
     return iExit;
 }
 
 void CComposeScene::LateUpdate_Scene(const _float fTimeDelta)
 {
     Engine::CScene::LateUpdate_Scene(fTimeDelta);
+
+    CCameraManager::GetInstance()->LateUpdate_Camera(fTimeDelta);
 }
 
 void CComposeScene::Render_Scene()
@@ -103,28 +106,14 @@ void CComposeScene::Render_Scene()
 
 HRESULT CComposeScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pCamLayer = Get_Layer(wsLayerTag);
-    if (pCamLayer == nullptr) return E_FAIL;
-
-    CGameObject* pGameObject = nullptr;
-    _vec3 vEye{ 0.f, 5.f, -20.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
-    pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
-    if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
-        return E_FAIL;
+    CCameraManager::GetInstance()->Set_CameraMode(CCameraManager::INGAME);
 
     return S_OK;
 }
 
 HRESULT CComposeScene::Ready_Environment_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pGameLogicLayer = Get_Layer(wsLayerTag);
-    if (pGameLogicLayer == nullptr) return E_FAIL;
-
-    CGameObject* pGameObject = nullptr;
-    pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Village", pGameObject)))
-        return E_FAIL;
-
+    CUtility::LoadBossMap(m_pGraphicDevice, m_umLayer);
     return S_OK;
 }
 
@@ -133,29 +122,13 @@ HRESULT CComposeScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     CLayer* pGameLogicLayer = Get_Layer(wsLayerTag);
     if (pGameLogicLayer == nullptr) return E_FAIL;
 
-    CGameObject* pGameObject = nullptr;
-    pGameObject = CTestRect::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp", pGameObject)))
-        return E_FAIL;
-    static_cast<CRenderObject*>(pGameObject)->Get_Trans()->Set_Pos(2.f, 0.f, 2.f);
-
-    pGameObject = CTestRect::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp2", pGameObject)))
-        return E_FAIL;
-    
-    //pGameObject = CTestRect::Create(m_pGraphicDevice);
-    //if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp3", pGameObject)))
-    //    return E_FAIL;
-
-    // fix
-    //pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
-    //if (FAILED(pGameLogicLayer->Add_GameObject(L"Vill", pGameObject)))
-    //    return E_FAIL;
-
     CGameObject* pPlayer = nullptr;
     pPlayer = CPlayer::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Player", pPlayer)))
         return E_FAIL;
+
+    // TODO : 임시로 플레이어 위치 삽입
+    CCameraManager::GetInstance()->Set_Target(static_cast<CTransform*>(pPlayer->Get_Component(ID_DYNAMIC, TRANSFORM)));
 
     CGameObject* pBoss = nullptr;
     pBoss = CBoss::Create(m_pGraphicDevice);
@@ -173,7 +146,7 @@ HRESULT CComposeScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
         return E_FAIL;
 
 #pragma region Examples for ImGui
-    pGameObject = CExampleObject::Create(m_pGraphicDevice);
+    CGameObject* pGameObject = CExampleObject::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Example", pGameObject)))
         return E_FAIL;
 
@@ -259,4 +232,5 @@ void CComposeScene::Free()
 #pragma endregion
 
     Engine::CScene::Free();
+
 }

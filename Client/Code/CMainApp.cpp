@@ -18,6 +18,8 @@
 #include "CEngineMediator.h"
 #include "CMonsterTestScene.h"
 #include "CComposeScene.h"
+#include "CEditScene.h"
+#include "CCameraManager.h"
 
 CMainApp::CMainApp()
 	: m_pDeviceClass(nullptr), m_pGraphicDevice(nullptr)
@@ -99,8 +101,9 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDevice)
 	//(*ppGraphicDevice)->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
 	//(*ppGraphicDevice)->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 
-    //폰트 테스트 ice), L"Font_Default", L"견명조", 20, 20, FW_HEAVY)))
-    //    return E_FAIL;
+    //폰트 테스트
+    if (FAILED(CFontManager::GetInstance()->Ready_Font((*ppGraphicDevice), L"Font_Default", L"견명조", 20, 20, FW_HEAVY)))
+        return E_FAIL;
     //if (FAILED(CFontManager::GetInstance()->Ready_Font((*ppGraphicDevice), L"Font_Moon", L"문라이터", 20, 20, FW_HEAVY)))
     //    return E_FAIL;
 
@@ -118,6 +121,9 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDevice)
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDevice)
 {
+    if (FAILED(CCameraManager::GetInstance()->Ready_Camera(m_pGraphicDevice)))
+        return E_FAIL;
+
 	if (FAILED(Engine::CManagement::GetInstance()->Set_Scene(CComposeScene::Create(pGraphicDevice))))
     	return E_FAIL;
 
@@ -144,6 +150,7 @@ void CMainApp::Free()
 
 	CDataManager::DestroyInstance();
     CEngineMediator::DestroyInstance();
+    CCameraManager::DestroyInstance();
 
     Engine::CLayerHelper::DestroyInstance();
     Engine::CFontManager::DestroyInstance();

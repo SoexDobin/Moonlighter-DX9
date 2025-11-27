@@ -3,6 +3,7 @@
 #include "CBase.h"
 #include "Client_Define.h"
 #include "Engine_Define.h"
+#include "Client_Define.h"
 
 class CDataManager : public CBase
 {
@@ -38,7 +39,6 @@ private:
     static const wstring n_wsLayerTag[Engine::LAYER_END];
 	const wstring n_wsResSpritePath = L"../Bin/Resource/Sprite/";
 	const _float n_fDefault_AnimSpeed = 10.f;
-
 private:
 	void		Free() override;
 };

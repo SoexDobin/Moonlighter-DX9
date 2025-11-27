@@ -62,9 +62,19 @@ public :
 	TCHAR m_szDisplayName[32];
 	char       m_szBuffer[32];
 
+    void    Set_EditorDisplayName(wstring wsName);
+
 protected :
 	list<EDITORFIELD> m_EditorFieldList;
 #pragma endregion
+
+  // 렌더 우선 순위
+public:
+    int     Get_RenderPriority() const { return m_iRenderPriority; }
+    void    Set_RenderPriority(int iPriority) { m_iRenderPriority = iPriority; }
+
+protected:
+    int m_iRenderPriority = 0;
 
 };
 

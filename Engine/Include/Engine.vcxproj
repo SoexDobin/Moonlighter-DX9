@@ -183,12 +183,15 @@ xcopy	/y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CRectTex.h" />
     <ClInclude Include="..\Header\CSoundManager.h" />
     <ClInclude Include="..\Header\CSphereCollider.h" />
+    <ClInclude Include="..\Header\CTerrainBossTex.h" />
+    <ClInclude Include="..\Header\CTerrainDungeonTex.h" />
     <ClInclude Include="..\Header\CTerrainTex.h" />
     <ClInclude Include="..\Header\CTexture.h" />
     <ClInclude Include="..\Header\CTimeManager.h" />
     <ClInclude Include="..\Header\CTimer.h" />
     <ClInclude Include="..\Header\CTransform.h" />
     <ClInclude Include="..\Header\CVIBuffer.h" />
+    <ClInclude Include="..\Header\EasingFunctions.h" />
     <ClInclude Include="..\Header\Engine_Define.h" />
     <ClInclude Include="..\Header\Engine_Enum.h" />
     <ClInclude Include="..\Header\Engine_Function.h" />
@@ -228,6 +231,8 @@ xcopy	/y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CSoundManager.cpp" />
     <ClCompile Include="..\Code\CSphereCollider.cpp" />
+    <ClCompile Include="..\Code\CTerrainBossTex.cpp" />
+    <ClCompile Include="..\Code\CTerrainDungeonTex.cpp" />
     <ClCompile Include="..\Code\CTerrainTex.cpp" />
     <ClCompile Include="..\Code\CTexture.cpp" />
     <ClCompile Include="..\Code\CTimeManager.cpp" />

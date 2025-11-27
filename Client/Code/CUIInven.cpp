@@ -26,6 +26,8 @@ HRESULT CUIInven::Ready_GameObject()
     if (FAILED(CRenderObject::Ready_GameObject()))
         return E_FAIL;
 
+    Set_RenderPriority(UI_INVENTORY);
+
     // 인벤토리 base
     CComponent* pCom(nullptr); 
 
@@ -63,7 +65,6 @@ _int CUIInven::Update_GameObject(const _float fTimeDelta)
 
     // 마우스 Hover
     Slot_Hover(fTimeDelta);
-    //Slot_Click(fTimeDelta);
 
     Engine::CRenderer::GetInstance()->Add_RenderGroup(RENDER_UI, this);
 
@@ -260,10 +261,6 @@ void CUIInven::UI_KeyInput(const _float& fTimeDelta)
 
     }
 
-    if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_E) & 0x80)
-    {
-
-    }
 
 
 }

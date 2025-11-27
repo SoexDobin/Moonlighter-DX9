@@ -1,4 +1,4 @@
-#ifndef Engine_Macro_h__
+﻿#ifndef Engine_Macro_h__
 #define Engine_Macro_h__
 
 namespace Engine
@@ -6,8 +6,8 @@ namespace Engine
 	#define	WINCX		1152
 	#define	WINCY		720
 
-	#define	VTXCNTX		129
-	#define VTXCNTZ		129
+	#define	VILLAGE_VTXCNTX		128
+	#define VILLAGE_VTXCNTZ		128
 	#define VTXITV		1
 
 	#ifndef			MSG_BOX

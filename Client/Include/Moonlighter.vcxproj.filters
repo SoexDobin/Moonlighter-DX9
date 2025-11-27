@@ -444,11 +444,11 @@
     <ClInclude Include="..\Header\CSlimeMob.h">
       <Filter>03. GameObject\02. Monster\02. Slime</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CCameraManager.h">
-      <Filter>01. Manager\01. CameraManager</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CPlayerStateMachine.h">
       <Filter>03. GameObject\01. Player\00. PlayerStateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCameraManager.h">
+      <Filter>01. Manager\01. CameraManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -665,11 +665,11 @@
     <ClCompile Include="..\Code\CSlimeMob.cpp">
       <Filter>03. GameObject\02. Monster\02. Slime</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CCameraManager.cpp">
-      <Filter>01. Manager\01. CameraManager</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CPlayerStateMachine.cpp">
       <Filter>03. GameObject\01. Player\00. PlayerStateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCameraManager.cpp">
+      <Filter>01. Manager\01. CameraManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

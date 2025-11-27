@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "CDataManager.h"
+#include "CLayerHelper.h"
 
 #include "CSoundManager.h"
 #include "CPrototypeManager.h"
@@ -12,8 +13,28 @@ IMPLEMENT_SINGLETON(CDataManager)
 const wstring CDataManager::n_wsPrototypeTag[CUSTOM_END]
 {
     L"Temp_CustomProto", //  <- 여기만 추가되는 순간 부터 지워줘
+    L"Player_Movement",
 };
 
+const wstring CDataManager::n_wsLayerTag[Engine::LAYER_END]
+{
+    L"Default_Layer",
+    L"Camera_Layer",
+    L"Default_Layer",
+    L"Environment_Layer",
+    L"Default_Layer",
+    L"GameLogic_Layer",
+    L"Default_Layer",
+    L"UI_Layer",
+    L"Default_Layer",
+    L"Effect_Layer",
+    L"Default_Layer",
+    L"Default_Layer", 
+    L"Default_Layer",
+    L"Default_Layer",
+    L"Default_Layer",
+    L"Default_Layer",
+};
 
 CDataManager::CDataManager()
 {
@@ -26,7 +47,7 @@ CDataManager::~CDataManager()
 
 HRESULT CDataManager::Ready_Data(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-
+    Engine::CLayerHelper::GetInstance()->SetLayerName(n_wsLayerTag);
 
 	{
 		if (FAILED(Ready_Sound()))
@@ -91,6 +112,10 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
     // 추가되는 순간 부터 지워줘   
     if (FAILED(Engine::CPrototypeManager::GetInstance()
         ->Ready_Prototype(n_wsPrototypeTag[TEMP_CUSTOMPROTO], CTmpCustomComponent::Create(pGraphicDev))))
+        return E_FAIL;
+
+    if (FAILED(Engine::CPrototypeManager::GetInstance()
+        ->Ready_Prototype(n_wsPrototypeTag[PLAYER_MOVEMENT], CTmpCustomComponent::Create(pGraphicDev))))
         return E_FAIL;
 
 	return S_OK;

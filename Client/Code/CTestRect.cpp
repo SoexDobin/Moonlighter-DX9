@@ -63,6 +63,7 @@ _int CTestRect::Update_GameObject(const _float fTimeDelta)
     if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_0))
     {
         m_pColCom->On_Disable();
+        Destroy(this);
     }
 
 

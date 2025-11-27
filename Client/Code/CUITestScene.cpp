@@ -7,6 +7,7 @@
 #include "CUIInven.h"
 #include "CDynamicCamera.h"
 #include "CUIStatic.h"
+#include "CLayerHelper.h"
 
 
 CUITestScene::CUITestScene(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -63,26 +64,20 @@ void CUITestScene::Render_Scene()
 
 HRESULT CUITestScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pCamLayer = CLayer::Create(wsLayerTag);
+    CLayer* pCamLayer = CLayerHelper::GetInstance()->Get_Layer(wsLayerTag);
     
     CGameObject* pGameObject = nullptr;
     _vec3 vEye{ 0.f, 10.f, -10.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
     pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
     if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
         return E_FAIL;
-    
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pCamLayer});
 
     return S_OK;
 }
 
 HRESULT CUITestScene::Ready_Environment_Layer(const wstring& wsLayerTag)
 {
-    CLayer* CEnviroment = CLayer::Create(wsLayerTag);
-
-    
-
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, CEnviroment});
+    CLayer* CEnviroment = CLayerHelper::GetInstance()->Get_Layer(wsLayerTag);
 
     return S_OK;
 }
@@ -91,7 +86,7 @@ HRESULT CUITestScene::Ready_Environment_Layer(const wstring& wsLayerTag)
 
 HRESULT CUITestScene::Ready_UIInven_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pLayer = CLayer::Create(wsLayerTag);
+    CLayer* pLayer = CLayerHelper::GetInstance()->Get_Layer(wsLayerTag);
 
     if (pLayer == nullptr)
         return E_FAIL;
@@ -118,10 +113,6 @@ HRESULT CUITestScene::Ready_UIInven_Layer(const wstring& wsLayerTag)
 
     if (FAILED(pLayer->Add_GameObject(L"UI_Static", pGameObject)))
         return E_FAIL;
-    
-
-
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pLayer});
 
     return S_OK;
 }

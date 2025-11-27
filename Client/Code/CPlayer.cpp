@@ -37,6 +37,7 @@ HRESULT CPlayer::Ready_GameObject()
     m_pTransformCom->Set_Pos(10.f, 5.f, 0.f);
 
     m_pColCom = Add_Component<CRectCollider>(ID_DYNAMIC, L"Collider_Com", RECT_COLLIDER);
+    Add_Component<CRectCollider>(ID_DYNAMIC, L"Collider_Com", L"dasdsad");
 
     m_eState        = IDLE;
     m_eDir          = DIR_DOWN;

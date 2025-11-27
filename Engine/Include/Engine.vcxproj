@@ -212,6 +212,7 @@ xcopy	/y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CGameObject.cpp" />
     <ClCompile Include="..\Code\CGraphicDevice.cpp" />
     <ClCompile Include="..\Code\CLayer.cpp" />
+    <ClCompile Include="..\Code\CLayerHelper.cpp" />
     <ClCompile Include="..\Code\CLight.cpp" />
     <ClCompile Include="..\Code\CLightManager.cpp" />
     <ClCompile Include="..\Code\CManagement.cpp" />

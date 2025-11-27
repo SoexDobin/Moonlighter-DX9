@@ -419,5 +419,8 @@
     <ClCompile Include="..\Code\CRectCollider.cpp">
       <Filter>02. Prototype\03. Collider\01. RectCollider</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CLayerHelper.cpp">
+      <Filter>01. Logic\02. Layer\00. LayerHelper</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

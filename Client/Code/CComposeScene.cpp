@@ -9,6 +9,8 @@
 #include "CLightManager.h"
 #include "CManagement.h"
 #include "CEditScene.h"
+#include "CLayerHelper.h"
+#include "CDataManager.h"
 
 #include "CUIInven.h"
 #include "CUIStatic.h"
@@ -32,19 +34,21 @@ CComposeScene::~CComposeScene()
 
 HRESULT CComposeScene::Ready_Scene()
 {
+    Engine::CScene::Ready_Scene();
+
     if (FAILED(Ready_Light()))
         return E_FAIL;
 
     if (FAILED(Ready_Prototype()))
         return E_FAIL;
 
-    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
+    if (FAILED(Ready_Camera_Layer(CDataManager::GetInstance()->Get_LayerTag(1))))
         return E_FAIL;
-    if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
+    if (FAILED(Ready_Environment_Layer(CDataManager::GetInstance()->Get_LayerTag(3))))
         return E_FAIL;
-    if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
+    if (FAILED(Ready_GameLogic_Layer(CDataManager::GetInstance()->Get_LayerTag(5))))
         return E_FAIL;
-    if (FAILED(Ready_UI_Layer(L"UI_Layer")))
+    if (FAILED(Ready_UI_Layer(CDataManager::GetInstance()->Get_LayerTag(1))))
         return E_FAIL;
 
     return S_OK;
@@ -62,16 +66,16 @@ _int CComposeScene::Update_Scene(const _float fTimeDelta)
 
     if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_M))
     {
-        Engine::CScene* pEdit = CEditScene::Create(m_pGraphicDevice);
-
-        if (nullptr == pEdit)
-            return -1;
-
-        if (FAILED(CManagement::GetInstance()->Set_Scene(pEdit)))
-        {
-            MSG_BOX("Stage Setting Failed");
-            return -1;
-        }
+        //Engine::CScene* pEdit = CEditScene::Create(m_pGraphicDevice);
+        //
+        //if (nullptr == pEdit)
+        //    return -1;
+        //
+        //if (FAILED(CManagement::GetInstance()->Set_Scene(pEdit)))
+        //{
+        //    MSG_BOX("Stage Setting Failed");
+        //    return -1;
+        //}
     }
     if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_I) & 0x80)
     {
@@ -99,7 +103,8 @@ void CComposeScene::Render_Scene()
 
 HRESULT CComposeScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pCamLayer = CLayer::Create(wsLayerTag);
+    CLayer* pCamLayer = Get_Layer(wsLayerTag);
+    if (pCamLayer == nullptr) return E_FAIL;
 
     CGameObject* pGameObject = nullptr;
     _vec3 vEye{ 0.f, 5.f, -20.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
@@ -107,28 +112,26 @@ HRESULT CComposeScene::Ready_Camera_Layer(const wstring& wsLayerTag)
     if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
         return E_FAIL;
 
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pCamLayer});
-
-
     return S_OK;
 }
 
 HRESULT CComposeScene::Ready_Environment_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
+    CLayer* pGameLogicLayer = Get_Layer(wsLayerTag);
+    if (pGameLogicLayer == nullptr) return E_FAIL;
 
     CGameObject* pGameObject = nullptr;
     pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Village", pGameObject)))
         return E_FAIL;
 
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pGameLogicLayer});
     return S_OK;
 }
 
 HRESULT CComposeScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
+    CLayer* pGameLogicLayer = Get_Layer(wsLayerTag);
+    if (pGameLogicLayer == nullptr) return E_FAIL;
 
     CGameObject* pGameObject = nullptr;
     pGameObject = CTestRect::Create(m_pGraphicDevice);
@@ -178,14 +181,13 @@ HRESULT CComposeScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 
 #pragma endregion
 
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pGameLogicLayer});
-
     return S_OK;
 }
 
 HRESULT CComposeScene::Ready_UI_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pLayer = CLayer::Create(wsLayerTag);
+    CLayer* pLayer = Get_Layer(wsLayerTag);
+    if (pLayer == nullptr) return E_FAIL;
 
     Engine::CGameObject* pGameObject = nullptr;
 
@@ -204,8 +206,6 @@ HRESULT CComposeScene::Ready_UI_Layer(const wstring& wsLayerTag)
 
     if (FAILED(pLayer->Add_GameObject(L"UI_Static", pGameObject)))
         return E_FAIL;
-
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pLayer});
 
     return S_OK;
 }

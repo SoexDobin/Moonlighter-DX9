@@ -15,25 +15,25 @@ private:
     CGameObject* m_pSelectedObject = nullptr;
 
 
-    HRESULT Ready_Environment_Layer(const wstring pLayerTag);
-    HRESULT Ready_GameLogic_Layer(const wstring pLayerTag);
-    HRESULT Ready_UI_Layer(const wstring pLayerTag);
-    HRESULT	Ready_Camera_Layer(const wstring wsLayerTag);
+    HRESULT Ready_Environment_Layer(const wstring pLayerTag) { return S_OK; };
+    HRESULT Ready_GameLogic_Layer(const wstring pLayerTag) { return S_OK; };
+    HRESULT Ready_UI_Layer(const wstring pLayerTag) { return S_OK; };
+    HRESULT	Ready_Camera_Layer(const wstring wsLayerTag) { return S_OK; };
 
-    HRESULT Add_TerrainVillage(const wstring pLayerTag);
-    HRESULT Add_House(const wstring pLayerTag);
-    HRESULT Add_Tree(const wstring pLayerTag);
+    HRESULT Add_TerrainVillage(const wstring pLayerTag) { return S_OK; };
+    HRESULT Add_House(const wstring pLayerTag) { return S_OK; };
+    HRESULT Add_Tree(const wstring pLayerTag) { return S_OK; };
 
     inline string WStringToUTF8(const std::wstring& wstr);
 
-    HRESULT Ready_Prototype();
-    virtual void Free();
+    HRESULT Ready_Prototype() {};
+    virtual void Free() {};
 
 public:
-    HRESULT Ready_Scene() override;
-    _int Update_Scene(const _float fTimeDelta) override;
-    void LateUpdate_Scene(const _float fTimeDelta) override;
-    void Render_Scene() override;
+    HRESULT Ready_Scene() override { return S_OK; };
+    _int Update_Scene(const _float fTimeDelta) override { return 0; };
+    void LateUpdate_Scene(const _float fTimeDelta) override { };
+    void Render_Scene() override { };
 
     static CEditScene* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 };

@@ -2,7 +2,8 @@
 
 enum PROTOTYPE_CUSTOM
 {
-    TEMP_CUSTOMPROTO = 0, //  <- 여기만 추가되는 순간 부터 지워줘   
+    TEMP_CUSTOMPROTO = 0, //  <- 여기만 추가되는 순간 부터 지워줘
+    PLAYER_MOVEMENT,
     CUSTOM_END
 };
 
@@ -22,8 +23,8 @@ struct ITEMDATA
     int           iAttack;
     int           iHp;
 
-    wstring       sItName;    // 아이템 이름
-    wstring       sIcontexKey;    // 아이템 텍스쳐 키
+    wstring       sItName;          // 아이템 이름
+    wstring       sIcontexKey;      // 아이템 텍스쳐 키
 
     UINT          iMaxCount = 10;
     UINT          iPrice;

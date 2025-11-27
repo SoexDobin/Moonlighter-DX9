@@ -49,9 +49,14 @@ public:
     _int        Update_Camera(const _float fTimeDelta);
     void        LateUpdate_Camera(const _float fTimeDelta);
 
+public :
+    // 이거 콜백을 에디터에 등록해서 카메라 자유 움직임 되는지 확인하기
+    void        Callback_OnDebugCam();
+    void        Callback_DoDebugCam();
+    void        Callback_OffDebugCam();
+
 private:
     void        Update_InGameCamera(const _float& fTimeDelta);
-    void        Update_DebugCamera(const _float& fTimeDelta);
 
 public:
 #pragma region INGAME
@@ -74,8 +79,6 @@ private:
 
 public:
     void        Start_Shake(const _float& fRange, const _float& fDuration);
-
-
     void        Shaking(const _float& fTimeDelta);
 
 #pragma endregion

@@ -45,6 +45,7 @@ _int CMonsterTestScene::Update_Scene(const _float fTimeDelta)
 void CMonsterTestScene::LateUpdate_Scene(const _float fTimeDelta)
 {
     Engine::CScene::LateUpdate_Scene(fTimeDelta);
+    CCameraManager::GetInstance()->LateUpdate_Camera(fTimeDelta);
 }
 
 void CMonsterTestScene::Render_Scene()
@@ -121,4 +122,6 @@ CMonsterTestScene* CMonsterTestScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CMonsterTestScene::Free()
 {
     CScene::Free();
+
+    CCameraManager::GetInstance()->Release();
 }

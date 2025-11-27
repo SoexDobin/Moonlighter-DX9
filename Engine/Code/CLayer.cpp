@@ -125,8 +125,8 @@ wstring CLayer::ws_selectedLayer = L"";
 
 void CLayer::Display_Editor()
 {
-    if (!m_bDisplayInEditor)
-        return;
+
+
 
     bool bIsSelectedLayer = (ws_selectedLayer == m_wsLayerTag);
 

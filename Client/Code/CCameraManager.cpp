@@ -1,7 +1,6 @@
 ﻿#include "pch.h"
 #include "CCameraManager.h"
 #include "CDInputManager.h"
-
 #include "EasingFunctions.h"
 #include "CPanel.h"
 #include "CEditor.h"
@@ -51,7 +50,7 @@ HRESULT CCameraManager::Ready_Camera(LPDIRECT3DDEVICE9 pGraphicDev)
 
     m_fSpeed = 7.f;
     m_fRotXToTarget = 20.f;
-    m_fDistZToTarget = 20.f, m_fDistYToTarget = 15.f; // 타겟과의 유지 거리
+    m_fDistZToTarget = 7.f, m_fDistYToTarget = 5.f; // 타겟과의 유지 거리
 
     // ====== FOLLOW 테스트 ======
     Change_ToFollow(nullptr);
@@ -63,6 +62,10 @@ HRESULT CCameraManager::Ready_Camera(LPDIRECT3DDEVICE9 pGraphicDev)
     // ====== ACTION_CLOSER 테스트 ======
     //Change_ToCloser(1.f);
 
+    CEditor::GetInstance()->On_DebugCam = [&]() {Callback_OnDebugCam(); };
+    CEditor::GetInstance()->Act_DebugCam = [&]() {Callback_DoDebugCam(); };
+    CEditor::GetInstance()->Off_DebugCam = [&]() {Callback_OffDebugCam(); };
+
     return S_OK;
 }
 
@@ -73,12 +76,6 @@ _int CCameraManager::Update_Camera(const _float fTimeDelta)
     {
         Update_InGameCamera(fTimeDelta);
     }
-    // 디버깅
-    else if (CAMERA_MODE::DBG_PERSPECTIVE == m_eMode || CAMERA_MODE::DBG_ORTHOGRAPHIC == m_eMode)
-    {
-        Update_DebugCamera(fTimeDelta);
-    }
-
     // Transform 컴포넌트 갱신
     m_pCurCam->Update_GameObject(fTimeDelta);
 
@@ -109,13 +106,35 @@ _int CCameraManager::Update_Camera(const _float fTimeDelta)
 
     }
 
-    return _int();
+    return 0;
 }
 
 void CCameraManager::LateUpdate_Camera(const _float fTimeDelta)
 {
     m_pCurCam->LateUpdate_GameObject(fTimeDelta);
 
+}
+
+void CCameraManager::Callback_OnDebugCam()
+{
+    m_eMode = CAMERA_MODE::DBG_PERSPECTIVE;
+    m_pCurCam = m_pDebugCam;
+    m_pCurCam->Set_Pos(m_pInGameCam->Get_Pos());
+}
+
+void CCameraManager::Callback_DoDebugCam()
+{
+    const _float fTimeDelta = 0.016;
+    Handle_Input(fTimeDelta);
+    m_pDebugCam->Update_GameObject(fTimeDelta);
+    m_pDebugCam->LateUpdate_GameObject(fTimeDelta);
+}
+
+void CCameraManager::Callback_OffDebugCam()
+{
+    m_eMode = CAMERA_MODE::INGAME;
+
+    m_pCurCam = m_pInGameCam;
 }
 
 void CCameraManager::Update_InGameCamera(const _float& fTimeDelta)
@@ -150,11 +169,6 @@ void CCameraManager::Update_InGameCamera(const _float& fTimeDelta)
 
 }
 
-void CCameraManager::Update_DebugCamera(const _float& fTimeDelta)
-{
-    Handle_Input(fTimeDelta);
-}
-
 /// <summary>
 /// 플레이어를 추적하는 카메라
 /// </summary>
@@ -172,7 +186,7 @@ void CCameraManager::Change_ToFollow(CTransform* pTarget)
     _vec3 vCamPos = m_pFollowTarget->Get_Pos();
     vCamPos.z -= m_fDistZToTarget;
     vCamPos.y += m_fDistYToTarget;
-    m_pCurCam->Set_Pos(vCamPos);
+    m_pInGameCam->Set_Pos(vCamPos);
 
     m_pInGameCam->Rotate(ROT_X, D3DXToRadian(m_fRotXToTarget));
 
@@ -258,7 +272,7 @@ void CCameraManager::Act_Follow(const _float& fTimeDelta)
     _vec3 vDirToTarget = vTargetPos - vCamPos;
 
     // m_fSpeed 값으로 따라가는 속도 조절 
-    m_pCurCam->Set_Pos(vCamPos + vDirToTarget * m_fSpeed * fTimeDelta);
+    m_pInGameCam->Set_Pos(vCamPos + vDirToTarget * m_fSpeed * fTimeDelta);
 }
 
 void CCameraManager::Act_Display(const _float& fTimeDelta)
@@ -317,7 +331,7 @@ void CCameraManager::Act_Display(const _float& fTimeDelta)
 
         D3DXVECTOR3 vNewPos;
         D3DXVec3Lerp(&vNewPos, &m_vStartPos, &m_vOriginPos, t);
-        m_pCurCam->Set_Pos(vNewPos);
+        m_pInGameCam->Set_Pos(vNewPos);
 
         if (t >= 1.f)
         {

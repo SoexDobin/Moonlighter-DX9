@@ -94,7 +94,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                 _float fDeltaTime = Engine::CTimeManager::GetInstance()->Get_TimeDelta(L"DELTA_FPS60");
 
                 if (CFrameManager::GetInstance()->Is_Pause(fDeltaTime))
+                {
+                    // 로직 업데이트를 멈춘다 
                     fDeltaTime = 0.f;
+                    // 디버깅 카메라 업데이트
+    
+                }
 
                 pMainApp->Update_MainApp(fDeltaTime * fTimeScale);
                 pMainApp->LateUpdate_MainApp(fDeltaTime * fTimeScale);

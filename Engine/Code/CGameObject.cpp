@@ -97,49 +97,10 @@ void CGameObject::Free()
 	Safe_Release(m_pGraphicDevice);
 }
 
-//void	CGameObject::Display_Editor()
-//{
-//	if (!m_bDisplayInEditor)
-//		return;
-//
-//	ImGui::Begin(m_szBuffer);
-//
-//#pragma region Component
-//	ImGui::Text("------- Component -------");
-//
-//	_int dwIndex = 0;
-//	for (int i = ID_DYNAMIC; i < ID_END; ++i)
-//	{
-//		for (auto& component : m_umComponent[i])
-//		{
-//            if (ImGui::CollapsingHeader(component.second->m_szDisplayName, component.second->m_bDisplayInEditor))
-//            {
-//                component.second->Display_Editor(m_szBuffer);
-//            }
-//		}
-//	}
-//#pragma endregion
-//
-//#pragma region Data
-//	ImGui::Text("------- Data -------");
-//
-//	for (auto& field : m_EditorFieldList)
-//	{
-//		ImGui::PushItemWidth(120);
-//
-//		CEditor::GetInstance()->Display_Editor(field);
-//
-//		ImGui::PopItemWidth();
-//	}
-//#pragma endregion
-//
-//    ImGui::End();
-//}
 void	CGameObject::Display_Editor()
 {
 	if (!m_bDisplayInEditor)
 		return;
-
 
     bool bOpen = ImGui::Begin("Main Editor");
     if (bOpen)

@@ -114,14 +114,15 @@ HRESULT CComposeScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 
 HRESULT CComposeScene::Ready_Environment_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
+    CUtility::LoadBossMap(m_pGraphicDevice, m_umLayer);
+    //CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
 
-    CGameObject* pGameObject = nullptr;
-    pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Village", pGameObject)))
-        return E_FAIL;
+    //CGameObject* pGameObject = nullptr;
+    //pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
+    //if (FAILED(pGameLogicLayer->Add_GameObject(L"Village", pGameObject)))
+    //    return E_FAIL;
 
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pGameLogicLayer});
+    //m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pGameLogicLayer});
     return S_OK;
 }
 

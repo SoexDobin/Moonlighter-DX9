@@ -208,7 +208,6 @@ HRESULT CUIStatic::UI_Initialize()
     }
 
     return S_OK;
-   
 }
 
 CUIStatic* CUIStatic::Create(LPDIRECT3DDEVICE9 pGraphicDev)

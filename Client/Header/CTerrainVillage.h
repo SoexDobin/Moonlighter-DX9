@@ -27,13 +27,6 @@ public:
     virtual	void Render_GameObject()override;
 
     CTerrainTex* Get_TerrainBuffer() { return m_pBufferCom; }
-    //void Set_BufferCom(Engine::CTerrainTex* pTex)
-    //{
-    //    if (m_pBufferCom)
-    //        Safe_Release(m_pBufferCom);
-
-    //    m_pBufferCom = pTex;
-    //}
 
     static CTerrainVillage* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 };

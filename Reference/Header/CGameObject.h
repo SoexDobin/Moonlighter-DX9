@@ -23,6 +23,12 @@ public:
     static void        DontDestroySceneLoad(CGameObject* pObj) { pObj->m_bIsDestroy = FALSE; }
 
 public:
+    //void               Init_Layer(const wstring& wLayerTag);
+    //const LayerMask&   Get_Object_LayerMask();
+protected:
+    //LayerMask&         Get_LayerMask();
+    
+public:
 	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentKey);
     CComponent*             Get_Component(COMPONENTID eID, PROTOTYPE_COMPONENT ePrototype);
     virtual GAMEOBJECT_TYPE Get_Type() { return GAME_OBJECT; }
@@ -43,6 +49,8 @@ private:
 protected:
 	LPDIRECT3DDEVICE9							m_pGraphicDevice;
 	unordered_map<wstring, CComponent*>			m_umComponent[ID_END];
+    //LayerMask                                   m_tLayerMask;
+
 private:
     _bool										m_bIsDestroy;
 

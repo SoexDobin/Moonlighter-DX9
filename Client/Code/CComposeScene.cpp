@@ -55,7 +55,7 @@ HRESULT CComposeScene::Ready_Scene()
 _int CComposeScene::Update_Scene(const _float fTimeDelta)
 {
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
-
+    
 #pragma region Examples for ImGui
 
     CExampleManager::GetInstance()->Update_Manager();

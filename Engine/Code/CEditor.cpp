@@ -48,7 +48,7 @@ HRESULT CEditor::Ready_Editor(HWND hWnd, LPDIRECT3DDEVICE9 pGraphicDev)
 
     ImGuiStyle& style = ImGui::GetStyle();
     style.ScaleAllSizes(main_scale);
-    style.Alpha = 0.95;
+    style.Alpha = 0.95f;
 
     ImGui_ImplWin32_Init(hWnd);
     ImGui_ImplDX9_Init(pGraphicDev);

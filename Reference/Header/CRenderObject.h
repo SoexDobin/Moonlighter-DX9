@@ -40,6 +40,8 @@ public:
 
 protected:
 	virtual void			Free() override;
+
+
 };
 
 END

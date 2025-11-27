@@ -27,7 +27,7 @@ public:
 private:
     HRESULT			UI_Initialize();
     vector<UIElement>		m_VecUI;
-    
+
 
 public:
     static CUIStatic* Create(LPDIRECT3DDEVICE9 pGraphicDev);

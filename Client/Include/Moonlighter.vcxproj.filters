@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="헤더 파일">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
@@ -124,18 +120,11 @@
     <Filter Include="97. Loading">
       <UniqueIdentifier>{75a6cdc1-e405-47e9-bd43-4c9814b46055}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObject\11.Item">
-      <UniqueIdentifier>{25bb53bf-90e9-489f-a3f7-da3da26ba5fe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. GameObject\11. Map">
       <UniqueIdentifier>{648cfc60-3c9e-4a56-a0a4-fa478ba6e55a}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. GameObject\11. Map\House">
       <UniqueIdentifier>{81673ab7-5e6e-4619-add7-ea83b34954e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
     <Filter Include="03. GameObject\11. Map\Tree">
       <UniqueIdentifier>{420576ff-11c6-4e3e-8055-8f0d484e5c98}</UniqueIdentifier>
@@ -149,11 +138,23 @@
     <Filter Include="03. GameObject\02. Monster\03. Sheeder\01. SheederState">
       <UniqueIdentifier>{e84c3397-6465-4053-8b61-a6375e6aaff6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObject\09. Item">
+      <UniqueIdentifier>{25bb53bf-90e9-489f-a3f7-da3da26ba5fe}</UniqueIdentifier>
+    </Filter>
     <Filter Include="03. GameObject\11. Map\TerrainVillage">
       <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Scene\09. ComposeScene">
       <UniqueIdentifier>{96f800df-13e1-4614-83c5-a94b5ddd8be3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\10. UI\01. Inven">
+      <UniqueIdentifier>{ce96c9b4-6b5f-4726-babf-58ad0a25eba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{e7414076-902a-4cf9-ba2a-1b8cafc8fa65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Temp">
+      <UniqueIdentifier>{59c7d0d8-e242-4537-9f3a-b44564776569}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -183,9 +184,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\CDynamicCamera.h">
       <Filter>03. GameObject\00. DynamicCamera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CTestRect.h">
-      <Filter>03. GameObject</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CExampleObject.h">
       <Filter>98. ImGui\EX_Object</Filter>
@@ -232,9 +230,6 @@
     <ClInclude Include="..\Header\CPlayer.h">
       <Filter>03. GameObject\01. Player</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CUIInven.h">
-      <Filter>03. GameObject\10. UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CUITestScene.h">
       <Filter>02. Scene\08. UITestScene</Filter>
     </ClInclude>
@@ -263,10 +258,7 @@
       <Filter>97. Loading</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CItemManager.h">
-      <Filter>03. GameObject\11.Item</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CUIInvenSlot.h">
-      <Filter>03. GameObject\10. UI</Filter>
+      <Filter>03. GameObject\09. Item</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CHouse.h">
       <Filter>03. GameObject\11. Map\House</Filter>
@@ -358,6 +350,21 @@
     <ClInclude Include="..\Header\CComposeScene.h">
       <Filter>02. Scene\09. ComposeScene</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CHpBar.h">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CUIInven.h">
+      <Filter>03. GameObject\10. UI\01. Inven</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CInvenStatic.h">
+      <Filter>03. GameObject\10. UI\01. Inven</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTestRect.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTmpCustomComponent.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -377,9 +384,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDynamicCamera.cpp">
       <Filter>03. GameObject\00. DynamicCamera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CTestRect.cpp">
-      <Filter>03. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CExampleObject.cpp">
       <Filter>98. ImGui\EX_Object</Filter>
@@ -417,9 +421,6 @@
     <ClCompile Include="..\Code\CPlayer.cpp">
       <Filter>03. GameObject\01. Player</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CUIInven.cpp">
-      <Filter>03. GameObject\10. UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CUITestScene.cpp">
       <Filter>02. Scene\08. UITestScene</Filter>
     </ClCompile>
@@ -442,10 +443,7 @@
       <Filter>97. Loading</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CItemManager.cpp">
-      <Filter>03. GameObject\11.Item</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CUIInvenSlot.cpp">
-      <Filter>03. GameObject\10. UI</Filter>
+      <Filter>03. GameObject\09. Item</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CHouse.cpp">
       <Filter>03. GameObject\11. Map\House</Filter>
@@ -536,6 +534,21 @@
     </ClCompile>
     <ClCompile Include="..\Code\CComposeScene.cpp">
       <Filter>02. Scene\09. ComposeScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHpBar.cpp">
+      <Filter>03. GameObject\10. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CUIInven.cpp">
+      <Filter>03. GameObject\10. UI\01. Inven</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CInvenStatic.cpp">
+      <Filter>03. GameObject\10. UI\01. Inven</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTestRect.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTmpCustomComponent.cpp">
+      <Filter>Temp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

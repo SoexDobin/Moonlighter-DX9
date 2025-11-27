@@ -9,6 +9,7 @@
 #include "CEditor.h"
 #include "CLightManager.h"
 #include "CCollisionManager.h"
+#include "CFontManager.h"
 
 #include "CMainScene.h"
 #include "CPlayerTestScene.h"
@@ -97,6 +98,12 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDevice)
 	//(*ppGraphicDevice)->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
 	//(*ppGraphicDevice)->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 
+    //폰트 테스트
+    if (FAILED(CFontManager::GetInstance()->Ready_Font((*ppGraphicDevice), L"Font_Default", L"견명조", 20, 20, FW_HEAVY)))
+        return E_FAIL;
+    //if (FAILED(CFontManager::GetInstance()->Ready_Font((*ppGraphicDevice), L"Font_Moon", L"문라이터", 20, 20, FW_HEAVY)))
+    //    return E_FAIL;
+
 	if (FAILED(CDInputManager::GetInstance()->Ready_InputDev(g_hInst, g_hWnd)))
 		return E_FAIL;
 	if (FAILED(CDataManager::GetInstance()->Ready_Data((*ppGraphicDevice))))
@@ -137,7 +144,8 @@ void CMainApp::Free()
 
 	CDataManager::DestroyInstance();
     CEngineMediator::DestroyInstance();
-    
+
+    Engine::CFontManager::DestroyInstance();
 	Engine::CEditor::DestroyInstance();
 	Engine::CLightManager::DestroyInstance();
 	Engine::CDInputManager::DestroyInstance();

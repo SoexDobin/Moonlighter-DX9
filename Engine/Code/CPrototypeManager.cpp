@@ -11,36 +11,62 @@ CPrototypeManager::~CPrototypeManager()
     Free();
 }
 
-HRESULT CPrototypeManager::Ready_Prototype(PROTOTYPE_COMPONENT pComponentTag, CComponent* pComponent)
+HRESULT CPrototypeManager::Ready_Prototype(PROTOTYPE_COMPONENT eComponentTag, CComponent* pComponent)
 {
-    if (CComponent* pInstance = Find_Prototype(pComponentTag))
+    if (CComponent* pInstance = Find_Prototype(eComponentTag))
+    {
+        MSG_BOX("This Component is Already Exist At CPrototypeManager.cpp");
+        return E_FAIL;
+    }
+        
+    if (eComponentTag != pComponent->Get_ComponentType())
         return E_FAIL;
 
-    if (pComponentTag != pComponent->Get_ComponentType())
-        return E_FAIL;
-
-    m_umPrototype.emplace(pair<PROTOTYPE_COMPONENT, CComponent*>{ pComponentTag ,pComponent });
+    m_umPrototype.emplace(pair<PROTOTYPE_COMPONENT, CComponent*>{ eComponentTag ,pComponent });
 
     return S_OK;
 }
 
-CComponent* CPrototypeManager::Clone_Prototype(PROTOTYPE_COMPONENT pComponentTag)
+HRESULT CPrototypeManager::Ready_Prototype(const wstring& wsCustomComponentTag, CComponent* pComponent)
 {
-    CComponent* pComponent = Find_Prototype(pComponentTag);
+    if (CComponent* pInstance = Find_CustomPrototype(wsCustomComponentTag))
+    {
+        MSG_BOX("This Component is Already Exist At CPrototypeManager.cpp");
+        return E_FAIL;
+    }
+        
+    m_umCustomPrototype.emplace(pair<wstring, CComponent*>{ wsCustomComponentTag, pComponent });
+
+    return S_OK;
+}
+
+CComponent* CPrototypeManager::Clone_Prototype(PROTOTYPE_COMPONENT eComponentTag)
+{
+    CComponent* pComponent = Find_Prototype(eComponentTag);
 
     if (nullptr == pComponent)
         return nullptr;
 
-    if (pComponentTag != pComponent->Get_ComponentType())
+    if (eComponentTag != pComponent->Get_ComponentType())
         return nullptr;
 
     return pComponent->Clone();
 }
 
-CComponent* CPrototypeManager::Clone_Prototype(PROTOTYPE_COMPONENT pComponentTag, CGameObject* pOwner)
+CComponent* CPrototypeManager::Clone_Prototype(const wstring& wsCustomComponentTag)
+{
+    CComponent* pComponent = Find_CustomPrototype(wsCustomComponentTag);
+
+    if (nullptr == pComponent)
+        return nullptr;
+
+    return pComponent->Clone();
+}
+
+CComponent* CPrototypeManager::Clone_Prototype(PROTOTYPE_COMPONENT eComponentTag, CGameObject* pOwner)
 {
     if (pOwner == nullptr) return nullptr;
-    if (CComponent* pCom = Clone_Prototype(pComponentTag))
+    if (CComponent* pCom = Clone_Prototype(eComponentTag))
     {
         pCom->Set_Owner(pOwner);
         return pCom;
@@ -49,11 +75,11 @@ CComponent* CPrototypeManager::Clone_Prototype(PROTOTYPE_COMPONENT pComponentTag
     return nullptr;
 }
 
-CComponent* CPrototypeManager::Find_Prototype(PROTOTYPE_COMPONENT pComponentTag)
+CComponent* CPrototypeManager::Find_Prototype(PROTOTYPE_COMPONENT eComponentTag)
 {
     auto iter = find_if(m_umPrototype.begin(), m_umPrototype.end()
-        , [&pComponentTag](pair<PROTOTYPE_COMPONENT const, CComponent*>& pair) -> _bool {
-            if (pair.first == pComponentTag)
+        , [&eComponentTag](pair<PROTOTYPE_COMPONENT const, CComponent*>& pair) -> _bool {
+            if (pair.first == eComponentTag)
                 return true;
 
             return false;
@@ -64,8 +90,25 @@ CComponent* CPrototypeManager::Find_Prototype(PROTOTYPE_COMPONENT pComponentTag)
     return iter->second;
 }
 
+CComponent* CPrototypeManager::Find_CustomPrototype(const wstring& wsComponentTag)
+{
+    auto iter = find_if(m_umCustomPrototype.begin(), m_umCustomPrototype.end()
+        , [&wsComponentTag](pair<wstring const, CComponent*>& pair) -> _bool {
+            if (pair.first == wsComponentTag)
+                return true;
+
+            return false;
+        });
+
+    if (iter == m_umCustomPrototype.end()) return nullptr;
+
+    return iter->second;
+}
+
 void CPrototypeManager::Free()
 {
     for_each(m_umPrototype.begin(), m_umPrototype.end(), CDeleteMap());
+    for_each(m_umCustomPrototype.begin(), m_umCustomPrototype.end(), CDeleteMap());
     m_umPrototype.clear();
+    m_umCustomPrototype.clear();
 }

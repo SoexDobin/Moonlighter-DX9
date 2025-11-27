@@ -174,8 +174,10 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CEngineMediator.h" />
     <ClInclude Include="..\Header\CExampleManager.h" />
     <ClInclude Include="..\Header\CExampleObject.h" />
+    <ClInclude Include="..\Header\CHpBar.h" />
+    <ClInclude Include="..\Header\CInvenStatic.h" />
     <ClInclude Include="..\Header\CItemManager.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\Header\CHouse.h" />
     <ClInclude Include="..\Header\CLoading.h" />
@@ -199,16 +201,13 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CStateMachine.h" />
     <ClInclude Include="..\Header\CTerrainVillage.h" />
     <ClInclude Include="..\Header\CTestRect.h" />
+    <ClInclude Include="..\Header\CTmpCustomComponent.h" />
     <ClInclude Include="..\Header\CTree.h" />
     <ClInclude Include="..\Header\CTreeAwakeState.h" />
     <ClInclude Include="..\Header\CTreeIdleState.h" />
     <ClInclude Include="..\Header\CTreeShakeState.h" />
     <ClInclude Include="..\Header\CTreeStateMachine.h" />
     <ClInclude Include="..\Header\CUIInven.h" />
-    <ClInclude Include="..\Header\CUIInvenSlot.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="..\Header\CUIStatic.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -262,8 +261,10 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CEngineMediator.cpp" />
     <ClCompile Include="..\Code\CExampleManager.cpp" />
     <ClCompile Include="..\Code\CExampleObject.cpp" />
+    <ClCompile Include="..\Code\CHpBar.cpp" />
+    <ClCompile Include="..\Code\CInvenStatic.cpp" />
     <ClCompile Include="..\Code\CItemManager.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\Code\CHouse.cpp" />
     <ClCompile Include="..\Code\CLoading.cpp" />
@@ -287,16 +288,13 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CStateMachine.cpp" />
     <ClCompile Include="..\Code\CTerrainVillage.cpp" />
     <ClCompile Include="..\Code\CTestRect.cpp" />
+    <ClCompile Include="..\Code\CTmpCustomComponent.cpp" />
     <ClCompile Include="..\Code\CTree.cpp" />
     <ClCompile Include="..\Code\CTreeAwakeState.cpp" />
     <ClCompile Include="..\Code\CTreeIdleState.cpp" />
     <ClCompile Include="..\Code\CTreeShakeState.cpp" />
     <ClCompile Include="..\Code\CTreeStateMachine.cpp" />
     <ClCompile Include="..\Code\CUIInven.cpp" />
-    <ClCompile Include="..\Code\CUIInvenSlot.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\Code\CUIStatic.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>

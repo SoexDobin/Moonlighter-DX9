@@ -329,7 +329,7 @@ void CEditor::Display_MainPanel()
         ImGui::BeginChild("LeftColumn", ImVec2(0, 0), true);
         {
             ImGui::PushItemWidth(80);
-            ImGui::Text("FPS : %d", CFrameManager::GetInstance()->Get_CurFPS());
+            ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
             ImGui::Text("DrawCall : %d", CRenderer::GetInstance()->Get_DrawCalls());
 
             if (ImGui::Button(m_szPaused))

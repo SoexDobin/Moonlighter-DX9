@@ -188,6 +188,7 @@ xcopy	/y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CTimer.h" />
     <ClInclude Include="..\Header\CTransform.h" />
     <ClInclude Include="..\Header\CVIBuffer.h" />
+    <ClInclude Include="..\Header\EasingFunctions.h" />
     <ClInclude Include="..\Header\Engine_Define.h" />
     <ClInclude Include="..\Header\Engine_Enum.h" />
     <ClInclude Include="..\Header\Engine_Function.h" />

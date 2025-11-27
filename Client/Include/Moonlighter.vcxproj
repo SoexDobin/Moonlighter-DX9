@@ -167,6 +167,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CBossStateMachine.h" />
     <ClInclude Include="..\Header\CBossThrowState.h" />
     <ClInclude Include="..\Header\CBossWalkState.h" />
+    <ClInclude Include="..\Header\CCameraManager.h" />
     <ClInclude Include="..\Header\CComposeScene.h" />
     <ClInclude Include="..\Header\CDataManager.h" />
     <ClInclude Include="..\Header\CDynamicCamera.h" />
@@ -252,6 +253,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CBossStateMachine.cpp" />
     <ClCompile Include="..\Code\CBossThrowState.cpp" />
     <ClCompile Include="..\Code\CBossWalkState.cpp" />
+    <ClCompile Include="..\Code\CCameraManager.cpp" />
     <ClCompile Include="..\Code\CComposeScene.cpp" />
     <ClCompile Include="..\Code\CDataManager.cpp" />
     <ClCompile Include="..\Code\CDynamicCamera.cpp" />

@@ -158,6 +158,9 @@
     <Filter Include="Temp">
       <UniqueIdentifier>{59c7d0d8-e242-4537-9f3a-b44564776569}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Manager\01. CameraManager">
+      <UniqueIdentifier>{52d07a38-2acf-4c66-9bea-11f797410fc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -361,6 +364,9 @@
     <ClInclude Include="..\Header\CSlimeMob.h">
       <Filter>03. GameObject\02. Monster\02. Slime</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCameraManager.h">
+      <Filter>01. Manager\01. CameraManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -539,6 +545,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CSlimeMob.cpp">
       <Filter>03. GameObject\02. Monster\02. Slime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCameraManager.cpp">
+      <Filter>01. Manager\01. CameraManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

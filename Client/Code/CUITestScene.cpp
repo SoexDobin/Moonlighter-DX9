@@ -63,15 +63,15 @@ void CUITestScene::Render_Scene()
 
 HRESULT CUITestScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pCamLayer = CLayer::Create(wsLayerTag);
-    
-    CGameObject* pGameObject = nullptr;
-    _vec3 vEye{ 0.f, 10.f, -10.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
-    pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
-    if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
-        return E_FAIL;
-    
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pCamLayer});
+    //CLayer* pCamLayer = CLayer::Create(wsLayerTag);
+    //
+    //CGameObject* pGameObject = nullptr;
+    //_vec3 vEye{ 0.f, 10.f, -10.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
+    //pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
+    //if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
+    //    return E_FAIL;
+    //
+    //m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pCamLayer});
 
     return S_OK;
 }

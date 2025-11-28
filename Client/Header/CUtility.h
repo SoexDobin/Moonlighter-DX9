@@ -393,7 +393,7 @@ namespace CUtility
     }
 
     template<typename T>
-    static _vec3 Picking_Terrain(LPDIRECT3DDEVICE9 m_pGraphicDevice, HWND hWnd, T* pObj, _int iVtX, _int iVtZ, _int iItv = 1)
+    static _vec3 Picking_Terrain(LPDIRECT3DDEVICE9 m_pGraphicDevice, HWND hWnd, T* pObj, _uint iVtX, _uint iVtZ, _uint iItv = 1)
     {
         if (pObj == nullptr)
         {

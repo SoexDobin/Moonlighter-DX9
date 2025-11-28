@@ -304,7 +304,7 @@
       <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\02. Boss</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CNonRenderObject.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>01. Logic\03. GameObject\02. NonRenderObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -441,7 +441,7 @@
       <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\02. Boss</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CNonRenderObject.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>01. Logic\03. GameObject\02. NonRenderObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

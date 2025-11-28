@@ -57,9 +57,6 @@
     <Filter Include="02. Scene\08. UITestScene">
       <UniqueIdentifier>{94731203-deb5-4cdd-bc22-e3398f03bfb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. GameObject\TerrainVillage">
-      <UniqueIdentifier>{236a37f5-3f27-474d-bca3-c41c86a47850}</UniqueIdentifier>
-    </Filter>
     <Filter Include="98. ImGui\Mediator">
       <UniqueIdentifier>{64f31833-3464-4550-a9ac-ddc3d9792578}</UniqueIdentifier>
     </Filter>

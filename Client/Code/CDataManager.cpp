@@ -271,36 +271,36 @@ HRESULT CDataManager::Ready_UI_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
         return E_FAIL;
 
     //인벤토리 static
-    if (FAILED(Res.Add_Sprite(pGraphicDev, L"ClickSlot",
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Calendary_A",
         L"../Bin/Resource/Sprite/UI/Inven/IconBar/IconBar_Calendary_A.png", 1)))
         return E_FAIL;
 
-    if (FAILED(Res.Add_Sprite(pGraphicDev, L"ClickSlot",
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Calendary_D",
         L"../Bin/Resource/Sprite/UI/Inven/IconBar/IconBar_Calendary_D.png", 1)))
         return E_FAIL;
 
-    if (FAILED(Res.Add_Sprite(pGraphicDev, L"ClickSlot",
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Inventory_A",
         L"../Bin/Resource/Sprite/UI/Inven/IconBar/IconBar_Inventory_A.png", 1)))
         return E_FAIL;
 
-    if (FAILED(Res.Add_Sprite(pGraphicDev, L"ClickSlot",
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Inventory_D",
         L"../Bin/Resource/Sprite/UI/Inven/IconBar/IconBar_Inventory_D.png", 1)))
         return E_FAIL;
 
-    if (FAILED(Res.Add_Sprite(pGraphicDev, L"ClickSlot",
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Notebook_A",
         L"../Bin/Resource/Sprite/UI/Inven/IconBar/IconBar_Notebook_A.png", 1)))
         return E_FAIL;
 
-    if (FAILED(Res.Add_Sprite(pGraphicDev, L"ClickSlot",
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Notebook_D",
         L"../Bin/Resource/Sprite/UI/Inven/IconBar/IconBar_Notebook_D.png", 1)))
         return E_FAIL;
 
 
-    if (FAILED(Res.Add_Sprite(pGraphicDev, L"ClickSlot",
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Wishlist_A",
         L"../Bin/Resource/Sprite/UI/Inven/IconBar/IconBar_Wishlist_A.png", 1)))
         return E_FAIL;
 
-    if (FAILED(Res.Add_Sprite(pGraphicDev, L"ClickSlot",
+    if (FAILED(Res.Add_Sprite(pGraphicDev, L"Wishlist_D",
         L"../Bin/Resource/Sprite/UI/Inven/IconBar/IconBar_Wishlist_D.png", 1)))
         return E_FAIL;
 

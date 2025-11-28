@@ -12,17 +12,15 @@ protected:
 	virtual ~CScene() override;
 
 public:	
-	const _int		Get_SceneIndex() const				{ return m_iSceneIdx; };
-	void			Set_SceneIndex(const _int idx)		{ m_iSceneIdx = idx; };
-
-    const unordered_map<wstring, CLayer*>&  Get_Layers() { return m_umLayer; }
-
+    const unordered_map<_uint16, CLayer*>&  Get_Layers() { return m_umLayer; }
+    CLayer* Get_Layer(_uint16 eID);
+    CLayer* Get_Layer(const wstring& wsLayerTag);
+    
 public:
 	CComponent*		Get_Component(COMPONENTID eID,
 								const wstring& wsLayerTag,
 								const wstring& wsObjTag,
 								const wstring& wsComponentTag);
-
 public:
 	virtual		HRESULT		Ready_Scene();
 	virtual		_int		Update_Scene(const _float fTimeDelta);
@@ -30,9 +28,9 @@ public:
 	virtual		void		Render_Scene();
 
 protected:
-	_int										m_iSceneIdx;
 	LPDIRECT3DDEVICE9							m_pGraphicDevice;
-	unordered_map<wstring, CLayer*>		        m_umLayer;
+private:
+	unordered_map<_uint16, CLayer*>       		m_umLayer;
 
 protected:
 	virtual void Free();

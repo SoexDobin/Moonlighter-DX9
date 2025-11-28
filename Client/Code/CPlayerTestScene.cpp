@@ -6,8 +6,10 @@
 
 #include "CManagement.h"
 #include "CEditScene.h"
+#include "CLayerHelper.h"
 
 #include "CCameraManager.h"
+#include "CDataManager.h"
 
 CPlayerTestScene::CPlayerTestScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -20,10 +22,10 @@ CPlayerTestScene::~CPlayerTestScene()
 
 HRESULT CPlayerTestScene::Ready_Scene()
 {
-    if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
+    if (FAILED(Ready_GameLogic_Layer(CDataManager::GetInstance()->Get_LayerTag(GAMELOGIC_LAYER))))
         return E_FAIL;
 
-    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
+    if (FAILED(Ready_Camera_Layer(CDataManager::GetInstance()->Get_LayerTag(CAMERA_LAYER))))
         return E_FAIL;
 
     return S_OK;
@@ -60,7 +62,7 @@ HRESULT CPlayerTestScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 
 HRESULT CPlayerTestScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
+    CLayer* pGameLogicLayer = Get_Layer(wsLayerTag);
 
     CGameObject* pPlayer     = nullptr;
     CGameObject* pGameObject = nullptr;
@@ -77,8 +79,6 @@ HRESULT CPlayerTestScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Village", pGameObject)))
         return E_FAIL;
-
-    m_umLayer.emplace(pair<const wstring, CLayer*>{ wsLayerTag, pGameLogicLayer});
 
     return S_OK;
 }

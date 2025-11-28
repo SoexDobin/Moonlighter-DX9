@@ -5,7 +5,7 @@
 
 class CCameraManager : public CBase
 {
-    DECLARE_SINGLETON(CCameraManager);
+    DECLARE_SINGLETON(CCameraManager)
 
 #pragma region CAMERA ENUM
 public:

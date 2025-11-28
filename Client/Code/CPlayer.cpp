@@ -40,8 +40,8 @@ HRESULT CPlayer::Ready_GameObject()
     m_ePrevState    = STATE_END;
     m_ePrevDir      = DIR_END;
     m_fRollTime     = 0.f;
-    m_iPrevFrame    = 0.f;
-    m_iCurFrame     = 0.f;
+    m_iPrevFrame    = 0;
+    m_iCurFrame     = 0;
 
     return S_OK;
 }

@@ -25,10 +25,10 @@ CMonsterTestScene::~CMonsterTestScene()
 
 HRESULT CMonsterTestScene::Ready_Scene()
 {
-    if (FAILED(Ready_Camera_Layer(CDataManager::GetInstance()->Get_LayerTag(1))))
+    if (FAILED(Ready_GameLogic_Layer(CDataManager::GetInstance()->Get_LayerTag(GAMELOGIC_LAYER))))
         return E_FAIL;
 
-    if (FAILED(Ready_GameLogic_Layer(CDataManager::GetInstance()->Get_LayerTag(5))))
+    if (FAILED(Ready_Camera_Layer(CDataManager::GetInstance()->Get_LayerTag(CAMERA_LAYER))))
         return E_FAIL;
 
     return S_OK;

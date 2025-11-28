@@ -3,6 +3,7 @@
 #include "CDInputManager.h"
 #include "CManagement.h"
 #include "CFontManager.h"
+#include "CDataManager.h"
 
 #include "CUIInven.h"
 #include "CInvenStatic.h"
@@ -10,6 +11,7 @@
 #include "CUIStatic.h"
 #include "CLayerHelper.h"
 #include "CHpBar.h"
+
 
 
 CUITestScene::CUITestScene(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -25,13 +27,13 @@ HRESULT CUITestScene::Ready_Scene()
 {
     CScene::Ready_Scene();
 
-    if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
+    if (FAILED(Ready_Environment_Layer(CDataManager::GetInstance()->Get_LayerTag(ENVIRONMENT_LAYER))))
         return E_FAIL;
 
-    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
+    if (FAILED(Ready_Camera_Layer(CDataManager::GetInstance()->Get_LayerTag(CAMERA_LAYER))))
         return E_FAIL;
 
-    if (FAILED(Ready_UIInven_Layer(L"UI_Layer")))
+    if (FAILED(Ready_UIInven_Layer(CDataManager::GetInstance()->Get_LayerTag(UI_LAYER))))
         return E_FAIL;
 
     return S_OK;

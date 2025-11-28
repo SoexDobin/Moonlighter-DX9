@@ -64,6 +64,7 @@ namespace Engine
         GAME_OBJECT,
         CAMERA_OBJECT,
         RENDER_OBJECT,
+        NON_OBJECT,
         OBJECT_END
     };
 

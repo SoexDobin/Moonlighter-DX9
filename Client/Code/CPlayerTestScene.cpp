@@ -9,6 +9,7 @@
 #include "CLayerHelper.h"
 
 #include "CCameraManager.h"
+#include "CDataManager.h"
 
 CPlayerTestScene::CPlayerTestScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -21,10 +22,10 @@ CPlayerTestScene::~CPlayerTestScene()
 
 HRESULT CPlayerTestScene::Ready_Scene()
 {
-    if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
+    if (FAILED(Ready_GameLogic_Layer(CDataManager::GetInstance()->Get_LayerTag(GAMELOGIC_LAYER))))
         return E_FAIL;
 
-    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
+    if (FAILED(Ready_Camera_Layer(CDataManager::GetInstance()->Get_LayerTag(CAMERA_LAYER))))
         return E_FAIL;
 
     return S_OK;

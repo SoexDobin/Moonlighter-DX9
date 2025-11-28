@@ -41,13 +41,13 @@ HRESULT CComposeScene::Ready_Scene()
         return E_FAIL;
 
 
-    if (FAILED(Ready_Environment_Layer(CDataManager::GetInstance()->Get_LayerTag(3))))
+    if (FAILED(Ready_Environment_Layer(CDataManager::GetInstance()->Get_LayerTag(ENVIRONMENT_LAYER))))
         return E_FAIL;
-    if (FAILED(Ready_GameLogic_Layer(CDataManager::GetInstance()->Get_LayerTag(5))))
+    if (FAILED(Ready_GameLogic_Layer(CDataManager::GetInstance()->Get_LayerTag(GAMELOGIC_LAYER))))
         return E_FAIL;
-    if (FAILED(Ready_Camera_Layer(CDataManager::GetInstance()->Get_LayerTag(1))))
+    if (FAILED(Ready_Camera_Layer(CDataManager::GetInstance()->Get_LayerTag(CAMERA_LAYER))))
         return E_FAIL;
-    if (FAILED(Ready_UI_Layer(CDataManager::GetInstance()->Get_LayerTag(7))))
+    if (FAILED(Ready_UI_Layer(CDataManager::GetInstance()->Get_LayerTag(UI_LAYER))))
         return E_FAIL;
 
     return S_OK;

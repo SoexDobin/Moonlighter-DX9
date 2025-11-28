@@ -52,21 +52,4 @@ namespace Engine
 
 }
 
-namespace Engine
-{
-#include <string>
-
-    typedef struct tagLayerMask
-    {
-        LAYERID             eLayerID = LAYER_NONE;
-        std::wstring        wsLayerTag = L"";
-        _uint16             iMask = 0xFFFF;
-        std::wstring        wsObjectKey = L"";
-
-    public:
-        static void Add_Mask(const std::wstring& wsLayerTag);
-        static void Sub_Mask(const std::wstring& wsLayerTag);
-    } LayerMask;
-}
-
 #endif // Engine_Struct_h__

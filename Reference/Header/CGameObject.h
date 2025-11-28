@@ -3,6 +3,7 @@
 #include "Engine_Define.h"
 #include "CComponent.h"
 #include "CPrototypeManager.h"
+#include "TagLayerMask.h"
 
 BEGIN(Engine)
 

@@ -309,6 +309,9 @@
     <ClInclude Include="..\Header\CTerrainBossTex.h">
       <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\02. Boss</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\TagLayerMask.h">
+      <Filter>01. Logic\02. Layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CTimer.cpp">
@@ -445,6 +448,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainBossTex.cpp">
       <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\02. Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TagLayerMask.cpp">
+      <Filter>01. Logic\02. Layer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

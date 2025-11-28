@@ -1,7 +1,8 @@
 ﻿#include "CScene.h"
 #include "CManagement.h"
-#include "CEditor.h"
 #include "CLayerHelper.h"
+#include "CEditor.h"
+
 
 CScene::CScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : m_pGraphicDevice(pGraphicDev)

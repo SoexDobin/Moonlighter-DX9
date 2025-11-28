@@ -1,8 +1,8 @@
 ﻿#include "CGameObject.h"
 #include "CPrototypeManager.h"
 #include "CEditor.h"
-#include "CLayerHelper.h"
 #include "CManagement.h"
+#include "CLayerHelper.h"
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
     : m_pGraphicDevice(pGraphicDev), m_bDisplayInEditor(false), m_bIsDestroy(FALSE)

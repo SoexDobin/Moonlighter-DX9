@@ -40,61 +40,79 @@ void CCollisionManager::Update_Collision()
             CGameObject* pSrcOwner = pSrc->Get_Owner();
             CGameObject* pDstOwner = pDst->Get_Owner();
 
-            _bool bNowCol = pSrc->Check_Collision(pDst);
+            const LayerMask& tSrcMask = pSrcOwner->Get_Object_LayerMask();
+            const LayerMask& tDstMask = pDstOwner->Get_Object_LayerMask();
 
-            if (bNowCol)
+            // Dst가 충돌 대상이면 
+            if ((tSrcMask.iMask & tDstMask.eLayerID) != 0)
             {
-                pSrc->Set_IsCol(true);
-                pDst->Set_IsCol(true);
+                if (_bool bNowCol = pSrc->Check_Collision(pDst)) // Src 충돌 TRUE
+                {
+                    pSrc->Set_IsCol(true);
 
-                if (pSrc->Is_Overlapped(pDst))
-                {
-                    pSrc->Set_ColState(STAY_COL);
-                    pSrc->Set_Collision({ pDstOwner, pDst, STAY_COL });
-                }
-                else
-                {
-                    pSrc->Add_OverlapMember(pDst);
-                    pSrc->Set_ColState(ENTER_COL);
-                    pSrc->Set_Collision({ pDstOwner, pDst, ENTER_COL });
-                }
+                    if (pSrc->Is_Overlapped(pDst))
+                    {
+                        pSrc->Set_ColState(STAY_COL);
+                        pSrc->Set_Collision({ pDstOwner, pDst, STAY_COL });
+                    }
+                    else
+                    {
+                        pSrc->Add_OverlapMember(pDst);
+                        pSrc->Set_ColState(ENTER_COL);
+                        pSrc->Set_Collision({ pDstOwner, pDst, ENTER_COL });
+                    }
 
-                if (pDst->Is_Overlapped(pSrc))
-                {
-                    pDst->Set_ColState(STAY_COL);
-                    pDst->Set_Collision({ pSrcOwner, pSrc, STAY_COL });
-                }
-                else
-                {
-                    pDst->Add_OverlapMember(pSrc);
-                    pDst->Set_ColState(ENTER_COL);
-                    pDst->Set_Collision({ pSrcOwner, pSrc, ENTER_COL });
-                }
-
-                pSrcOwner->On_Collision(pSrc->Get_Collision());
-                pDstOwner->On_Collision(pDst->Get_Collision());
-            }
-            else
-            {
-                pSrc->Set_IsCol(false);
-                pDst->Set_IsCol(false);
-
-                if (pSrc->Is_Overlapped(pDst))
-                {
-                    pSrc->Set_ColState(EXIT_COL);
-                    pSrc->Set_Collision({ pDstOwner, pDst , EXIT_COL });
                     pSrcOwner->On_Collision(pSrc->Get_Collision());
-                    pSrc->Release_OverlapMember(pDst);
                 }
-                if (pDst->Is_Overlapped(pSrc))
+                else // Src 충돌 FALSE
                 {
-                    pDst->Set_ColState(EXIT_COL);
-                    pDst->Set_Collision({ pSrcOwner, pSrc, EXIT_COL });
-                    pDstOwner->On_Collision(pDst->Get_Collision());
-                    pDst->Release_OverlapMember(pSrc);
+                    pSrc->Set_IsCol(false);
+
+                    if (pSrc->Is_Overlapped(pDst))
+                    {
+                        pSrc->Set_ColState(EXIT_COL);
+                        pSrc->Set_Collision({ pDstOwner, pDst , EXIT_COL });
+                        pSrcOwner->On_Collision(pSrc->Get_Collision());
+                        pSrc->Release_OverlapMember(pDst);
+                    }
                 }
             }
-            
+
+            // Src가 충돌 대상이면
+            if ((tDstMask.iMask & tSrcMask.eLayerID) != 0)
+            {
+                if (_bool bNowCol = pDst->Check_Collision(pSrc)) // Dst 충돌 TRUE
+                {
+                    pDst->Set_IsCol(true);
+
+                    if (pDst->Is_Overlapped(pSrc))
+                    {
+                        pDst->Set_ColState(STAY_COL);
+                        pDst->Set_Collision({ pSrcOwner, pSrc, STAY_COL });
+                    }
+                    else
+                    {
+                        pDst->Add_OverlapMember(pSrc);
+                        pDst->Set_ColState(ENTER_COL);
+                        pDst->Set_Collision({ pSrcOwner, pSrc, ENTER_COL });
+                    }
+
+                    pDstOwner->On_Collision(pDst->Get_Collision());
+                }
+                else // Dst 충돌 FALSE
+                {
+                    pDst->Set_IsCol(false);
+
+                    if (pDst->Is_Overlapped(pSrc))
+                    {
+                        pDst->Set_ColState(EXIT_COL);
+                        pDst->Set_Collision({ pSrcOwner, pSrc, EXIT_COL });
+                        pDstOwner->On_Collision(pDst->Get_Collision());
+                        pDst->Release_OverlapMember(pSrc);
+                    }
+                }
+            }
+
         }
     }
 }
@@ -149,14 +167,14 @@ _bool CCollisionManager::SphereCollision(CSphereCollider* pSrc, CSphereCollider*
     _float m_fRadiusSum = (pSrc->Get_Radius() * pSrc->Get_Scale() )
                         + (pDst->Get_Radius() * pDst->Get_Scale() );
 
-    return m_fRadiusSum >= fDistance;
+    return (m_fRadiusSum * m_fRadiusSum) >= fDistance;
 }
 
 _bool CCollisionManager::SphereRectCollision(CSphereCollider* pSrc, CRectCollider* pDst)
 {
     _vec3 vSpherePos = pSrc->Get_Transform()->Get_Pos() + pSrc->Get_Offset();
 
-    _vec3 vRectMin = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * -0.5f * pSrc->Get_Scale());
+    _vec3 vRectMin = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * -0.5f * pDst->Get_Scale());
     _vec3 vRectMax = pDst->Get_Transform()->Get_Pos() + pDst->Get_Offset() + (pDst->Get_Dimension() * 0.5f * pDst->Get_Scale());
 
     _vec3 vClosestPoint;

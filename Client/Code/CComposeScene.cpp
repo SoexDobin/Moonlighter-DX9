@@ -40,11 +40,12 @@ HRESULT CComposeScene::Ready_Scene()
     if (FAILED(Ready_Prototype()))
         return E_FAIL;
 
-    if (FAILED(Ready_Camera_Layer(CDataManager::GetInstance()->Get_LayerTag(1))))
-        return E_FAIL;
+
     if (FAILED(Ready_Environment_Layer(CDataManager::GetInstance()->Get_LayerTag(3))))
         return E_FAIL;
     if (FAILED(Ready_GameLogic_Layer(CDataManager::GetInstance()->Get_LayerTag(5))))
+        return E_FAIL;
+    if (FAILED(Ready_Camera_Layer(CDataManager::GetInstance()->Get_LayerTag(1))))
         return E_FAIL;
     if (FAILED(Ready_UI_Layer(CDataManager::GetInstance()->Get_LayerTag(7))))
         return E_FAIL;

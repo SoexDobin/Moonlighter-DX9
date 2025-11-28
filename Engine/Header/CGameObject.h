@@ -22,6 +22,7 @@ public:
     static void        Destroy(CGameObject* pObj) { pObj->Set_Destroy(); }
     static void        DontDestroySceneLoad(CGameObject* pObj) { pObj->m_bIsDestroy = FALSE; }
 
+public:
     //void               Init_Layer(const wstring& wLayerTag);
     //const LayerMask&   Get_Object_LayerMask();
 protected:

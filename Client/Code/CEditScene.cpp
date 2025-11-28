@@ -33,16 +33,18 @@ CEditScene::~CEditScene()
 
 HRESULT CEditScene::Ready_Scene()
 {
+    CScene::Ready_Scene();
+
     if (FAILED(Ready_Prototype()))
         return E_FAIL;
 
-    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
-        return E_FAIL;
     if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
         return E_FAIL;
     if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
         return E_FAIL;
     if (FAILED(Ready_UI_Layer(L"Ui_Layer")))
+        return E_FAIL;
+    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
         return E_FAIL;
 
     // Make process DPI aware and obtain main monitor scale

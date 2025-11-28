@@ -51,5 +51,14 @@ namespace Engine
 
 }
 
+namespace Engine
+{
+    typedef struct tagLayerMask
+    {
+        LAYERID     eLayerID;
+        wstring     wsLayerTag;
+        _uint16     iMask = 0xFFFF;
+    } LayerMask;
+}
 
 #endif // Engine_Struct_h__

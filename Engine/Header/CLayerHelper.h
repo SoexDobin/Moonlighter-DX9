@@ -7,12 +7,6 @@
 
 BEGIN(Engine)
 
-typedef struct tagLayerMask
-{
-    LAYERID     eLayerID;
-    wstring     wsLayerName;
-} LayerMask;
-
 class ENGINE_DLL CLayerHelper final : public CBase
 {
     DECLARE_SINGLETON(CLayerHelper)
@@ -25,7 +19,7 @@ public:
     {
         for (size_t i = 0; i < Engine::LAYER_END; ++i)
         {
-            m_tLayerMask[i].wsLayerName = wsLayerName[i];
+            m_tLayerMask[i].wsLayerTag = wsLayerName[i];
         }
         return S_OK;
     }
@@ -36,7 +30,7 @@ public:
         {
             if (m_tLayerMask[i].eLayerID & eLayerID)
             {
-                return m_tLayerMask[i].wsLayerName;
+                return m_tLayerMask[i].wsLayerTag;
             }
         }
 
@@ -48,7 +42,7 @@ public:
     {
         for (size_t i = 0; i < Engine::LAYER_END; ++i)
         {
-            if (m_tLayerMask[i].wsLayerName == wsLayerName)
+            if (m_tLayerMask[i].wsLayerTag == wsLayerName)
             {
                 return m_tLayerMask[i].eLayerID;
             }
@@ -81,8 +75,8 @@ public:
     {
         for (size_t i = 0; i < Engine::LAYER_END; ++i)
         {
-            m_tLayerMask[i].wsLayerName.clear();
-            m_tLayerMask[i].wsLayerName = L"Layer" + to_wstring(i);
+            m_tLayerMask[i].wsLayerTag.clear();
+            m_tLayerMask[i].wsLayerTag = L"Layer" + to_wstring(i);
         }
     }
 

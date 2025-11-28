@@ -1,6 +1,7 @@
 ﻿#include "CGameObject.h"
 #include "CPrototypeManager.h"
 #include "CEditor.h"
+#include "CLayerHelper.h"
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
     : m_pGraphicDevice(pGraphicDev), m_bDisplayInEditor(false), m_bIsDestroy(FALSE)
@@ -18,14 +19,15 @@ CGameObject::~CGameObject()
 {
 }
 
-//void CGameObject::Init_Layer(const wstring& wLayerTag)
-//{
-//    m_tLayerMask.eLayerID = CLayerHelper::GetInstance()->GetLayerIDByName(wLayerTag);
-//    m_tLayerMask.wsLayerTag = wLayerTag;
-//}
-//
-//const LayerMask& CGameObject::Get_Object_LayerMask() { return m_tLayerMask; }
-//LayerMask& CGameObject::Get_LayerMask() { return m_tLayerMask; }
+void CGameObject::Init_Layer(const wstring& wLayerTag)
+{
+    m_tLayerMask.eLayerID = CLayerHelper::GetInstance()->GetLayerIDByName(wLayerTag);
+    m_tLayerMask.wsLayerTag = wLayerTag;
+    m_tLayerMask.iMask = 0xFFFF;
+}
+
+const LayerMask& CGameObject::Get_Object_LayerMask() { return m_tLayerMask; }
+LayerMask& CGameObject::Get_LayerMask() { return m_tLayerMask; }
 
 // 기존에 사용하던 가지고 있는 컴포넌트의 wstring 테그를 통한 검색
 CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring& wsComponentKey)

@@ -22,17 +22,17 @@ public:
     _byte	Get_DIKeyPressed(_ubyte byKeyID) const
     {
         if ((m_byKeyState[byKeyID] & 0x80) && !(m_byPrevKeyState[byKeyID] & 0x80))
-            return 0x80;
+            return _uint8(0x80);
 
-        return 0x00;
+        return _uint8(0x00);
     }
 
     _byte	Get_DIKeyUp(_ubyte byKeyID) const
     {
         if (!(m_byKeyState[byKeyID] & 0x80) && (m_byPrevKeyState[byKeyID] & 0x80))
-            return 0x80;
+            return _uint8(0x80);
 
-        return 0x00;
+        return _uint8(0x00);
     }
 
 	_byte	Get_DIMouseState(MOUSEKEYSTATE eMouse) const 

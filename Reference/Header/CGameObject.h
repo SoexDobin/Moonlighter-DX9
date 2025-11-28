@@ -18,7 +18,17 @@ public:
     T*                 Add_Component(COMPONENTID eID, const wstring& wsComponentKey, PROTOTYPE_COMPONENT eComponentTag);
     template <typename T>
     T*                 Add_Component(COMPONENTID eID, const wstring& wsComponentKey, const wstring& wsComponentTag);
+public:
+    static void        Destroy(CGameObject* pObj) { pObj->Set_Destroy(); }
+    static void        DontDestroySceneLoad(CGameObject* pObj) { pObj->m_bIsDestroy = FALSE; }
 
+public:
+    //void               Init_Layer(const wstring& wLayerTag);
+    //const LayerMask&   Get_Object_LayerMask();
+protected:
+    //LayerMask&         Get_LayerMask();
+    
+public:
 	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentKey);
     CComponent*             Get_Component(COMPONENTID eID, PROTOTYPE_COMPONENT ePrototype);
     virtual GAMEOBJECT_TYPE Get_Type() { return GAME_OBJECT; }
@@ -30,13 +40,19 @@ public:
 	virtual		HRESULT		Ready_GameObject();
 	virtual		_int		Update_GameObject(const _float fTimeDelta);
 	virtual		void		LateUpdate_GameObject(const _float fTimeDelta);
-	virtual		void		Render_GameObject();
+    virtual		void		Render_GameObject() { };
+    virtual     void        On_Collision(const Collision& tCollision) { };
 
-    virtual     void        On_Collision(const Collision& tCollision) {};
+private:
+    void                    Set_Destroy() { m_bIsDestroy = TRUE; }
 
 protected:
 	LPDIRECT3DDEVICE9							m_pGraphicDevice;
 	unordered_map<wstring, CComponent*>			m_umComponent[ID_END];
+    //LayerMask                                   m_tLayerMask;
+
+private:
+    _bool										m_bIsDestroy;
 
 protected:
 	virtual void Free() override;
@@ -53,6 +69,8 @@ public :
 	_bool m_bDisplayInEditor;
 	TCHAR m_szDisplayName[32];
 	char       m_szBuffer[32];
+
+    void    Set_EditorDisplayName(wstring wsName);
 
 protected :
 	list<EDITORFIELD> m_EditorFieldList;

@@ -1,0 +1,92 @@
+﻿#include "pch.h"
+#include "CBossWallSideUpper.h"
+#include "CRenderer.h"
+#include "CPrototypeManager.h"
+#include "CDInputManager.h"
+#include "CManagement.h"
+
+CBossWallSideUpper::CBossWallSideUpper(LPDIRECT3DDEVICE9 pGraphicDev)
+    : CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
+{
+}
+
+CBossWallSideUpper::CBossWallSideUpper(const CBossWallSideUpper& rhs)
+    : CRenderObject(rhs), m_pTextureCom(nullptr)
+{
+}
+
+CBossWallSideUpper::~CBossWallSideUpper()
+{
+}
+
+HRESULT CBossWallSideUpper::Ready_GameObject()
+{
+    if (FAILED(Engine::CRenderObject::Ready_GameObject()))
+        return E_FAIL;
+
+    CComponent* pCom(nullptr);
+
+    pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
+    if (pCom->Get_ComponentType() != TEXTURE)
+        return E_FAIL;
+
+    if (m_pTextureCom = static_cast<CTexture*>(pCom))
+    {
+        m_pTextureCom->Ready_Texture(L"Map_Boss_Wall_Up");
+
+        m_pTextureCom->Set_Texture(0);
+
+        m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pTextureCom));
+    }
+
+    m_pTransformCom->Add_Rotation(ROT_Y, 1.57f);
+    return S_OK;
+}
+
+_int CBossWallSideUpper::Update_GameObject(const _float fTimeDelta)
+{
+    _int iExit = Engine::CRenderObject::Update_GameObject(fTimeDelta);
+
+    Engine::CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
+
+    return iExit;
+}
+
+void CBossWallSideUpper::LateUpdate_GameObject(const _float fTimeDelta)
+{
+    Engine::CRenderObject::LateUpdate_GameObject(fTimeDelta);
+}
+
+void CBossWallSideUpper::Render_GameObject()
+{
+    m_pGraphicDevice->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
+
+    m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+    m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
+    m_pGraphicDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+
+    m_pTextureCom->SetUp_Texture();
+    m_pBufferCom->Render_Buffer();
+
+    m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+}
+
+CBossWallSideUpper* CBossWallSideUpper::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+    CBossWallSideUpper* pInstance = new CBossWallSideUpper(pGraphicDev);
+
+    if (FAILED(pInstance->Ready_GameObject()))
+    {
+        MSG_BOX("CBossWallSideUpper Create Failed");
+        Safe_Release(pInstance);
+        return nullptr;
+    }
+
+    return pInstance;
+}
+
+void CBossWallSideUpper::Free()
+{
+    Engine::CGameObject::Free();
+}

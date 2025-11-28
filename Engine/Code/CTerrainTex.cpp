@@ -1,7 +1,7 @@
 ﻿#include "CTerrainTex.h"
 
 CTerrainTex::CTerrainTex()
-    : m_dwCntX(0), m_dwCntZ(0), m_dwVtxItv(0), m_wsHeightMapPath(L"")
+    : m_dwCntX(0), m_dwCntZ(0), m_dwVtxItv(0), m_wsHeightMapPath(L""), m_pPos(nullptr)
 {
 }
 
@@ -11,13 +11,13 @@ CTerrainTex::CTerrainTex(LPDIRECT3DDEVICE9 pGraphicDev,
     const _ulong dwVtxItv, 
     const wstring& wsHeightMapPath)
     : CVIBuffer(pGraphicDev), 
-    m_dwCntX(dwCntX), m_dwCntZ(dwCntZ), m_dwVtxItv(dwVtxItv), m_wsHeightMapPath(wsHeightMapPath)
+    m_dwCntX(dwCntX), m_dwCntZ(dwCntZ), m_dwVtxItv(dwVtxItv), m_wsHeightMapPath(wsHeightMapPath), m_pPos(nullptr)
 {
 }
 
 CTerrainTex::CTerrainTex(const CTerrainTex& rhs)
     : CVIBuffer(rhs), 
-    m_dwCntX(rhs.m_dwCntX), m_dwCntZ(rhs.m_dwCntZ), m_dwVtxItv(rhs.m_dwVtxItv), m_wsHeightMapPath(rhs.m_wsHeightMapPath)
+    m_dwCntX(rhs.m_dwCntX), m_dwCntZ(rhs.m_dwCntZ), m_dwVtxItv(rhs.m_dwVtxItv), m_wsHeightMapPath(rhs.m_wsHeightMapPath), m_pPos(rhs.m_pPos)
 {
     
 }
@@ -32,6 +32,8 @@ HRESULT CTerrainTex::Ready_Buffer()
     m_dwVtxCnt = m_dwCntX * m_dwCntZ;
     m_dwTriCnt = (m_dwCntX - 1) * (m_dwCntZ - 1) * 2;
     m_dwFVF = FVF_TEX;
+
+    m_pPos = new _vec3[m_dwVtxCnt];
     
     m_dwIdxSize = sizeof(INDEX32);
     m_IdxFmt = D3DFMT_INDEX32;
@@ -82,6 +84,8 @@ HRESULT CTerrainTex::Ready_Buffer()
               (_float)(i * m_dwVtxItv)};
             pVertices[dwIndex].vTexUV = 
             { (_float)j / _float(m_dwCntX - 1), (_float)i / _float(m_dwCntZ - 1) };
+
+            m_pPos[dwIndex] = pVertices[dwIndex].vPosition;
         }
     }
 
@@ -149,5 +153,10 @@ CComponent* CTerrainTex::Clone()
 
 void CTerrainTex::Free()
 {
+    if (m_bClone == false)
+    {
+        Safe_Delete_Array(m_pPos);
+    }
+
     Engine::CVIBuffer::Free();
 }

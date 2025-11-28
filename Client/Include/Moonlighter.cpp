@@ -6,6 +6,7 @@
 #include "Moonlighter.h"
 #include "CMainApp.h"
 #include "CEditor.h"
+#include <locale.h>
 
 #define MAX_LOADSTRING 100
 
@@ -13,6 +14,7 @@ HWND g_hWnd;
 HINSTANCE g_hInst;
 const _float FPS = 60.f;
 _float  fTimeScale = 1.f;
+FILE* debug;
 
 #define MAX_LOADSTRING 100
 
@@ -67,10 +69,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         return E_FAIL;
     }
-    else
-    {
-        CFrameManager::GetInstance()->Set_MainFrame(L"Frame60");
-    }
 
     CEditor::GetInstance()->Set_pTimeScale(&fTimeScale);
 
@@ -92,12 +90,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             Engine::CTimeManager::GetInstance()->Set_TimeDelta(L"DELTA");
             _float fDeltaTime_Immediate = Engine::CTimeManager::GetInstance()->Get_TimeDelta(L"DELTA");
 
-            if (Engine::CFrameManager::GetInstance()->IsTransit_NextFrame(fDeltaTime_Immediate))
+            if (Engine::CFrameManager::GetInstance()->IsPermit_Call(L"Frame60", fDeltaTime_Immediate))
             {
                 Engine::CTimeManager::GetInstance()->Set_TimeDelta(L"DELTA_FPS60");
                 _float fDeltaTime = Engine::CTimeManager::GetInstance()->Get_TimeDelta(L"DELTA_FPS60");
 
-                Engine::CFrameManager::GetInstance()->Modify_LastTimeDelta(&fDeltaTime);
+                if (CFrameManager::GetInstance()->Is_Pause(fDeltaTime))
+                {
+                    // 로직 업데이트를 멈춘다 
+                    fDeltaTime = 0.f;
+                    // 디버깅 카메라 업데이트
+    
+                }
 
                 pMainApp->Update_MainApp(fDeltaTime * fTimeScale);
                 pMainApp->LateUpdate_MainApp(fDeltaTime * fTimeScale);
@@ -176,6 +180,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     switch (message)
     {
+#pragma region Console
+    case WM_CREATE :
+    {
+        AllocConsole();
+        _tfreopen_s(&debug, _T("CONOUT$"), _T("w"), stdout);
+        _tfreopen_s(&debug, _T("CONOUT$"), _T("r"), stdin);
+        _tfreopen_s(&debug, _T("CONOUT$"), _T("w"), stderr);
+
+        HWND hConsole = GetConsoleWindow();
+        MoveWindow(hConsole, 0, 0, 400, 600, TRUE);
+        MoveWindow(hWnd, 400, 0, WINCX, WINCY, TRUE);
+    }
+    break;
+
+    case WM_CLOSE :
+    {
+        FreeConsole();
+        DestroyWindow(hWnd);
+    }
+    break;
+#pragma endregion
+
+
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);

@@ -7,11 +7,40 @@ enum PROTOTYPE_CUSTOM
     CUSTOM_END
 };
 
+enum CLIENT_LAYERTAG
+{
+    DEFAULT_LAYER0 = 0,
+    CAMERA_LAYER,
+    DEFAULT_LAYER2,
+    ENVIRONMENT_LAYER,
+    DEFAULT_LAYER4,
+    GAMELOGIC_LAYER,
+    DEFAULT_LAYER6,
+    UI_LAYER,
+    DEFAULT_LAYER8,
+    EFFECT_LAYER,
+    DEFAULT_LAYER10,
+    DEFAULT_LAYER11,
+    DEFAULT_LAYER12,
+    DEFAULT_LAYER13,
+    DEFAULT_LAYER14,
+    DEFAULT_LAYER15,
+    CLIENT_LAYER_END
+};
+
 enum SCENETYPE { SC_MAIN, SC_PLAYER, SC_MAP, SC_MONSTER, SC_UI, SC_END };
 // 아이템 
 enum ITEMTYPE { ITEM_POTION, ITEM_ATTACK, ITEM_WEAPON, ITEM_END };
 // 슬롯
 enum SLOT_STATE { SLOT_NORMAL, SLOT_HOVER, SLOT_PRESSED, SLOT_END};
+
+#define DUNGEON_VTX 25
+#define DUNGEON_VTZ 21
+#define DUNGEON_ITV 1 
+
+#define BOSS_VTX 61
+#define BOSS_VTZ 37
+#define BOSS_ITV 1
 
 // 렌더순서
 enum RENDER_STATE { UI_INVENTORY = 0, UI_STATIC, UI_HPBAR, UI_END };
@@ -25,8 +54,8 @@ struct ITEMDATA
     int           iAttack;
     int           iHp;
 
-    wstring       sItName;    // 아이템 이름
-    wstring       sIcontexKey;    // 아이템 텍스쳐 키
+    wstring       sItName;          // 아이템 이름
+    wstring       sIcontexKey;      // 아이템 텍스쳐 키
 
     UINT          iMaxCount = 10;
     UINT          iPrice;

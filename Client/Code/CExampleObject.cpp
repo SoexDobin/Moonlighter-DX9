@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CExampleObject.h"
 #include "CRenderer.h"
 #include "CPrototypeManager.h"
@@ -6,13 +6,11 @@
 CExampleObject::CExampleObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CRenderObject(pGraphicDev)
 {
-	PANEL_NAME(L"Example Object");
 }
 
 CExampleObject::CExampleObject(const CExampleObject& rhs)
 	: CRenderObject(rhs)
 {
-	PANEL_NAME(L"Example Object");
 }
 
 CExampleObject::~CExampleObject()

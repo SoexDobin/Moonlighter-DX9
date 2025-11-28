@@ -33,16 +33,29 @@ _bool CCollider::Is_Overlapped(CCollider* pOverlap)
 
 void CCollider::Add_OverlapMember(CCollider* pOverlap)
 {
-    m_usetOverlapCol.insert(pOverlap);
+    if (m_usetOverlapCol.find(pOverlap) == m_usetOverlapCol.end())
+    {
+        m_usetOverlapCol.insert(pOverlap);
+        pOverlap->AddRef();
+    }
 }
 
 void CCollider::Release_OverlapMember(CCollider* pOverlap)
 {
-    m_usetOverlapCol.erase(pOverlap);
+    if (m_usetOverlapCol.find(pOverlap) == m_usetOverlapCol.end())
+    {
+        m_usetOverlapCol.erase(pOverlap);
+        Safe_Release(pOverlap);
+    }
 }
 
 void CCollider::Free()
 {
+    for_each(m_usetOverlapCol.begin(), m_usetOverlapCol.end(),
+        [](CCollider* pCol) -> void {
+            Safe_Release(pCol);
+        });
+
     CComponent::Free();
 }
 

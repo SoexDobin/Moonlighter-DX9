@@ -1,15 +1,15 @@
 ﻿#include "pch.h"
 #include "CComposeScene.h"
 #include "CDInputManager.h"
-#include "CPrototypeManager.h"
-#include "CDynamicCamera.h"
-#include "CTestRect.h"
 #include "CExampleObject.h"
 #include "CExampleManager.h"
 #include "CLightManager.h"
 #include "CManagement.h"
 #include "CEditScene.h"
+#include "CLayerHelper.h"
+#include "CDataManager.h"
 
+#include "CCameraManager.h"
 #include "CUIInven.h"
 #include "CUIStatic.h"
 
@@ -32,19 +32,22 @@ CComposeScene::~CComposeScene()
 
 HRESULT CComposeScene::Ready_Scene()
 {
+    Engine::CScene::Ready_Scene();
+
     if (FAILED(Ready_Light()))
         return E_FAIL;
 
     if (FAILED(Ready_Prototype()))
         return E_FAIL;
 
-    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
+
+    if (FAILED(Ready_Environment_Layer(CDataManager::GetInstance()->Get_LayerTag(ENVIRONMENT_LAYER))))
         return E_FAIL;
-    if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
+    if (FAILED(Ready_GameLogic_Layer(CDataManager::GetInstance()->Get_LayerTag(GAMELOGIC_LAYER))))
         return E_FAIL;
-    if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
+    if (FAILED(Ready_Camera_Layer(CDataManager::GetInstance()->Get_LayerTag(CAMERA_LAYER))))
         return E_FAIL;
-    if (FAILED(Ready_UI_Layer(L"UI_Layer")))
+    if (FAILED(Ready_UI_Layer(CDataManager::GetInstance()->Get_LayerTag(UI_LAYER))))
         return E_FAIL;
 
     return S_OK;
@@ -53,7 +56,7 @@ HRESULT CComposeScene::Ready_Scene()
 _int CComposeScene::Update_Scene(const _float fTimeDelta)
 {
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
-
+    
 #pragma region Examples for ImGui
 
     CExampleManager::GetInstance()->Update_Manager();
@@ -84,12 +87,17 @@ _int CComposeScene::Update_Scene(const _float fTimeDelta)
             pInventory->InvenButton();
         }
     }
+
+    CCameraManager::GetInstance()->Update_Camera(fTimeDelta);
+
     return iExit;
 }
 
 void CComposeScene::LateUpdate_Scene(const _float fTimeDelta)
 {
     Engine::CScene::LateUpdate_Scene(fTimeDelta);
+
+    CCameraManager::GetInstance()->LateUpdate_Camera(fTimeDelta);
 }
 
 void CComposeScene::Render_Scene()
@@ -99,61 +107,29 @@ void CComposeScene::Render_Scene()
 
 HRESULT CComposeScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pCamLayer = CLayer::Create(wsLayerTag);
-
-    CGameObject* pGameObject = nullptr;
-    _vec3 vEye{ 0.f, 5.f, -20.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
-    pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
-    if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
-        return E_FAIL;
-
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pCamLayer});
-
+    CCameraManager::GetInstance()->Set_CameraMode(CCameraManager::INGAME);
 
     return S_OK;
 }
 
 HRESULT CComposeScene::Ready_Environment_Layer(const wstring& wsLayerTag)
 {
-    CUtility::LoadBossMap(m_pGraphicDevice, m_umLayer);
-    //CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
-
-    //CGameObject* pGameObject = nullptr;
-    //pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
-    //if (FAILED(pGameLogicLayer->Add_GameObject(L"Village", pGameObject)))
-    //    return E_FAIL;
-
-    //m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pGameLogicLayer});
+    CUtility::LoadBossMap(m_pGraphicDevice, Get_Layers());
     return S_OK;
 }
 
 HRESULT CComposeScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
-
-    CGameObject* pGameObject = nullptr;
-    pGameObject = CTestRect::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp", pGameObject)))
-        return E_FAIL;
-    static_cast<CRenderObject*>(pGameObject)->Get_Trans()->Set_Pos(2.f, 0.f, 2.f);
-
-    pGameObject = CTestRect::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp2", pGameObject)))
-        return E_FAIL;
-    
-    //pGameObject = CTestRect::Create(m_pGraphicDevice);
-    //if (FAILED(pGameLogicLayer->Add_GameObject(L"Temp3", pGameObject)))
-    //    return E_FAIL;
-
-    // fix
-    //pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
-    //if (FAILED(pGameLogicLayer->Add_GameObject(L"Vill", pGameObject)))
-    //    return E_FAIL;
+    CLayer* pGameLogicLayer = Get_Layer(wsLayerTag);
+    if (pGameLogicLayer == nullptr) return E_FAIL;
 
     CGameObject* pPlayer = nullptr;
     pPlayer = CPlayer::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Player", pPlayer)))
         return E_FAIL;
+
+    // TODO : 임시로 플레이어 위치 삽입
+    CCameraManager::GetInstance()->Set_Target(static_cast<CTransform*>(pPlayer->Get_Component(ID_DYNAMIC, TRANSFORM)));
 
     CGameObject* pBoss = nullptr;
     pBoss = CBoss::Create(m_pGraphicDevice);
@@ -170,23 +146,13 @@ HRESULT CComposeScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     if (FAILED(pGameLogicLayer->Add_GameObject(L"SlimeMob", pSlimeMob)))
         return E_FAIL;
 
-#pragma region Examples for ImGui
-    pGameObject = CExampleObject::Create(m_pGraphicDevice);
-    if (FAILED(pGameLogicLayer->Add_GameObject(L"Example", pGameObject)))
-        return E_FAIL;
-
-    CExampleManager::GetInstance()->Ready_Manager();
-
-#pragma endregion
-
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pGameLogicLayer});
-
     return S_OK;
 }
 
 HRESULT CComposeScene::Ready_UI_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pLayer = CLayer::Create(wsLayerTag);
+    CLayer* pLayer = Get_Layer(wsLayerTag);
+    if (pLayer == nullptr) return E_FAIL;
 
     Engine::CGameObject* pGameObject = nullptr;
 
@@ -205,8 +171,6 @@ HRESULT CComposeScene::Ready_UI_Layer(const wstring& wsLayerTag)
 
     if (FAILED(pLayer->Add_GameObject(L"UI_Static", pGameObject)))
         return E_FAIL;
-
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pLayer});
 
     return S_OK;
 }
@@ -260,4 +224,5 @@ void CComposeScene::Free()
 #pragma endregion
 
     Engine::CScene::Free();
+
 }

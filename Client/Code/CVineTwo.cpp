@@ -8,13 +8,11 @@
 CVineTwo::CVineTwo(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"VineTwo")
 }
 
 CVineTwo::CVineTwo(const CVineTwo& rhs)
     : CRenderObject(rhs), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"VineTwo")
 }
 
 CVineTwo::~CVineTwo()

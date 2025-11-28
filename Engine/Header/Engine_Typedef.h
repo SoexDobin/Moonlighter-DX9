@@ -1,4 +1,4 @@
-#ifndef Engine_Typedef_h__
+﻿#ifndef Engine_Typedef_h__
 #define Engine_Typedef_h__
 
 namespace Engine
@@ -15,6 +15,8 @@ namespace Engine
 
 	typedef		signed int					_int;
 	typedef		unsigned int				_uint;
+    typedef     unsigned __int8             _uint8;
+    typedef     unsigned __int16            _uint16;
 
 	typedef		signed long					_long;
 	typedef		unsigned long				_ulong;

@@ -2,7 +2,7 @@
 #include "CDInputManager.h"
 #include "CResourceManager.h"
 #include "CPrototypeManager.h"
-#include "CDynamicCamera.h"
+#include "CCameraManager.h"
 #include "CTestRect.h"
 #include "CManagement.h"
 #include "CEditScene.h"
@@ -17,6 +17,7 @@
 #include "CPumpkin.h"
 #include "CVineOne.h"
 #include "CVineTwo.h"
+#include "CLayerHelper.h"
 
 CEditScene::CEditScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev), pVillage(nullptr), g_MapEditor(nullptr), g_pPreviewTex(nullptr),
@@ -32,16 +33,18 @@ CEditScene::~CEditScene()
 
 HRESULT CEditScene::Ready_Scene()
 {
+    CScene::Ready_Scene();
+
     if (FAILED(Ready_Prototype()))
         return E_FAIL;
 
-    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
-        return E_FAIL;
     if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
         return E_FAIL;
     if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
         return E_FAIL;
     if (FAILED(Ready_UI_Layer(L"Ui_Layer")))
+        return E_FAIL;
+    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
         return E_FAIL;
 
     // Make process DPI aware and obtain main monitor scale
@@ -78,14 +81,14 @@ HRESULT CEditScene::Ready_Scene()
 _int CEditScene::Update_Scene(const _float fTimeDelta)
 {
     _int iExit = Engine::CScene::Update_Scene(fTimeDelta);
-
+    CCameraManager::GetInstance()->Update_Camera(fTimeDelta);
     return iExit;
 }
 
 void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 {
     Engine::CScene::LateUpdate_Scene(fTimeDelta);
-
+    CCameraManager::GetInstance()->LateUpdate_Camera(fTimeDelta);
     // Start the Dear ImGui frame
     ImGui_ImplDX9_NewFrame();
     ImGui_ImplWin32_NewFrame();
@@ -97,7 +100,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
         ImVec2 mousePos = ImGui::GetMousePos();
 
         _vec3 vMousePos = PickingArea();
-        
+
 
         ImGui::SetNextWindowPos(ImVec2(mousePos.x + 15, mousePos.y + 15));
         ImGui::SetNextWindowBgAlpha(0.5f);
@@ -135,7 +138,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             if (ImGui::Button("yes", ImVec2(120, 0)))
             {
                 find_Terrain<CTerrainVillage>();
-                CUtility::SaveVillageMap(static_cast<CTerrainVillage*>(pVillage), m_umLayer);
+                CUtility::SaveVillageMap(static_cast<CTerrainVillage*>(pVillage), Get_Layers());
                 ImGui::CloseCurrentPopup();
                 confirm[VILL_SAVE] = false;
             }
@@ -163,7 +166,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
             if (ImGui::Button("yes", ImVec2(120, 0)))
             {
-                CUtility::LoadVillageMap(m_pGraphicDevice, m_umLayer);
+                CUtility::LoadVillageMap(m_pGraphicDevice, Get_Layers());
                 ImGui::CloseCurrentPopup();
                 confirm[VILL_LOAD] = false;
             }
@@ -260,7 +263,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
             if (ImGui::Button("yes", ImVec2(120, 0)))
             {
                 find_Terrain<CTerrainBoss>();
-                CUtility::SaveBossMap(static_cast<CTerrainBoss*>(pVillage), m_umLayer);
+                CUtility::SaveBossMap(static_cast<CTerrainBoss*>(pVillage), Get_Layers());
                 ImGui::CloseCurrentPopup();
                 confirm[BOSS_SAVE] = false;
             }
@@ -288,7 +291,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
             if (ImGui::Button("yes", ImVec2(120, 0)))
             {
-                CUtility::LoadBossMap(m_pGraphicDevice, m_umLayer);
+                CUtility::LoadBossMap(m_pGraphicDevice, Get_Layers());
                 ImGui::CloseCurrentPopup();
                 confirm[BOSS_LOAD] = false;
             }
@@ -414,9 +417,9 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
     ImGui::SetNextWindowPos(ImVec2(200, 100), ImGuiCond_Once);
     ImGui::SetNextWindowSize(ImVec2(0, 0), ImGuiCond_Always);
     ImGui::Begin("Scene Object Hierarchy", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
-    for (const auto& layerPair : m_umLayer)
+    for (const auto& layerPair : Get_Layers())
     {
-        const wstring& layerName = layerPair.first;
+        const wstring& layerName = CLayerHelper::GetInstance()->GetLayerNameByID(LAYERID(layerPair.first));
         CLayer* pLayer = layerPair.second;
 
         string layerLabel = WStringToUTF8(layerName);
@@ -562,15 +565,9 @@ void CEditScene::Render_Scene()
 
 HRESULT CEditScene::Ready_Camera_Layer(const wstring wsLayerTag)
 {
-    CLayer* pCamLayer = CLayer::Create();
+    CCameraManager::GetInstance()->Set_Target(nullptr);
+    CCameraManager::GetInstance()->Set_CameraMode(CCameraManager::DBG_PERSPECTIVE);
 
-    CGameObject* pGameObject = nullptr;
-    _vec3 vEye{ 0.f, 10.f, -10.f }, vAt{ 0.f, 0.f, 10.f }, vUp{ 0.f, 1.f, 0.f };
-    pGameObject = CDynamicCamera::Create(m_pGraphicDevice, &vEye, &vAt, &vUp);
-    if (FAILED(pCamLayer->Add_GameObject(L"Cam", pGameObject)))
-        return E_FAIL;
-
-    m_umLayer.emplace(pair<const wstring, CLayer*>{ wsLayerTag, pCamLayer});
     return S_OK;
 }
 
@@ -768,8 +765,8 @@ void CEditScene::InitPreviewTextures(const wstring wPreview)
 
 CGameObject* CEditScene::PickObject(const _vec3& vPickPos)
 {
-    auto iter = m_umLayer.find(L"Environment_Layer");
-    if (iter == m_umLayer.end())
+    auto iter = Get_Layers().find(CLayerHelper::GetInstance()->GetLayerIDByName(L"Environment_Layer") );
+    if (iter == Get_Layers().end())
     {
         MSG_BOX("Environment Layer Not Found");
         return nullptr;
@@ -792,7 +789,7 @@ CGameObject* CEditScene::PickObject(const _vec3& vPickPos)
                 continue;
             }
 
-            CTransform* pTrans = static_cast<CRenderObject*>(pObj)->Get_Trans();            
+            CTransform* pTrans = static_cast<CRenderObject*>(pObj)->Get_Trans();
             if (pTrans == nullptr)
             {
                 continue;

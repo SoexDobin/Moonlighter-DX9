@@ -13,18 +13,15 @@
 CTestRect::CTestRect(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr)
 {
-    PANEL_NAME(L"Rect Object");
 }
 
 CTestRect::CTestRect(const CTestRect& rhs)
     : CRenderObject(rhs), m_pDynamicTexCom(nullptr)
 {
-    PANEL_NAME(L"Rect Object");
 }
 
 CTestRect::~CTestRect()
 {
-    PANEL_NAME(L"Rect Object");
 }
 
 HRESULT CTestRect::Ready_GameObject()
@@ -63,6 +60,7 @@ _int CTestRect::Update_GameObject(const _float fTimeDelta)
     if (CDInputManager::GetInstance()->Get_DIKeyState(DIK_0))
     {
         m_pColCom->On_Disable();
+        Destroy(this);
     }
 
 

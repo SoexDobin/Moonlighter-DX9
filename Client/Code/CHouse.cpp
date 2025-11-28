@@ -8,13 +8,11 @@
 CHouse::CHouse(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"House")
 }
 
 CHouse::CHouse(const CHouse& rhs)
     : CRenderObject(rhs), m_pTextureCom(nullptr)
 {
-    PANEL_NAME(L"House")
 }
 
 CHouse::~CHouse()

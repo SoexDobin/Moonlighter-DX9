@@ -8,6 +8,7 @@
 #include "CPlayer.h"
 #include "CMonsterState.h"
 #include "CTreeStateMachine.h"
+#include "CTreeProjectile.h"
 #pragma endregion
 
 
@@ -45,6 +46,7 @@ HRESULT CTreeMob::Ready_GameObject()
     }
 #pragma endregion
     Ready_Animation();
+    Ready_Combat();
     m_pStateMachine = CTreeStateMachine::Create(this);
 
     // after all components are set up
@@ -64,6 +66,16 @@ _int CTreeMob::Update_GameObject(const _float fTimeDelta)
     _int iExit = Engine::CRenderObject::Update_GameObject(fTimeDelta);
 
     Engine::CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
+
+    {
+        m_fElapsed += fTimeDelta;
+        if (m_fElapsed > 1.f)
+        {
+            CTreeProjectile* pProjectile = CTreeProjectile::Create(m_pGraphicDevice, m_tProjectile);
+            pProjectile->Set_ShootDir({ 0.5f, 5.f, -1.f });
+            pProjectile->Set_Shooting();
+        }
+    }
 
     return iExit;
 }
@@ -107,6 +119,23 @@ HRESULT CTreeMob::Ready_Animation()
 
     // Configure boss animation values
     m_pDynamicTexCom->Set_Speed(10.f);
+
+    return S_OK;
+}
+
+HRESULT CTreeMob::Ready_Combat()
+{
+    m_tProjectile.wsVecTexture = { L"Tree_Projectile1_Idle", L"Tree_Projectile1_Hit" };
+    m_tProjectile.fTextureSpeed = 10;
+
+    m_tProjectile.fSpeed = 10.f;
+
+    m_tDamage.pAttacker = this;
+    m_tDamage.fAmount = 10.f;
+    m_tDamage.bCanParry = m_tDamage.bShouldKnockback = false;
+    m_tDamage.eApplyTiming = Engine::ENTER_COL;
+    m_tDamage.vDirKnockback = { 0.f, 0.f, 0.f };
+    m_tProjectile.tDamageInfo = m_tDamage;
 
     return S_OK;
 }

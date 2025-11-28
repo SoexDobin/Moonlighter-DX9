@@ -162,6 +162,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CBossDeadState.h" />
     <ClInclude Include="..\Header\CBossIdleState.h" />
     <ClInclude Include="..\Header\CBossJumpState.h" />
+    <ClInclude Include="..\Header\CBossProjectile.h" />
     <ClInclude Include="..\Header\CBossRootState.h" />
     <ClInclude Include="..\Header\CBossShakeState.h" />
     <ClInclude Include="..\Header\CBossStateMachine.h" />
@@ -197,6 +198,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CPlayer.h" />
     <ClInclude Include="..\Header\CPlayerStateMachine.h" />
     <ClInclude Include="..\Header\CPlayerTestScene.h" />
+    <ClInclude Include="..\Header\CProjectile.h" />
     <ClInclude Include="..\Header\CPumpkin.h" />
     <ClInclude Include="..\Header\CSheederAttackState.h" />
     <ClInclude Include="..\Header\CSheederIdleState.h" />
@@ -219,6 +221,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CTmpCustomComponent.h" />
     <ClInclude Include="..\Header\CTreeAwakeState.h" />
     <ClInclude Include="..\Header\CTreeIdleState.h" />
+    <ClInclude Include="..\Header\CTreeProjectile.h" />
     <ClInclude Include="..\Header\CTreeShakeState.h" />
     <ClInclude Include="..\Header\CTreeStateMachine.h" />
     <ClInclude Include="..\Header\CUIInven.h" />
@@ -266,6 +269,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CBossDeadState.cpp" />
     <ClCompile Include="..\Code\CBossIdleState.cpp" />
     <ClCompile Include="..\Code\CBossJumpState.cpp" />
+    <ClCompile Include="..\Code\CBossProjectile.cpp" />
     <ClCompile Include="..\Code\CBossRootState.cpp" />
     <ClCompile Include="..\Code\CBossShakeState.cpp" />
     <ClCompile Include="..\Code\CBossStateMachine.cpp" />
@@ -301,6 +305,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CPlayer.cpp" />
     <ClCompile Include="..\Code\CPlayerStateMachine.cpp" />
     <ClCompile Include="..\Code\CPlayerTestScene.cpp" />
+    <ClCompile Include="..\Code\CProjectile.cpp" />
     <ClCompile Include="..\Code\CPumpkin.cpp" />
     <ClCompile Include="..\Code\CSheederAttackState.cpp" />
     <ClCompile Include="..\Code\CSheederIdleState.cpp" />
@@ -323,6 +328,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CTmpCustomComponent.cpp" />
     <ClCompile Include="..\Code\CTreeAwakeState.cpp" />
     <ClCompile Include="..\Code\CTreeIdleState.cpp" />
+    <ClCompile Include="..\Code\CTreeProjectile.cpp" />
     <ClCompile Include="..\Code\CTreeShakeState.cpp" />
     <ClCompile Include="..\Code\CTreeStateMachine.cpp" />
     <ClCompile Include="..\Code\CUIInven.cpp" />

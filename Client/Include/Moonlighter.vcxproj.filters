@@ -214,6 +214,21 @@
     <Filter Include="03. GameObject\01. Player\00. PlayerStateMachine">
       <UniqueIdentifier>{d91b05cf-cb03-4be8-ae2e-83a08287a2b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObject\05. Weapon">
+      <UniqueIdentifier>{44644d0e-f506-4c45-a721-268642b8a07a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\05. Weapon\02. Projectile">
+      <UniqueIdentifier>{15091631-3016-4bfd-ab20-f3568026361a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\00. Boss\02. BossWeapon">
+      <UniqueIdentifier>{bf0a6e41-2dca-4ebf-97f7-23e4343ca541}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\00. Boss\02. BossWeapon\00. BossProjectile">
+      <UniqueIdentifier>{5fb6888f-0d33-46f1-8f4c-f44371a371ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. GameObject\02. Monster\01. Tree\02. TreeWeapon">
+      <UniqueIdentifier>{226609a6-c1cb-4df5-8ac5-c6a93ed887cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -474,6 +489,15 @@
     <ClInclude Include="..\Header\CHitSphereBox.h">
       <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CProjectile.h">
+      <Filter>03. GameObject\05. Weapon\02. Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossProjectile.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\02. BossWeapon\00. BossProjectile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeProjectile.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -710,6 +734,13 @@
     <ClCompile Include="..\Code\CStatComponent.cpp">
       <Filter>03. GameObject\99. Entity\00. EntityComponent</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CProjectile.cpp">
+      <Filter>03. GameObject\05. Weapon\02. Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossProjectile.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\02. BossWeapon\00. BossProjectile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTreeProjectile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Moonlighter.rc">

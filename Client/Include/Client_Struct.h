@@ -20,3 +20,13 @@ typedef struct tagDamageInfo
     _vec3 vDirKnockback;         // 넉백 방향 
 }DAMAGE_INFO;
 
+typedef struct tagProjectile
+{
+    vector<wstring>   wsVecTexture; // 등록할 애니메이션 이름 리스트
+    _float                  fTextureSpeed;  // 텍스처 전환 속도
+
+    _float                  fSpeed;         // 투사체 속도
+    DAMAGE_INFO tDamageInfo;    // 투사체 데미지 정보
+
+}PROJECTILE;
+

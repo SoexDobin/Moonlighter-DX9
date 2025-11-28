@@ -192,9 +192,6 @@
     <ClInclude Include="..\Header\CLayer.h">
       <Filter>01. Logic\02. Layer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CScene.h">
-      <Filter>01. Logic\01. Scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CManagement.h">
       <Filter>01. Logic\00. Management</Filter>
     </ClInclude>
@@ -314,6 +311,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\CNonRenderObject.h">
       <Filter>01. Logic\03. GameObject\02. NonRenderObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CScene.h">
+      <Filter>01. Logic\01. Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

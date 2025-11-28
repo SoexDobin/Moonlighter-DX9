@@ -188,6 +188,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CLoading.h" />
     <ClInclude Include="..\Header\CMainApp.h" />
     <ClInclude Include="..\Header\CMainScene.h" />
+    <ClInclude Include="..\Header\CMapTrigger.h" />
     <ClInclude Include="..\Header\CMonsterState.h" />
     <ClInclude Include="..\Header\CMonsterTestScene.h" />
     <ClInclude Include="..\Header\CPlayer.h" />
@@ -287,6 +288,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CLoading.cpp" />
     <ClCompile Include="..\Code\CMainApp.cpp" />
     <ClCompile Include="..\Code\CMainScene.cpp" />
+    <ClCompile Include="..\Code\CMapTrigger.cpp" />
     <ClCompile Include="..\Code\CMonsterState.cpp" />
     <ClCompile Include="..\Code\CMonsterTestScene.cpp" />
     <ClCompile Include="..\Code\CPlayer.cpp" />

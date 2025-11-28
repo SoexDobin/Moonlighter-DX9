@@ -44,6 +44,7 @@ private:
     void InitPreviewTextures(const wstring wPreview);
     CGameObject* PickObject(const _vec3& vPickPos);
     _vec3 PickingArea();
+    const char* toStringScene(SCENETYPE scene);
 
     HRESULT Add_TerrainVillage(const wstring pLayerTag);
     HRESULT Add_House(const wstring pLayerTag);
@@ -60,6 +61,7 @@ private:
     HRESULT Add_Pumpkin(const wstring pLayerTag);
     HRESULT Add_VineOne(const wstring pLayerTag);
     HRESULT Add_VineTwo(const wstring pLayerTag);
+    HRESULT Add_MapTrigger(const wstring pLayerTag);
 
     inline string WStringToUTF8(const std::wstring& wstr);
 
@@ -101,7 +103,7 @@ private:
     template<typename T>
     void find_Terrain()
     {
-        auto iter = Get_Layers().find(Engine::CLayerHelper::GetInstance()->GetLayerIDByName(L"Environment_Layer"));
+        auto iter = Get_Layers().find(Engine::CLayerHelper::GetInstance()->GetLayerIDByName(L"Environment_NoCollision_Layer"));
         if (iter != Get_Layers().end())
         {
             CLayer* pLayer = iter->second;
@@ -110,17 +112,7 @@ private:
             {
                 for (CGameObject* pObj : objList.second)
                 {
-                    if (wcscmp(pObj->m_szDisplayName, L"Terrain_Village") == 0)
-                    {
-                        pVillage = static_cast<T*>(pObj);
-                        break;
-                    }
-                    else if (wcscmp(pObj->m_szDisplayName, L"Terrain_Dungeon") == 0)
-                    {
-                        pVillage = static_cast<T*>(pObj);
-                        break;
-                    }
-                    else if (wcscmp(pObj->m_szDisplayName, L"Terrain_Boss") == 0)
+                    if (wcscmp(pObj->m_szDisplayName, L"Terrain") == 0)
                     {
                         pVillage = static_cast<T*>(pObj);
                         break;

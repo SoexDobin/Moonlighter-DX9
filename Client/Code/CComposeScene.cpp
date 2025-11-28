@@ -98,6 +98,40 @@ void CComposeScene::LateUpdate_Scene(const _float fTimeDelta)
     Engine::CScene::LateUpdate_Scene(fTimeDelta);
 
     CCameraManager::GetInstance()->LateUpdate_Camera(fTimeDelta);
+
+    auto& layers = Get_Layers();
+    auto iter = layers.find(Engine::CLayerHelper::GetInstance()->GetLayerIDByName(L"GameLogic_Layer"));
+    auto iter2 = layers.find(Engine::CLayerHelper::GetInstance()->GetLayerIDByName(L"Environment_Layer"));
+
+    if (iter != layers.end() && iter2 != layers.end())
+    {
+        CComponent* pCom = iter->second->Get_Component(ID_DYNAMIC, L"Player", L"Collider_Com");
+        CComponent* pCom2 = iter2->second->Get_Component(ID_DYNAMIC, L"Map_Trigger", L"Collider_Com");
+
+        if (pCom == nullptr || pCom2 == nullptr)
+        {
+            return;
+        }
+
+        if (pCom != nullptr)
+        {
+            CCollider* pCollider = static_cast<CRectCollider*>(pCom);
+            CCollider* pCollider2 = static_cast<CRectCollider*>(pCom2);
+            if (pCollider->Check_Collision(pCollider2))
+            {
+                Engine::CScene* pEdit = CEditScene::Create(m_pGraphicDevice);
+
+                if (nullptr == pEdit)
+                    return;
+
+                if (FAILED(CManagement::GetInstance()->Set_Scene(pEdit)))
+                {
+                    MSG_BOX("Stage Setting Failed");
+                    return;
+                }
+            }
+        }
+    }
 }
 
 void CComposeScene::Render_Scene()
@@ -115,6 +149,7 @@ HRESULT CComposeScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 HRESULT CComposeScene::Ready_Environment_Layer(const wstring& wsLayerTag)
 {
     CUtility::LoadBossMap(m_pGraphicDevice, Get_Layers());
+
     return S_OK;
 }
 

@@ -17,6 +17,7 @@
 #include "CPumpkin.h"
 #include "CVineOne.h"
 #include "CVineTwo.h"
+#include "CMapTrigger.h"
 
 
 struct ObjectData
@@ -200,7 +201,7 @@ namespace CUtility
     // Boss Save
     static void SaveBossMap(CTerrainBoss* pTerrain, const unordered_map<_uint16, CLayer*>& layers)
     {
-        ofstream out("../Bin/Resource/MapData/mapBoss.dat", ios::binary);
+        ofstream out("../Bin/Resource/MapData/mapBoss2.dat", ios::binary);
         if (!out.is_open() || !pTerrain)
         {
             MSG_BOX("Utility Terrain Get Fail | Utility File Open Fail");
@@ -290,7 +291,7 @@ namespace CUtility
         LPDIRECT3DDEVICE9 pDevice,
         const unordered_map<_uint16, CLayer*>& layerMap)
     {
-        ifstream fin("../Bin/Resource/MapData/mapBoss.dat", ios::binary);
+        ifstream fin("../Bin/Resource/MapData/mapBoss2.dat", ios::binary);
         if (!fin.is_open())
         {
             MSG_BOX("mapBoss File Open Fail");
@@ -310,7 +311,9 @@ namespace CUtility
         fin.read((char*)heightMap.data(), sizeof(wchar_t) * len);
 
         auto iter = layerMap.find(CLayerHelper::GetInstance()->GetLayerIDByName(L"Environment_Layer"));
+        auto iter2 = layerMap.find(CLayerHelper::GetInstance()->GetLayerIDByName(L"Environment_NoCollision_Layer"));
         CLayer* pEnvLayer = nullptr;
+        CLayer* pNonCollisionLayer = nullptr;
         if (iter != layerMap.end())
         {
             pEnvLayer = iter->second;
@@ -318,6 +321,15 @@ namespace CUtility
         else
         {
             pEnvLayer = CLayer::Create();
+        }
+
+        if (iter2 != layerMap.end())
+        {
+            pNonCollisionLayer = iter2->second;
+        }
+        else
+        {
+            pNonCollisionLayer = CLayer::Create();
         }
 
         int objCount = 0;
@@ -335,8 +347,12 @@ namespace CUtility
             fin.read((char*)&data.scale, sizeof(_vec3));
 
             CGameObject* pObj = nullptr;
-            
-            if (!strcmp(data.type.c_str(), "Boss_Wall_Front"))
+
+            if (!strcmp(data.type.c_str(), "Terrain"))
+            {
+                pObj = CTerrainBoss::Create(pDevice);
+            }
+            else if (!strcmp(data.type.c_str(), "Boss_Wall_Front"))
             {
                 pObj = CBossWallFront::Create(pDevice);
             }
@@ -364,9 +380,9 @@ namespace CUtility
             {
                 pObj = CVineOne::Create(pDevice);
             }
-            else if (!strcmp(data.type.c_str(), "Terrain"))
+            else if ((!strcmp(data.type.c_str(), "Map_Trigger")))
             {
-                pObj = CTerrainBoss::Create(pDevice);
+                pObj = CMapTrigger::Create(pDevice);
             }
             else
             {
@@ -387,7 +403,14 @@ namespace CUtility
             wstring wstringData = L"";
             wstringData.assign(data.type.begin(), data.type.end());
 
-            pEnvLayer->Add_GameObject(wstringData, pObj);
+            if ((strcmp(data.type.c_str(), "Terrain")))
+            {
+                pEnvLayer->Add_GameObject(wstringData, pObj);
+            }
+            else
+            {
+                pNonCollisionLayer->Add_GameObject(wstringData, pObj);
+            }
         }
         //layerMap.emplace(pair<const wstring, CLayer*>{ L"Environment_Layer", pEnvLayer});
         fin.close();

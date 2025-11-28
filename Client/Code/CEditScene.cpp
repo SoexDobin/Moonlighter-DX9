@@ -19,6 +19,7 @@
 #include "CVineOne.h"
 #include "CVineTwo.h"
 #include "CLayerHelper.h"
+#include "CMapTrigger.h"
 
 CEditScene::CEditScene(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev), pVillage(nullptr), g_MapEditor(nullptr), g_pPreviewTex(nullptr),
@@ -411,8 +412,11 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
         }
     }
 
+    if (ImGui::Button("Add Trigger"))
+    {
+        Add_MapTrigger(CDataManager::Get_LayerTag(ENVIRONMENT_LAYER));
+    }
     ImGui::End();
-
 
     // Layer & Object edit
     ImGui::SetNextWindowPos(ImVec2(200, 100), ImGuiCond_Once);
@@ -488,6 +492,28 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
                         {
                             MSG_BOX("Get Transform Fail");
                             return;
+                        }
+
+                        if (displayName == "Map_Trigger")
+                        {
+                            CMapTrigger* pTrigger = static_cast<CMapTrigger*>(pObj);
+                            ImGui::TextUnformatted(toStringScene(pTrigger->GetTriggerScene()));
+                            for (int i = 0; i < SC_END; ++i)
+                            {
+                                SCENETYPE eScene = static_cast<SCENETYPE>(i);
+
+                                if (i > 0)
+                                {
+                                    ImGui::SameLine();
+                                }
+
+                                if (ImGui::Button(toStringScene(eScene)))
+                                {
+                                    pTrigger->SetTriggerScene(eScene);
+                                }
+                            }
+                            ImGui::SameLine();
+                            ImGui::TextUnformatted("Select the scene you want to go when you collision");
                         }
 
                         ImGui::TreePop();
@@ -746,6 +772,16 @@ HRESULT CEditScene::Add_VineTwo(const wstring pLayerTag)
     return S_OK;
 }
 
+HRESULT CEditScene::Add_MapTrigger(const wstring pLayerTag)
+{
+    if (FAILED(Add_ObjectToLayer<CMapTrigger>(this, pLayerTag, L"Map_Trigger")))
+    {
+        MSG_BOX("Map Trigger Add Fail");
+        return E_FAIL;
+    }
+    return S_OK;
+}
+
 inline string CEditScene::WStringToUTF8(const std::wstring& wstr)
 {
     if (wstr.empty()) return {};
@@ -838,4 +874,37 @@ _vec3 CEditScene::PickingArea()
         vPos = { 0.f, 0.f, 0.f };
     }
     return vPos;
+}
+
+const char* CEditScene::toStringScene(SCENETYPE scene)
+{
+    if (scene == SC_MAIN)
+    {
+        return "Main";
+    }
+    else if (scene == SC_MONSTER)
+    {
+        return "Monster";
+    }
+    else if (scene == SC_MAP)
+    {
+        return "Map";
+    }
+    else if (scene == SC_PLAYER)
+    {
+        return "Player";
+    }
+    else if (scene == SC_UI)
+    {
+        return "Ui";
+    }
+    else if (scene == SC_END)
+    {
+        return "UnSelected";
+    }
+    else
+    {
+        MSG_BOX("Scene Not Found");
+        return "";
+    }
 }

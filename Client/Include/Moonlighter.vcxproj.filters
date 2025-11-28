@@ -202,6 +202,9 @@
     <Filter Include="02. Scene\10. CEditScene">
       <UniqueIdentifier>{e9370153-4960-448f-859d-9cca4f9908f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObject\11. Map\MapTrigger">
+      <UniqueIdentifier>{f28c8522-7ffd-488c-b4ca-44a55e117d82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -447,6 +450,9 @@
     <ClInclude Include="..\Header\CCameraManager.h">
       <Filter>01. Manager\01. CameraManager</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CMapTrigger.h">
+      <Filter>03. GameObject\11. Map\MapTrigger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -667,6 +673,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CCameraManager.cpp">
       <Filter>01. Manager\01. CameraManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMapTrigger.cpp">
+      <Filter>03. GameObject\11. Map\MapTrigger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

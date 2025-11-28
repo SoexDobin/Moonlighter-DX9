@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "CProjectile.h"
-#include "CBossProjectile.h"
-#include "CTreeProjectile.h"
+#include "CHitRectBox.h"
+#include  "CHitSphereBox.h"
 
 CProjectile::CProjectile(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev)
@@ -21,10 +21,13 @@ CProjectile::~CProjectile()
 
 HRESULT CProjectile::Ready_GameObject()
 {
+    CRenderObject::Ready_GameObject();
+
     if (FAILED(Ready_Texture())) // Texture 준비 
         return E_FAIL;
 
-
+    if (FAILED(Ready_ProjectileInfo())) // 투사체 준비
+        return E_FAIL;
 
     return S_OK;
 }
@@ -93,11 +96,6 @@ void CProjectile::Set_ProjectileInfo(const PROJECTILE& tInfo)
 
 }
 
-void CProjectile::Set_ShootDir(const _vec3& vDir)
-{
-    m_vShootDir = vDir;
-}
-
 HRESULT CProjectile::Ready_Texture()
 {
     if (m_pDynamicTexCom = Add_Component<CTexture>(ID_DYNAMIC, L"Texture_Com", TEXTURE))
@@ -113,11 +111,32 @@ HRESULT CProjectile::Ready_Texture()
     return E_FAIL;
 }
 
+HRESULT CProjectile::Ready_ProjectileInfo()
+{
+    // 히트박스 모양  결정 및 바로 데미지 정보 삽입 
+    if (Engine::RECT_COL == m_tInfo.eColType)
+    {
+        m_pColCom = CHitRectBox::Create(m_pGraphicDevice, this);
+        static_cast<CHitRectBox*>(m_pColCom)->Set_Damage(m_tInfo.tDamageInfo);
+    }
+    else if (Engine::RECT_COL == m_tInfo.eColType)
+    {
+        m_pColCom = CHitSphereBox::Create(m_pGraphicDevice, this);
+        static_cast<CHitSphereBox*>(m_pColCom)->Set_Damage(m_tInfo.tDamageInfo);
+    }
+
+
+
+    return S_OK;
+}
+
 CProjectile* CProjectile::Create(LPDIRECT3DDEVICE9 pGraphicDev, PROJECTILE tInfo)
 {
     CProjectile* pProjectile = new CProjectile(pGraphicDev);
 
+    // PROJECTILE_INFO를 먼저 설정해야 Ready_GameObject()에서 이에 따른 변수 설정 진행
     pProjectile->Set_ProjectileInfo(tInfo);
+
     if (FAILED(pProjectile->Ready_GameObject()))
     {
         Safe_Release(pProjectile);

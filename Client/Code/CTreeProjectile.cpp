@@ -41,8 +41,8 @@ void CTreeProjectile::Render_GameObject()
 
 void CTreeProjectile::On_Collision(const Collision& tCollision)
 {
-    m_bShooting = false;
-    m_bHasImpacted = true;
+    //m_bShooting = false;
+    //m_bHasImpacted = true;
 }
 
 void CTreeProjectile::Ready_Shoot(const _float& fTimeDelta)

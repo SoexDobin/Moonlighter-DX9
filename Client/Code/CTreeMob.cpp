@@ -9,6 +9,7 @@
 #include "CMonsterState.h"
 #include "CTreeStateMachine.h"
 #include "CTreeProjectile.h"
+#include "CLayerHelper.h"
 #pragma endregion
 
 
@@ -56,6 +57,8 @@ HRESULT CTreeMob::Ready_GameObject()
     Add_EditorFiled();
 #pragma endregion
 
+    m_iObjectID = OBJECT_ID::MONSTER;
+
     return S_OK;
 }
 
@@ -67,15 +70,21 @@ _int CTreeMob::Update_GameObject(const _float fTimeDelta)
 
     Engine::CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
 
-    {
-        //m_fElapsed += fTimeDelta;
-        //if (m_fElapsed > 1.f)
-        //{
-        //    CTreeProjectile* pProjectile = CTreeProjectile::Create(m_pGraphicDevice, m_tProjectile);
-        //    pProjectile->Set_ShootDir({ 0.5f, 5.f, -1.f });
-        //    pProjectile->Set_Shooting();
-        //}
-    }
+    //{
+    //    m_fElapsed += fTimeDelta;
+    //    if (m_fElapsed > 1.5f)
+    //    {
+    //        m_fElapsed = 0.f;
+    //        CTreeProjectile* pProjectile = CTreeProjectile::Create(m_pGraphicDevice, m_tProjectile);
+    //        pProjectile->Set_SpawnPos(m_pTransformCom->Get_Pos());
+    //        pProjectile->Set_ShootDir({ 0.5f, 0.f, -1.f });
+    //        pProjectile->Set_Shooting();
+    //        if (FAILED(CLayerHelper::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(L"TreeProjectile1", pProjectile)))
+    //        {
+    //            return -1;
+    //        }
+    //    }
+    //}
 
     return iExit;
 }
@@ -129,7 +138,13 @@ HRESULT CTreeMob::Ready_Combat()
     m_tProjectile.fTextureSpeed = 10;
 
     m_tProjectile.fSpeed = 10.f;
+    m_tProjectile.eColType = COL_TYPE::SPHERE_COL;
+    m_tProjectile.dwCurFlag = OBJECT_ID::MONSTER_ATK;
+    m_tProjectile.dwHitTargetFlag = OBJECT_ID::PLAYER;
+    m_tProjectile.dwDestroyOnHitFlag
+        = OBJECT_ID::PLAYER_ATK | OBJECT_ID::INTERACTABLE | OBJECT_ID::ENVIRONMENT;
 
+    // 데미지 정보 설정 
     m_tDamage.pAttacker = this;
     m_tDamage.fAmount = 10.f;
     m_tDamage.bCanParry = m_tDamage.bShouldKnockback = false;

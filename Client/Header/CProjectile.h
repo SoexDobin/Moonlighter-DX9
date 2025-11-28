@@ -22,7 +22,8 @@ public :
 
 public :
     void        Set_ProjectileInfo(const PROJECTILE& tInfo);
-    void        Set_ShootDir(const _vec3& vDir);
+    void        Set_SpawnPos(const _vec3& vPos) { m_pTransformCom->Set_Pos(vPos); }
+    void        Set_ShootDir(const _vec3& vDir) { m_vShootDir = vDir; }
     void        Set_Shooting() { m_bShooting = true; m_bReadyShoot = false; }
 
 protected:
@@ -32,11 +33,12 @@ protected:
 
 protected:
     HRESULT     Ready_Texture();
+    HRESULT     Ready_ProjectileInfo();
 
 protected:
-    CTexture* m_pDynamicTexCom;
-    CCollider* m_pColCom;
-    PROJECTILE m_tInfo;
+    CTexture* m_pDynamicTexCom;      
+    CCollider* m_pColCom;                   // 히트박스
+    PROJECTILE m_tInfo;                     // 투사체 정보 
 
     _vec3 m_vShootDir;
     _bool m_bReadyShoot, m_bShooting, m_bHasImpacted;

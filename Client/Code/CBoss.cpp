@@ -59,6 +59,8 @@ HRESULT CBoss::Ready_GameObject()
     Add_EditorFiled();
 #pragma endregion
 
+    m_iObjectID = OBJECT_ID::MONSTER;
+
     return S_OK;
 }
 
@@ -112,6 +114,8 @@ void CBoss::On_Collision(const Collision& tCollision)
 {
     //================= 충돌 테스트 =========================
     // 충돌 상대가 슬라임이라 가정 : 슬라임 -> 보스에게 몸박 공격
+
+    m_iObjectID = PLAYER;
 
     if (COL_TYPE::RECT_COL == tCollision.pColSource->Get_ColType()
         && nullptr != dynamic_cast<CHitRectBox*>(tCollision.pColSource))

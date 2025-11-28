@@ -236,6 +236,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CVineTwo.h" />
     <ClInclude Include="CBossWallSideUpper.h" />
     <ClInclude Include="Client_Define.h" />
+    <ClInclude Include="Client_Struct.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Moonlighter.h" />
     <ClInclude Include="pch.h" />

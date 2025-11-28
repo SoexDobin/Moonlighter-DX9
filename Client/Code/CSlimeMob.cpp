@@ -72,6 +72,8 @@ HRESULT CSlimeMob::Ready_GameObject()
     Add_EditorFiled();
 #pragma endregion
 
+    m_iObjectID = OBJECT_ID::MONSTER;
+
     return S_OK;
 }
 

@@ -40,6 +40,9 @@ HRESULT CBossWallSideUpper::Ready_GameObject()
     }
 
     m_pTransformCom->Add_Rotation(ROT_Y, 1.57f);
+
+    m_iObjectID = OBJECT_ID::ENVIRONMENT;
+
     return S_OK;
 }
 

@@ -68,13 +68,13 @@ _int CTreeMob::Update_GameObject(const _float fTimeDelta)
     Engine::CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
 
     {
-        m_fElapsed += fTimeDelta;
-        if (m_fElapsed > 1.f)
-        {
-            CTreeProjectile* pProjectile = CTreeProjectile::Create(m_pGraphicDevice, m_tProjectile);
-            pProjectile->Set_ShootDir({ 0.5f, 5.f, -1.f });
-            pProjectile->Set_Shooting();
-        }
+        //m_fElapsed += fTimeDelta;
+        //if (m_fElapsed > 1.f)
+        //{
+        //    CTreeProjectile* pProjectile = CTreeProjectile::Create(m_pGraphicDevice, m_tProjectile);
+        //    pProjectile->Set_ShootDir({ 0.5f, 5.f, -1.f });
+        //    pProjectile->Set_Shooting();
+        //}
     }
 
     return iExit;

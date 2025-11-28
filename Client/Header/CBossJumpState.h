@@ -29,6 +29,9 @@ private:
 private:
     void        Jump_ToPlayer(const _float fTimeDelta);
     void        Ready_Jump();
+    void        Jumping(const _float fTimeDelta);
+    void        Finish_Jump();
+
     void        Compute_DeltaY();
 
 private:
@@ -36,13 +39,14 @@ private:
     CBossStateMachine* m_pStateMachine;
 
 private:
-    _bool m_bJumping, m_bJumpCompleted;
-    _float m_fDeltaX, m_fDeltaY, m_fDeltaZ;
-    _float m_fJumpDuration;
+    _vec3 m_vDeltaMove;
+    _float m_fJumpDuration, m_fElapsed;
     _float m_fOffsetY;
     _float m_fDiffX, m_fDiffZ;
 
-    _vec3 m_vDstPos;
+    _vec3 m_vDstPos, m_vOriginPos;
+
+    _bool m_bReadyJump, m_bJumpingUp, m_bJumpingDown, m_bJumped;
 
 public:
     static CBossJumpState* Create(CBoss* pOwner, CBossStateMachine* pStateMachine);

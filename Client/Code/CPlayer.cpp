@@ -43,6 +43,8 @@ HRESULT CPlayer::Ready_GameObject()
     m_iPrevFrame    = 0;
     m_iCurFrame     = 0;
 
+    m_iObjectID = OBJECT_ID::PLAYER;
+
     return S_OK;
 }
 

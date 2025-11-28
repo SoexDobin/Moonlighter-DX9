@@ -81,9 +81,11 @@ public:
     int     Get_RenderPriority() const { return m_iRenderPriority; }
     void    Set_RenderPriority(int iPriority) { m_iRenderPriority = iPriority; }
 
+    int     Get_ObjectID() { return m_iObjectID; }
+
 protected:
     int m_iRenderPriority = 0;
-
+    int m_iObjectID = 0;
 };
 
 template <typename T>

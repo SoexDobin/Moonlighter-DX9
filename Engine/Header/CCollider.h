@@ -4,6 +4,8 @@
 
 BEGIN(Engine)
 
+class CCollider;
+
 typedef struct tagCollision
 {
     friend class CCollider;

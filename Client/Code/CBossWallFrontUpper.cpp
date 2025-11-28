@@ -39,6 +39,9 @@ HRESULT CBossWallFrontUpper::Ready_GameObject()
         m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pTextureCom));
     }
     return S_OK;
+
+    m_iObjectID = OBJECT_ID::ENVIRONMENT;
+
 }
 
 _int CBossWallFrontUpper::Update_GameObject(const _float fTimeDelta)

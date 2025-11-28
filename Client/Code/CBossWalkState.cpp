@@ -1,7 +1,11 @@
-﻿#include "pch.h"
+﻿#pragma region INCLUDE
+#include "pch.h"
 #include "CBossWalkState.h"
 #include "CBoss.h"
 #include "CBossStateMachine.h"
+#include "CStatComponent.h"
+#pragma endregion
+
 
 CBossWalkState::CBossWalkState(CBoss* pOwner, CBossStateMachine* pStateMachine)
     : CMonsterState(),
@@ -59,12 +63,12 @@ void CBossWalkState::Render_State()
 
 void CBossWalkState::Determine_NextState()
 {
-    m_pStateMachine->Change_State(CBoss::BOSS_STATE::IDLE);
+    //m_pStateMachine->Change_State(CBoss::BOSS_STATE::IDLE);
 }
 
 void CBossWalkState::Move_ToPlayer(const _float fTimeDelta)
 {
-    m_pOwnerTransformCom->Move_Pos(&m_vDirToPlayer, fTimeDelta, 3.f);
+    m_pOwnerTransformCom->Move_Pos(&m_vDirToPlayer, fTimeDelta, m_pOwner->Get_SpeedStat()->Get_CurValue());
 }
 
 CBossWalkState* CBossWalkState::Create(CBoss* pOwner, CBossStateMachine* pStateMachine)

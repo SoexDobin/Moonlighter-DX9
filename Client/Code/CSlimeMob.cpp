@@ -8,17 +8,19 @@
 #include "CPlayer.h"
 #include "CMonsterState.h"
 #include "CSlimeStateMachine.h"
+
+#include "CHitRectBox.h"
 #pragma endregion
 
 
 CSlimeMob::CSlimeMob(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CRenderObject(pGraphicDev), m_pDynamicTexCom(nullptr), m_dwCurStateKey(SLIME_STATE::S_END), m_dwAnimKey(SLIME_STATE::S_END),
+    : CMonster(pGraphicDev), m_pDynamicTexCom(nullptr), m_dwCurStateKey(SLIME_STATE::S_END), m_dwAnimKey(SLIME_STATE::S_END),
     m_pStateMachine(nullptr), m_pCurState(nullptr)
 {
 }
 
 CSlimeMob::CSlimeMob(const CSlimeMob& rhs)
-    : CRenderObject(rhs), m_pDynamicTexCom(nullptr)
+    : CMonster(rhs), m_pDynamicTexCom(nullptr)
 {
 }
 
@@ -43,8 +45,24 @@ HRESULT CSlimeMob::Ready_GameObject()
     {
         m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pDynamicTexCom));
     }
+
+
+    DAMAGE_INFO damage;
+    damage.bCanParry = false;
+    damage.bShouldKnockback = false;
+    damage.fAmount = 60.f;
+    damage.eApplyTiming = Engine::COL_STATE::ENTER_COL;
+    damage.vDirKnockback = { 0.f, 1.f, 0.f };
+    damage.pAttacker = this;
+
+    m_pRectBox = CHitRectBox::Create(m_pGraphicDevice, this);
+    m_pRectBox->Set_Damage(damage);
+
+    m_umComponent[ID_DYNAMIC].insert({ L"SIVAROMA", m_pRectBox });
+
 #pragma endregion
     Ready_Animation();
+
     m_pStateMachine = CSlimeStateMachine::Create(this);
 
     // after all components are set up
@@ -53,6 +71,8 @@ HRESULT CSlimeMob::Ready_GameObject()
 #pragma region Debbuging
     Add_EditorFiled();
 #pragma endregion
+
+    m_iObjectID = OBJECT_ID::MONSTER;
 
     return S_OK;
 }
@@ -103,8 +123,8 @@ void CSlimeMob::Render_GameObject()
 HRESULT CSlimeMob::Ready_Animation()
 {
     m_pDynamicTexCom->Ready_Texture(L"Slime_Idle");                //SLIME_STATE::AWAKE
-    m_pDynamicTexCom->Ready_Texture(L"Slime_Circle");           //SLIME_STATE::ATK_CIRCLE
-    m_pDynamicTexCom->Ready_Texture(L"Slime_Big");                  //SLIME_STATE::ATK_BIG
+    m_pDynamicTexCom->Ready_Texture(L"Slime_Circle");            //SLIME_STATE::ATK_CIRCLE
+    m_pDynamicTexCom->Ready_Texture(L"Slime_Big");                 //SLIME_STATE::ATK_BIG
 
     // Configure boss animation values
     m_pDynamicTexCom->Set_Speed(10.f);
@@ -122,9 +142,19 @@ void CSlimeMob::Set_CurStateKey(_uint dwStateKey, CMonsterState* pCurState)
     m_pDynamicTexCom->Set_Texture(dwStateKey);
 }
 
+void CSlimeMob::Ready_EntityComponent()
+{
+    // Set Combat Stats                
+    m_pCombatStats = CCombatStats::Create(this);
+    m_pCombatStats->Set_HealthStat(CStatComponent::Create(this, 100.f, 0.f, 100.f));    // HP
+    m_pCombatStats->Set_AttackStat(CStatComponent::Create(this, 10.f, 10.f, 30.f));      // Attack
+    m_pCombatStats->Set_DefenseStat(CStatComponent::Create(this, 10.f, 10.f, 30.f));    // Defense
+    m_pCombatStats->Set_SpeedStat(CStatComponent::Create(this, 5.f, 1.f, 10.f));            // Speed
+}
+
 void CSlimeMob::Configure_Component()
 {
-    m_pTransformCom->Set_Scale(11.f, 11.f, 1.f);
+    m_pTransformCom->Set_Scale(4.f, 4.f, 4.f);
     m_pTransformCom->Set_Pos(10.f, 5.f, 10.f);
 }
 

@@ -6,7 +6,7 @@ BEGIN(Engine)
 
 class ENGINE_DLL CRectCollider : public CCollider
 {
-private:
+protected:
     explicit CRectCollider();
     explicit CRectCollider(LPDIRECT3DDEVICE9 pGraphicDev);
     explicit CRectCollider(const CRectCollider& rhs);

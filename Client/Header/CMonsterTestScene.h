@@ -14,8 +14,12 @@ public:
     void    Render_Scene() override;
 
 private:
-    HRESULT Ready_Camera_Layer(const wstring& wsLayerTag);
-    HRESULT Ready_GameLogic_Layer(const wstring& wsLayerTag);
+    HRESULT			Ready_Environment_Layer(const wstring& wsLayerTag);
+    HRESULT            Ready_Camera_Layer(const wstring& wsLayerTag);
+    HRESULT            Ready_GameLogic_Layer(const wstring& wsLayerTag);
+
+    HRESULT			Ready_Light();
+    HRESULT			Ready_Prototype();
 
 public:
     static CMonsterTestScene* Create(LPDIRECT3DDEVICE9 pGraphicDev);

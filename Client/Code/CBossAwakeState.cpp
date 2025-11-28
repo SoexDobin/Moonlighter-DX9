@@ -87,8 +87,7 @@ void CBossAwakeState::Determine_NextState()
     if (m_bCanTransit)
     {
         // 원래 로직 : IDLE로 전환해야 한다
-        //m_pStateMachine->Change_State(CBoss::BOSS_STATE::IDLE);
-        m_pStateMachine->Change_State(CBoss::BOSS_STATE::DEAD);
+        m_pStateMachine->Change_State(CBoss::BOSS_STATE::IDLE);
     }
 }
 

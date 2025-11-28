@@ -63,7 +63,7 @@ void CBossThrowState::Check_EventFrame()
 
 void CBossThrowState::Determine_NextState()
 {
-    m_pStateMachine->Change_State(CBoss::BOSS_STATE::ATK_THROW);
+    m_pStateMachine->Change_State(CBoss::BOSS_STATE::ATK_ROOT);
 }
 
 

@@ -40,6 +40,9 @@ HRESULT CDungeonWall::Ready_GameObject()
     }
 
     m_pTransformCom->Set_Scale(4.f, 4.f, 1.f);
+
+    m_iObjectID = OBJECT_ID::ENVIRONMENT;
+
     return S_OK;
 }
 

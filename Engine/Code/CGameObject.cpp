@@ -22,6 +22,7 @@ CGameObject::~CGameObject()
 
 void CGameObject::DontDestroySceneLoad(CGameObject* pObj)
 {
+    CManagement::GetInstance()->Add_CacheObject(pObj);
 }
 
 void CGameObject::Init_Layer(const wstring& wLayerTag, const wstring& wObjectKey)

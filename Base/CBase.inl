@@ -1,5 +1,5 @@
-
-inline CBase::CBase() : m_dwRefCnt(0)
+﻿
+inline CBase::CBase() : m_dwRefCnt(1)
 {
 
 }
@@ -15,7 +15,7 @@ inline unsigned long CBase::AddRef()
 
 inline unsigned long CBase::Release()
 {
-	if (m_dwRefCnt == 0)
+	if (--m_dwRefCnt == 0)
 	{
 		Free();
 		 
@@ -24,5 +24,5 @@ inline unsigned long CBase::Release()
 		return 0;
 	}
 
-	return m_dwRefCnt--;
+	return m_dwRefCnt;
 }

@@ -26,7 +26,7 @@ public:
 							const wstring& wsObjTag,
 							const wstring& wsComponentTag);
 public:
-    void            Add_CacheObject(CGameObject** pCacheObject);
+    void            Add_CacheObject(CGameObject* pCacheObject);
 private:
     void            Load_CacheObject();
 
@@ -41,7 +41,7 @@ public:
 private:
     _bool                                   m_bIsInit;
 	CScene*				                    m_pCurScene;
-    unordered_set<CGameObject**>            m_usetCacheObject;
+    unordered_set<CGameObject*>            m_usetCacheObject;
 	
 public:
 	virtual void			Free() override;

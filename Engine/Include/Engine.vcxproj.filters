@@ -142,6 +142,9 @@
     <Filter Include="02. Prototype\00. VIBuffer\02. TerrainTex\02. Boss">
       <UniqueIdentifier>{b19aeb14-531b-49be-9885-4298162c6d3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Logic\03. GameObject\02. NonRenderObject">
+      <UniqueIdentifier>{96b453e8-65dd-4293-88d2-e5a61fdf4441}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -300,6 +303,9 @@
     <ClInclude Include="..\Header\CTerrainBossTex.h">
       <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\02. Boss</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CNonRenderObject.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CTimer.cpp">
@@ -433,6 +439,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainBossTex.cpp">
       <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\02. Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CNonRenderObject.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -4,6 +4,9 @@
 const wstring& CRenderObject::n_wsBufferKey = L"Buffer_Com";
 const wstring& CRenderObject::n_wsTransformKey = L"Transform_Com";
 
+const wstring& CRenderObject::Get_BufferKey() { return n_wsBufferKey; }
+const wstring& CRenderObject::Get_TransformKey() { return n_wsTransformKey; }
+
 CRenderObject::CRenderObject(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev), m_pBufferCom(nullptr), m_pTransformCom(nullptr)
 {

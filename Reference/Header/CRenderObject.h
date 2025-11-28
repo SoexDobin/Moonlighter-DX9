@@ -31,9 +31,12 @@ protected:
 	CRectTex*			m_pBufferCom;
 	CTransform*			m_pTransformCom;
 
-public:
+private:
 	static const wstring&	n_wsBufferKey;
 	static const wstring&	n_wsTransformKey;
+public:
+    static const wstring&   Get_BufferKey();
+    static const wstring&   Get_TransformKey();
 	
 public:
 	static CRenderObject*	Create(LPDIRECT3DDEVICE9 pGraphicDev);

@@ -3,7 +3,6 @@
 #include "CBase.h"
 #include "Client_Define.h"
 #include "Engine_Define.h"
-#include "Client_Define.h"
 
 class CDataManager : public CBase
 {

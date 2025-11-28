@@ -62,6 +62,7 @@ private:
     HRESULT Add_VineTwo(const wstring pLayerTag);
 
     inline string WStringToUTF8(const std::wstring& wstr);
+
     template<typename TObject>
     HRESULT Add_ObjectToLayer(CEditScene* pScene, const wstring& pLayerTag, const wstring& objectName)
     {
@@ -109,7 +110,17 @@ private:
             {
                 for (CGameObject* pObj : objList.second)
                 {
-                    if (wcscmp(pObj->m_szDisplayName, L"Terrain") == 0)
+                    if (wcscmp(pObj->m_szDisplayName, L"Terrain_Village") == 0)
+                    {
+                        pVillage = static_cast<T*>(pObj);
+                        break;
+                    }
+                    else if (wcscmp(pObj->m_szDisplayName, L"Terrain_Dungeon") == 0)
+                    {
+                        pVillage = static_cast<T*>(pObj);
+                        break;
+                    }
+                    else if (wcscmp(pObj->m_szDisplayName, L"Terrain_Boss") == 0)
                     {
                         pVillage = static_cast<T*>(pObj);
                         break;

@@ -20,7 +20,7 @@ const wstring CDataManager::n_wsLayerTag[Engine::LAYER_END]
 {
     L"Default_Layer",
     L"Camera_Layer",
-    L"Default_Layer",
+    L"Environment_NoCollision_Layer",
     L"Environment_Layer",
     L"Default_Layer",
     L"GameLogic_Layer",

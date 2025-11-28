@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "CDataManager.h"
 #include "CDInputManager.h"
 #include "CResourceManager.h"
 #include "CPrototypeManager.h"
@@ -182,7 +183,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
         if (ImGui::Button("Add TerrainVillage"))
         {
-            Add_TerrainVillage(L"Environment_Layer");
+            Add_TerrainVillage(CDataManager::Get_LayerTag(ENVIRONMENT_NOCOLLISION_LAYER));
         }
         if (ImGui::IsItemHovered())
         {
@@ -196,7 +197,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
         if (ImGui::Button("Add House"))
         {
-            Add_House(L"Environment_Layer");
+            Add_House(CDataManager::Get_LayerTag(ENVIRONMENT_LAYER));
         }
         if (ImGui::IsItemHovered())
         {
@@ -208,7 +209,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
         if (ImGui::Button("Add Tree"))
         {
-            Add_Tree(L"Environment_Layer");
+            Add_Tree(CDataManager::Get_LayerTag(ENVIRONMENT_LAYER));
         }
         if (ImGui::IsItemHovered())
         {
@@ -223,7 +224,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
     {
         if (ImGui::Button("Add Terrain Dungeon"))
         {
-            Add_TerrainDungeon(L"Environment_Layer");
+            Add_TerrainDungeon(CDataManager::Get_LayerTag(ENVIRONMENT_NOCOLLISION_LAYER));
         }
         if (ImGui::IsItemHovered())
         {
@@ -237,7 +238,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
         if (ImGui::Button("Add Dungeon Wall"))
         {
-            Add_DungeonWall(L"Environment_Layer");
+            Add_DungeonWall(CDataManager::Get_LayerTag(ENVIRONMENT_LAYER));
         }
         if (ImGui::IsItemHovered())
         {
@@ -307,7 +308,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
         if (ImGui::Button("Add Terrain Boss"))
         {
-            Add_TerrainBoss(L"Environment_Layer");
+            Add_TerrainBoss(CDataManager::Get_LayerTag(ENVIRONMENT_NOCOLLISION_LAYER));
         }
         if (ImGui::IsItemHovered())
         {
@@ -321,7 +322,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
         if (ImGui::Button("Add Boss Wall Front"))
         {
-            Add_BossWallFront_Down(L"Environment_Layer");
+            Add_BossWallFront_Down(CDataManager::Get_LayerTag(ENVIRONMENT_LAYER));
         }
         if (ImGui::IsItemHovered())
         {
@@ -333,7 +334,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
         if (ImGui::Button("Add Boss Wall Side"))
         {
-            Add_BossWallSide_Down(L"Environment_Layer");
+            Add_BossWallSide_Down(CDataManager::Get_LayerTag(ENVIRONMENT_LAYER));
         }
         if (ImGui::IsItemHovered())
         {
@@ -347,7 +348,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
         if (ImGui::Button("Add Boss Wall Front Upper"))
         {
-            Add_BossWallFront_Up(L"Environment_Layer");
+            Add_BossWallFront_Up(CDataManager::Get_LayerTag(ENVIRONMENT_LAYER));
         }
         if (ImGui::IsItemHovered())
         {
@@ -359,7 +360,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
         if (ImGui::Button("Add Boss Wall Side Upper"))
         {
-            Add_BossWallSide_Up(L"Environment_Layer");
+            Add_BossWallSide_Up(CDataManager::Get_LayerTag(ENVIRONMENT_LAYER));
         }
         if (ImGui::IsItemHovered())
         {
@@ -373,7 +374,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
         if (ImGui::Button("Add Pumpkin"))
         {
-            Add_Pumpkin(L"Environment_Layer");
+            Add_Pumpkin(CDataManager::Get_LayerTag(ENVIRONMENT_LAYER));
         }
         if (ImGui::IsItemHovered())
         {
@@ -385,7 +386,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
         if (ImGui::Button("Add VineOne"))
         {
-            Add_VineOne(L"Environment_Layer");
+            Add_VineOne(CDataManager::Get_LayerTag(ENVIRONMENT_LAYER));
         }
         if (ImGui::IsItemHovered())
         {
@@ -399,7 +400,7 @@ void CEditScene::LateUpdate_Scene(const _float fTimeDelta)
 
         if (ImGui::Button("Add VineTwo"))
         {
-            Add_VineTwo(L"Environment_Layer");
+            Add_VineTwo(CDataManager::Get_LayerTag(ENVIRONMENT_LAYER));
         }
         if (ImGui::IsItemHovered())
         {
@@ -613,6 +614,7 @@ void CEditScene::Free()
     Engine::CScene::Free();
 }
 
+//fix
 HRESULT CEditScene::Add_TerrainVillage(const wstring pLayerTag)
 {
     if (FAILED(Add_ObjectToLayer<CTerrainVillage>(this, pLayerTag, L"Terrain_Village")))
@@ -633,7 +635,7 @@ HRESULT CEditScene::Add_TerrainDungeon(const wstring pLayerTag)
     return S_OK;
 }
 
-
+//fix
 HRESULT CEditScene::Add_House(const wstring pLayerTag)
 {
     if (FAILED(Add_ObjectToLayer<CHouse>(this, pLayerTag, L"Village_House")))
@@ -784,7 +786,8 @@ CGameObject* CEditScene::PickObject(const _vec3& vPickPos)
     {
         for (CGameObject* pObj : objListPair.second)
         {
-            if (pObj == nullptr || wcscmp(pObj->m_szDisplayName, L"Terrain") == 0)
+            if (pObj == nullptr || wcscmp(pObj->m_szDisplayName, L"Terrain_Village") == 0 ||
+                wcscmp(pObj->m_szDisplayName, L"Terrain_Dungeon") == 0 || wcscmp(pObj->m_szDisplayName, L"Terrain_Boss") == 0)
             {
                 continue;
             }

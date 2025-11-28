@@ -2,6 +2,7 @@
 #include "CPrototypeManager.h"
 #include "CEditor.h"
 #include "CLayerHelper.h"
+#include "CManagement.h"
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
     : m_pGraphicDevice(pGraphicDev), m_bDisplayInEditor(false), m_bIsDestroy(FALSE)
@@ -19,11 +20,16 @@ CGameObject::~CGameObject()
 {
 }
 
-void CGameObject::Init_Layer(const wstring& wLayerTag)
+void CGameObject::DontDestroySceneLoad(CGameObject* pObj)
+{
+}
+
+void CGameObject::Init_Layer(const wstring& wLayerTag, const wstring& wObjectKey)
 {
     m_tLayerMask.eLayerID = CLayerHelper::GetInstance()->GetLayerIDByName(wLayerTag);
     m_tLayerMask.wsLayerTag = wLayerTag;
     m_tLayerMask.iMask = 0xFFFF;
+    m_tLayerMask.wsObjectKey = wObjectKey;
 }
 
 const LayerMask& CGameObject::Get_Object_LayerMask() { return m_tLayerMask; }

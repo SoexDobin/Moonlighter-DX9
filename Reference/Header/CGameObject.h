@@ -6,6 +6,8 @@
 
 BEGIN(Engine)
 
+class CManagement;
+
 class ENGINE_DLL CGameObject : public CBase
 {
 protected:
@@ -20,13 +22,13 @@ public:
     T*                 Add_Component(COMPONENTID eID, const wstring& wsComponentKey, const wstring& wsComponentTag);
 public:
     static void        Destroy(CGameObject* pObj) { pObj->Set_Destroy(); }
-    static void        DontDestroySceneLoad(CGameObject* pObj) { pObj->m_bIsDestroy = FALSE; }
+    static void        DontDestroySceneLoad(CGameObject* pObj);
 
 public:
-    //void               Init_Layer(const wstring& wLayerTag);
-    //const LayerMask&   Get_Object_LayerMask();
+    void               Init_Layer(const wstring& wLayerTag, const wstring& wObjectKey);
+    const LayerMask&   Get_Object_LayerMask();
 protected:
-    //LayerMask&         Get_LayerMask();
+    LayerMask&         Get_LayerMask();
     
 public:
 	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentKey);
@@ -49,7 +51,7 @@ private:
 protected:
 	LPDIRECT3DDEVICE9							m_pGraphicDevice;
 	unordered_map<wstring, CComponent*>			m_umComponent[ID_END];
-    //LayerMask                                   m_tLayerMask;
+    LayerMask                                   m_tLayerMask;
 
 private:
     _bool										m_bIsDestroy;

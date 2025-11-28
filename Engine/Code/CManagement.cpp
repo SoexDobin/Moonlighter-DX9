@@ -2,6 +2,7 @@
 #include "CRenderer.h"
 #include "CCollisionManager.h"
 #include "CLayerHelper.h"
+#include "CGameObject.h"
 
 IMPLEMENT_SINGLETON(CManagement)
 
@@ -78,6 +79,28 @@ CComponent* CManagement::Get_Component(COMPONENTID eID,
     return m_pCurScene->Get_Component(eID, wsLayerTag, wsObjTag, wsComponentTag);
 }
 
+void CManagement::Add_CacheObject(CGameObject** pCacheObject)
+{
+    (*pCacheObject)->AddRef();
+
+    m_usetCacheObject.emplace(pCacheObject);
+}
+
+void CManagement::Load_CacheObject()
+{
+    if (m_usetCacheObject.empty()) return;
+
+    if (m_pCurScene == nullptr) return;
+
+    for (auto& ppObeject : m_usetCacheObject)
+    {
+        CGameObject* pObj = (*ppObeject);
+        CLayer* pTargetLayer = m_pCurScene->Get_Layer(pObj->Get_Object_LayerMask().wsLayerTag);
+
+        pTargetLayer->Add_GameObject(pObj->Get_Object_LayerMask().wsObjectKey, pObj);
+    }
+}
+
 HRESULT CManagement::Set_Scene(CScene* pScene)
 {
     if (pScene == nullptr) return E_FAIL;
@@ -89,6 +112,7 @@ HRESULT CManagement::Set_Scene(CScene* pScene)
         CCollisionManager::GetInstance()->Clear_CollisionGroup();
 
     m_pCurScene = pScene;
+    Load_CacheObject();
 
     return S_OK;
 }
@@ -118,5 +142,10 @@ void CManagement::Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CManagement::Free()
 {
+    for_each(m_usetCacheObject.begin(), m_usetCacheObject.end(),
+        [](CGameObject** ppObject) -> void {
+            Safe_Release(*ppObject);
+        });
+
     Safe_Release(m_pCurScene);
 }

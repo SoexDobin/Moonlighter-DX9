@@ -6,6 +6,8 @@
 
 BEGIN(Engine)
 
+class CManagement;
+
 class ENGINE_DLL CGameObject : public CBase
 {
 protected:
@@ -20,10 +22,10 @@ public:
     T*                 Add_Component(COMPONENTID eID, const wstring& wsComponentKey, const wstring& wsComponentTag);
 public:
     static void        Destroy(CGameObject* pObj) { pObj->Set_Destroy(); }
-    static void        DontDestroySceneLoad(CGameObject* pObj) { pObj->m_bIsDestroy = FALSE; }
+    static void        DontDestroySceneLoad(CGameObject* pObj);
 
 public:
-    void               Init_Layer(const wstring& wLayerTag);
+    void               Init_Layer(const wstring& wLayerTag, const wstring& wObjectKey);
     const LayerMask&   Get_Object_LayerMask();
 protected:
     LayerMask&         Get_LayerMask();

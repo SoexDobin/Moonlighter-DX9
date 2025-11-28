@@ -33,6 +33,7 @@ HRESULT CLayer::Add_GameObject(const wstring& wsObjTag, CGameObject* pGameObject
 	if (nullptr == pGameObject) return E_FAIL;
 
     m_umGameObject[wsObjTag].push_back(pGameObject);	
+    pGameObject->Init_Layer(m_wsLayerTag, wsObjTag);
 
     pGameObject->Set_EditorDisplayName(wsObjTag);
 
@@ -41,7 +42,7 @@ HRESULT CLayer::Add_GameObject(const wstring& wsObjTag, CGameObject* pGameObject
 
 HRESULT CLayer::Ready_Layer(const wstring& wsLayerName)
 {
-    m_wsLayerName = wsLayerName;
+    m_wsLayerTag = wsLayerName;
     
 	return S_OK;
 }

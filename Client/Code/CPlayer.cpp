@@ -43,6 +43,8 @@ HRESULT CPlayer::Ready_GameObject()
     m_iPrevFrame    = 0;
     m_iCurFrame     = 0;
 
+    DontDestroySceneLoad(this);
+
     return S_OK;
 }
 

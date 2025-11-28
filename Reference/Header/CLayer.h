@@ -14,7 +14,7 @@ public:
     const unordered_map<wstring, list<CGameObject*>>&     Get_Objects() { return m_umGameObject; }
 
 public:
-    const wstring&  Get_LayerName() { return m_wsLayerName; }
+    const wstring&  Get_LayerName() { return m_wsLayerTag; }
 	CComponent*		Get_Component(COMPONENTID eID, const wstring& wsObjTag, const wstring& wsComponentTag);
 	HRESULT			Add_GameObject(const wstring& wsObjTag, CGameObject* pGameObject);
 
@@ -26,7 +26,7 @@ public:
 
 private:
 	unordered_map<wstring, list<CGameObject*>>		m_umGameObject;
-    wstring                                         m_wsLayerName;
+    wstring                                         m_wsLayerTag;
 
 public:
 	static CLayer* Create(const wstring& layerTag = L"Layer");
@@ -40,7 +40,6 @@ public:
 public :
 	_bool			m_bDisplayInEditor;
 	char            	m_LayerTag[32];
-    wstring        m_wsLayerTag;
     static wstring ws_selectedLayer;
 #pragma endregion
 

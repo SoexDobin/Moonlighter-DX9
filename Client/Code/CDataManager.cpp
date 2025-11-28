@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "CDataManager.h"
+#include "CLayerHelper.h"
 
 #include "CSoundManager.h"
 #include "CPrototypeManager.h"
@@ -15,6 +16,25 @@ const wstring CDataManager::n_wsPrototypeTag[CUSTOM_END]
     L"Player_Movement"
 };
 
+const wstring CDataManager::n_wsLayerTag[Engine::LAYER_END]
+{
+    L"Default_Layer",
+    L"Camera_Layer",
+    L"Default_Layer",
+    L"Environment_Layer",
+    L"Default_Layer",
+    L"GameLogic_Layer",
+    L"Default_Layer",
+    L"UI_Layer",
+    L"Default_Layer",
+    L"Effect_Layer",
+    L"Default_Layer",
+    L"Default_Layer",
+    L"Default_Layer",
+    L"Default_Layer",
+    L"Default_Layer",
+    L"Default_Layer",
+};
 
 CDataManager::CDataManager()
 {
@@ -22,12 +42,12 @@ CDataManager::CDataManager()
 
 CDataManager::~CDataManager()
 {
-	Free();
+    CDataManager::Free();
 }
 
 HRESULT CDataManager::Ready_Data(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-
+    Engine::CLayerHelper::GetInstance()->SetLayerName(n_wsLayerTag);
 
 	{
 		if (FAILED(Ready_Sound()))
@@ -44,7 +64,7 @@ HRESULT CDataManager::Ready_Data(LPDIRECT3DDEVICE9 pGraphicDev)
 			return E_FAIL;
         if (FAILED(Ready_UI_Resource(pGraphicDev)))
             return E_FAIL;
-        
+
         if (FAILED(Ready_Boss_Resource(pGraphicDev)))
             return E_FAIL;
 
@@ -96,14 +116,10 @@ HRESULT CDataManager::Ready_Prototype(LPDIRECT3DDEVICE9 pGraphicDev)
 
 
     // Client Custom Prototype 정의
-    // 추가되는 순간 부터 지워줘   
+    // 추가되는 순간 부터 지워줘
     if (FAILED(Engine::CPrototypeManager::GetInstance()
         ->Ready_Prototype(n_wsPrototypeTag[TEMP_CUSTOMPROTO], CTmpCustomComponent::Create(pGraphicDev))))
         return E_FAIL;
-
-    // if (FAILED(Engine::CPrototypeManager::GetInstance()
-    //     ->Ready_Prototype(n_wsPrototypeTag[PLAYER_MOVEMENT], CPlayerComponent::Create(pGraphicDev))))
-    //     return E_FAIL;
 
 	return S_OK;
 }
@@ -260,7 +276,7 @@ HRESULT CDataManager::Ready_Item_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CResourceManager& Res = *CResourceManager::GetInstance();
 
-	if (FAILED(Res.Add_Sprite(pGraphicDev, L"Item_Potion", 
+	if (FAILED(Res.Add_Sprite(pGraphicDev, L"Item_Potion",
 		n_wsResSpritePath + L"Item/Potion/Item_Potion_Heal_%d.png", 4)))
 		return E_FAIL;
 
@@ -349,7 +365,6 @@ HRESULT CDataManager::Ready_UI_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
     if (FAILED(Res.Add_Sprite(pGraphicDev, L"ClickSlot",
         L"../Bin/Resource/Sprite/UI/Inven/ClickSlot.png", 1)))
         return E_FAIL;
-
 
     return S_OK;
 }

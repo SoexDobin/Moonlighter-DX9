@@ -32,9 +32,11 @@ private:
 
 public:
     static const wstring& Get_ClientPrototypeTag(PROTOTYPE_CUSTOM eTag) { return n_wsPrototypeTag[eTag]; }
+    static const wstring& Get_LayerTag(_uint iIndex) { return n_wsLayerTag[iIndex]; }
 
 private:
     static const wstring n_wsPrototypeTag[CUSTOM_END];
+    static const wstring n_wsLayerTag[Engine::LAYER_END];
 	const wstring n_wsResSpritePath = L"../Bin/Resource/Sprite/";
 	const _float n_fDefault_AnimSpeed = 10.f;
 private:

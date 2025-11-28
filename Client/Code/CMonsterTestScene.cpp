@@ -9,6 +9,8 @@
 #include "CTerrainVillage.h"
 
 #include "CManagement.h"
+#include "CLayerHelper.h"
+#include "CDataManager.h"
 
 #include "CCameraManager.h"
 
@@ -23,10 +25,10 @@ CMonsterTestScene::~CMonsterTestScene()
 
 HRESULT CMonsterTestScene::Ready_Scene()
 {
-    if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
+    if (FAILED(Ready_GameLogic_Layer(CDataManager::GetInstance()->Get_LayerTag(GAMELOGIC_LAYER))))
         return E_FAIL;
 
-    if (FAILED(Ready_Camera_Layer(L"Camera_Layer")))
+    if (FAILED(Ready_Camera_Layer(CDataManager::GetInstance()->Get_LayerTag(CAMERA_LAYER))))
         return E_FAIL;
 
     return S_OK;
@@ -60,7 +62,7 @@ HRESULT CMonsterTestScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 
 HRESULT CMonsterTestScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
+    CLayer* pGameLogicLayer = Get_Layer(wsLayerTag);
 
     CGameObject* pVillage = nullptr;
     pVillage = CTerrainVillage::Create(m_pGraphicDevice);
@@ -89,8 +91,6 @@ HRESULT CMonsterTestScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
     pSlimeMob = CSlimeMob::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"SlimeMob", pSlimeMob)))
         return E_FAIL;
-
-    m_umLayer.emplace(pair<const wstring, CLayer*>{ wsLayerTag, pGameLogicLayer});
 
     return S_OK;
 }

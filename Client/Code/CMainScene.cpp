@@ -8,6 +8,7 @@
 #include "CExampleManager.h"
 #include "CLightManager.h"
 #include "CManagement.h"
+#include "CLayerHelper.h"
 #include "CEditScene.h"
 
 #include "CUIInven.h"
@@ -32,6 +33,8 @@ CMainScene::~CMainScene()
 
 HRESULT CMainScene::Ready_Scene()
 {
+    CScene::Ready_Scene();
+
     if (FAILED(Ready_Light()))
         return E_FAIL;
 
@@ -104,20 +107,19 @@ HRESULT CMainScene::Ready_Camera_Layer(const wstring& wsLayerTag)
 
 HRESULT CMainScene::Ready_Environment_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
+    CLayer* pGameLogicLayer = Get_Layer(wsLayerTag);
 
     CGameObject* pGameObject = nullptr;
     pGameObject = CTerrainVillage::Create(m_pGraphicDevice);
     if (FAILED(pGameLogicLayer->Add_GameObject(L"Village", pGameObject)))
         return E_FAIL;
 
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pGameLogicLayer});
     return S_OK;
 }
 
 HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pGameLogicLayer = CLayer::Create(wsLayerTag);
+    CLayer* pGameLogicLayer = Get_Layer(wsLayerTag);
 
     CGameObject* pGameObject = nullptr;
     pGameObject = CTestRect::Create(m_pGraphicDevice);
@@ -166,14 +168,12 @@ HRESULT CMainScene::Ready_GameLogic_Layer(const wstring& wsLayerTag)
 
 #pragma endregion
 
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pGameLogicLayer});
-
     return S_OK;
 }
 
 HRESULT CMainScene::Ready_UI_Layer(const wstring& wsLayerTag)
 {
-    CLayer* pLayer = CLayer::Create(wsLayerTag);
+    CLayer* pLayer = Get_Layer(wsLayerTag);
 
     Engine::CGameObject* pGameObject = nullptr;
 
@@ -192,8 +192,6 @@ HRESULT CMainScene::Ready_UI_Layer(const wstring& wsLayerTag)
 
     if (FAILED(pLayer->Add_GameObject(L"UI_Static", pGameObject)))
         return E_FAIL;
-
-    m_umLayer.emplace(pair<const wstring&, CLayer*>{ wsLayerTag, pLayer});
 
     return S_OK;
 }

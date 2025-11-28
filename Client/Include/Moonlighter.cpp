@@ -6,6 +6,7 @@
 #include "Moonlighter.h"
 #include "CMainApp.h"
 #include "CEditor.h"
+#include <locale.h>
 
 #define MAX_LOADSTRING 100
 
@@ -13,6 +14,7 @@ HWND g_hWnd;
 HINSTANCE g_hInst;
 const _float FPS = 60.f;
 _float  fTimeScale = 1.f;
+FILE* debug;
 
 #define MAX_LOADSTRING 100
 
@@ -178,6 +180,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     switch (message)
     {
+#pragma region Console
+    case WM_CREATE :
+    {
+        AllocConsole();
+        _tfreopen_s(&debug, _T("CONOUT$"), _T("w"), stdout);
+        _tfreopen_s(&debug, _T("CONOUT$"), _T("r"), stdin);
+        _tfreopen_s(&debug, _T("CONOUT$"), _T("w"), stderr);
+
+        HWND hConsole = GetConsoleWindow();
+        MoveWindow(hConsole, 0, 0, 400, 600, TRUE);
+        MoveWindow(hWnd, 400, 0, WINCX, WINCY, TRUE);
+    }
+    break;
+
+    case WM_CLOSE :
+    {
+        FreeConsole();
+        DestroyWindow(hWnd);
+    }
+    break;
+#pragma endregion
+
+
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);

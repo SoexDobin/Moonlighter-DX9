@@ -17,6 +17,7 @@ public:
     CGameObject*               Get_Object(const wstring& wsLayerTag, const wstring& wsObjTag);
     CGameObject*               Get_Object(const wstring& wsObjTag);
     const list<CGameObject*>*  Get_Object_List(const wstring& wsObjTag);
+    CScene*                    Get_CurScene() const { return m_pCurScene; }
 
 	CComponent*		Get_Component(COMPONENTID eID,
 							const wstring& wsLayerTag,
@@ -32,9 +33,8 @@ public:
 	void			Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
-    _bool               m_bIsInit;
-	CScene*				m_pCurScene;
-
+    _bool                              m_bIsInit;
+	CScene*				               m_pCurScene;
 	
 public:
 	virtual void			Free() override;

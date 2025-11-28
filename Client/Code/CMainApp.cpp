@@ -10,6 +10,7 @@
 #include "CLightManager.h"
 #include "CCollisionManager.h"
 #include "CFontManager.h"
+#include "CLayerHelper.h"
 
 #include "CMainScene.h"
 #include "CPlayerTestScene.h"
@@ -151,6 +152,7 @@ void CMainApp::Free()
     CEngineMediator::DestroyInstance();
     CCameraManager::DestroyInstance();
 
+    Engine::CLayerHelper::DestroyInstance();
     Engine::CFontManager::DestroyInstance();
 	Engine::CEditor::DestroyInstance();
 	Engine::CLightManager::DestroyInstance();

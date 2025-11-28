@@ -3,13 +3,13 @@
 #include "CEditor.h"
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
-	: m_pGraphicDevice(pGraphicDev), m_bDisplayInEditor(false)
+    : m_pGraphicDevice(pGraphicDev), m_bDisplayInEditor(false), m_bIsDestroy(FALSE)
 {
 	m_pGraphicDevice->AddRef();
 }
 
 CGameObject::CGameObject(const CGameObject& rhs)
-	: m_pGraphicDevice(rhs.m_pGraphicDevice), m_bDisplayInEditor(false)
+	: m_pGraphicDevice(rhs.m_pGraphicDevice), m_bDisplayInEditor(false), m_bIsDestroy(FALSE)
 {
 	m_pGraphicDevice->AddRef();
 }
@@ -17,6 +17,15 @@ CGameObject::CGameObject(const CGameObject& rhs)
 CGameObject::~CGameObject()
 {
 }
+
+//void CGameObject::Init_Layer(const wstring& wLayerTag)
+//{
+//    m_tLayerMask.eLayerID = CLayerHelper::GetInstance()->GetLayerIDByName(wLayerTag);
+//    m_tLayerMask.wsLayerTag = wLayerTag;
+//}
+//
+//const LayerMask& CGameObject::Get_Object_LayerMask() { return m_tLayerMask; }
+//LayerMask& CGameObject::Get_LayerMask() { return m_tLayerMask; }
 
 // 기존에 사용하던 가지고 있는 컴포넌트의 wstring 테그를 통한 검색
 CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring& wsComponentKey)
@@ -71,7 +80,7 @@ _int CGameObject::Update_GameObject(const _float fTimeDelta)
 			pair.second->Update_Component(fTimeDelta);
 		});
 
-	return 0;
+	return m_bIsDestroy;
 }
 
 void CGameObject::LateUpdate_GameObject(const _float fTimeDelta)
@@ -82,15 +91,11 @@ void CGameObject::LateUpdate_GameObject(const _float fTimeDelta)
 		});
 }
 
-void CGameObject::Render_GameObject()
-{
-}
-
 void CGameObject::Free()
 {
-	for (int i = 0; i < ID_END; ++i)
+	for (_int i = 0; i < ID_END; ++i)
 	{
-		for_each(m_umComponent[i].begin(), m_umComponent[i].end(), CDeleteMap());
+        for_each(m_umComponent[i].begin(), m_umComponent[i].end(), CDeleteMap());
 		m_umComponent[i].clear();
 	}
 

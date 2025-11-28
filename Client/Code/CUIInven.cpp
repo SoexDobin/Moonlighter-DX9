@@ -195,7 +195,7 @@ RECT CUIInven::Set_SlotRect(const UISLOT& pSlot)
         return RECT{ left, top, right, bottom };
     }
 
-    if (5 <= idx < m_iCols * m_iRows)
+    if ( 5 <= idx && idx < m_iCols * m_iRows)
     {
         const _float fSlotY = fStartY + y * (m_fSlotH + m_fInterY2)  + 12.f;
 

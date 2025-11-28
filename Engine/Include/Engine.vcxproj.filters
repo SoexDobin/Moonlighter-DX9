@@ -133,6 +133,9 @@
     <Filter Include="02. Prototype\03. Collider\01. RectCollider">
       <UniqueIdentifier>{ec7333f4-f1f0-4e94-9aa2-9b56b1697e35}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Logic\02. Layer\00. LayerHelper">
+      <UniqueIdentifier>{ed7a48b6-4ff1-4b0f-9da7-8359350f6fa6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. Prototype\00. VIBuffer\02. TerrainTex\00. Village">
       <UniqueIdentifier>{e6c8fe04-0c66-4eda-9dca-94e3e7e7bdef}</UniqueIdentifier>
     </Filter>
@@ -288,6 +291,9 @@
     <ClInclude Include="..\Header\CRectCollider.h">
       <Filter>02. Prototype\03. Collider\01. RectCollider</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLayerHelper.h">
+      <Filter>01. Logic\02. Layer\00. LayerHelper</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\EasingFunctions.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -424,6 +430,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRectCollider.cpp">
       <Filter>02. Prototype\03. Collider\01. RectCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLayerHelper.cpp">
+      <Filter>01. Logic\02. Layer\00. LayerHelper</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainTex.cpp">
       <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\00. Village</Filter>

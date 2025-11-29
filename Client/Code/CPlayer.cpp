@@ -7,6 +7,9 @@
 #include "CTexture.h"
 #include "CTransform.h"
 
+#include "CHitRectBox.h"
+#include "CHitSphereBox.h"
+
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
     : CRenderObject(pGraphicDev), m_pTexCom(nullptr), m_eWeapon(NONE), m_eState(IDLE), m_eDir(DIR_DOWN), m_ePrevState(STATE_END), m_ePrevDir(DIR_END), m_fRollTime(0.f), m_fRollDuration(0.5f), m_vActionDir{ 0.f, 0.f, 0.f }, m_iPrevFrame(0), m_iCurFrame(0), m_bBowBackStep(false), m_fBowBackStepTimer(0.f), m_iComboStep(0), m_bComboCheck(false), m_bFPrev(false)
 {
@@ -632,18 +635,48 @@ bool CPlayer::IsBusy() const
 
 void CPlayer::On_Collision(const Collision& tCollision)
 {
-    if (tCollision.eColState == EXIT_COL)
+    // ======================== TEST ============================
     {
-        int a = 0;
+        // 몬스터 공격이 플레이어에게 전달되는지 확인
+        if (tCollision.pColTarget->Get_ObjectID() & OBJECT_ID::MONSTER_ATK) // ATK 이면 무조건 HITBOX 라고 가정
+        {
+
+            static int iCnt = 0;
+            // RECT
+            if (tCollision.pColSource->Get_ColType() == COL_TYPE::RECT_COL      // 콜라이더가 RECT
+                && COL_STATE::ENTER_COL == tCollision.eColState)                           // 충돌 ENTER 시에만 데미지 적용
+            {
+                CHitRectBox* pHitBox = static_cast<CHitRectBox*>(tCollision.pColSource);
+
+                DAMAGE_INFO tCurrentDamage = pHitBox->Get_Damage();
+
+                printf("Player should take damage : %.2f\n", tCurrentDamage.fAmount);
+            }
+            // SPHERE
+            else if (tCollision.pColSource->Get_ColType() == COL_TYPE::SPHERE_COL   // 콜라이더가 Sphere
+                && COL_STATE::ENTER_COL == tCollision.eColState)                                    // 충돌 ENTER 시에만 데미지 적용
+            {
+                CHitSphereBox* pHitBox = static_cast<CHitSphereBox*>(tCollision.pColSource);
+
+                DAMAGE_INFO tCurrentDamage = pHitBox->Get_Damage();
+
+                printf("%d : Player should take damage : %.2f\n", iCnt++, tCurrentDamage.fAmount);
+            }
+        }
     }
-    else if (tCollision.eColState == STAY_COL)
-    {
-        int a = 0;
-    }
-    else if (tCollision.eColState == ENTER_COL)
-    {
-        int a = 0;
-    }
+
+    //if (tCollision.eColState == EXIT_COL)
+    //{
+    //    int a = 0;
+    //}
+    //else if (tCollision.eColState == STAY_COL)
+    //{
+    //    int a = 0;
+    //}
+    //else if (tCollision.eColState == ENTER_COL)
+    //{
+    //    int a = 0;
+    //}
 }
 
 void CPlayer::LateUpdate_GameObject(const _float fTimeDelta)

@@ -14,6 +14,7 @@ class CMonsterState : public CState
 {
 protected :
     explicit CMonsterState();
+    explicit CMonsterState(LPDIRECT3DDEVICE9 pGrahpicDev);
     virtual ~CMonsterState();
 
 public :
@@ -23,7 +24,7 @@ public :
 protected :
     virtual void    Find_Player();
     virtual void    Detect_Player();
-    virtual void    Check_ShouldTransiti(const _float& fTimeDelta);
+    virtual void    Check_ShouldTransit(const _float& fTimeDelta);
     virtual void    Check_EventFrame();
 
 protected :    

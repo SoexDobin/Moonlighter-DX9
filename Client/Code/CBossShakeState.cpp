@@ -7,7 +7,11 @@ CBossShakeState::CBossShakeState(CBoss* pOwner, CBossStateMachine* pStateMachine
     : CMonsterState(),
     m_pOwner(pOwner), m_pStateMachine(pStateMachine)
 {
+}
 
+CBossShakeState::CBossShakeState(LPDIRECT3DDEVICE9 pGraphicDev, CBoss* pOwner, CBossStateMachine* pStateMachine)
+    : CMonsterState(pGraphicDev),
+    m_pOwner(pOwner), m_pStateMachine(pStateMachine){
 }
 
 CBossShakeState::~CBossShakeState()
@@ -44,7 +48,7 @@ _uint CBossShakeState::Update_State(const _float& fTimeDelta)
 
 void CBossShakeState::LateUpdate_State(const _float& fTimeDelta)
 {
-    CMonsterState::Check_ShouldTransiti(fTimeDelta);
+    CMonsterState::Check_ShouldTransit(fTimeDelta);
 
     if (m_bCanTransit)
         Determine_NextState();
@@ -61,9 +65,9 @@ void CBossShakeState::Determine_NextState()
     m_pStateMachine->Change_State(CBoss::BOSS_STATE::DEAD);
 }
 
-CBossShakeState* CBossShakeState::Create(CBoss* pOwner, CBossStateMachine* pStateMachine)
+CBossShakeState* CBossShakeState::Create(LPDIRECT3DDEVICE9 pGraphicDev, CBoss* pOwner, CBossStateMachine* pStateMachine)
 {
-    CBossShakeState* pIdle = new CBossShakeState(pOwner, pStateMachine);
+    CBossShakeState* pIdle = new CBossShakeState(pGraphicDev, pOwner, pStateMachine);
 
     if (FAILED(pIdle->Ready_State()))
     {

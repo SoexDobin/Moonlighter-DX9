@@ -7,6 +7,7 @@ class CSlimeStateMachine : public CStateMachine
 {
 private:
     explicit CSlimeStateMachine(CSlimeMob* pOwner);
+    explicit CSlimeStateMachine(LPDIRECT3DDEVICE9 pGraphicDev, CSlimeMob* pOwner);
     virtual ~CSlimeStateMachine();
 
 public:
@@ -20,7 +21,7 @@ private:
     CSlimeMob* m_pOwner;
 
 public:
-    static CSlimeStateMachine* Create(CSlimeMob* pOwner);
+    static CSlimeStateMachine* Create(LPDIRECT3DDEVICE9 pGraphicDev, CSlimeMob* pOwner);
 
 private:
     virtual void Free();

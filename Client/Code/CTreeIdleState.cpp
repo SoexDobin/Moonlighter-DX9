@@ -28,7 +28,7 @@ HRESULT CTreeIdleState::Ready_State()
 {
     m_dwCurStateKey = CTreeMob::TREE_STATE::IDLE;
 
-    m_fMinStateTime = 1.5f;
+    m_fMinStateTime = 4.5f;
 
     m_pOwnerTransformCom = static_cast<CTransform*>(m_pOwner->Get_Component(ID_DYNAMIC, L"Transform_Com"));
 
@@ -44,7 +44,7 @@ _uint CTreeIdleState::Update_State(const _float& fTimeDelta)
 
 void CTreeIdleState::LateUpdate_State(const _float& fTimeDelta)
 {
-    CMonsterState::Check_ShouldTransiti(fTimeDelta);
+    CMonsterState::Check_ShouldTransit(fTimeDelta);
 
     if (m_bCanTransit = m_bMinStateTimePassed)
         Determine_NextState();

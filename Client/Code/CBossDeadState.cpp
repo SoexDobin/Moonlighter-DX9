@@ -42,7 +42,7 @@ _uint CBossDeadState::Update_State(const _float& fTimeDelta)
 
 void CBossDeadState::LateUpdate_State(const _float& fTimeDelta)
 {
-    CMonsterState::Check_ShouldTransiti(fTimeDelta);
+    CMonsterState::Check_ShouldTransit(fTimeDelta);
 
     if (m_bCanTransit = m_bMinStateTimePassed)
         Determine_NextState();

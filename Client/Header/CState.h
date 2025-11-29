@@ -14,6 +14,7 @@ class CState : public CBase
 {
 protected:
     explicit CState();
+    explicit CState(LPDIRECT3DDEVICE9 pGraphicDev);
     virtual ~CState();
 
 public:
@@ -32,6 +33,9 @@ public:
 
 protected:
     //unordered_map<wstring>   m_pTexture;
+
+protected:
+    LPDIRECT3DDEVICE9 m_pGraphicDev;
 
 protected:
     wstring           m_wsCurTex;

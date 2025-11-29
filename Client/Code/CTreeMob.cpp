@@ -48,7 +48,7 @@ HRESULT CTreeMob::Ready_GameObject()
 #pragma endregion
     Ready_Animation();
     Ready_Combat();
-    m_pStateMachine = CTreeStateMachine::Create(this);
+    m_pStateMachine = CTreeStateMachine::Create(m_pGraphicDevice, this);
 
     // after all components are set up
     Configure_Component();
@@ -64,34 +64,17 @@ HRESULT CTreeMob::Ready_GameObject()
 
 _int CTreeMob::Update_GameObject(const _float fTimeDelta)
 {
-    m_pCurState->Update_State(fTimeDelta);
+    //m_pCurState->Update_State(fTimeDelta);
 
     _int iExit = Engine::CRenderObject::Update_GameObject(fTimeDelta);
 
     Engine::CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
-
-    //{
-    //    m_fElapsed += fTimeDelta;
-    //    if (m_fElapsed > 1.5f)
-    //    {
-    //        m_fElapsed = 0.f;
-    //        CTreeProjectile* pProjectile = CTreeProjectile::Create(m_pGraphicDevice, m_tProjectile);
-    //        pProjectile->Set_SpawnPos(m_pTransformCom->Get_Pos());
-    //        pProjectile->Set_ShootDir({ 0.5f, 0.f, -1.f });
-    //        pProjectile->Set_Shooting();
-    //        if (FAILED(CLayerHelper::GetInstance()->Get_Layer(L"GameLogic_Layer")->Add_GameObject(L"TreeProjectile1", pProjectile)))
-    //        {
-    //            return -1;
-    //        }
-    //    }
-    //}
-
     return iExit;
 }
 
 void CTreeMob::LateUpdate_GameObject(const _float fTimeDelta)
 {
-    m_pCurState->LateUpdate_State(fTimeDelta);
+    //m_pCurState->LateUpdate_State(fTimeDelta);
 
     Engine::CRenderObject::LateUpdate_GameObject(fTimeDelta);
 }
@@ -134,23 +117,7 @@ HRESULT CTreeMob::Ready_Animation()
 
 HRESULT CTreeMob::Ready_Combat()
 {
-    m_tProjectile.wsVecTexture = { L"Tree_Projectile1_Idle", L"Tree_Projectile1_Hit" };
-    m_tProjectile.fTextureSpeed = 10;
 
-    m_tProjectile.fSpeed = 10.f;
-    m_tProjectile.eColType = COL_TYPE::SPHERE_COL;
-    m_tProjectile.dwCurFlag = OBJECT_ID::MONSTER_ATK;
-    m_tProjectile.dwHitTargetFlag = OBJECT_ID::PLAYER;
-    m_tProjectile.dwDestroyOnHitFlag
-        = OBJECT_ID::PLAYER_ATK | OBJECT_ID::INTERACTABLE | OBJECT_ID::ENVIRONMENT;
-
-    // 데미지 정보 설정 
-    m_tDamage.pAttacker = this;
-    m_tDamage.fAmount = 10.f;
-    m_tDamage.bCanParry = m_tDamage.bShouldKnockback = false;
-    m_tDamage.eApplyTiming = Engine::ENTER_COL;
-    m_tDamage.vDirKnockback = { 0.f, 0.f, 0.f };
-    m_tProjectile.tDamageInfo = m_tDamage;
 
     return S_OK;
 }

@@ -526,7 +526,13 @@ HRESULT CDataManager::Ready_Monster_Resource(LPDIRECT3DDEVICE9 pGraphicDev)
             n_wsResSpritePath + L"Monster/Tree/Tree_Fruit1_Hit/Tree_Fruit1_Hit%d.png", 7, 1)))
             return E_FAIL;
 
+        if (FAILED(Res.Add_Sprite(pGraphicDev, L"Tree_Projectile2_Idle",
+            n_wsResSpritePath + L"Monster/Tree/Tree_Fruit2_Idle/Tree_Fruit2_Idle%d.png", 4, 1)))
+            return E_FAIL;
 
+        if (FAILED(Res.Add_Sprite(pGraphicDev, L"Tree_Projectile2_Hit",
+            n_wsResSpritePath + L"Monster/Tree/Tree_Fruit2_Hit/Tree_Fruit2_Hit%d.png", 3, 1)))
+            return E_FAIL;
     }
 
     // Slime Monster

@@ -13,8 +13,13 @@
 
 
 CBossStateMachine::CBossStateMachine(CBoss* pOwner)
+    : CStateMachine(), m_pOwner(pOwner)
 {
-    m_pOwner = pOwner;
+}
+
+CBossStateMachine::CBossStateMachine(LPDIRECT3DDEVICE9 pGraphicDev, CBoss* pOwner)
+    : CStateMachine(pGraphicDev), m_pOwner(pOwner)
+{
 }
 
 CBossStateMachine::~CBossStateMachine()
@@ -77,15 +82,15 @@ HRESULT CBossStateMachine::Ready_BossStates()
         return E_FAIL;
     m_vecState[CBoss::BOSS_STATE::ATK_JUMP] = pState;
 
-    if (!(pState = CBossThrowState::Create(m_pOwner, this)))
+    if (!(pState = CBossThrowState::Create(m_pGraphicDev, m_pOwner, this)))
         return E_FAIL;
     m_vecState[CBoss::BOSS_STATE::ATK_THROW] = pState;
 
-    if (!(pState = CBossRootState::Create(m_pOwner, this)))
+    if (!(pState = CBossRootState::Create(m_pGraphicDev, m_pOwner, this)))
         return E_FAIL;
     m_vecState[CBoss::BOSS_STATE::ATK_ROOT] = pState;
 
-    if (!(pState = CBossShakeState::Create(m_pOwner, this)))
+    if (!(pState = CBossShakeState::Create(m_pGraphicDev, m_pOwner, this)))
         return E_FAIL;
     m_vecState[CBoss::BOSS_STATE::ATK_SHAKE] = pState;
 
@@ -100,9 +105,9 @@ HRESULT CBossStateMachine::Ready_BossStates()
     return S_OK;
 }
 
-CBossStateMachine* CBossStateMachine::Create(CBoss* pOwner)
+CBossStateMachine* CBossStateMachine::Create(LPDIRECT3DDEVICE9 pGraphicDev, CBoss* pOwner)
 {
-    CBossStateMachine* pStateMachine = new CBossStateMachine(pOwner);
+    CBossStateMachine* pStateMachine = new CBossStateMachine(pGraphicDev, pOwner);
     if (FAILED(pStateMachine->Ready_StateMachine()))
     {
         MSG_BOX("BossStateMachine Create Failed!");

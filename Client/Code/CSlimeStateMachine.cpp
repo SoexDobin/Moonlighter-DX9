@@ -9,8 +9,13 @@
 #include "CSlimeBigState.h"
 
 CSlimeStateMachine::CSlimeStateMachine(CSlimeMob* pOwner)
+    : CStateMachine(), m_pOwner(pOwner)
 {
-    m_pOwner = pOwner;
+}
+
+CSlimeStateMachine::CSlimeStateMachine(LPDIRECT3DDEVICE9 pGraphicDev, CSlimeMob* pOwner)
+    : CStateMachine(pGraphicDev), m_pOwner(pOwner)
+{
 }
 
 CSlimeStateMachine::~CSlimeStateMachine()
@@ -62,12 +67,12 @@ HRESULT CSlimeStateMachine::Ready_SlimeStates()
     m_vecState[CSlimeMob::SLIME_STATE::IDLE] = pState;
 
     pState = nullptr;
-    if (!(pState = CSlimeCircleState::Create(m_pOwner, this)))
+    if (!(pState = CSlimeCircleState::Create(m_pGraphicDev, m_pOwner, this)))
         return E_FAIL;
     m_vecState[CSlimeMob::SLIME_STATE::ATK_CIRCLE] = pState;
 
     pState = nullptr;
-    if (!(pState = CSlimeBigState::Create(m_pOwner, this)))
+    if (!(pState = CSlimeBigState::Create(m_pGraphicDev, m_pOwner, this)))
         return E_FAIL;
     m_vecState[CSlimeMob::SLIME_STATE::ATK_BIG] = pState;
 
@@ -79,9 +84,9 @@ HRESULT CSlimeStateMachine::Ready_SlimeStates()
     return S_OK;
 }
 
-CSlimeStateMachine* CSlimeStateMachine::Create(CSlimeMob* pOwner)
+CSlimeStateMachine* CSlimeStateMachine::Create(LPDIRECT3DDEVICE9 pGraphicDev, CSlimeMob* pOwner)
 {
-    CSlimeStateMachine* pStateMachine = new CSlimeStateMachine(pOwner);
+    CSlimeStateMachine* pStateMachine = new CSlimeStateMachine(pGraphicDev, pOwner);
     if (FAILED(pStateMachine->Ready_StateMachine()))
     {
         MSG_BOX("SlimeStateMachine Create Failed!");

@@ -6,8 +6,15 @@
 CSlimeCircleState::CSlimeCircleState(CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine)
     : CMonsterState(),
     m_pOwner(pOwner), m_pStateMachine(pStateMachine)
+
 {
 
+}
+
+CSlimeCircleState::CSlimeCircleState(LPDIRECT3DDEVICE9 pGraphicDev, CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine)
+    : CMonsterState(pGraphicDev),
+    m_pOwner(pOwner), m_pStateMachine(pStateMachine)
+{
 }
 
 CSlimeCircleState::~CSlimeCircleState()
@@ -44,7 +51,7 @@ _uint CSlimeCircleState::Update_State(const _float& fTimeDelta)
 
 void CSlimeCircleState::LateUpdate_State(const _float& fTimeDelta)
 {
-    CMonsterState::Check_ShouldTransiti(fTimeDelta);
+    CMonsterState::Check_ShouldTransit(fTimeDelta);
 
     if (m_bCanTransit = m_bMinStateTimePassed)
         Determine_NextState();
@@ -61,9 +68,9 @@ void CSlimeCircleState::Determine_NextState()
     m_pStateMachine->Change_State(CSlimeMob::SLIME_STATE::ATK_BIG);
 }
 
-CSlimeCircleState* CSlimeCircleState::Create(CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine)
+CSlimeCircleState* CSlimeCircleState::Create(LPDIRECT3DDEVICE9 pGraphicDev, CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine)
 {
-    CSlimeCircleState* pCircle = new CSlimeCircleState(pOwner, pStateMachine);
+    CSlimeCircleState* pCircle = new CSlimeCircleState(pGraphicDev, pOwner, pStateMachine);
 
     if (FAILED(pCircle->Ready_State()))
     {

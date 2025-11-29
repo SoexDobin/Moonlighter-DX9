@@ -6,8 +6,15 @@
 CBossThrowState::CBossThrowState(CBoss* pOwner, CBossStateMachine* pStateMachine)
     : CMonsterState(),
     m_pOwner(pOwner), m_pStateMachine(pStateMachine)
+
 {
 
+}
+
+CBossThrowState::CBossThrowState(LPDIRECT3DDEVICE9 pGraphicDev, CBoss* pOwner, CBossStateMachine* pStateMachine)
+    : CMonsterState(pGraphicDev),
+    m_pOwner(pOwner), m_pStateMachine(pStateMachine)
+{
 }
 
 CBossThrowState::~CBossThrowState()
@@ -44,7 +51,7 @@ _uint CBossThrowState::Update_State(const _float& fTimeDelta)
 
 void CBossThrowState::LateUpdate_State(const _float& fTimeDelta)
 {
-    CMonsterState::Check_ShouldTransiti(fTimeDelta);
+    CMonsterState::Check_ShouldTransit(fTimeDelta);
 
     if (m_bCanTransit)
         Determine_NextState();
@@ -67,9 +74,9 @@ void CBossThrowState::Determine_NextState()
 }
 
 
-CBossThrowState* CBossThrowState::Create(CBoss* pOwner, CBossStateMachine* pStateMachine)
+CBossThrowState* CBossThrowState::Create(LPDIRECT3DDEVICE9 pGraphicDev, CBoss* pOwner, CBossStateMachine* pStateMachine)
 {
-    CBossThrowState* pState = new CBossThrowState(pOwner, pStateMachine);
+    CBossThrowState* pState = new CBossThrowState(pGraphicDev, pOwner, pStateMachine);
 
     if (FAILED(pState->Ready_State()))
     {

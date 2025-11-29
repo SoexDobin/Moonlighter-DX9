@@ -45,7 +45,7 @@ HRESULT CBoss::Ready_GameObject()
     }
 #pragma endregion
 
-    m_pStateMachine = CBossStateMachine::Create(this);
+    m_pStateMachine = CBossStateMachine::Create(m_pGraphicDevice, this);
 
     Ready_EntityComponent();
     Ready_Animation();

@@ -8,6 +8,7 @@ class CSlimeBigState : public CMonsterState
 {
 private:
     explicit CSlimeBigState(CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine);
+    explicit CSlimeBigState(LPDIRECT3DDEVICE9 pGraphicDev, CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine);
     virtual ~CSlimeBigState();
 
 public:
@@ -27,7 +28,7 @@ private:
     CSlimeMob* m_pOwner;
     CSlimeStateMachine* m_pStateMachine;
 public:
-    static CSlimeBigState* Create(CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine);
+    static CSlimeBigState* Create(LPDIRECT3DDEVICE9 pGraphicDev, CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine);
 
 private:
     virtual void Free();

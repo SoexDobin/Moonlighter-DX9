@@ -396,7 +396,7 @@ void CEditor::Display_MainPanel()
                     }
                 }
 
-                ImGui::DragFloat("Time Scale", m_pTimeScale, 0.01f, 0.1f, 2.0f, "%.2f");
+                ImGui::DragFloat("Time Scale", m_pTimeScale, 0.01f, 0.1f, 3.0f, "%.2f");
 
                 ImGui::PopItemWidth();
             }

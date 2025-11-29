@@ -6,8 +6,14 @@
 CSlimeBigState::CSlimeBigState(CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine)
     : CMonsterState(),
     m_pOwner(pOwner), m_pStateMachine(pStateMachine)
+
 {
 
+}
+
+CSlimeBigState::CSlimeBigState(LPDIRECT3DDEVICE9 pGraphicDev, CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine)
+    : CMonsterState(pGraphicDev),
+    m_pOwner(pOwner), m_pStateMachine(pStateMachine){
 }
 
 CSlimeBigState::~CSlimeBigState()
@@ -44,7 +50,7 @@ _uint CSlimeBigState::Update_State(const _float& fTimeDelta)
 
 void CSlimeBigState::LateUpdate_State(const _float& fTimeDelta)
 {
-    CMonsterState::Check_ShouldTransiti(fTimeDelta);
+    CMonsterState::Check_ShouldTransit(fTimeDelta);
 
     if (m_bCanTransit = m_bMinStateTimePassed)
         Determine_NextState();
@@ -61,9 +67,9 @@ void CSlimeBigState::Determine_NextState()
     m_pStateMachine->Change_State(CSlimeMob::SLIME_STATE::IDLE);
 }
 
-CSlimeBigState* CSlimeBigState::Create(CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine)
+CSlimeBigState* CSlimeBigState::Create(LPDIRECT3DDEVICE9 pGraphicDev, CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine)
 {
-    CSlimeBigState* pBig = new CSlimeBigState(pOwner, pStateMachine);
+    CSlimeBigState* pBig = new CSlimeBigState(pGraphicDev, pOwner, pStateMachine);
 
     if (FAILED(pBig->Ready_State()))
     {

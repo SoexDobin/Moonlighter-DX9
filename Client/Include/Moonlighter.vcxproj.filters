@@ -229,6 +229,9 @@
     <Filter Include="03. GameObject\02. Monster\01. Tree\02. TreeWeapon">
       <UniqueIdentifier>{226609a6-c1cb-4df5-8ac5-c6a93ed887cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObject\02. Monster\00. Boss\02. BossWeapon\01. BossGroundBrust">
+      <UniqueIdentifier>{d68027e3-f01b-4c2a-974a-2a195aba9737}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -495,11 +498,14 @@
     <ClInclude Include="..\Header\CBossProjectile.h">
       <Filter>03. GameObject\02. Monster\00. Boss\02. BossWeapon\00. BossProjectile</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CTreeProjectile.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Client_Struct.h">
       <Filter>99. Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTreeProjectile.h">
+      <Filter>03. GameObject\02. Monster\01. Tree\02. TreeWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossGroundBrust.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -743,7 +749,10 @@
     <ClCompile Include="..\Code\CBossProjectile.cpp">
       <Filter>03. GameObject\02. Monster\00. Boss\02. BossWeapon\00. BossProjectile</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CTreeProjectile.cpp" />
+    <ClCompile Include="..\Code\CTreeProjectile.cpp">
+      <Filter>03. GameObject\02. Monster\01. Tree\02. TreeWeapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossGroundBrust.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Moonlighter.rc">

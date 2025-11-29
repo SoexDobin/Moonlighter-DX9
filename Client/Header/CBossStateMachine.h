@@ -7,6 +7,7 @@ class CBossStateMachine :  public CStateMachine
 {
 private :
     explicit CBossStateMachine(CBoss* pOwner);
+    explicit CBossStateMachine(LPDIRECT3DDEVICE9 pGraphicDev, CBoss* pOwner);
     virtual ~CBossStateMachine();
 
 public :
@@ -20,7 +21,7 @@ private:
     CBoss* m_pOwner;
 
 public :
-    static CBossStateMachine* Create(CBoss* pOwner);
+    static CBossStateMachine* Create(LPDIRECT3DDEVICE9 pGraphicDev, CBoss* pOwner);
 
 private :
     virtual void Free();

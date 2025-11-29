@@ -27,6 +27,7 @@ public:
     void		LateUpdate_GameObject(const _float fTimeDelta) override;
     void		Render_GameObject() override;
 
+    void    On_Collision(const Collision& tCollision) override;
 private:
     HRESULT     Ready_Animation();
 

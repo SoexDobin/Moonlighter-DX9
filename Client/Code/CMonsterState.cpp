@@ -8,8 +8,16 @@
 #pragma endregion
 
 CMonsterState::CMonsterState()
-    : m_pPlayer(nullptr), m_pPlayerTransformCom(nullptr), m_pOwnerTransformCom(nullptr), m_pOwnerTextureCom(nullptr),
-    m_fMinStateTime(0.f), m_fCurStateElapsedTime(0.f), m_bMinStateTimePassed(false), m_fDistToPlayer(0.f)
+    : CState()
+    , m_pPlayer(nullptr), m_pPlayerTransformCom(nullptr), m_pOwnerTransformCom(nullptr), m_pOwnerTextureCom(nullptr),
+    m_fMinStateTime(0.f), m_fCurStateElapsedTime(0.f), m_bMinStateTimePassed(false), m_fDistToPlayer(0.f), m_dwCurFrame(0)
+{
+}
+
+CMonsterState::CMonsterState(LPDIRECT3DDEVICE9 pGrahpicDev)
+    : CState(pGrahpicDev)
+    , m_pPlayer(nullptr), m_pPlayerTransformCom(nullptr), m_pOwnerTransformCom(nullptr), m_pOwnerTextureCom(nullptr),
+    m_fMinStateTime(0.f), m_fCurStateElapsedTime(0.f), m_bMinStateTimePassed(false), m_fDistToPlayer(0.f), m_dwCurFrame(0)
 {
 }
 
@@ -74,7 +82,7 @@ void CMonsterState::Detect_Player()
     D3DXVec3Normalize(&m_vDirToPlayer, &vDiff);
 }
 
-void CMonsterState::Check_ShouldTransiti(const _float& fTimeDelta)
+void CMonsterState::Check_ShouldTransit(const _float& fTimeDelta)
 {
     m_fCurStateElapsedTime += fTimeDelta;
 

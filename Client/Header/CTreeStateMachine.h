@@ -7,6 +7,7 @@ class CTreeStateMachine : public CStateMachine
 {
 private:
     explicit CTreeStateMachine(CTreeMob* pOwner);
+    CTreeStateMachine(LPDIRECT3DDEVICE9 pGraphicDev, CTreeMob* pOwner);
     virtual ~CTreeStateMachine();
 
 public:
@@ -20,7 +21,7 @@ private:
     CTreeMob* m_pOwner;
 
 public:
-    static CTreeStateMachine* Create(CTreeMob* pOwner);
+    static CTreeStateMachine* Create(LPDIRECT3DDEVICE9 pGraphicDev, CTreeMob* pOwner);
 
 private:
     virtual void Free();

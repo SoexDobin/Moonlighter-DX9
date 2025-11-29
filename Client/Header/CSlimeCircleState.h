@@ -8,6 +8,7 @@ class CSlimeCircleState : public CMonsterState
 {
 private:
     explicit CSlimeCircleState(CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine);
+    explicit CSlimeCircleState(LPDIRECT3DDEVICE9 pGraphicDev, CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine);
     virtual ~CSlimeCircleState();
 
 public:
@@ -27,7 +28,7 @@ private:
     CSlimeMob* m_pOwner;
     CSlimeStateMachine* m_pStateMachine;
 public:
-    static CSlimeCircleState* Create(CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine);
+    static CSlimeCircleState* Create(LPDIRECT3DDEVICE9 pGraphicDev, CSlimeMob* pOwner, CSlimeStateMachine* pStateMachine);
 
 private:
     virtual void Free();

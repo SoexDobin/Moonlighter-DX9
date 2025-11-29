@@ -8,6 +8,7 @@ class CStateMachine : public CBase
 {
 protected:
     explicit CStateMachine();
+    explicit CStateMachine(LPDIRECT3DDEVICE9 pGraphicDev);
     virtual ~CStateMachine();
 
 public:
@@ -20,6 +21,8 @@ protected:
 
     _uint                   m_dwPrevStateKey;
     _uint                   m_dwCurStateKey;
+
+    LPDIRECT3DDEVICE9   m_pGraphicDev;
 
 protected:
     virtual void Free();

@@ -42,7 +42,7 @@ _uint CBossIdleState::Update_State(const _float& fTimeDelta)
 
 void CBossIdleState::LateUpdate_State(const _float& fTimeDelta)
 {
-    CMonsterState::Check_ShouldTransiti(fTimeDelta);
+    CMonsterState::Check_ShouldTransit(fTimeDelta);
 
     if (m_bCanTransit = m_bMinStateTimePassed)
         Determine_NextState();
@@ -55,7 +55,7 @@ void CBossIdleState::Render_State()
 
 void CBossIdleState::Determine_NextState()
 {
-    m_pStateMachine->Change_State(CBoss::BOSS_STATE::ATK_JUMP);
+    m_pStateMachine->Change_State(CBoss::BOSS_STATE::ATK_ROOT);
 }
 
 CBossIdleState* CBossIdleState::Create(CBoss* pOwner, CBossStateMachine* pStateMachine)

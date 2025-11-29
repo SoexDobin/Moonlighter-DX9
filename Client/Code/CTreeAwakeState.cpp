@@ -51,7 +51,7 @@ _uint CTreeAwakeState::Update_State(const _float& fTimeDelta)
 
 void CTreeAwakeState::LateUpdate_State(const _float& fTimeDelta)
 {
-    CMonsterState::Check_ShouldTransiti(fTimeDelta);
+    CMonsterState::Check_ShouldTransit(fTimeDelta);
 
     if (m_bCanTransit)
         Determine_NextState();
@@ -60,6 +60,8 @@ void CTreeAwakeState::LateUpdate_State(const _float& fTimeDelta)
 void CTreeAwakeState::Render_State()
 {
     m_pOwner->Set_CurAnimKey(CTreeMob::TREE_STATE::AWAKE);
+
+    Check_EventFrame();
 }
 
 void CTreeAwakeState::Check_EventFrame()

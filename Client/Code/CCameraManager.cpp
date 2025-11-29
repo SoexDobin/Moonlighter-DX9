@@ -86,8 +86,8 @@ HRESULT CCameraManager::Ready_Camera(LPDIRECT3DDEVICE9 pGraphicDev)
     m_eEffect = CAMERA_EFFECT::EFFECT_NONE;
 
     m_fSpeed = 7.f;
-    m_fRotXToTarget = 80.f;
-    m_fDistZToTarget = 25.f, m_fDistYToTarget = 9.f; // 타겟과의 유지 거리
+    m_fRotXToTarget = 60.f;
+    m_fDistZToTarget = 15.f, m_fDistYToTarget = 5.f; // 타겟과의 유지 거리
     
     // ====== FOLLOW 테스트 ======
     Change_ToFollow(nullptr);

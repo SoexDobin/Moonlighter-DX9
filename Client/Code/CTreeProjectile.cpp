@@ -19,6 +19,10 @@ HRESULT CTreeProjectile::Ready_GameObject()
 {
     CProjectile::Ready_GameObject();
 
+    m_iObjectID = OBJECT_ID::MONSTER_ATK;
+
+    m_pTransformCom->Set_Scale({ 2.f, 2.f, 2.f });
+
     return S_OK;
 }
 

@@ -8,8 +8,13 @@
 #include "CTreeShakeState.h"
 
 CTreeStateMachine::CTreeStateMachine(CTreeMob* pOwner)
+    : CStateMachine(), m_pOwner(pOwner)
 {
-    m_pOwner = pOwner;
+}
+
+CTreeStateMachine::CTreeStateMachine(LPDIRECT3DDEVICE9 pGraphicDev, CTreeMob* pOwner)
+    : CStateMachine(pGraphicDev), m_pOwner(pOwner)
+{
 }
 
 CTreeStateMachine::~CTreeStateMachine()
@@ -66,16 +71,17 @@ HRESULT CTreeStateMachine::Ready_TreeStates()
     m_vecState[CTreeMob::TREE_STATE::IDLE] = pState;
 
     pState = nullptr;
-    if (!(pState = CTreeShakeState::Create(m_pOwner, this)))
+    // 해당 상태는 Object를 생성하므로 그래픽장치를 알아야 한다
+    if (!(pState = CTreeShakeState::Create(m_pGraphicDev, m_pOwner, this)))
         return E_FAIL;
     m_vecState[CTreeMob::TREE_STATE::ATK_SHAKE] = pState;
     
     return S_OK;
 }
 
-CTreeStateMachine* CTreeStateMachine::Create(CTreeMob* pOwner)
+CTreeStateMachine* CTreeStateMachine::Create(LPDIRECT3DDEVICE9 pGraphicDev, CTreeMob* pOwner)
 {
-    CTreeStateMachine* pStateMachine = new CTreeStateMachine(pOwner);
+    CTreeStateMachine* pStateMachine = new CTreeStateMachine(pGraphicDev, pOwner);
     if (FAILED(pStateMachine->Ready_StateMachine()))
     {
         MSG_BOX("TreeStateMachine Create Failed!");

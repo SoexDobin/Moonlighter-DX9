@@ -84,16 +84,7 @@ void CProjectile::On_Collision(const Collision& tCollision)
 
 void CProjectile::Set_ProjectileInfo(const PROJECTILE& tInfo)
 {
-    m_tInfo.fSpeed = tInfo.fSpeed;
-    m_tInfo.fTextureSpeed = tInfo.fTextureSpeed;
-    m_tInfo.tDamageInfo = tInfo.tDamageInfo;
-    m_tInfo.wsVecTexture;
-
-    for (auto& wsTag : tInfo.wsVecTexture)
-    {
-        m_tInfo.wsVecTexture.push_back(wsTag);
-    }
-
+    m_tInfo = tInfo;
 }
 
 HRESULT CProjectile::Ready_Texture()
@@ -118,14 +109,15 @@ HRESULT CProjectile::Ready_ProjectileInfo()
     {
         m_pColCom = CHitRectBox::Create(m_pGraphicDevice, this);
         static_cast<CHitRectBox*>(m_pColCom)->Set_Damage(m_tInfo.tDamageInfo);
+        static_cast<CHitRectBox*>(m_pColCom)->Set_Scale(m_tInfo.fScale);
+
     }
-    else if (Engine::RECT_COL == m_tInfo.eColType)
+    else if (Engine::SPHERE_COL == m_tInfo.eColType)
     {
         m_pColCom = CHitSphereBox::Create(m_pGraphicDevice, this);
         static_cast<CHitSphereBox*>(m_pColCom)->Set_Damage(m_tInfo.tDamageInfo);
+        static_cast<CHitSphereBox*>(m_pColCom)->Set_Scale(m_tInfo.fScale);
     }
-
-
 
     return S_OK;
 }
@@ -134,7 +126,7 @@ CProjectile* CProjectile::Create(LPDIRECT3DDEVICE9 pGraphicDev, PROJECTILE tInfo
 {
     CProjectile* pProjectile = new CProjectile(pGraphicDev);
 
-    // PROJECTILE_INFO를 먼저 설정해야 Ready_GameObject()에서 이에 따른 변수 설정 진행
+    // NOTE : PROJECTILE_INFO를 먼저 설정해야 Ready_GameObject()에서 이에 따른 변수 설정 진행
     pProjectile->Set_ProjectileInfo(tInfo);
 
     if (FAILED(pProjectile->Ready_GameObject()))

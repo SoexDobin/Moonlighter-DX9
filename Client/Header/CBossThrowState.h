@@ -8,6 +8,7 @@ class CBossThrowState : public CMonsterState
 {
 private:
     explicit CBossThrowState(CBoss* pOwner, CBossStateMachine* pStateMachine);
+    explicit CBossThrowState(LPDIRECT3DDEVICE9 pGraphicDev, CBoss* pOwner, CBossStateMachine* pStateMachine);
     virtual ~CBossThrowState();
 
 public:
@@ -36,7 +37,7 @@ private:
     CBossStateMachine* m_pStateMachine;
 
 public:
-    static CBossThrowState* Create(CBoss* pOwner, CBossStateMachine* pStateMachine);
+    static CBossThrowState* Create(LPDIRECT3DDEVICE9 pGraphicDev, CBoss* pOwner, CBossStateMachine* pStateMachine);
 
 private:
     virtual void Free();

@@ -63,7 +63,7 @@ HRESULT CSlimeMob::Ready_GameObject()
 #pragma endregion
     Ready_Animation();
 
-    m_pStateMachine = CSlimeStateMachine::Create(this);
+    m_pStateMachine = CSlimeStateMachine::Create(m_pGraphicDevice, this);
 
     // after all components are set up
     Configure_Component();
@@ -118,6 +118,29 @@ void CSlimeMob::Render_GameObject()
     Display_CurrentState();
 #pragma endregion
 
+}
+
+void CSlimeMob::On_Collision(const Collision& tCollision)
+{
+    // 일단 슬라임이 플레이어라 가정
+    //================= 충돌 테스트 =========================
+
+    //m_iObjectID = PLAYER;
+
+    //if (COL_TYPE::RECT_COL == tCollision.pColSource->Get_ColType()
+    //    && nullptr != dynamic_cast<CHitRectBox*>(tCollision.pColSource))
+    //{
+    //    m_pCombatComponent->Take_Damage(
+    //        static_cast<CHitRectBox*>(tCollision.pColSource),                                   // 충돌 정보 전달
+    //        static_cast<CHitRectBox*>(tCollision.pColSource)->Get_Damage());      // 데미지 정보 전달
+    //}
+    //else if (COL_TYPE::SPHERE_COL == tCollision.pColSource->Get_ColType()
+    //    && nullptr != dynamic_cast<CHitSphereBox*>(tCollision.pColSource))
+    //{
+    //    m_pCombatComponent->Take_Damage(
+    //        static_cast<CHitSphereBox*>(tCollision.pColSource),                                   // 충돌 정보 전달
+    //        static_cast<CHitSphereBox*>(tCollision.pColSource)->Get_Damage());      // 데미지 정보 전달
+    //}
 }
 
 HRESULT CSlimeMob::Ready_Animation()

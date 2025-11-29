@@ -3,7 +3,13 @@
 #include "CState.h"
 
 CStateMachine::CStateMachine()
-    : m_pCurState(nullptr), m_dwPrevStateKey(0), m_dwCurStateKey(0)
+    : m_pGraphicDev(nullptr), m_pCurState(nullptr), m_dwPrevStateKey(0), m_dwCurStateKey(0)
+{
+}
+
+CStateMachine::CStateMachine(LPDIRECT3DDEVICE9 pGraphicDev)
+    : m_pGraphicDev(pGraphicDev)
+    ,m_pCurState(nullptr), m_dwPrevStateKey(0), m_dwCurStateKey(0)
 {
 }
 

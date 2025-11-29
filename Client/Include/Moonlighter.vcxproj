@@ -160,6 +160,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CBoss.h" />
     <ClInclude Include="..\Header\CBossAwakeState.h" />
     <ClInclude Include="..\Header\CBossDeadState.h" />
+    <ClInclude Include="..\Header\CBossGroundBrust.h" />
     <ClInclude Include="..\Header\CBossIdleState.h" />
     <ClInclude Include="..\Header\CBossJumpState.h" />
     <ClInclude Include="..\Header\CBossProjectile.h" />
@@ -268,6 +269,7 @@ xcopy /y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CBoss.cpp" />
     <ClCompile Include="..\Code\CBossAwakeState.cpp" />
     <ClCompile Include="..\Code\CBossDeadState.cpp" />
+    <ClCompile Include="..\Code\CBossGroundBrust.cpp" />
     <ClCompile Include="..\Code\CBossIdleState.cpp" />
     <ClCompile Include="..\Code\CBossJumpState.cpp" />
     <ClCompile Include="..\Code\CBossProjectile.cpp" />

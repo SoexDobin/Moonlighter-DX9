@@ -49,6 +49,8 @@ HRESULT CPlayer::Ready_GameObject()
     // ENVIRONMENT_LAYER 레이어 충돌 안함
     m_tLayerMask.Sub_Mask(CDataManager::GetInstance()->Get_LayerTag(ENVIRONMENT_LAYER));
 
+    m_iObjectID = OBJECT_ID::PLAYER;
+
     return S_OK;
 }
 
@@ -253,23 +255,23 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 
             m_pTexCom->Set_Speed(15.f);
 
-            
+
 
             Save_Dir();
 
             _uint iRollIdx    = Get_AnimationIndex();
             _float fSpeed     = m_pTexCom->Get_Speed();
             _uint iFrameCount = m_pTexCom->Get_FrameCount(iRollIdx);
-            
+
             if (fSpeed > 0.f)
                 m_fRollDuration = (_float)(iFrameCount) / fSpeed;
             else
                 m_fRollDuration = 0.5f;
-            
+
             m_pTexCom->Set_Loop(false);
-            
+
             m_pTexCom->Set_Texture(iRollIdx, 0);
-            
+
             return;
         }
     }
@@ -659,7 +661,7 @@ void CPlayer::LateUpdate_GameObject(const _float fTimeDelta)
 void CPlayer::Render_GameObject()
 {
     m_pGraphicDevice->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
-    
+
 
     m_pGraphicDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);

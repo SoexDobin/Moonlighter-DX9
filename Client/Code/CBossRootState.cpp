@@ -57,7 +57,7 @@ void CBossRootState::Render_State()
 
 void CBossRootState::Determine_NextState()
 {
-    m_pStateMachine->Change_State(CBoss::BOSS_STATE::IDLE);
+    m_pStateMachine->Change_State(CBoss::BOSS_STATE::ATK_SHAKE);
 }
 
 CBossRootState* CBossRootState::Create(CBoss* pOwner, CBossStateMachine* pStateMachine)

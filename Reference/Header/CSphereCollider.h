@@ -6,7 +6,7 @@ BEGIN(Engine)
 
 class ENGINE_DLL CSphereCollider : public CCollider
 {
-private:
+protected:
     explicit CSphereCollider();
     explicit CSphereCollider(LPDIRECT3DDEVICE9 pGraphicDev);
     explicit CSphereCollider(const CSphereCollider& rhs);

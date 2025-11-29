@@ -8,6 +8,7 @@ namespace Engine {
 class CPlayer;
 class CMonsterState;
 class CTreeStateMachine;
+class CTreeProjectile;
 
 class CTreeMob : public CRenderObject
 {
@@ -27,6 +28,7 @@ public:
 
 private:
     HRESULT     Ready_Animation();
+    HRESULT     Ready_Combat();
 
 public:
     void    Set_CurStateKey(_uint dwStateKey, CMonsterState* pCurState);
@@ -43,6 +45,13 @@ private:
     CMonsterState*             m_pCurState;
     _uint                               m_dwCurStateKey;
     _uint                               m_dwAnimKey;
+
+
+    // TEST
+    DAMAGE_INFO              m_tDamage;
+    PROJECTILE                  m_tProjectile;
+    _float m_fElapsed = 0.f;
+
 
 public:
     static CTreeMob* Create(LPDIRECT3DDEVICE9 pGraphicDev);

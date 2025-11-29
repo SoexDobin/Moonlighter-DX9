@@ -58,7 +58,7 @@ void CBossShakeState::Render_State()
 
 void CBossShakeState::Determine_NextState()
 {
-    m_pStateMachine->Change_State(CBoss::BOSS_STATE::IDLE);
+    m_pStateMachine->Change_State(CBoss::BOSS_STATE::DEAD);
 }
 
 CBossShakeState* CBossShakeState::Create(CBoss* pOwner, CBossStateMachine* pStateMachine)

@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "Client_Struct.h"
+#include "Client_Enum.h"
 enum PROTOTYPE_CUSTOM
 {
     TEMP_CUSTOMPROTO = 0, //  <- 여기만 추가되는 순간 부터 지워줘
@@ -28,11 +30,27 @@ enum CLIENT_LAYERTAG
     CLIENT_LAYER_END
 };
 
+// 씬
 enum SCENETYPE { SC_MAIN, SC_PLAYER, SC_MAP, SC_MONSTER, SC_UI, SC_END };
 // 아이템 
 enum ITEMTYPE { ITEM_POTION, ITEM_ATTACK, ITEM_WEAPON, ITEM_END };
 // 슬롯
 enum SLOT_STATE { SLOT_NORMAL, SLOT_HOVER, SLOT_PRESSED, SLOT_END};
+// 오브젝트 ID
+enum OBJECT_ID
+{
+    NONE                    = 0, // Engine에서 설정된 기본값
+    PLAYER                 = 1 << 0,
+    MONSTER             = 1 << 1,
+    NPC                       = 1 << 2,
+    PLAYER_ATK       = 1 << 3,
+    MONSTER_ATK   = 1 << 4,
+    ITEM                    = 1 << 5,
+    ENVIRONMENT    = 1 << 6,
+    INTERACTABLE  = 1 << 7,
+    TRIGGER             = 1 << 8,
+    ID_END                = 1 << 9
+};
 
 #define DUNGEON_VTX 25
 #define DUNGEON_VTZ 21

@@ -24,6 +24,7 @@ HRESULT CTerrainBoss::Ready_GameObject()
     if (FAILED(Add_Component()))
         return E_FAIL;
 
+    m_iObjectID = OBJECT_ID::ENVIRONMENT;
 
     return S_OK;
 }

@@ -6,7 +6,7 @@ BEGIN(Engine)
 
 class CCollider;
 
-typedef struct tagCollision
+typedef struct tagCollision         // 충돌 시 CGameObject::On_Collision 이 반환하는 매개인수
 {
     friend class CCollider;
     CGameObject*    pColTarget;     // 충돌 당한 오브젝트
@@ -60,24 +60,24 @@ public:
     void                        Set_Scale(const _float fScale)       { m_fScale = fScale; }
 
 public:
-    _bool                       Is_Overlapped(CCollider* pOverlap);
-    void                        Add_OverlapMember(CCollider* pOverlap);
-    void                        Release_OverlapMember(CCollider* pOverlap);
+    _bool                       Is_Overlapped(CCollider* pOverlap);             // 이전에 겹친 멤버인가?
+    void                        Add_OverlapMember(CCollider* pOverlap);         // 겹쳐진 멤버로 추가
+    void                        Release_OverlapMember(CCollider* pOverlap);     // 겹쳐진 멤버 해제
 
 public:    
-    virtual _bool               Check_Collision(CCollider* pCol) PURE;
+    virtual _bool               Check_Collision(CCollider* pCol) PURE;      // 충돌 기능 오버라이드
 #ifdef _DEBUG
-    virtual void                Render_DebugCollider() PURE;
+    virtual void                Render_DebugCollider() PURE;                // 디버그용 그리기 함수
 #endif
 
 protected:
-    Collision                      m_tCollision;
-    COL_STATE                      m_eState;
-    _bool                          m_bIsCol;
-    unordered_set<CCollider*>      m_usetOverlapCol;
+    Collision                      m_tCollision;            // 충돌시 반환할 충돌 정보 구조체
+    COL_STATE                      m_eState;                // 마지막 프레임 기준 충돌 상태
+    _bool                          m_bIsCol;                // 마지막 프레임 기준 충돌 여부
+    unordered_set<CCollider*>      m_usetOverlapCol;        // 마지막 프레임 기준 겹쳐진 콜라이더 
 
-    _vec3                          m_vOffset;
-    _float                         m_fScale = 1.f; 
+    _vec3                          m_vOffset;               // 담당 CGameObject transform 기준 오프셋 위치
+    _float                         m_fScale = 1.f;          // 크기 비율
     
 public:
     CComponent* Clone() PURE;

@@ -31,7 +31,7 @@ public:
 #endif
 
 private:
-    _vec3                 m_vDimension; 
+    _vec3                 m_vDimension;         // RectCollider의 x, y, z 길이 지정
 
 public:
     static CRectCollider*   Create(LPDIRECT3DDEVICE9 pGraphicDev);

@@ -7,6 +7,7 @@
 
 BEGIN(Engine)
 
+// 클라이언트에서 지정한 레이어 string 테그를 매칭하여 엔진의 레이어를 동작, 검색 기능을 제공
 class ENGINE_DLL CLayerHelper final : public CBase
 {
     DECLARE_SINGLETON(CLayerHelper)
@@ -52,6 +53,7 @@ public:
         return LAYER_NONE;
     }
 
+    // 현재 씬의 레이어 검색
     inline CLayer* Get_Layer(const wstring& wsLayerTag)
     {
         CScene* pCurScene = CManagement::GetInstance()->Get_CurScene();
@@ -81,6 +83,7 @@ public:
     }
 
 private:
+    // 사용자 레이어에서 정의한 값과 키 매칭
     LayerMask m_tLayerMask[Engine::LAYER_END] =
     {
         {Engine::LAYER0, L"Layer0"},

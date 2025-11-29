@@ -98,14 +98,14 @@ void CBossJumpState::Check_EventFrame()
     {
         CCameraManager::GetInstance()->Start_Shake(1.f, 0.15f);
         // 히트박스 켜기
-        m_pHitBox->On_Enable();
+        //m_pHitBox->On_Enable();
         return;
     }
 
     if (m_dwCurFrame == 24)
     {
         // 히트박스 끄기
-        m_pHitBox->On_Disable();
+        //m_pHitBox->On_Disable();
         return;
     }
 
@@ -124,20 +124,20 @@ void CBossJumpState::Determine_NextState()
 
 void CBossJumpState::Ready_Combat()
 {
-   //  점프 시에만 활성화 될 히트박스 
-    m_pHitBox = m_pOwner->Add_Component<CHitRectBox>(ID_DYNAMIC, L"HitRectBox_Com", L"Hit_RectBox");
+   ////  점프 시에만 활성화 될 히트박스 
+   // m_pHitBox = m_pOwner->Add_Component<CHitRectBox>(ID_DYNAMIC, L"HitRectBox_Com", L"Hit_RectBox");
 
-    m_tDamage.bCanParry = m_tDamage.bShouldKnockback = false;
-    m_tDamage.vDirKnockback = { 0.f, 0.f, 0.f };
-    m_tDamage.dwHitTargetFlag = OBJECT_ID::PLAYER;
-    m_tDamage.eApplyTiming = COL_STATE::ENTER_COL;
-    m_tDamage.fAmount = 15.f;
-    m_tDamage.pAttacker = m_pOwner;
+   // m_tDamage.bCanParry = m_tDamage.bShouldKnockback = false;
+   // m_tDamage.vDirKnockback = { 0.f, 0.f, 0.f };
+   // m_tDamage.dwHitTargetFlag = OBJECT_ID::PLAYER;
+   // m_tDamage.eApplyTiming = COL_STATE::ENTER_COL;
+   // m_tDamage.fAmount = 15.f;
+   // m_tDamage.pAttacker = m_pOwner;
 
-    m_pHitBox->Set_Damage(m_tDamage);
-    m_pHitBox->Set_Dimension({ 12.f, 5.f, 10.f, });
-    m_pHitBox->Set_Offset({ 0.f, -1.7f, 0.f });
-    m_pHitBox->On_Disable();
+   // m_pHitBox->Set_Damage(m_tDamage);
+   // m_pHitBox->Set_Dimension({ 12.f, 5.f, 10.f, });
+   // m_pHitBox->Set_Offset({ 0.f, -1.7f, 0.f });
+   // m_pHitBox->On_Disable();
 }
 
 void CBossJumpState::Jump_ToPlayer(const _float fTimeDelta)

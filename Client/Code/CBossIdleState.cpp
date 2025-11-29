@@ -55,7 +55,7 @@ void CBossIdleState::Render_State()
 
 void CBossIdleState::Determine_NextState()
 {
-    m_pStateMachine->Change_State(CBoss::BOSS_STATE::ATK_ROOT);
+    m_pStateMachine->Change_State(CBoss::BOSS_STATE::ATK_JUMP);
 }
 
 CBossIdleState* CBossIdleState::Create(CBoss* pOwner, CBossStateMachine* pStateMachine)

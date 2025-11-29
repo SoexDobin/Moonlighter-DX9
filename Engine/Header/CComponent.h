@@ -42,6 +42,7 @@ protected:
 
     CGameObject*                m_pOwner;
     CTransform*                 m_pTrans;
+    function<void()>            m_funcDestroy;
 
 protected:
 	virtual void				Free();

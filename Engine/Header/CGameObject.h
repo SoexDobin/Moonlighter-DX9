@@ -24,6 +24,7 @@ public:
 public:
     static void        Destroy(CGameObject* pObj) { pObj->Set_Destroy(); }
     static void        DontDestroySceneLoad(CGameObject* pObj);
+    
 
 public:
     void               Init_Layer(const wstring& wLayerTag, const wstring& wObjectKey);

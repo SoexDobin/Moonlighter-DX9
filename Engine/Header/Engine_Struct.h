@@ -3,6 +3,7 @@
 
 #include "Engine_Typedef.h"
 
+
 namespace Engine
 {
 	typedef struct tagVertexColor
@@ -50,6 +51,5 @@ namespace Engine
 	}INDEX32;	
 
 }
-
 
 #endif // Engine_Struct_h__

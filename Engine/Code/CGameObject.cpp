@@ -1,6 +1,8 @@
 ﻿#include "CGameObject.h"
 #include "CPrototypeManager.h"
 #include "CEditor.h"
+#include "CManagement.h"
+#include "CLayerHelper.h"
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev)
     : m_pGraphicDevice(pGraphicDev), m_bDisplayInEditor(false), m_bIsDestroy(FALSE)
@@ -18,14 +20,20 @@ CGameObject::~CGameObject()
 {
 }
 
-//void CGameObject::Init_Layer(const wstring& wLayerTag)
-//{
-//    m_tLayerMask.eLayerID = CLayerHelper::GetInstance()->GetLayerIDByName(wLayerTag);
-//    m_tLayerMask.wsLayerTag = wLayerTag;
-//}
-//
-//const LayerMask& CGameObject::Get_Object_LayerMask() { return m_tLayerMask; }
-//LayerMask& CGameObject::Get_LayerMask() { return m_tLayerMask; }
+void CGameObject::DontDestroySceneLoad(CGameObject* pObj)
+{
+    CManagement::GetInstance()->Add_CacheObject(pObj);
+}
+
+void CGameObject::Init_Layer(const wstring& wLayerTag, const wstring& wObjectKey)
+{
+    m_tLayerMask.eLayerID = CLayerHelper::GetInstance()->GetLayerIDByName(wLayerTag);
+    m_tLayerMask.wsLayerTag = wLayerTag;
+    m_tLayerMask.wsObjectKey = wObjectKey;
+}
+
+const LayerMask& CGameObject::Get_Object_LayerMask() { return m_tLayerMask; }
+LayerMask& CGameObject::Get_LayerMask() { return m_tLayerMask; }
 
 // 기존에 사용하던 가지고 있는 컴포넌트의 wstring 테그를 통한 검색
 CComponent* CGameObject::Get_Component(COMPONENTID eID, const wstring& wsComponentKey)
@@ -75,10 +83,22 @@ HRESULT CGameObject::Ready_GameObject()
 
 _int CGameObject::Update_GameObject(const _float fTimeDelta)
 {
-	for_each(m_umComponent[ID_DYNAMIC].begin(), m_umComponent[ID_DYNAMIC].end()
-		, [fTimeDelta](const pair<const wstring, CComponent*>& pair) -> void {
-			pair.second->Update_Component(fTimeDelta);
-		});
+    _int iResult(0);
+    for (size_t i = 0; i < ID_END; ++i)
+        for (auto iter = m_umComponent[i].begin(); iter != m_umComponent[i].end(); )
+        {
+            iResult = iter->second->Update_Component(fTimeDelta);
+
+            if (iResult)
+            {
+                CComponent* pComponent = iter->second;
+                iter = m_umComponent[i].erase(iter);
+                Safe_Release(pComponent);
+
+                continue;
+            }
+            ++iter;
+        }
 
 	return m_bIsDestroy;
 }
@@ -95,7 +115,11 @@ void CGameObject::Free()
 {
 	for (_int i = 0; i < ID_END; ++i)
 	{
-        for_each(m_umComponent[i].begin(), m_umComponent[i].end(), CDeleteMap());
+        for_each(m_umComponent[i].begin(), m_umComponent[i].end(),
+            [](pair<const wstring, CComponent*>& pair) -> void {
+                pair.second->Set_Destroy();
+                Safe_Release(pair.second);
+            });
 		m_umComponent[i].clear();
 	}
 

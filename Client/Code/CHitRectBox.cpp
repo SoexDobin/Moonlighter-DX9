@@ -14,6 +14,7 @@ CHitRectBox::CHitRectBox(const CHitRectBox& rhs)
 {
     m_pOwner = rhs.m_pOwner;
 
+    CCollider::Ready_Collider();
     CCollisionManager::GetInstance()->Add_Collider(this);
 }
 
@@ -24,6 +25,7 @@ CHitRectBox::~CHitRectBox()
 CHitRectBox* CHitRectBox::Create(LPDIRECT3DDEVICE9 pGrahpicDev, CGameObject* pOwner)
 {
     CHitRectBox* pHitBox = new CHitRectBox(pGrahpicDev, pOwner);
+    
 
     if (RENDER_OBJECT == pOwner->Get_Type())
     {

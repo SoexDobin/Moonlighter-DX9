@@ -60,6 +60,9 @@ _int CPumpkin::Update_GameObject(const _float fTimeDelta)
 
     Engine::CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
 
+    if (CDInputManager::GetInstance()->Get_DIKeyPressed(DIK_0))
+        Destroy(this);
+
     return iExit;
 }
 

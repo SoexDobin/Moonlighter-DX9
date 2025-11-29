@@ -94,7 +94,7 @@ _int CTexture::Update_Component(const _float fTimeDelta)
         }
     }
 
-    return 0;
+    return m_bIsDetroy;
 }
 
 void CTexture::LateUpdate_Component()

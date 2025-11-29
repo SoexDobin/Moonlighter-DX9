@@ -22,42 +22,32 @@ void CCollisionManager::Add_Collider(CCollider* pColComonent)
     pColComonent->AddRef();
 }
 
-void CCollisionManager::Remove_Collider(CCollider* pColComonent)
-{
-    if (pColComonent == nullptr) return;
-
-    auto iter = find_if(m_vecCollider.begin(), m_vecCollider.end(),
-        [&](CCollider* pCol) -> _bool
-        {
-            if (pCol == pColComonent)
-                return true;
-            
-            return false;
-        });
-
-    if (iter == m_vecCollider.end()) return;
-
-    m_vecCollider.erase(iter);
-    Safe_Release(pColComonent);
-}
-
 void CCollisionManager::Update_Collision()
 {
     size_t iColSize = m_vecCollider.size();
+    m_vecGarbageIndex.clear();
 
-    for (size_t i = 0; i < iColSize; ++i)
+    for (_uint i = 0; i < iColSize; ++i)
     {
         CCollider* pSrc = m_vecCollider[i];
-        if (pSrc == nullptr || pSrc->Get_Owner() == nullptr) continue;  // null, gameobject 체크
+        if (pSrc == nullptr || pSrc->Get_Owner() == nullptr) {          // null, gameobject 체크
+            m_vecGarbageIndex.push_back(i);
+            continue;
+        }
+        if (pSrc->Is_Destroy()) {                                       // 삭제 예정 이면 넘김
+            m_vecGarbageIndex.push_back(i);
+            continue;
+        }                               
         if (pSrc->Is_Enable() == false) continue;                       // 활성 상태 확인
-        if (pSrc->Is_Destroy()) continue;                               // 삭제 예정 이면 넘김
 
-        for (size_t j = i + 1; j < iColSize; ++j)
+        for (_uint j = i + 1; j < iColSize; ++j)
         {
             CCollider* pDst = m_vecCollider[j];
-            if (pDst == nullptr || pDst->Get_Owner() == nullptr) continue;  // null, gameobject 
-            if (pDst->Is_Enable() == false) continue;                       // 활성 상태 확인
-            if (pDst->Is_Destroy()) continue;                               // 삭제 예정 이면 넘김
+            if (pDst == nullptr || pDst->Get_Owner() == nullptr)        // null, gameobject 체크
+                continue;
+            if (pDst->Is_Destroy())                                     // 삭제 예정 이면 넘김
+                continue;
+            if (pDst->Is_Enable() == false) continue;                   // 활성 상태 확인
 
             CGameObject* pSrcOwner = pSrc->Get_Owner();
             CGameObject* pDstOwner = pDst->Get_Owner();
@@ -136,6 +126,25 @@ void CCollisionManager::Update_Collision()
             }
 
         }
+    }
+
+    if (m_vecGarbageIndex.empty()) return;
+
+    // 삭제할 콜라이더 역순정렬 후 제거
+    std::sort(m_vecGarbageIndex.begin(), m_vecGarbageIndex.end(),
+        [](const _uint& iLeft, const _uint& iRight) -> _bool {
+            return iLeft > iRight;
+        });
+
+    // 이제 큰 인덱스부터 작은 인덱스로 내려가므로 정방향 순회
+    for (auto it = m_vecGarbageIndex.begin(); it != m_vecGarbageIndex.end(); ++it)
+    {
+        _uint idx = *it;
+        if (idx >= m_vecCollider.size()) continue;
+
+        CCollider* pCol = m_vecCollider[idx];
+        if (pCol) Safe_Release(pCol);
+        m_vecCollider.erase(m_vecCollider.begin() + idx);
     }
 }
 

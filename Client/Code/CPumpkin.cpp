@@ -86,6 +86,12 @@ void CPumpkin::Render_GameObject()
     m_pGraphicDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
+void CPumpkin::On_Collision(const Collision& tCollision)
+{
+    if (tCollision.eColState == EXIT_COL)
+        ;
+}
+
 CPumpkin* CPumpkin::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     CPumpkin* pInstance = new CPumpkin(pGraphicDev);

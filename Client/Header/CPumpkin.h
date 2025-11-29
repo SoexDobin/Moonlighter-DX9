@@ -23,6 +23,7 @@ public:
     _int Update_GameObject(const _float fTimeDelta) override;
     void LateUpdate_GameObject(const _float fTimeDelta) override;
     void Render_GameObject() override;
+    void On_Collision(const Collision& tCollision) override;
 
     static CPumpkin* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 };

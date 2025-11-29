@@ -45,6 +45,8 @@ public:
     virtual PROTOTYPE_COMPONENT Get_ComponentType() override { return COLLIDER; }
     virtual COL_TYPE            Get_ColType() PURE;
 
+
+    unordered_set<CCollider*>&  Get_OverlapMember()                  { return m_usetOverlapCol; }
     _bool                       Get_IsCol() const                    { return m_bIsCol; }
     void                        Set_IsCol(const _bool& bIsCol)       { m_bIsCol = bIsCol; }
     const Collision&            Get_Collision() const                { return m_tCollision; }
@@ -62,8 +64,7 @@ public:
     void                        Add_OverlapMember(CCollider* pOverlap);
     void                        Release_OverlapMember(CCollider* pOverlap);
 
-public:
-    HRESULT                     Ready_Collider();
+public:    
     virtual _bool               Check_Collision(CCollider* pCol) PURE;
 #ifdef _DEBUG
     virtual void                Render_DebugCollider() PURE;

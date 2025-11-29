@@ -21,6 +21,9 @@ public:
     virtual void                On_Disable() { m_bEnable = false; }
     _bool                       Is_Enable() const { return m_bEnable; }
 
+    void                        Set_Destroy() { m_bIsDetroy = true; m_pFuncDestroy(); }
+    _bool                       Is_Destroy() const { return m_bIsDetroy; }
+
 public:
     void                        Set_Owner(CGameObject* pOwner);
     CGameObject*                Get_Owner() const       { return m_pOwner; }
@@ -29,20 +32,24 @@ public:
     virtual	PROTOTYPE_COMPONENT	Get_ComponentType()     { return DEFAULT; };
 
 public:
-	virtual _int				Update_Component(const _float fTimeDelta) { return 0; };
+	virtual _int				Update_Component(const _float fTimeDelta) { return m_bIsDetroy; };
 	virtual void				LateUpdate_Component() { };
 
 public:
 	virtual CComponent*			Clone() PURE;
 
 protected:
+    void                        Set_DestroyEvent(function<void()> funcCallBack) { m_pFuncDestroy = funcCallBack; }
+
+protected:
 	LPDIRECT3DDEVICE9			m_pGraphicDevice;
 	_bool						m_bClone;
     _bool                       m_bEnable;
+    _bool                       m_bIsDetroy;
 
     CGameObject*                m_pOwner;
     CTransform*                 m_pTrans;
-    function<void()>            m_funcDestroy;
+    function<void()>            m_pFuncDestroy = []() {};
 
 protected:
 	virtual void				Free();

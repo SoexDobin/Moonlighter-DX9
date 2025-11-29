@@ -2,10 +2,11 @@
 
 #include "CBase.h"
 #include "Engine_Define.h"
-#include "CCollider.h"
+
 
 BEGIN(Engine)
 
+class CCollider;
 class CSphereCollider;
 class CRectCollider;
 
@@ -18,6 +19,7 @@ private:
 
 public:
     void        Add_Collider(CCollider* pColComonent);
+    void        Remove_Collider(CCollider* pColComonent);
 
 public:
     void        Update_Collision();

@@ -30,6 +30,7 @@ CRectCollider::~CRectCollider()
 
 HRESULT CRectCollider::Ready_RectCollider()
 {
+    CCollider::Ready_Collider();
     return S_OK;
 }
 

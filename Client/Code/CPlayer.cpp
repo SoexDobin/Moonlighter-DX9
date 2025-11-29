@@ -45,9 +45,9 @@ HRESULT CPlayer::Ready_GameObject()
     m_iCurFrame     = 0;
 
     // 플레이어 캐싱
-    DontDestroySceneLoad(this);
+    //DontDestroySceneLoad(this);
     // ENVIRONMENT_LAYER 레이어 충돌 안함
-    m_tLayerMask.Sub_Mask(CDataManager::GetInstance()->Get_LayerTag(ENVIRONMENT_LAYER));
+    //m_tLayerMask.Sub_Mask(CDataManager::GetInstance()->Get_LayerTag(ENVIRONMENT_LAYER));
 
     m_iObjectID = OBJECT_ID::PLAYER;
 

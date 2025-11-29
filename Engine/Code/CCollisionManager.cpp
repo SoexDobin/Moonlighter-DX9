@@ -1,6 +1,7 @@
 ﻿#include "CCollisionManager.h"
 #include "CGameObject.h"
 #include "CTransform.h"
+#include "CCollider.h"
 #include "CSphereCollider.h"
 #include "CRectCollider.h"
 
@@ -21,6 +22,25 @@ void CCollisionManager::Add_Collider(CCollider* pColComonent)
     pColComonent->AddRef();
 }
 
+void CCollisionManager::Remove_Collider(CCollider* pColComonent)
+{
+    if (pColComonent == nullptr) return;
+
+    auto iter = find_if(m_vecCollider.begin(), m_vecCollider.end(),
+        [&](CCollider* pCol) -> _bool
+        {
+            if (pCol == pColComonent)
+                return true;
+            
+            return false;
+        });
+
+    if (iter == m_vecCollider.end()) return;
+
+    m_vecCollider.erase(iter);
+    Safe_Release(pColComonent);
+}
+
 void CCollisionManager::Update_Collision()
 {
     size_t iColSize = m_vecCollider.size();
@@ -28,14 +48,16 @@ void CCollisionManager::Update_Collision()
     for (size_t i = 0; i < iColSize; ++i)
     {
         CCollider* pSrc = m_vecCollider[i];
-        if (pSrc == nullptr || pSrc->Get_Owner() == nullptr) continue;
-        if (pSrc->Is_Enable() == false) continue;
+        if (pSrc == nullptr || pSrc->Get_Owner() == nullptr) continue;  // null, gameobject 체크
+        if (pSrc->Is_Enable() == false) continue;                       // 활성 상태 확인
+        if (pSrc->Is_Destroy()) continue;                               // 삭제 예정 이면 넘김
 
         for (size_t j = i + 1; j < iColSize; ++j)
         {
             CCollider* pDst = m_vecCollider[j];
-            if (pDst == nullptr || pDst->Get_Owner() == nullptr) continue;
-            if (pDst->Is_Enable() == false) continue;
+            if (pDst == nullptr || pDst->Get_Owner() == nullptr) continue;  // null, gameobject 
+            if (pDst->Is_Enable() == false) continue;                       // 활성 상태 확인
+            if (pDst->Is_Destroy()) continue;                               // 삭제 예정 이면 넘김
 
             CGameObject* pSrcOwner = pSrc->Get_Owner();
             CGameObject* pDstOwner = pDst->Get_Owner();

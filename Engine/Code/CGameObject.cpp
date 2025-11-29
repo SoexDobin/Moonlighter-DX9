@@ -83,10 +83,22 @@ HRESULT CGameObject::Ready_GameObject()
 
 _int CGameObject::Update_GameObject(const _float fTimeDelta)
 {
-	for_each(m_umComponent[ID_DYNAMIC].begin(), m_umComponent[ID_DYNAMIC].end()
-		, [fTimeDelta](const pair<const wstring, CComponent*>& pair) -> void {
-			pair.second->Update_Component(fTimeDelta);
-		});
+    _int iResult(0);
+    for (size_t i = 0; i < ID_END; ++i)
+        for (auto iter = m_umComponent[i].begin(); iter != m_umComponent[i].end(); )
+        {
+            iResult = iter->second->Update_Component(fTimeDelta);
+
+            if (iResult)
+            {
+                CComponent* pComponent = iter->second;
+                iter = m_umComponent[i].erase(iter);
+                Safe_Release(pComponent);
+
+                continue;
+            }
+            ++iter;
+        }
 
 	return m_bIsDestroy;
 }
@@ -103,7 +115,11 @@ void CGameObject::Free()
 {
 	for (_int i = 0; i < ID_END; ++i)
 	{
-        for_each(m_umComponent[i].begin(), m_umComponent[i].end(), CDeleteMap());
+        for_each(m_umComponent[i].begin(), m_umComponent[i].end(),
+            [](pair<const wstring, CComponent*>& pair) -> void {
+                pair.second->Set_Destroy();
+                Safe_Release(pair.second);
+            });
 		m_umComponent[i].clear();
 	}
 

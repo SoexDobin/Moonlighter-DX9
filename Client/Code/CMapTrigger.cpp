@@ -24,7 +24,7 @@ HRESULT CMapTrigger::Ready_GameObject()
 
     if (m_pRectCollider = Add_Component<CRectCollider>(ID_DYNAMIC, L"Collider_Com", RECT_COLLIDER))
     {
-        m_pRectCollider->Set_Dimension({4.f, 1.f, 4.f});
+        m_pRectCollider->Set_Dimension({4.f, 8.f, 4.f});
     }
     return S_OK;
 }

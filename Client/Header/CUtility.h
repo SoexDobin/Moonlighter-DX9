@@ -340,7 +340,7 @@ namespace CUtility
             int typeLen;
             fin.read((char*)&typeLen, sizeof(int));
 
-            data.type.resize(typeLen);
+            data.type.resize(typeLen - 1);
             fin.read((char*)data.type.data(), typeLen);
 
             fin.read((char*)&data.pos, sizeof(_vec3));
@@ -348,39 +348,39 @@ namespace CUtility
 
             CGameObject* pObj = nullptr;
 
-            if (!strcmp(data.type.c_str(), "Terrain"))
+            if (data.type == "Terrain")
             {
                 pObj = CTerrainBoss::Create(pDevice);
             }
-            else if (!strcmp(data.type.c_str(), "Boss_Wall_Front"))
+            else if (data.type == "Boss_Wall_Front")
             {
                 pObj = CBossWallFront::Create(pDevice);
             }
-            else if (!strcmp(data.type.c_str(), "Boss_Wall_Front_Up"))
+            else if (data.type == "Boss_Wall_Front_Up")
             {
                 pObj = CBossWallFrontUpper::Create(pDevice);
             }
-            else if (!strcmp(data.type.c_str(), "Boss_Wall_Side"))
+            else if (data.type == "Boss_Wall_Side")
             {
                 pObj = CBossWallSide::Create(pDevice);
             }
-            else if (!strcmp(data.type.c_str(), "Boss_Wall_Side_Up"))
+            else if (data.type == "Boss_Wall_Side_Up")
             {
                 pObj = CBossWallSideUpper::Create(pDevice);
             }
-            else if (!strcmp(data.type.c_str(), "Pumpkin"))
+            else if (data.type == "Pumpkin")
             {
                 pObj = CPumpkin::Create(pDevice);
             }
-            else if (!strcmp(data.type.c_str(), "VineOne"))
+            else if (data.type == "VineOne")
             {
                 pObj = CVineOne::Create(pDevice);
             }
-            else if (!strcmp(data.type.c_str(), "VineTwo"))
+            else if (data.type == "VineTwo")
             {
                 pObj = CVineOne::Create(pDevice);
             }
-            else if ((!strcmp(data.type.c_str(), "Map_Trigger")))
+            else if (data.type == "Map_Trigger")
             {
                 pObj = CMapTrigger::Create(pDevice);
             }

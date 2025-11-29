@@ -4,7 +4,7 @@
 class CHitRectBox :  public CRectCollider
 {
 private :
-    explicit CHitRectBox(LPDIRECT3DDEVICE9 pGrahpicDev, CGameObject* pOwner);
+    explicit CHitRectBox(LPDIRECT3DDEVICE9 pGrahpicDev);
     explicit CHitRectBox(const CHitRectBox& rhs);
     virtual ~CHitRectBox();
 
@@ -15,7 +15,7 @@ private:
     DAMAGE_INFO   m_tDamage;
 
 public :
-    static CHitRectBox* Create(LPDIRECT3DDEVICE9 pGrahpicDev, CGameObject* pOwner);
+    static CHitRectBox* Create(LPDIRECT3DDEVICE9 pGrahpicDev);
     virtual CComponent* Clone() override;
 
 private:

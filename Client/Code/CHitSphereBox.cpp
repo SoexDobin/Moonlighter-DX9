@@ -3,45 +3,43 @@
 #include "CRenderObject.h"
 #include "CCollisionManager.h"
 
-CHitSphereBox::CHitSphereBox(LPDIRECT3DDEVICE9 pGrahpicDev, CGameObject* pOwner)
+CHitSphereBox::CHitSphereBox(LPDIRECT3DDEVICE9 pGrahpicDev)
     :CSphereCollider(pGrahpicDev)
 {
-    // owner 설정은 CHitbox::Create()에서 이미 실행
+    ZeroMemory(&m_tDamage, sizeof(m_tDamage));
 }
 
 CHitSphereBox::CHitSphereBox(const CHitSphereBox& rhs)
-    : CSphereCollider(rhs)
+    : CSphereCollider(rhs), m_tDamage(rhs.m_tDamage)
 {
-    m_pOwner = rhs.m_pOwner;
-
-    CCollisionManager::GetInstance()->Add_Collider(this);
 }
 
 CHitSphereBox::~CHitSphereBox()
 {
 }
 
-CHitSphereBox* CHitSphereBox::Create(LPDIRECT3DDEVICE9 pGrahpicDev, CGameObject* pOwner)
+CHitSphereBox* CHitSphereBox::Create(LPDIRECT3DDEVICE9 pGrahpicDev)
 {
-    CHitSphereBox* pHitBox = new CHitSphereBox(pGrahpicDev, pOwner);
+    CHitSphereBox* pInstance = new CHitSphereBox(pGrahpicDev);
 
-    if (RENDER_OBJECT == pOwner->Get_Type())
+    if (FAILED(pInstance->Ready_SphereCollider()))
     {
-        // 충돌 시 transform 접근을 위해 오너 등록 필수
-        pHitBox->Set_Owner(pOwner);
-        CCollisionManager::GetInstance()->Add_Collider(pHitBox);
-
-        return pHitBox;
+        MSG_BOX("CHitSphereBox Created Failed");
+        Safe_Release(pInstance);
     }
-
-    return nullptr;
+    return pInstance;
 }
 
 CComponent* CHitSphereBox::Clone()
 {
-    return nullptr;
+    CHitSphereBox* pClone = new CHitSphereBox(*this);
+
+    CCollisionManager::GetInstance()->Add_Collider(pClone);
+
+    return pClone;
 }
 
 void CHitSphereBox::Free()
 {
+    CSphereCollider::Free();
 }

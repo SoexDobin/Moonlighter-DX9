@@ -37,7 +37,7 @@ public:
     static CRectCollider*   Create(LPDIRECT3DDEVICE9 pGraphicDev);
     virtual CComponent*     Clone() override;
 
-private:
+protected:
     virtual void            Free() override;
 
 #pragma region Editor

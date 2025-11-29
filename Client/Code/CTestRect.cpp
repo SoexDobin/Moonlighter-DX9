@@ -42,7 +42,7 @@ HRESULT CTestRect::Ready_GameObject()
     m_pColCom->Set_Offset(_vec3(1.f, 2.f, 0.f));
     m_pColCom->Set_Scale(2.f);
 
-    m_pCustomCom = Add_Component<CTmpCustomComponent>(ID_DYNAMIC, L"Custom_Com", CDataManager::Get_ClientPrototypeTag(TEMP_CUSTOMPROTO));
+    //m_pCustomCom = Add_Component<CTmpCustomComponent>(ID_DYNAMIC, L"Custom_Com", CDataManager::Get_ClientPrototypeTag(TEMP_CUSTOMPROTO));
 
     return S_OK;
 }

@@ -107,14 +107,14 @@ HRESULT CProjectile::Ready_ProjectileInfo()
     // 히트박스 모양  결정 및 바로 데미지 정보 삽입 
     if (Engine::RECT_COL == m_tInfo.eColType)
     {
-        m_pColCom = CHitRectBox::Create(m_pGraphicDevice, this);
+        m_pColCom = Add_Component<CHitRectBox>(ID_DYNAMIC, L"HitRectBox_Com", L"Hit_RectBox");
         static_cast<CHitRectBox*>(m_pColCom)->Set_Damage(m_tInfo.tDamageInfo);
         static_cast<CHitRectBox*>(m_pColCom)->Set_Scale(m_tInfo.fScale);
 
     }
     else if (Engine::SPHERE_COL == m_tInfo.eColType)
     {
-        m_pColCom = CHitSphereBox::Create(m_pGraphicDevice, this);
+        m_pColCom = Add_Component<CHitRectBox>(ID_DYNAMIC, L"HitSphereBox_Com", L"Hit_SpheretBox");
         static_cast<CHitSphereBox*>(m_pColCom)->Set_Damage(m_tInfo.tDamageInfo);
         static_cast<CHitSphereBox*>(m_pColCom)->Set_Scale(m_tInfo.fScale);
     }

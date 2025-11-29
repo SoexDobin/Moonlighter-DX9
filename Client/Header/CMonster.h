@@ -36,7 +36,6 @@ protected:
     CCombatStats* m_pCombatStats;
     CCombatComponent* m_pCombatComponent;
 
-    CCollider* m_pColCom;
-    ;
+    CCollider* m_pColCom;   // 몬스터 자체의 콜라이더 (히트박스 아님)
 };
 

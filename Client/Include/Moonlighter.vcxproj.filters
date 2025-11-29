@@ -507,6 +507,9 @@
     <ClInclude Include="..\Header\CBossGroundBrust.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CMonster.h">
+      <Filter>03. GameObject\02. Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Moonlighter.cpp">
@@ -753,6 +756,9 @@
       <Filter>03. GameObject\02. Monster\01. Tree\02. TreeWeapon</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CBossGroundBrust.cpp" />
+    <ClCompile Include="..\Code\CMonster.cpp">
+      <Filter>03. GameObject\02. Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Moonlighter.rc">

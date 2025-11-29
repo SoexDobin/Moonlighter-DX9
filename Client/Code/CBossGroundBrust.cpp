@@ -84,7 +84,7 @@ void CBossGroundBrust::Set_Root2()
 void CBossGroundBrust::Ready_Combat()
 {
     // 히트박스 생성
-    m_pColCom = CHitRectBox::Create(m_pGraphicDevice, this);
+    m_pColCom = Add_Component<CHitRectBox>(ID_DYNAMIC, L"HitRectBox_Com", L"Hit_RectBox");
     m_pColCom->Set_Dimension({ 1.f, 2.f, 2.f });
 
     // 데미지 설정 
@@ -115,7 +115,8 @@ void CBossGroundBrust::Check_EventFrame()
 
     if (dwFrame == m_dwEndFrame)
     {
-        // Destroy 설정 
+        // Destroy 설정
+        Destroy(this);
     }
 }
 

@@ -35,17 +35,11 @@ HRESULT CSlimeMob::Ready_GameObject()
     if (FAILED(Engine::CRenderObject::Ready_GameObject()))
         return E_FAIL;
 
-    CComponent* pCom(nullptr);
+    // 텍스처 컴포넌트 생성 
+    m_pDynamicTexCom = Add_Component<CTexture>(ID_DYNAMIC, L"Texture_Com", TEXTURE);
 
-    pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
-    if (pCom->Get_ComponentType() != TEXTURE)
-        return E_FAIL;
-
-    if (m_pDynamicTexCom = static_cast<CTexture*>(pCom))
-    {
-        m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pDynamicTexCom));
-    }
-
+    // 콜라이더 컴포넌트 생성
+    // m_pColCom = Add_Component<CRectCollider>(ID_DYNAMIC, L"Collider_Com", RECT_COLLIDER);
 
     DAMAGE_INFO damage;
     damage.bCanParry = false;
@@ -55,7 +49,7 @@ HRESULT CSlimeMob::Ready_GameObject()
     damage.vDirKnockback = { 0.f, 1.f, 0.f };
     damage.pAttacker = this;
 
-    m_pRectBox = CHitRectBox::Create(m_pGraphicDevice, this);
+    m_pRectBox = Add_Component<CHitRectBox>(ID_DYNAMIC, L"HitRectBox_Com", L"Hit_RectBox");
     m_pRectBox->Set_Damage(damage);
 
     m_umComponent[ID_DYNAMIC].insert({ L"SIVAROMA", m_pRectBox });

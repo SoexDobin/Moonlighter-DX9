@@ -4,7 +4,7 @@
 class CHitSphereBox : public CSphereCollider
 {
 private:
-    explicit CHitSphereBox(LPDIRECT3DDEVICE9 pGrahpicDev, CGameObject* pOwner);
+    explicit CHitSphereBox(LPDIRECT3DDEVICE9 pGrahpicDev);
     explicit CHitSphereBox(const CHitSphereBox& rhs);
     virtual ~CHitSphereBox();
 
@@ -15,7 +15,7 @@ private:
     DAMAGE_INFO   m_tDamage;
 
 public:
-    static CHitSphereBox* Create(LPDIRECT3DDEVICE9 pGrahpicDev, CGameObject* pOwner);
+    static CHitSphereBox* Create(LPDIRECT3DDEVICE9 pGrahpicDev);
     virtual CComponent* Clone() override;
 
 private:

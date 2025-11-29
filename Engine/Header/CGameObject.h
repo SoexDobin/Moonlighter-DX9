@@ -48,7 +48,7 @@ public:
 	virtual		_int		Update_GameObject(const _float fTimeDelta);
 	virtual		void		LateUpdate_GameObject(const _float fTimeDelta);
     virtual		void		Render_GameObject() { };
-    virtual     void        On_Collision(const Collision& tCollision) { };
+    virtual     void        On_Collision(const Collision& tCollision) { };                  
 
 private:
     void                    Set_Destroy() { m_bIsDestroy = TRUE; }                          // 게임 오브젝트 자체에서만 사용 가능

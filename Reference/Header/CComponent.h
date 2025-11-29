@@ -44,8 +44,8 @@ protected:
     _bool                       m_bEnable;
     _bool                       m_bIsDetroy;
 
-    CGameObject*                m_pOwner;
-    CTransform*                 m_pTrans;
+    CGameObject*                m_pOwner;               // 소속 부모 오브젝트
+    CTransform*                 m_pTrans;               // 부모 오브젝트의 Transform 컴포넌트(NULL 가능)
 
 protected:
 	virtual void				Free();

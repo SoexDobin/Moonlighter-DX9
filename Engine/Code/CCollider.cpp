@@ -42,7 +42,7 @@ void CCollider::Add_OverlapMember(CCollider* pOverlap)
 
 void CCollider::Release_OverlapMember(CCollider* pOverlap)
 {
-    if (m_usetOverlapCol.find(pOverlap) == m_usetOverlapCol.end())
+    if (m_usetOverlapCol.find(pOverlap) != m_usetOverlapCol.end())
     {
         m_usetOverlapCol.erase(pOverlap);
         Safe_Release(pOverlap);

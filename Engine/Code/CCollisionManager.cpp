@@ -46,16 +46,16 @@ void CCollisionManager::Update_Collision()
             // Dst가 충돌 대상이면 
             if ((tSrcMask.iMask & tDstMask.eLayerID) != 0)
             {
-                if (_bool bNowCol = pSrc->Check_Collision(pDst)) // Src 충돌 TRUE
+                if (pSrc->Check_Collision(pDst)) // if Src 충돌 TRUE
                 {
                     pSrc->Set_IsCol(true);
 
-                    if (pSrc->Is_Overlapped(pDst))
+                    if (pSrc->Is_Overlapped(pDst)) // 이전 충돌 맴버
                     {
                         pSrc->Set_ColState(STAY_COL);
                         pSrc->Set_Collision({ pDstOwner, pDst, STAY_COL });
                     }
-                    else
+                    else // 첫 충돌 맴버
                     {
                         pSrc->Add_OverlapMember(pDst);
                         pSrc->Set_ColState(ENTER_COL);
@@ -64,7 +64,7 @@ void CCollisionManager::Update_Collision()
 
                     pSrcOwner->On_Collision(pSrc->Get_Collision());
                 }
-                else // Src 충돌 FALSE
+                else // if Src 충돌 FALSE
                 {
                     pSrc->Set_IsCol(false);
 
@@ -81,7 +81,7 @@ void CCollisionManager::Update_Collision()
             // Src가 충돌 대상이면
             if ((tDstMask.iMask & tSrcMask.eLayerID) != 0)
             {
-                if (_bool bNowCol = pDst->Check_Collision(pSrc)) // Dst 충돌 TRUE
+                if (pDst->Check_Collision(pSrc)) // Dst 충돌 TRUE
                 {
                     pDst->Set_IsCol(true);
 
@@ -132,7 +132,7 @@ void CCollisionManager::Render_Collision()
 {
     for (auto& pCol : m_vecCollider)
     {
-        pCol->Render_DebugCollider();
+        if (pCol) pCol->Render_DebugCollider();
     }
 }
 #endif

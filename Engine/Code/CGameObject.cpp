@@ -29,7 +29,6 @@ void CGameObject::Init_Layer(const wstring& wLayerTag, const wstring& wObjectKey
 {
     m_tLayerMask.eLayerID = CLayerHelper::GetInstance()->GetLayerIDByName(wLayerTag);
     m_tLayerMask.wsLayerTag = wLayerTag;
-    m_tLayerMask.iMask = 0xFFFF;
     m_tLayerMask.wsObjectKey = wObjectKey;
 }
 

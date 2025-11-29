@@ -78,8 +78,7 @@ void CRectCollider::Render_DebugCollider()
     m_pGraphicDevice->SetTransform(D3DTS_WORLD, &matIdentity);
 
     DWORD color(0);
-    // m_eState == ENTER_COL || m_eState == STAY_COL || 
-    if (m_bIsCol)
+    if (m_eState == ENTER_COL || m_eState == STAY_COL)
         color = D3DCOLOR_ARGB(255, 255, 0, 0);
     else
         color = D3DCOLOR_ARGB(255, 0, 255, 0);

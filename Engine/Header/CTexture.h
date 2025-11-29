@@ -35,19 +35,19 @@ public:
 
 	_int				Update_Component(const _float fTimeDelta) override;
 	void				LateUpdate_Component() override;
-    void                SetUp_Texture();
+    void                SetUp_Texture();                                        // GameObject 랜더링시 버퍼 세팅전 필수 호출
 
 private:
-	vector<vector<IDirect3DBaseTexture9*>>	m_vecTexture;
-	_bool	m_bStop;
-	_bool	m_bLoop;
-	_bool	m_bOneLoop;
+	vector<vector<IDirect3DBaseTexture9*>>	m_vecTexture;           /// 클라이언트에서 등록한 스프라이트 [스프라이트 그룹] [스프라이트 png들]
+	_bool	m_bStop;                    // 애니매이션 정지
+	_bool	m_bLoop;                    // 반복 애니매이션 인지, false면 마지막 프레임 시 정지
+	_bool	m_bOneLoop;                 // 텍스쳐 변경 후 반복을 한번 이상 했는지 여부
 
-	_uint	m_iCurTex;
-	_uint	m_iCurFrame;
+	_uint	m_iCurTex;                  // 현재 텍스쳐 인덱스
+	_uint	m_iCurFrame;                // 현재 프레임 인덱스
 
-	_float	m_fSpeed;
-	_float  m_fFrameAcc;
+	_float	m_fSpeed;                   // 프레임당 현재 애니매이션 속도 값
+	_float  m_fFrameAcc;                // 프레임 누산 계산 변수
 
 public:
 	static CTexture*		Create(LPDIRECT3DDEVICE9 pGraphicDev, _float fSpeed);

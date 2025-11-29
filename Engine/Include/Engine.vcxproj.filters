@@ -145,6 +145,9 @@
     <Filter Include="02. Prototype\00. VIBuffer\02. TerrainTex\02. Boss">
       <UniqueIdentifier>{b19aeb14-531b-49be-9885-4298162c6d3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Logic\02. Layer\01. LayerMask">
+      <UniqueIdentifier>{392c9b18-5331-4cfb-aeab-d4e64d8807e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">
@@ -294,9 +297,6 @@
     <ClInclude Include="..\Header\CLayerHelper.h">
       <Filter>01. Logic\02. Layer\00. LayerHelper</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\EasingFunctions.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CTerrainTex.h">
       <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\00. Village</Filter>
     </ClInclude>
@@ -310,7 +310,10 @@
       <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\02. Boss</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\TagLayerMask.h">
-      <Filter>01. Logic\02. Layer</Filter>
+      <Filter>01. Logic\02. Layer\01. LayerMask</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\EasingFunctions.h">
+      <Filter>99. Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -450,7 +453,7 @@
       <Filter>02. Prototype\00. VIBuffer\02. TerrainTex\02. Boss</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\TagLayerMask.cpp">
-      <Filter>01. Logic\02. Layer</Filter>
+      <Filter>01. Logic\02. Layer\01. LayerMask</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

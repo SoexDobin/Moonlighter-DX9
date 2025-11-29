@@ -31,7 +31,7 @@ private :
 
 private:
     CTexture* m_pDynamicTexCom;     // 텍스처
-    CHitRectBox* m_pColCom;             // 히트박스
+    CHitRectBox* m_pColCom;             // 콜라이더 겸 히트박스
 
 private:
     CRenderObject* m_pOwner;

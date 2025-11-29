@@ -33,23 +33,14 @@ HRESULT CBoss::Ready_GameObject()
     if (FAILED(Engine::CRenderObject::Ready_GameObject()))
         return E_FAIL;
 
-    CComponent* pCom(nullptr);
+    m_pDynamicTexCom = Add_Component<CTexture>(ID_DYNAMIC, L"Texture_Com", TEXTURE);
 
-    pCom = CPrototypeManager::GetInstance()->Clone_Prototype(TEXTURE);
-    if (pCom->Get_ComponentType() != TEXTURE)
-        return E_FAIL;
-
-    if (m_pDynamicTexCom = static_cast<CTexture*>(pCom))
-    {
-        m_umComponent[ID_DYNAMIC].insert(pair<wstring, CComponent*>(L"Texture_Com", m_pDynamicTexCom));
-    }
 #pragma endregion
 
     m_pStateMachine = CBossStateMachine::Create(m_pGraphicDevice, this);
 
     Ready_EntityComponent();
     Ready_Animation();
-
 
     // after all components are set up
     Configure_Component();
@@ -112,27 +103,27 @@ void CBoss::Render_GameObject()
 
 void CBoss::On_Collision(const Collision& tCollision)
 {
-    //================= 충돌 테스트 =========================
-    // 충돌 상대가 슬라임이라 가정 : 슬라임 -> 보스에게 몸박 공격
-
-    m_iObjectID = PLAYER;
-
-    if (COL_TYPE::RECT_COL == tCollision.pColSource->Get_ColType()
-        && nullptr != dynamic_cast<CHitRectBox*>(tCollision.pColSource))
     {
-        m_pCombatComponent->Take_Damage(
-            static_cast<CHitRectBox*>(tCollision.pColSource),                                   // 충돌 정보 전달
-            static_cast<CHitRectBox*>(tCollision.pColSource)->Get_Damage());      // 데미지 정보 전달
+        //================= 충돌 테스트 =========================
+        // 충돌 상대가 슬라임이라 가정 : 슬라임 -> 보스에게 몸박 공격
+        
+        //if (COL_TYPE::RECT_COL == tCollision.pColSource->Get_ColType()
+        //    && nullptr != dynamic_cast<CHitRectBox*>(tCollision.pColSource))
+        //{
+        //    m_pCombatComponent->Take_Damage(
+        //        static_cast<CHitRectBox*>(tCollision.pColSource),                                   // 충돌 정보 전달
+        //        static_cast<CHitRectBox*>(tCollision.pColSource)->Get_Damage());      // 데미지 정보 전달
+        //}
+        //else if (COL_TYPE::SPHERE_COL == tCollision.pColSource->Get_ColType()
+        //    && nullptr != dynamic_cast<CHitSphereBox*>(tCollision.pColSource))
+        //{
+        //    m_pCombatComponent->Take_Damage(
+        //        static_cast<CHitSphereBox*>(tCollision.pColSource),                                   // 충돌 정보 전달
+        //        static_cast<CHitSphereBox*>(tCollision.pColSource)->Get_Damage());      // 데미지 정보 전달
+        //}
+        
+        // ====================================================
     }
-    else if (COL_TYPE::SPHERE_COL == tCollision.pColSource->Get_ColType()
-        && nullptr != dynamic_cast<CHitSphereBox*>(tCollision.pColSource))
-    {
-        m_pCombatComponent->Take_Damage(
-            static_cast<CHitSphereBox*>(tCollision.pColSource),                                   // 충돌 정보 전달
-            static_cast<CHitSphereBox*>(tCollision.pColSource)->Get_Damage());      // 데미지 정보 전달
-    }
-
-    // ====================================================
 }
 
 HRESULT CBoss::Ready_Animation()
@@ -150,8 +141,6 @@ HRESULT CBoss::Ready_Animation()
         //m_pDynamicTexCom->Ready_Texture(L"Boss_Cutting_Idle");
         //m_pDynamicTexCom->Ready_Texture(L"Boss_Cutting_Growing");
         //m_pDynamicTexCom->Ready_Texture(L"Boss_Cutting_Shot");
-        //m_pDynamicTexCom->Ready_Texture(L"Root1");
-        //m_pDynamicTexCom->Ready_Texture(L"Root2");
     }
 
     // Configure boss animation values
@@ -301,6 +290,5 @@ void CBoss::Display_CurrentState()
     //    m_pCombatStats->Get_SpeedStat()->Increase(30.f);
     //}
 #pragma endregion
-
 
 }

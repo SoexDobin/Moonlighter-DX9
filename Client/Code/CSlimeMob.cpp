@@ -41,18 +41,16 @@ HRESULT CSlimeMob::Ready_GameObject()
     // 콜라이더 컴포넌트 생성
     // m_pColCom = Add_Component<CRectCollider>(ID_DYNAMIC, L"Collider_Com", RECT_COLLIDER);
 
-    DAMAGE_INFO damage;
-    damage.bCanParry = false;
-    damage.bShouldKnockback = false;
-    damage.fAmount = 60.f;
-    damage.eApplyTiming = Engine::COL_STATE::ENTER_COL;
-    damage.vDirKnockback = { 0.f, 1.f, 0.f };
-    damage.pAttacker = this;
+    //DAMAGE_INFO damage;
+    //damage.bCanParry = false;
+    //damage.bShouldKnockback = false;
+    //damage.fAmount = 60.f;
+    //damage.eApplyTiming = Engine::COL_STATE::ENTER_COL;
+    //damage.vDirKnockback = { 0.f, 1.f, 0.f };
+    //damage.pAttacker = this;
 
-    m_pRectBox = Add_Component<CHitRectBox>(ID_DYNAMIC, L"HitRectBox_Com", L"Hit_RectBox");
-    m_pRectBox->Set_Damage(damage);
-
-    m_umComponent[ID_DYNAMIC].insert({ L"SIVAROMA", m_pRectBox });
+    //m_pRectBox = Add_Component<CHitRectBox>(ID_DYNAMIC, L"HitRectBox_Com", L"Hit_RectBox");
+    //m_pRectBox->Set_Damage(damage);
 
 #pragma endregion
     Ready_Animation();

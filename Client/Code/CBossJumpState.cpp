@@ -7,11 +7,11 @@
 
 CBossJumpState::CBossJumpState(CBoss* pOwner, CBossStateMachine* pStateMachine)
     : CMonsterState(),
-    m_pOwner(pOwner), m_pStateMachine(pStateMachine)
-    , m_fJumpDuration(0.f), m_fDiffX(0.f), m_fDiffZ(0.f), m_fElapsed(0.f), m_fOffsetY(0.f)
+    m_pOwner(pOwner), m_pStateMachine(pStateMachine), m_pHitBox(nullptr)
+    , m_fJumpDuration(0.f), m_fElapsed(0.f)
     , m_bReadyJump(false), m_bJumpingUp(false), m_bJumped(false)
 {
-
+    ZeroMemory(&m_tDamage, sizeof(m_tDamage));
 }
 
 CBossJumpState::~CBossJumpState()
@@ -21,6 +21,8 @@ CBossJumpState::~CBossJumpState()
 void CBossJumpState::Enter()
 {
     CMonsterState::Enter();
+
+    m_pOwnerTextureCom->Set_Texture(CBoss::BOSS_STATE::ATK_JUMP, 0);
 
     m_bReadyJump =  m_bJumpingUp = m_bJumped = false;
 }
@@ -33,6 +35,8 @@ void CBossJumpState::Exit()
 HRESULT CBossJumpState::Ready_State()
 {
     m_dwCurStateKey = CBoss::BOSS_STATE::ATK_JUMP;
+
+    Ready_Combat();
 
     m_fMinStateTime = m_fElapsed =0.f;
 
@@ -56,11 +60,6 @@ _uint CBossJumpState::Update_State(const _float& fTimeDelta)
     if (m_bJumpingUp)
     {
         Jump_ToPlayer(fTimeDelta);
-        return 0;
-    }
-    if (m_bJumped)
-    {
-        Finish_Jump();
         return 0;
     }
 
@@ -92,17 +91,29 @@ void CBossJumpState::Check_EventFrame()
         // 점프 프레임 총 10장
         // 프레임 수에 따라 애니메이션 속도 조절 필요하다 
         Ready_Jump();
-
+        return;
     }
 
-    if (m_dwCurFrame == 19)
+    if (m_dwCurFrame == 19) // 땅에 착지 
     {
         CCameraManager::GetInstance()->Start_Shake(1.f, 0.15f);
+        // 히트박스 켜기
+        m_pHitBox->On_Enable();
+        return;
     }
 
-    if (m_dwCurFrame == 29)
+    if (m_dwCurFrame == 24)
+    {
+        // 히트박스 끄기
+        m_pHitBox->On_Disable();
+        return;
+    }
+
+
+    if (m_dwCurFrame == 29) // 애니메이션 전부 재생 
     {
         m_bCanTransit = true;
+        return;
     }
 }
 
@@ -111,15 +122,33 @@ void CBossJumpState::Determine_NextState()
     m_pStateMachine->Change_State(CBoss::BOSS_STATE::IDLE);
 }
 
+void CBossJumpState::Ready_Combat()
+{
+   //  점프 시에만 활성화 될 히트박스 
+    m_pHitBox = m_pOwner->Add_Component<CHitRectBox>(ID_DYNAMIC, L"HitRectBox_Com", L"Hit_RectBox");
+
+    m_tDamage.bCanParry = m_tDamage.bShouldKnockback = false;
+    m_tDamage.vDirKnockback = { 0.f, 0.f, 0.f };
+    m_tDamage.dwHitTargetFlag = OBJECT_ID::PLAYER;
+    m_tDamage.eApplyTiming = COL_STATE::ENTER_COL;
+    m_tDamage.fAmount = 15.f;
+    m_tDamage.pAttacker = m_pOwner;
+
+    m_pHitBox->Set_Damage(m_tDamage);
+    m_pHitBox->Set_Dimension({ 12.f, 5.f, 10.f, });
+    m_pHitBox->Set_Offset({ 0.f, -1.7f, 0.f });
+    m_pHitBox->On_Disable();
+}
+
 void CBossJumpState::Jump_ToPlayer(const _float fTimeDelta)
 {
     m_fElapsed += fTimeDelta;
 
     _float t = m_fElapsed / m_fJumpDuration;
 
+    // 상승 -> 하강
     if (t >= 0.5f)
     {
-        m_bJumpingDown = true;
         m_vDstPos.y = m_vOriginPos.y;
     }
 
@@ -134,7 +163,6 @@ void CBossJumpState::Jump_ToPlayer(const _float fTimeDelta)
 
     if (t >= 1.f)
     {
-        m_bJumpingUp = false;
         m_bJumped = true;
     }
 }
@@ -150,21 +178,8 @@ void CBossJumpState::Ready_Jump()
 
     m_fElapsed = 0.f;
 
-    m_bReadyJump = m_bJumpingDown = false;
+    m_bReadyJump  = false;
     m_bJumpingUp = true;
-}
-
-void CBossJumpState::Jumping(const _float fTimeDelta)
-{
-}
-
-void CBossJumpState::Finish_Jump()
-{
-}
-
-void CBossJumpState::Compute_DeltaY()
-{
-    // _float fNewY = 
 }
 
 CBossJumpState* CBossJumpState::Create(CBoss* pOwner, CBossStateMachine* pStateMachine)

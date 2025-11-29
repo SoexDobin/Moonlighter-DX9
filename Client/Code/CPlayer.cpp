@@ -46,7 +46,7 @@ HRESULT CPlayer::Ready_GameObject()
     m_iPrevFrame    = 0;
     m_iCurFrame     = 0;
 
-    m_iObjectID = OBJECT_ID::PLAYER;
+   m_iObjectID = OBJECT_ID::PLAYER;
 
     return S_OK;
 }
@@ -638,29 +638,32 @@ void CPlayer::On_Collision(const Collision& tCollision)
     // ======================== TEST ============================
     {
         // 몬스터 공격이 플레이어에게 전달되는지 확인
-        if (tCollision.pColTarget->Get_ObjectID() & OBJECT_ID::MONSTER_ATK) // ATK 이면 무조건 HITBOX 라고 가정
+        if (tCollision.pColTarget->Get_ObjectID() & OBJECT_ID::MONSTER_ATK
+            || tCollision.pColTarget->Get_ObjectID() & OBJECT_ID::MONSTER) // ATK 이면 무조건 HITBOX 라고 가정
         {
-
-            static int iCnt = 0;
             // RECT
             if (tCollision.pColSource->Get_ColType() == COL_TYPE::RECT_COL      // 콜라이더가 RECT
                 && COL_STATE::ENTER_COL == tCollision.eColState)                           // 충돌 ENTER 시에만 데미지 적용
             {
-                CHitRectBox* pHitBox = static_cast<CHitRectBox*>(tCollision.pColSource);
-
-                DAMAGE_INFO tCurrentDamage = pHitBox->Get_Damage();
-
-                printf("Player should take damage : %.2f\n", tCurrentDamage.fAmount);
+                printf("충돌 상태 : ENTER \n");
+                CHitRectBox* pHitBox = dynamic_cast<CHitRectBox*>(tCollision.pColSource);
+                if (pHitBox)
+                {
+                    printf("충돌체 : HITBOX \n");
+                    DAMAGE_INFO tCurrentDamage = pHitBox->Get_Damage();
+                    printf("Player should take damage : %.2f\n", tCurrentDamage.fAmount);
+                }
             }
             // SPHERE
             else if (tCollision.pColSource->Get_ColType() == COL_TYPE::SPHERE_COL   // 콜라이더가 Sphere
                 && COL_STATE::ENTER_COL == tCollision.eColState)                                    // 충돌 ENTER 시에만 데미지 적용
             {
                 CHitSphereBox* pHitBox = static_cast<CHitSphereBox*>(tCollision.pColSource);
-
-                DAMAGE_INFO tCurrentDamage = pHitBox->Get_Damage();
-
-                printf("%d : Player should take damage : %.2f\n", iCnt++, tCurrentDamage.fAmount);
+                if (pHitBox)
+                {
+                    DAMAGE_INFO tCurrentDamage = pHitBox->Get_Damage();
+                    printf("Player should take damage : %.2f\n", tCurrentDamage.fAmount);
+                }
             }
         }
     }

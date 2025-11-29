@@ -30,6 +30,8 @@ HRESULT CBossGroundBrust::Ready_GameObject()
     Ready_Combat();
     Ready_Texture();
 
+    m_iObjectID = OBJECT_ID::MONSTER_ATK;
+
     return S_OK;
 }
 
@@ -116,7 +118,7 @@ void CBossGroundBrust::Check_EventFrame()
     if (dwFrame == m_dwEndFrame)
     {
         // Destroy 설정
-        Destroy(this);
+        // Destroy(this);
     }
 }
 

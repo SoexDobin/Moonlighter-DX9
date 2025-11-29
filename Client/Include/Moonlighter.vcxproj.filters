@@ -504,11 +504,11 @@
     <ClInclude Include="..\Header\CTreeProjectile.h">
       <Filter>03. GameObject\02. Monster\01. Tree\02. TreeWeapon</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CBossGroundBrust.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CMonster.h">
       <Filter>03. GameObject\02. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossGroundBrust.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\02. BossWeapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -755,9 +755,11 @@
     <ClCompile Include="..\Code\CTreeProjectile.cpp">
       <Filter>03. GameObject\02. Monster\01. Tree\02. TreeWeapon</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CBossGroundBrust.cpp" />
     <ClCompile Include="..\Code\CMonster.cpp">
       <Filter>03. GameObject\02. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossGroundBrust.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\02. BossWeapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

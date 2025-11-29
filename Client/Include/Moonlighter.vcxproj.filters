@@ -232,6 +232,9 @@
     <Filter Include="03. GameObject\02. Monster\00. Boss\02. BossWeapon\01. BossGroundBrust">
       <UniqueIdentifier>{d68027e3-f01b-4c2a-974a-2a195aba9737}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. GameObject\02. Monster\00. Boss\02. BossWeapon\02. BossMinion">
+      <UniqueIdentifier>{a6e06f83-a3a3-4826-b501-01e5e7e1fb5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -508,7 +511,10 @@
       <Filter>03. GameObject\02. Monster</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CBossGroundBrust.h">
-      <Filter>03. GameObject\02. Monster\00. Boss\02. BossWeapon</Filter>
+      <Filter>03. GameObject\02. Monster\00. Boss\02. BossWeapon\01. BossGroundBrust</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CBossMinion.h">
+      <Filter>03. GameObject\02. Monster\00. Boss\02. BossWeapon\02. BossMinion</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -759,7 +765,10 @@
       <Filter>03. GameObject\02. Monster</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CBossGroundBrust.cpp">
-      <Filter>03. GameObject\02. Monster\00. Boss\02. BossWeapon</Filter>
+      <Filter>03. GameObject\02. Monster\00. Boss\02. BossWeapon\01. BossGroundBrust</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBossMinion.cpp">
+      <Filter>03. GameObject\02. Monster\00. Boss\02. BossWeapon\02. BossMinion</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

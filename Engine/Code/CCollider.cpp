@@ -1,5 +1,6 @@
 ﻿#include "CCollider.h"
 #include "CGameObject.h"
+#include "CCollisionManager.h"
 
 CCollider::CCollider()
     : CComponent(), m_bIsCol(false), m_eState(COL_STATE_END), m_fScale(1.f)
@@ -47,6 +48,16 @@ void CCollider::Release_OverlapMember(CCollider* pOverlap)
         m_usetOverlapCol.erase(pOverlap);
         Safe_Release(pOverlap);
     }
+}
+
+HRESULT CCollider::Ready_Collider()
+{
+    Set_DestroyEvent(
+       [this]() -> void {
+            CCollisionManager::GetInstance()->Remove_Collider(this);
+       });
+
+    return S_OK;
 }
 
 void CCollider::Free()

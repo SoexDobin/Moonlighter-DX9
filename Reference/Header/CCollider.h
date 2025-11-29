@@ -63,6 +63,7 @@ public:
     void                        Release_OverlapMember(CCollider* pOverlap);
 
 public:
+    HRESULT                     Ready_Collider();
     virtual _bool               Check_Collision(CCollider* pCol) PURE;
 #ifdef _DEBUG
     virtual void                Render_DebugCollider() PURE;

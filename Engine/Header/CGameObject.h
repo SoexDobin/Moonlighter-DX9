@@ -3,8 +3,11 @@
 #include "Engine_Define.h"
 #include "CComponent.h"
 #include "CPrototypeManager.h"
+#include "TagLayerMask.h"
 
 BEGIN(Engine)
+
+class CManagement;
 
 class ENGINE_DLL CGameObject : public CBase
 {
@@ -14,19 +17,23 @@ protected:
 	virtual ~CGameObject() override;
 
 public:
-    template <typename T>
-    T*                 Add_Component(COMPONENTID eID, const wstring& wsComponentKey, PROTOTYPE_COMPONENT eComponentTag);
-    template <typename T>
-    T*                 Add_Component(COMPONENTID eID, const wstring& wsComponentKey, const wstring& wsComponentTag);
+    template <typename T> // 엔진 컴포넌트 추가 
+    T*                 Add_Component(COMPONENTID eID,                       // 정적, 동적 컴포넌트 지정
+                                     const wstring& wsComponentKey,         // 오브젝트에 등록할 컴포넌트 키
+                                     PROTOTYPE_COMPONENT eComponentTag);    // 엔진 컴포넌트 enum 태그
+    template <typename T> // 클라이언트 사용자 정의 컴포넌트 추가
+    T*                 Add_Component(COMPONENTID eID,                       // 정적, 동적 컴포넌트 지정
+                                     const wstring& wsComponentKey,         // 오브젝트에 등록할 컴포넌트 키
+                                     const wstring& wsComponentTag);        // 클라이언트에 지정한 wstring 태그
 public:
-    static void        Destroy(CGameObject* pObj) { pObj->Set_Destroy(); }
-    static void        DontDestroySceneLoad(CGameObject* pObj) { pObj->m_bIsDestroy = FALSE; }
-
+    static void        Destroy(CGameObject* pObj) { pObj->Set_Destroy(); }  // 파괴할 오브젝트로 변경 다음 업데이트에 제거
+    static void        DontDestroySceneLoad(CGameObject* pObj);             // 해당 오브젝트를 캐시 등록하여 다음씬에 재사용
+    
 public:
-    //void               Init_Layer(const wstring& wLayerTag);
-    //const LayerMask&   Get_Object_LayerMask();
+    void               Init_Layer(const wstring& wLayerTag, const wstring& wObjectKey);     // Add_GameObject시 레이어 마스크 초기화
+    const LayerMask&   Get_Object_LayerMask();                                              // public const 레이어 마스크 제공
 protected:
-    //LayerMask&         Get_LayerMask();
+    LayerMask&         Get_LayerMask();                                                     // 오브젝트에서 레이어바스크 제공
     
 public:
 	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentKey);
@@ -49,7 +56,7 @@ private:
 protected:
 	LPDIRECT3DDEVICE9							m_pGraphicDevice;
 	unordered_map<wstring, CComponent*>			m_umComponent[ID_END];
-    //LayerMask                                   m_tLayerMask;
+    LayerMask                                   m_tLayerMask;
 
 private:
     _bool										m_bIsDestroy;

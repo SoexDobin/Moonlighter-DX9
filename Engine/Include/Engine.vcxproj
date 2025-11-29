@@ -183,6 +183,7 @@ xcopy	/y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClInclude Include="..\Header\CRectTex.h" />
     <ClInclude Include="..\Header\CSoundManager.h" />
     <ClInclude Include="..\Header\CSphereCollider.h" />
+    <ClInclude Include="..\Header\TagLayerMask.h" />
     <ClInclude Include="..\Header\CTerrainBossTex.h" />
     <ClInclude Include="..\Header\CTerrainDungeonTex.h" />
     <ClInclude Include="..\Header\CTerrainTex.h" />
@@ -231,6 +232,7 @@ xcopy	/y /I "$(SolutionDir)Engine\Include\FMOD\fmod.dll" "$(SolutionDir)Client\B
     <ClCompile Include="..\Code\CScene.cpp" />
     <ClCompile Include="..\Code\CSoundManager.cpp" />
     <ClCompile Include="..\Code\CSphereCollider.cpp" />
+    <ClCompile Include="..\Code\TagLayerMask.cpp" />
     <ClCompile Include="..\Code\CTerrainBossTex.cpp" />
     <ClCompile Include="..\Code\CTerrainDungeonTex.cpp" />
     <ClCompile Include="..\Code\CTerrainTex.cpp" />

@@ -5,6 +5,8 @@
 
 BEGIN(Engine)
 
+class CGameObject;
+
 class ENGINE_DLL CManagement : public CBase
 {
 	DECLARE_SINGLETON(CManagement)
@@ -23,6 +25,10 @@ public:
 							const wstring& wsLayerTag,
 							const wstring& wsObjTag,
 							const wstring& wsComponentTag);
+public:
+    void            Add_CacheObject(CGameObject* pCacheObject);
+private:
+    void            Load_CacheObject();
 
 public:
 	HRESULT			Set_Scene(CScene* pScene);
@@ -33,8 +39,9 @@ public:
 	void			Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
-    _bool                              m_bIsInit;
-	CScene*				               m_pCurScene;
+    _bool                                   m_bIsInit;
+	CScene*				                    m_pCurScene;
+    unordered_set<CGameObject*>            m_usetCacheObject;
 	
 public:
 	virtual void			Free() override;

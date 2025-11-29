@@ -22,6 +22,8 @@ CPlayerTestScene::~CPlayerTestScene()
 
 HRESULT CPlayerTestScene::Ready_Scene()
 {
+    CScene::Ready_Scene();
+
     if (FAILED(Ready_GameLogic_Layer(CDataManager::GetInstance()->Get_LayerTag(GAMELOGIC_LAYER))))
         return E_FAIL;
 

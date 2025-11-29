@@ -19,7 +19,6 @@ private:
 
 public:
     void        Add_Collider(CCollider* pColComonent);
-    void        Remove_Collider(CCollider* pColComonent);
 
 public:
     void        Update_Collision();
@@ -32,7 +31,8 @@ public:
     static      _bool SphereRectCollision(CSphereCollider* pSrc, CRectCollider* pDst);
 
 private:
-    vector<CCollider*>      m_vecCollider;
+    vector<CCollider*>                      m_vecCollider;
+    vector<_int>                            m_vecGarbageIndex;
 
 private:
     void            Free() override;

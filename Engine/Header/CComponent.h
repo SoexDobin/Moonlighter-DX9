@@ -21,7 +21,7 @@ public:
     virtual void                On_Disable() { m_bEnable = false; }
     _bool                       Is_Enable() const { return m_bEnable; }
 
-    void                        Set_Destroy() { m_bIsDetroy = true; m_pFuncDestroy(); }
+    void                        Set_Destroy() { m_bIsDetroy = true; }
     _bool                       Is_Destroy() const { return m_bIsDetroy; }
 
 public:
@@ -39,17 +39,13 @@ public:
 	virtual CComponent*			Clone() PURE;
 
 protected:
-    void                        Set_DestroyEvent(function<void()> funcCallBack) { m_pFuncDestroy = funcCallBack; }
-
-protected:
 	LPDIRECT3DDEVICE9			m_pGraphicDevice;
 	_bool						m_bClone;
     _bool                       m_bEnable;
     _bool                       m_bIsDetroy;
 
-    CGameObject*                m_pOwner;
-    CTransform*                 m_pTrans;
-    function<void()>            m_pFuncDestroy = []() {};
+    CGameObject*                m_pOwner;               // 소속 부모 오브젝트
+    CTransform*                 m_pTrans;               // 부모 오브젝트의 Transform 컴포넌트(NULL 가능)
 
 protected:
 	virtual void				Free();

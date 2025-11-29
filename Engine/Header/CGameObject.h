@@ -36,8 +36,8 @@ protected:
     LayerMask&         Get_LayerMask();                                                     // 오브젝트에서 레이어바스크 제공
     
 public:
-	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentKey);
-    CComponent*             Get_Component(COMPONENTID eID, PROTOTYPE_COMPONENT ePrototype);
+	CComponent*		        Get_Component(COMPONENTID eID, const wstring& wsComponentKey);      // 클라이언트 사용자 정의 컴포넌트 검색  // 동일 이름이면 첫번째만
+    CComponent*             Get_Component(COMPONENTID eID, PROTOTYPE_COMPONENT ePrototype);     // 엔진 컴포넌트 검색                  // 동일 이름이면 첫번째만
     virtual GAMEOBJECT_TYPE Get_Type() { return GAME_OBJECT; }
 
 private:
@@ -51,15 +51,15 @@ public:
     virtual     void        On_Collision(const Collision& tCollision) { };
 
 private:
-    void                    Set_Destroy() { m_bIsDestroy = TRUE; }
+    void                    Set_Destroy() { m_bIsDestroy = TRUE; }                          // 게임 오브젝트 자체에서만 사용 가능
 
 protected:
 	LPDIRECT3DDEVICE9							m_pGraphicDevice;
 	unordered_map<wstring, CComponent*>			m_umComponent[ID_END];
-    LayerMask                                   m_tLayerMask;
+    LayerMask                                   m_tLayerMask;                               // 레이어 지정에 사용할 구조체
 
 private:
-    _bool										m_bIsDestroy;
+    _bool										m_bIsDestroy;                               // private 함수 호출을 통해 변경
 
 protected:
 	virtual void Free() override;

@@ -5,6 +5,7 @@
 #include <d3dx9.h>
 
 #include <vector>
+#include <queue>
 #include <list>
 #include <map>
 #include <algorithm>

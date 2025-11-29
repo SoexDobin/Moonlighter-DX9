@@ -37,7 +37,6 @@ void CCollider::Add_OverlapMember(CCollider* pOverlap)
     if (m_usetOverlapCol.find(pOverlap) == m_usetOverlapCol.end())
     {
         m_usetOverlapCol.insert(pOverlap);
-        pOverlap->AddRef();
     }
 }
 
@@ -46,18 +45,7 @@ void CCollider::Release_OverlapMember(CCollider* pOverlap)
     if (m_usetOverlapCol.find(pOverlap) != m_usetOverlapCol.end())
     {
         m_usetOverlapCol.erase(pOverlap);
-        Safe_Release(pOverlap);
     }
-}
-
-HRESULT CCollider::Ready_Collider()
-{
-    Set_DestroyEvent(
-       [this]() -> void {
-            CCollisionManager::GetInstance()->Remove_Collider(this);
-       });
-
-    return S_OK;
 }
 
 void CCollider::Free()

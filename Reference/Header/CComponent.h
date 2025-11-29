@@ -21,7 +21,7 @@ public:
     virtual void                On_Disable() { m_bEnable = false; }
     _bool                       Is_Enable() const { return m_bEnable; }
 
-    void                        Set_Destroy() { m_bIsDetroy = true; m_pFuncDestroy(); }
+    void                        Set_Destroy() { m_bIsDetroy = true; }
     _bool                       Is_Destroy() const { return m_bIsDetroy; }
 
 public:
@@ -39,9 +39,6 @@ public:
 	virtual CComponent*			Clone() PURE;
 
 protected:
-    void                        Set_DestroyEvent(function<void()> funcCallBack) { m_pFuncDestroy = funcCallBack; }
-
-protected:
 	LPDIRECT3DDEVICE9			m_pGraphicDevice;
 	_bool						m_bClone;
     _bool                       m_bEnable;
@@ -49,7 +46,6 @@ protected:
 
     CGameObject*                m_pOwner;
     CTransform*                 m_pTrans;
-    function<void()>            m_pFuncDestroy = []() {};
 
 protected:
 	virtual void				Free();

@@ -78,7 +78,7 @@ _int CTransform::Update_Component(const _float fTimeDelta)
         memcpy(&m_matWorld.m[i][0], &m_vInfo[i], sizeof(_vec3));
     }
 
-    return 0;
+    return m_bIsDetroy;
 }
 
 void CTransform::LateUpdate_Component()

@@ -30,7 +30,6 @@ CSphereCollider::~CSphereCollider()
 
 HRESULT CSphereCollider::Ready_SphereCollider()
 {
-    CCollider::Ready_Collider();
     return S_OK;
 }
 

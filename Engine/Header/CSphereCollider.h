@@ -31,7 +31,7 @@ public:
 #endif
 
 private:
-    _float          m_fRadius;
+    _float          m_fRadius;          // 정구 반지름 값
 
 public:
     static CSphereCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev);

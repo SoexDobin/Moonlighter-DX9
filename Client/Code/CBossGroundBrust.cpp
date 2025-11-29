@@ -81,15 +81,6 @@ void CBossGroundBrust::Set_Root2()
     m_dwEndFrame = 51;
 }
 
-void CBossGroundBrust::Compute_SpawnPos()
-{
-
-
-
-
-
-}
-
 void CBossGroundBrust::Ready_Combat()
 {
     // 히트박스 생성

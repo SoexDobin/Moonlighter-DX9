@@ -30,17 +30,28 @@ private:
     void        Determine_NextState();
 
 private:
-    void        Ready_Combat();
+    void        Ready_CurrentCombo();
+    void        Compute_SpawnPos();
 
 private:
     CBoss* m_pOwner;
     CBossStateMachine* m_pStateMachine;
 
 private :
-    _ubyte m_iCurrentBrustCnt;                // 현재 생성한 가지 수 
-    _bool   m_bCanCreateBrust;                // 생성 가능한 프레임
-    _vec3  m_vDetectedPos;                      // 생성 기준이 될 플레이어 위치
-    _vec3 m_vecComputedSpawnPos;        // 미리 계산된 생성 위치
+    _ubyte           m_iCurrentBrustCnt;                // 현재 생성한 가지 수
+    const _ubyte m_iMaxBrustCnt = 5;                // 한 콤보에 최대 생성 가지 수
+
+    _ubyte           m_iCurrentComboCnt, m_iMaxComboCnt; // 현재 콤보 횟수, 최대 가능 한 콤보 횟수
+    _vec3            m_vDetectedPos;                      // 생성 기준이 될 플레이어 위치
+    vector<_vec3>            m_vecComputedSpawnPos;        // 미리 계산된 생성 위치
+
+    const _ubyte m_iAttackStartFrame = 24;
+    const _ubyte m_iAttackEndFrame = 40;
+    _ubyte            m_iAttackFrameRange;
+    _bool              m_bAttacking;
+    _float             m_fCurComboElapsedTime, m_fCurCreateLimitTime; // 현재 콤보에서 흐른 시간 
+
+
 
 public:
     static CBossRootState* Create(LPDIRECT3DDEVICE9 pGraphicDev, CBoss* pOwner, CBossStateMachine* pStateMachine);

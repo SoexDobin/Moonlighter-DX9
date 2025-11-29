@@ -25,9 +25,6 @@ public :
     void        Set_Root2();    // 두 개의 뿌리 타입 중 Root2
 
 private :
-    void        Compute_SpawnPos();
-
-private :
     void        Ready_Combat();
     void        Ready_Texture();
     void        Check_EventFrame();
